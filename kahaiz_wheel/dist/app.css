@@ -10882,6 +10882,12 @@ a.text-dark:focus {
   }
 }
 
+.wheel #board {
+  margin: 0 auto 10px auto;
+  display: block;
+  background: black;
+}
+
 body,
 html {
   background: #111;
