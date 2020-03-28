@@ -3,10 +3,10 @@ let h
 let w
 let ctx
 let start
-let num = 3
+let num
 let rAF
-let velocity = 1
-let curVelocity = velocity
+let velocity
+let curVelocity
 let cb
 
 const animate = () => {
@@ -25,7 +25,7 @@ const animate = () => {
         if(num === 0) {
             cancelAnimationFrame(rAF)
             ctx.clearRect(0, 0, w, h)
-            cb()
+            typeof cb === 'function' && cb()
             return
         }
     } else {
@@ -39,10 +39,16 @@ const animate = () => {
     ctx.fillText(num.toString(), w/2, h/2 + parseInt(ctx.font.split(' ')[0])/2)
 }
 
-export const countdown = (canvas, callback, opts = {
-    font: '75px Helvetica',
-    fillStyle: '#FFD700'
-}) => {
+export const countdown = (canvas, callback, args) => {
+    let opts = {
+        font: '75px Helvetica',
+        fillStyle: '#FFD700',
+        ...args
+    }
+    num = 3
+    velocity = 1
+    curVelocity = velocity
+
     cb = callback
 
     ctx = canvas.getContext('2d')

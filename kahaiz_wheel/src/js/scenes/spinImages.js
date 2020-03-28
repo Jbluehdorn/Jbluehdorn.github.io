@@ -5,12 +5,12 @@ let loopCount = 0, dScale = 1
 const animate = () => {
     rAF = requestAnimationFrame(animate)
 
-    if(loopCount >= 150) {
+    if(loopCount >= 175) {
         ctx.restore()
-        ctx.fillRect(0, 0, w, h)
         ctx.clearRect(0, 0, w, h)
+        ctx.resetTransform()
         cancelAnimationFrame(rAF)
-        cb()
+        typeof cb === 'function' && cb()
         return
     }
 
@@ -24,10 +24,12 @@ const animate = () => {
     ctx.restore()
     ctx.clearRect(-2, -2, w + 2, h + 2)
 
+    // rotate about center
     ctx.translate(cntrX, cntrY)
-    ctx.rotate(1 * Math.PI / 180)
+    ctx.rotate(Math.PI / 180)
     ctx.translate(-cntrX, -cntrY)
 
+    // move and scale
     ctx.translate(cntrX - (cntrX * dScale), cntrY - (cntrY * dScale))
     ctx.scale(dScale, dScale)
 
@@ -58,9 +60,14 @@ const drawImages = () => {
     }
 }
 
-export const spinImages = (canvas, callback, opts = {
-    images: []
-}) => {
+export const spinImages = (canvas, callback, args) => {
+    let opts = opts = {
+        images: [],
+        ...args
+    }
+    loopCount = 0
+    dScale = 1
+
     cb = callback
 
     ctx = canvas.getContext('2d')
@@ -69,20 +76,16 @@ export const spinImages = (canvas, callback, opts = {
     cntrX = w / 2
     cntrY = h / 2
 
+    ctx.save()
+
     ctx.textBaseLine = 'middle'
     ctx.textAlign = 'center'
 
     images = opts.images
     imgCount = images.length
 
-    // imgH = h/imgCount
-    // imgW = w/imgCount
     imgH = 150
     imgW = 150
-
-    ctx.strokeStyle = '#FFD700'
-    ctx.lineWidth = 3
-    // ctx.translate(cntrX, cntrY)
 
     animate()
 }

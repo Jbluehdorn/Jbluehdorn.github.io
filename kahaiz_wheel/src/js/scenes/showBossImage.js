@@ -1,0 +1,80 @@
+let ctx, h, w, rAF, cb 
+let image, name, txtScale, imgScale, imgH, imgW, loopCount
+
+const animate = () => {
+    rAF = requestAnimationFrame(animate)
+
+    //clear the current contents
+    ctx.restore()
+    
+    if(loopCount >= 100) {
+        cancelAnimationFrame(rAF)
+    }
+
+    if(loopCount <= 10) {
+        ctx.clearRect(0, 0, w, h)
+        ctx.drawImage(
+            image, 
+            w / 2 - imgW * imgScale / 2, 
+            h * imgScale / 2 - imgH / 2, 
+            imgW * imgScale, 
+            imgH * imgScale
+        )
+        imgScale *= 1.0075
+    } else if (loopCount < 25) {
+        ctx.clearRect(0, h/2 + 50, w, h)
+        const curFontSize = parseInt(ctx.font.split(' ')[0])
+        console.log(ctx.font.split(' '))
+        const newFont = curFontSize - 1
+        txtScale *= 1.00001
+
+        console.log(curFontSize, newFont)
+
+        ctx.font = `${newFont}px ${ctx.font.split(' ')[1]}`
+        console.log(ctx.font, ctx.fillStyle)
+
+        ctx.fillText(name, w/2, h/2 + 100)
+    } else {
+        cancelAnimationFrame(rAF)
+        ctx.restore()
+        typeof cb === 'function' && cb()
+        return
+    }
+
+    loopCount++
+}
+
+export const showBossImage = (canvas, callback, args) => {
+    let opts = {
+        image: null,
+        name: '',
+        font: '60px Helvetica',
+        fillStyle: '#FFD700',
+        ...args
+    }
+    loopCount = 0
+    imgScale = .8
+    txtScale = .8
+    ctx = canvas.getContext('2d')
+
+    h = canvas.height
+    w = canvas.width
+
+    imgH = 200
+    imgW = 200
+
+    cb = callback
+
+    ctx.fillStyle = opts.fillStyle
+    ctx.font = opts.font
+    ctx.textBaseLine = 'middle'
+    ctx.textAlign = 'center'
+    ctx.save()
+
+    console.log(ctx.font)
+
+    image = opts.image
+    name = opts.name
+
+    animate()
+}

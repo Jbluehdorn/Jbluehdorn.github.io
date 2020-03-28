@@ -2,6 +2,7 @@ import React from 'react'
 
 import { countdown } from '../scenes/countdown'
 import { spinImages } from '../scenes/spinImages'
+import { showBossImage } from '../scenes/showBossImage'
 
 import bossData from '../json/bosses'
 
@@ -16,13 +17,19 @@ export default class Wheel extends React.Component {
     }
 
     handleClick = () => {
-        // this.setState({running: true})
+        console.log('ayyooo')
+        this.setState({running: true})
         this.spinTheWheel()
     }
 
     spinTheWheel = () => {
-        // this.runStartAnimation(this.runSpinAnimation)
-        this.runSpinAnimation(() => console.log('done!'))
+        this.runStartAnimation(() => {
+            this.runSpinAnimation(() => {
+                this.runShowBossImageAnimation(() => {
+                    this.setState({running: false})
+                })
+            })
+        })
     }
 
     runStartAnimation = (cb) => {
@@ -35,10 +42,21 @@ export default class Wheel extends React.Component {
         const canvas = this.canvasRef.current
         const imgArr = [...document.getElementById('bossImages').getElementsByTagName('img')]
 
-        spinImages(canvas, () => {
-            console.log('done!')
-        }, {
+        spinImages(canvas, cb, {
             images: imgArr
+        })
+    }
+
+    runShowBossImageAnimation = (cb) => {
+        const canvas = this.canvasRef.current
+        const boss = bossData[Math.floor(Math.random() * bossData.length)]
+        const img = [...document.getElementById('bossImages').getElementsByTagName('img')].find(el => {
+            return el.src.includes(boss.filename) 
+        })
+
+        showBossImage(canvas, cb, {
+            image: img,
+            name: boss.name
         })
     }
 

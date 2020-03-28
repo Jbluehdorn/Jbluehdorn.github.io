@@ -28695,7 +28695,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _scenes_countdown__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../scenes/countdown */ "./src/js/scenes/countdown.js");
 /* harmony import */ var _scenes_spinImages__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../scenes/spinImages */ "./src/js/scenes/spinImages.js");
-/* harmony import */ var _json_bosses__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../json/bosses */ "./src/js/json/bosses.js");
+/* harmony import */ var _scenes_showBossImage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../scenes/showBossImage */ "./src/js/scenes/showBossImage.js");
+/* harmony import */ var _json_bosses__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../json/bosses */ "./src/js/json/bosses.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
@@ -28727,6 +28728,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var Wheel = /*#__PURE__*/function (_React$Component) {
   _inherits(Wheel, _React$Component);
 
@@ -28741,14 +28743,24 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.handleClick = function () {
-      // this.setState({running: true})
+      console.log('ayyooo');
+
+      _this.setState({
+        running: true
+      });
+
       _this.spinTheWheel();
     };
 
     _this.spinTheWheel = function () {
-      // this.runStartAnimation(this.runSpinAnimation)
-      _this.runSpinAnimation(function () {
-        return console.log('done!');
+      _this.runStartAnimation(function () {
+        _this.runSpinAnimation(function () {
+          _this.runShowBossImageAnimation(function () {
+            _this.setState({
+              running: false
+            });
+          });
+        });
       });
     };
 
@@ -28762,10 +28774,22 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
 
       var imgArr = _toConsumableArray(document.getElementById('bossImages').getElementsByTagName('img'));
 
-      Object(_scenes_spinImages__WEBPACK_IMPORTED_MODULE_2__["spinImages"])(canvas, function () {
-        console.log('done!');
-      }, {
+      Object(_scenes_spinImages__WEBPACK_IMPORTED_MODULE_2__["spinImages"])(canvas, cb, {
         images: imgArr
+      });
+    };
+
+    _this.runShowBossImageAnimation = function (cb) {
+      var canvas = _this.canvasRef.current;
+      var boss = _json_bosses__WEBPACK_IMPORTED_MODULE_4__["default"][Math.floor(Math.random() * _json_bosses__WEBPACK_IMPORTED_MODULE_4__["default"].length)];
+
+      var img = _toConsumableArray(document.getElementById('bossImages').getElementsByTagName('img')).find(function (el) {
+        return el.src.includes(boss.filename);
+      });
+
+      Object(_scenes_showBossImage__WEBPACK_IMPORTED_MODULE_3__["showBossImage"])(canvas, cb, {
+        image: img,
+        name: boss.name
       });
     };
 
@@ -28846,15 +28870,21 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "countdown", function() { return countdown; });
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var originalFont;
 var h;
 var w;
 var ctx;
 var start;
-var num = 3;
+var num;
 var rAF;
-var velocity = 1;
-var curVelocity = velocity;
+var velocity;
+var curVelocity;
 var cb;
 
 var animate = function animate() {
@@ -28871,7 +28901,7 @@ var animate = function animate() {
     if (num === 0) {
       cancelAnimationFrame(rAF);
       ctx.clearRect(0, 0, w, h);
-      cb();
+      typeof cb === 'function' && cb();
       return;
     }
   } else {
@@ -28884,11 +28914,15 @@ var animate = function animate() {
   ctx.fillText(num.toString(), w / 2, h / 2 + parseInt(ctx.font.split(' ')[0]) / 2);
 };
 
-var countdown = function countdown(canvas, callback) {
-  var opts = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {
+var countdown = function countdown(canvas, callback, args) {
+  var opts = _objectSpread({
     font: '75px Helvetica',
     fillStyle: '#FFD700'
-  };
+  }, args);
+
+  num = 3;
+  velocity = 1;
+  curVelocity = velocity;
   cb = callback;
   ctx = canvas.getContext('2d');
   h = canvas.height;
@@ -28905,6 +28939,88 @@ var countdown = function countdown(canvas, callback) {
 
 /***/ }),
 
+/***/ "./src/js/scenes/showBossImage.js":
+/*!****************************************!*\
+  !*** ./src/js/scenes/showBossImage.js ***!
+  \****************************************/
+/*! exports provided: showBossImage */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "showBossImage", function() { return showBossImage; });
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var ctx, h, w, rAF, cb;
+var image, name, txtScale, imgScale, imgH, imgW, loopCount;
+
+var animate = function animate() {
+  rAF = requestAnimationFrame(animate); //clear the current contents
+
+  ctx.restore();
+
+  if (loopCount >= 100) {
+    cancelAnimationFrame(rAF);
+  }
+
+  if (loopCount <= 10) {
+    ctx.clearRect(0, 0, w, h);
+    ctx.drawImage(image, w / 2 - imgW * imgScale / 2, h * imgScale / 2 - imgH / 2, imgW * imgScale, imgH * imgScale);
+    imgScale *= 1.0075;
+  } else if (loopCount < 25) {
+    ctx.clearRect(0, h / 2 + 50, w, h);
+    var curFontSize = parseInt(ctx.font.split(' ')[0]);
+    console.log(ctx.font.split(' '));
+    var newFont = curFontSize - 1;
+    txtScale *= 1.00001;
+    console.log(curFontSize, newFont);
+    ctx.font = "".concat(newFont, "px ").concat(ctx.font.split(' ')[1]);
+    console.log(ctx.font, ctx.fillStyle);
+    ctx.fillText(name, w / 2, h / 2 + 100);
+  } else {
+    cancelAnimationFrame(rAF);
+    ctx.restore();
+    typeof cb === 'function' && cb();
+    return;
+  }
+
+  loopCount++;
+};
+
+var showBossImage = function showBossImage(canvas, callback, args) {
+  var opts = _objectSpread({
+    image: null,
+    name: '',
+    font: '60px Helvetica',
+    fillStyle: '#FFD700'
+  }, args);
+
+  loopCount = 0;
+  imgScale = .8;
+  txtScale = .8;
+  ctx = canvas.getContext('2d');
+  h = canvas.height;
+  w = canvas.width;
+  imgH = 200;
+  imgW = 200;
+  cb = callback;
+  ctx.fillStyle = opts.fillStyle;
+  ctx.font = opts.font;
+  ctx.textBaseLine = 'middle';
+  ctx.textAlign = 'center';
+  ctx.save();
+  console.log(ctx.font);
+  image = opts.image;
+  name = opts.name;
+  animate();
+};
+
+/***/ }),
+
 /***/ "./src/js/scenes/spinImages.js":
 /*!*************************************!*\
   !*** ./src/js/scenes/spinImages.js ***!
@@ -28915,6 +29031,12 @@ var countdown = function countdown(canvas, callback) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "spinImages", function() { return spinImages; });
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var cb, ctx, h, w, cntrX, cntrY, images, imgCount, imgH, imgW, rAF;
 var loopCount = 0,
     dScale = 1;
@@ -28922,12 +29044,12 @@ var loopCount = 0,
 var animate = function animate() {
   rAF = requestAnimationFrame(animate);
 
-  if (loopCount >= 150) {
+  if (loopCount >= 175) {
     ctx.restore();
-    ctx.fillRect(0, 0, w, h);
     ctx.clearRect(0, 0, w, h);
+    ctx.resetTransform();
     cancelAnimationFrame(rAF);
-    cb();
+    typeof cb === 'function' && cb();
     return;
   }
 
@@ -28939,10 +29061,12 @@ var animate = function animate() {
 
 
   ctx.restore();
-  ctx.clearRect(-2, -2, w + 2, h + 2);
+  ctx.clearRect(-2, -2, w + 2, h + 2); // rotate about center
+
   ctx.translate(cntrX, cntrY);
-  ctx.rotate(1 * Math.PI / 180);
-  ctx.translate(-cntrX, -cntrY);
+  ctx.rotate(Math.PI / 180);
+  ctx.translate(-cntrX, -cntrY); // move and scale
+
   ctx.translate(cntrX - cntrX * dScale, cntrY - cntrY * dScale);
   ctx.scale(dScale, dScale);
   drawImages();
@@ -28972,27 +29096,26 @@ var drawImages = function drawImages() {
   }
 };
 
-var spinImages = function spinImages(canvas, callback) {
-  var opts = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {
+var spinImages = function spinImages(canvas, callback, args) {
+  var opts = opts = _objectSpread({
     images: []
-  };
+  }, args);
+
+  loopCount = 0;
+  dScale = 1;
   cb = callback;
   ctx = canvas.getContext('2d');
   h = canvas.height;
   w = canvas.width;
   cntrX = w / 2;
   cntrY = h / 2;
+  ctx.save();
   ctx.textBaseLine = 'middle';
   ctx.textAlign = 'center';
   images = opts.images;
-  imgCount = images.length; // imgH = h/imgCount
-  // imgW = w/imgCount
-
+  imgCount = images.length;
   imgH = 150;
   imgW = 150;
-  ctx.strokeStyle = '#FFD700';
-  ctx.lineWidth = 3; // ctx.translate(cntrX, cntrY)
-
   animate();
 };
 
