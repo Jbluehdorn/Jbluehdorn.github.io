@@ -1,6 +1,9 @@
 import React from 'react'
 
 import { countdown } from '../scenes/countdown'
+import { spinImages } from '../scenes/spinImages'
+
+import bossData from '../json/bosses'
 
 export default class Wheel extends React.Component {
     state = {
@@ -13,19 +16,29 @@ export default class Wheel extends React.Component {
     }
 
     handleClick = () => {
-        this.setState({running: true})
+        // this.setState({running: true})
         this.spinTheWheel()
     }
 
     spinTheWheel = () => {
-        this.runStartAnimation()
+        // this.runStartAnimation(this.runSpinAnimation)
+        this.runSpinAnimation(() => console.log('done!'))
     }
 
-    runStartAnimation = () => {
+    runStartAnimation = (cb) => {
         const canvas = this.canvasRef.current
 
-        countdown(canvas, () => {
-            console.log('banana')
+        countdown(canvas, cb)
+    }
+
+    runSpinAnimation = (cb) => {
+        const canvas = this.canvasRef.current
+        const imgArr = [...document.getElementById('bossImages').getElementsByTagName('img')]
+
+        spinImages(canvas, () => {
+            console.log('done!')
+        }, {
+            images: imgArr
         })
     }
 

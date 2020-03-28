@@ -29,7 +29,6 @@ const animate = () => {
             return
         }
     } else {
-        // const originalFontSize = parseInt(originalFont.split(' ')[0])
         const curFontSize = parseInt(ctx.font.split(' ')[0])
         const newFont = curFontSize - curVelocity
         curVelocity *= .85

@@ -28694,7 +28694,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _scenes_countdown__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../scenes/countdown */ "./src/js/scenes/countdown.js");
+/* harmony import */ var _scenes_spinImages__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../scenes/spinImages */ "./src/js/scenes/spinImages.js");
+/* harmony import */ var _json_bosses__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../json/bosses */ "./src/js/json/bosses.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
+
+function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance"); }
+
+function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.prototype.toString.call(iter) === "[object Arguments]") return Array.from(iter); }
+
+function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -28715,6 +28725,8 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
+
 var Wheel = /*#__PURE__*/function (_React$Component) {
   _inherits(Wheel, _React$Component);
 
@@ -28729,21 +28741,31 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.handleClick = function () {
-      _this.setState({
-        running: true
-      });
-
+      // this.setState({running: true})
       _this.spinTheWheel();
     };
 
     _this.spinTheWheel = function () {
-      _this.runStartAnimation();
+      // this.runStartAnimation(this.runSpinAnimation)
+      _this.runSpinAnimation(function () {
+        return console.log('done!');
+      });
     };
 
-    _this.runStartAnimation = function () {
+    _this.runStartAnimation = function (cb) {
       var canvas = _this.canvasRef.current;
-      Object(_scenes_countdown__WEBPACK_IMPORTED_MODULE_1__["countdown"])(canvas, function () {
-        console.log('banana');
+      Object(_scenes_countdown__WEBPACK_IMPORTED_MODULE_1__["countdown"])(canvas, cb);
+    };
+
+    _this.runSpinAnimation = function (cb) {
+      var canvas = _this.canvasRef.current;
+
+      var imgArr = _toConsumableArray(document.getElementById('bossImages').getElementsByTagName('img'));
+
+      Object(_scenes_spinImages__WEBPACK_IMPORTED_MODULE_2__["spinImages"])(canvas, function () {
+        console.log('done!');
+      }, {
+        images: imgArr
       });
     };
 
@@ -28792,6 +28814,28 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
 
 /***/ }),
 
+/***/ "./src/js/json/bosses.js":
+/*!*******************************!*\
+  !*** ./src/js/json/bosses.js ***!
+  \*******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony default export */ __webpack_exports__["default"] = ([{
+  name: "General Graardor",
+  filename: "graardor.png"
+}, {
+  name: "Zulrah",
+  filename: "zulrah.png"
+}, {
+  name: "Vorkath",
+  filename: "vorkath.png"
+}]); // Zulrah Vorkath Corporal Beast Sarachnis Giant Mole Kalphite Queen Commander Zilyana Chaos Elemental King Black Dragon Chaos Fanatic Hespori Zalcano The Great Olm Theatre of Blood Normal Gauntlet
+
+/***/ }),
+
 /***/ "./src/js/scenes/countdown.js":
 /*!************************************!*\
   !*** ./src/js/scenes/countdown.js ***!
@@ -28831,7 +28875,6 @@ var animate = function animate() {
       return;
     }
   } else {
-    // const originalFontSize = parseInt(originalFont.split(' ')[0])
     var curFontSize = parseInt(ctx.font.split(' ')[0]);
     var newFont = curFontSize - curVelocity;
     curVelocity *= .85;
@@ -28857,6 +28900,99 @@ var countdown = function countdown(canvas, callback) {
   ctx.font = opts.font;
   ctx.fillStyle = opts.fillStyle;
   ctx.fillText('3', w / 2, h / 2);
+  animate();
+};
+
+/***/ }),
+
+/***/ "./src/js/scenes/spinImages.js":
+/*!*************************************!*\
+  !*** ./src/js/scenes/spinImages.js ***!
+  \*************************************/
+/*! exports provided: spinImages */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "spinImages", function() { return spinImages; });
+var cb, ctx, h, w, cntrX, cntrY, images, imgCount, imgH, imgW, rAF;
+var loopCount = 0,
+    dScale = 1;
+
+var animate = function animate() {
+  rAF = requestAnimationFrame(animate);
+
+  if (loopCount >= 150) {
+    ctx.restore();
+    ctx.fillRect(0, 0, w, h);
+    ctx.clearRect(0, 0, w, h);
+    cancelAnimationFrame(rAF);
+    cb();
+    return;
+  }
+
+  if (loopCount < 75) {
+    drawImages();
+    loopCount++;
+    return;
+  } //clear the canvas 
+
+
+  ctx.restore();
+  ctx.clearRect(-2, -2, w + 2, h + 2);
+  ctx.translate(cntrX, cntrY);
+  ctx.rotate(1 * Math.PI / 180);
+  ctx.translate(-cntrX, -cntrY);
+  ctx.translate(cntrX - cntrX * dScale, cntrY - cntrY * dScale);
+  ctx.scale(dScale, dScale);
+  drawImages();
+  dScale *= .999;
+  loopCount++;
+};
+
+var drawImages = function drawImages() {
+  var topImages = images.slice(0, Math.ceil(imgCount / 2));
+  var botImages = images.slice(Math.ceil(imgCount / 2), imgCount);
+  var topSize = w / topImages.length;
+  var botSize = w / botImages.length; // Draw top images
+
+  for (var i = 0; i < topImages.length; i++) {
+    var xCoord = topSize * i + topSize / 2 - imgW / 2;
+    var yCoord = 0;
+    ctx.drawImage(topImages[i], xCoord, yCoord, imgW, imgH);
+  } // Draw bottom images
+
+
+  for (var _i = 0; _i < botImages.length; _i++) {
+    var _xCoord = botSize * _i + botSize / 2 - imgW / 2;
+
+    var _yCoord = h - imgH;
+
+    ctx.drawImage(botImages[_i], _xCoord, _yCoord, imgW, imgH);
+  }
+};
+
+var spinImages = function spinImages(canvas, callback) {
+  var opts = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : {
+    images: []
+  };
+  cb = callback;
+  ctx = canvas.getContext('2d');
+  h = canvas.height;
+  w = canvas.width;
+  cntrX = w / 2;
+  cntrY = h / 2;
+  ctx.textBaseLine = 'middle';
+  ctx.textAlign = 'center';
+  images = opts.images;
+  imgCount = images.length; // imgH = h/imgCount
+  // imgW = w/imgCount
+
+  imgH = 150;
+  imgW = 150;
+  ctx.strokeStyle = '#FFD700';
+  ctx.lineWidth = 3; // ctx.translate(cntrX, cntrY)
+
   animate();
 };
 

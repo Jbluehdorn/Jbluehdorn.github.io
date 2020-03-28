@@ -10895,6 +10895,10 @@ html {
   text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
+#bossImages {
+  display: none;
+}
+
 body {
   margin-top: 15px;
 }
