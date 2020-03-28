@@ -8,6 +8,7 @@ let rAF
 let velocity
 let curVelocity
 let cb
+let audio
 
 const animate = () => {
     rAF = requestAnimationFrame(animate)
@@ -27,6 +28,8 @@ const animate = () => {
             ctx.clearRect(0, 0, w, h)
             typeof cb === 'function' && cb()
             return
+        } else {
+            audio && audio.play()
         }
     } else {
         const curFontSize = parseInt(ctx.font.split(' ')[0])
@@ -43,6 +46,7 @@ export const countdown = (canvas, callback, args) => {
     let opts = {
         font: '75px Helvetica',
         fillStyle: '#FFD700',
+        audio: null,
         ...args
     }
     num = 3
@@ -55,6 +59,7 @@ export const countdown = (canvas, callback, args) => {
     h = canvas.height
     w = canvas.width
     originalFont = opts.font
+    audio = opts.audio
 
     start = Date.now()
 
@@ -65,6 +70,8 @@ export const countdown = (canvas, callback, args) => {
     ctx.fillStyle = opts.fillStyle
 
     ctx.fillText('3', w / 2, h / 2)
+
+    audio && audio.play()
     
     animate()
 }

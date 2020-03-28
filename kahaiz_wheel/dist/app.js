@@ -28766,7 +28766,10 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
 
     _this.runStartAnimation = function (cb) {
       var canvas = _this.canvasRef.current;
-      Object(_scenes_countdown__WEBPACK_IMPORTED_MODULE_1__["countdown"])(canvas, cb);
+      var audio = document.getElementById('countdown_audio');
+      Object(_scenes_countdown__WEBPACK_IMPORTED_MODULE_1__["countdown"])(canvas, cb, {
+        audio: audio
+      });
     };
 
     _this.runSpinAnimation = function (cb) {
@@ -28774,8 +28777,10 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
 
       var imgArr = _toConsumableArray(document.getElementById('bossImages').getElementsByTagName('img'));
 
+      var audio = document.getElementById('spin_audio');
       Object(_scenes_spinImages__WEBPACK_IMPORTED_MODULE_2__["spinImages"])(canvas, cb, {
-        images: imgArr
+        images: imgArr,
+        audio: audio
       });
     };
 
@@ -28787,9 +28792,11 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
         return el.src.includes(boss.filename);
       });
 
+      var audio = document.getElementById('found_audio');
       Object(_scenes_showBossImage__WEBPACK_IMPORTED_MODULE_3__["showBossImage"])(canvas, cb, {
         image: img,
-        name: boss.name
+        name: boss.name,
+        audio: audio
       });
     };
 
@@ -28886,6 +28893,7 @@ var rAF;
 var velocity;
 var curVelocity;
 var cb;
+var audio;
 
 var animate = function animate() {
   rAF = requestAnimationFrame(animate); // Clear the canvas
@@ -28903,6 +28911,8 @@ var animate = function animate() {
       ctx.clearRect(0, 0, w, h);
       typeof cb === 'function' && cb();
       return;
+    } else {
+      audio && audio.play();
     }
   } else {
     var curFontSize = parseInt(ctx.font.split(' ')[0]);
@@ -28917,7 +28927,8 @@ var animate = function animate() {
 var countdown = function countdown(canvas, callback, args) {
   var opts = _objectSpread({
     font: '75px Helvetica',
-    fillStyle: '#FFD700'
+    fillStyle: '#FFD700',
+    audio: null
   }, args);
 
   num = 3;
@@ -28928,12 +28939,14 @@ var countdown = function countdown(canvas, callback, args) {
   h = canvas.height;
   w = canvas.width;
   originalFont = opts.font;
+  audio = opts.audio;
   start = Date.now();
   ctx.textBaseLine = 'middle';
   ctx.textAlign = 'center';
   ctx.font = opts.font;
   ctx.fillStyle = opts.fillStyle;
   ctx.fillText('3', w / 2, h / 2);
+  audio && audio.play();
   animate();
 };
 
@@ -28956,7 +28969,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var ctx, h, w, rAF, cb;
-var image, name, txtScale, imgScale, imgH, imgW, loopCount;
+var image, name, txtScale, imgScale, imgH, imgW, loopCount, audioHasPlayed, audio;
 
 var animate = function animate() {
   rAF = requestAnimationFrame(animate); //clear the current contents
@@ -28965,6 +28978,13 @@ var animate = function animate() {
 
   if (loopCount >= 100) {
     cancelAnimationFrame(rAF);
+    audioHasPlayed = false;
+    return;
+  }
+
+  if (audio && !audioHasPlayed) {
+    audioHasPlayed = true;
+    audio.play();
   }
 
   if (loopCount <= 10) {
@@ -28974,12 +28994,9 @@ var animate = function animate() {
   } else if (loopCount < 25) {
     ctx.clearRect(0, h / 2 + 50, w, h);
     var curFontSize = parseInt(ctx.font.split(' ')[0]);
-    console.log(ctx.font.split(' '));
     var newFont = curFontSize - 1;
     txtScale *= 1.00001;
-    console.log(curFontSize, newFont);
     ctx.font = "".concat(newFont, "px ").concat(ctx.font.split(' ')[1]);
-    console.log(ctx.font, ctx.fillStyle);
     ctx.fillText(name, w / 2, h / 2 + 100);
   } else {
     cancelAnimationFrame(rAF);
@@ -28996,12 +29013,14 @@ var showBossImage = function showBossImage(canvas, callback, args) {
     image: null,
     name: '',
     font: '60px Helvetica',
-    fillStyle: '#FFD700'
+    fillStyle: '#FFD700',
+    audio: null
   }, args);
 
   loopCount = 0;
   imgScale = .8;
   txtScale = .8;
+  audioHasPlayed = false;
   ctx = canvas.getContext('2d');
   h = canvas.height;
   w = canvas.width;
@@ -29013,9 +29032,9 @@ var showBossImage = function showBossImage(canvas, callback, args) {
   ctx.textBaseLine = 'middle';
   ctx.textAlign = 'center';
   ctx.save();
-  console.log(ctx.font);
   image = opts.image;
   name = opts.name;
+  audio = opts.audio;
   animate();
 };
 
@@ -29037,9 +29056,10 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
-var cb, ctx, h, w, cntrX, cntrY, images, imgCount, imgH, imgW, rAF;
+var cb, ctx, h, w, cntrX, cntrY, images, imgCount, imgH, imgW, rAF, audio;
 var loopCount = 0,
-    dScale = 1;
+    dScale = 1,
+    audioHasPlayed = false;
 
 var animate = function animate() {
   rAF = requestAnimationFrame(animate);
@@ -29049,6 +29069,7 @@ var animate = function animate() {
     ctx.clearRect(0, 0, w, h);
     ctx.resetTransform();
     cancelAnimationFrame(rAF);
+    audioHasPlayed = false;
     typeof cb === 'function' && cb();
     return;
   }
@@ -29057,6 +29078,11 @@ var animate = function animate() {
     drawImages();
     loopCount++;
     return;
+  }
+
+  if (audio && !audioHasPlayed) {
+    audioHasPlayed = true;
+    audio.play();
   } //clear the canvas 
 
 
@@ -29064,7 +29090,7 @@ var animate = function animate() {
   ctx.clearRect(-2, -2, w + 2, h + 2); // rotate about center
 
   ctx.translate(cntrX, cntrY);
-  ctx.rotate(Math.PI / 180);
+  ctx.rotate(5 * Math.PI / 180);
   ctx.translate(-cntrX, -cntrY); // move and scale
 
   ctx.translate(cntrX - cntrX * dScale, cntrY - cntrY * dScale);
@@ -29098,11 +29124,13 @@ var drawImages = function drawImages() {
 
 var spinImages = function spinImages(canvas, callback, args) {
   var opts = opts = _objectSpread({
-    images: []
+    images: [],
+    sound: null
   }, args);
 
   loopCount = 0;
   dScale = 1;
+  audioHasPlayed = false;
   cb = callback;
   ctx = canvas.getContext('2d');
   h = canvas.height;
@@ -29114,6 +29142,7 @@ var spinImages = function spinImages(canvas, callback, args) {
   ctx.textAlign = 'center';
   images = opts.images;
   imgCount = images.length;
+  audio = opts.audio;
   imgH = 150;
   imgW = 150;
   animate();

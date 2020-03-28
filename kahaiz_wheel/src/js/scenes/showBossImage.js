@@ -1,5 +1,5 @@
 let ctx, h, w, rAF, cb 
-let image, name, txtScale, imgScale, imgH, imgW, loopCount
+let image, name, txtScale, imgScale, imgH, imgW, loopCount, audioHasPlayed, audio
 
 const animate = () => {
     rAF = requestAnimationFrame(animate)
@@ -9,6 +9,13 @@ const animate = () => {
     
     if(loopCount >= 100) {
         cancelAnimationFrame(rAF)
+        audioHasPlayed = false
+        return
+    }
+
+    if(audio && !audioHasPlayed) {
+        audioHasPlayed = true
+        audio.play()
     }
 
     if(loopCount <= 10) {
@@ -24,14 +31,10 @@ const animate = () => {
     } else if (loopCount < 25) {
         ctx.clearRect(0, h/2 + 50, w, h)
         const curFontSize = parseInt(ctx.font.split(' ')[0])
-        console.log(ctx.font.split(' '))
         const newFont = curFontSize - 1
         txtScale *= 1.00001
 
-        console.log(curFontSize, newFont)
-
         ctx.font = `${newFont}px ${ctx.font.split(' ')[1]}`
-        console.log(ctx.font, ctx.fillStyle)
 
         ctx.fillText(name, w/2, h/2 + 100)
     } else {
@@ -50,11 +53,13 @@ export const showBossImage = (canvas, callback, args) => {
         name: '',
         font: '60px Helvetica',
         fillStyle: '#FFD700',
+        audio: null,
         ...args
     }
     loopCount = 0
     imgScale = .8
     txtScale = .8
+    audioHasPlayed = false
     ctx = canvas.getContext('2d')
 
     h = canvas.height
@@ -71,10 +76,9 @@ export const showBossImage = (canvas, callback, args) => {
     ctx.textAlign = 'center'
     ctx.save()
 
-    console.log(ctx.font)
-
     image = opts.image
     name = opts.name
+    audio = opts.audio
 
     animate()
 }

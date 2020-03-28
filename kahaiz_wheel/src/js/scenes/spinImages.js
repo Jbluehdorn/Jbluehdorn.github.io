@@ -1,6 +1,6 @@
-let cb, ctx, h, w, cntrX, cntrY, images, imgCount, imgH, imgW, rAF
+let cb, ctx, h, w, cntrX, cntrY, images, imgCount, imgH, imgW, rAF, audio
 
-let loopCount = 0, dScale = 1
+let loopCount = 0, dScale = 1, audioHasPlayed = false
 
 const animate = () => {
     rAF = requestAnimationFrame(animate)
@@ -10,6 +10,7 @@ const animate = () => {
         ctx.clearRect(0, 0, w, h)
         ctx.resetTransform()
         cancelAnimationFrame(rAF)
+        audioHasPlayed = false
         typeof cb === 'function' && cb()
         return
     }
@@ -20,13 +21,18 @@ const animate = () => {
         return
     }
 
+    if(audio && !audioHasPlayed) {
+        audioHasPlayed = true
+        audio.play()
+    }
+
     //clear the canvas 
     ctx.restore()
     ctx.clearRect(-2, -2, w + 2, h + 2)
 
     // rotate about center
     ctx.translate(cntrX, cntrY)
-    ctx.rotate(Math.PI / 180)
+    ctx.rotate(5 * Math.PI / 180)
     ctx.translate(-cntrX, -cntrY)
 
     // move and scale
@@ -63,10 +69,12 @@ const drawImages = () => {
 export const spinImages = (canvas, callback, args) => {
     let opts = opts = {
         images: [],
+        sound: null,
         ...args
     }
     loopCount = 0
     dScale = 1
+    audioHasPlayed = false
 
     cb = callback
 
@@ -83,6 +91,8 @@ export const spinImages = (canvas, callback, args) => {
 
     images = opts.images
     imgCount = images.length
+
+    audio = opts.audio
 
     imgH = 150
     imgW = 150

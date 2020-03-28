@@ -34,16 +34,21 @@ export default class Wheel extends React.Component {
 
     runStartAnimation = (cb) => {
         const canvas = this.canvasRef.current
+        const audio = document.getElementById('countdown_audio')
 
-        countdown(canvas, cb)
+        countdown(canvas, cb, {
+            audio: audio
+        })
     }
 
     runSpinAnimation = (cb) => {
         const canvas = this.canvasRef.current
         const imgArr = [...document.getElementById('bossImages').getElementsByTagName('img')]
+        const audio = document.getElementById('spin_audio')
 
         spinImages(canvas, cb, {
-            images: imgArr
+            images: imgArr,
+            audio: audio
         })
     }
 
@@ -53,10 +58,12 @@ export default class Wheel extends React.Component {
         const img = [...document.getElementById('bossImages').getElementsByTagName('img')].find(el => {
             return el.src.includes(boss.filename) 
         })
+        const audio = document.getElementById('found_audio')
 
         showBossImage(canvas, cb, {
             image: img,
-            name: boss.name
+            name: boss.name,
+            audio: audio
         })
     }
 
