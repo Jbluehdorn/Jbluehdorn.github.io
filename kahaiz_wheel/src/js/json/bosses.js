@@ -10,7 +10,53 @@ export default [
     {
         name: "Vorkath",
         filename: "vorkath.png"
+    },
+    {
+        name: "Corporeal Beast",
+        filename: "corporeal_beast.png"
+    },
+    {
+        name: "Sarachnis",
+        filename: "sarachnis.png"
+    },
+    {
+        name: "Giant Mole",
+        filename: "giant_mole.png"
+    },
+    {
+        name: "Kalphite Queen",
+        filname: "kalphite_queen.png"
+    },
+    {
+        name: "Commander Zilyana",
+        filename: "commander_zilyana.png"
+    },
+    {
+        name: "Chaos Elemental",
+        filename: "chaos_elemental.png"
+    },
+    {
+        name: "King Black Dragon",
+        filename: "kbd.png"
+    },
+    {
+        name: "Chaos Fanatic",
+        filename: "chaos_fanatic.png"
+    },
+    {
+        name: "Hespori",
+        filename: "hespori.png"
+    },
+    {
+        name: "Zalcano",
+        filename: "zalcano.png"
+    },
+    {
+        name: "Theatre of Blood",
+        filename: "verzik.png"
+    },
+    {
+        name: "Gauntlet",
+        filename: "gauntlet.png"
     }
 ]
-
-// Zulrah Vorkath Corporal Beast Sarachnis Giant Mole Kalphite Queen Commander Zilyana Chaos Elemental King Black Dragon Chaos Fanatic Hespori Zalcano The Great Olm Theatre of Blood Normal Gauntlet

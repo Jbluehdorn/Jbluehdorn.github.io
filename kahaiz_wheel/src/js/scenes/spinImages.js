@@ -46,30 +46,34 @@ const animate = () => {
 }
 
 const drawImages = () => {
-    let topImages = images.slice(0, Math.ceil(imgCount / 2))
-    let botImages = images.slice(Math.ceil(imgCount / 2), imgCount)
-    let topSize = w / topImages.length
-    let botSize = w / botImages.length
+    ctx.save()
 
-    // Draw top images
-    for(let i = 0; i < topImages.length; i++) {
-        let xCoord = (topSize * i) + topSize / 2 - imgW / 2
-        let yCoord = 0
-        ctx.drawImage(topImages[i], xCoord, yCoord, imgW, imgH)
+    for(let i = 0; i < imgCount; i++) {
+        ctx.save()
+        let rads = 360 / imgCount * Math.PI / 180 * i * 1.1
+
+        // Rotate and return
+        ctx.translate(cntrX, cntrY)
+        ctx.rotate(rads)
+        ctx.translate(0, -h/2 + imgH/2)
+
+        // Rotate back
+        ctx.rotate(-rads)
+
+        // Draw image
+        ctx.drawImage(images[i], -imgW/2, -imgH/2, imgW, imgH)
+
+        ctx.restore()
     }
 
-    // Draw bottom images
-    for(let i = 0; i < botImages.length; i++) {
-        let xCoord = botSize * i + botSize / 2 - imgW / 2
-        let yCoord = h - imgH
-        ctx.drawImage(botImages[i], xCoord, yCoord, imgW, imgH) 
-    }
+    ctx.restore()
 }
 
 export const spinImages = (canvas, callback, args) => {
     let opts = opts = {
         images: [],
         sound: null,
+        imgSize: 100,
         ...args
     }
     loopCount = 0
@@ -94,8 +98,8 @@ export const spinImages = (canvas, callback, args) => {
 
     audio = opts.audio
 
-    imgH = 150
-    imgW = 150
+    imgH = opts.imgSize
+    imgW = opts.imgSize
 
     animate()
 }

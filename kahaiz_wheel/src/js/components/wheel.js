@@ -17,7 +17,6 @@ export default class Wheel extends React.Component {
     }
 
     handleClick = () => {
-        console.log('ayyooo')
         this.setState({running: true})
         this.spinTheWheel()
     }
@@ -48,7 +47,8 @@ export default class Wheel extends React.Component {
 
         spinImages(canvas, cb, {
             images: imgArr,
-            audio: audio
+            audio: audio,
+            imgSize: 50
         })
     }
 

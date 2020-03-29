@@ -28743,8 +28743,6 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.handleClick = function () {
-      console.log('ayyooo');
-
       _this.setState({
         running: true
       });
@@ -28780,7 +28778,8 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
       var audio = document.getElementById('spin_audio');
       Object(_scenes_spinImages__WEBPACK_IMPORTED_MODULE_2__["spinImages"])(canvas, cb, {
         images: imgArr,
-        audio: audio
+        audio: audio,
+        imgSize: 50
       });
     };
 
@@ -28863,7 +28862,43 @@ __webpack_require__.r(__webpack_exports__);
 }, {
   name: "Vorkath",
   filename: "vorkath.png"
-}]); // Zulrah Vorkath Corporal Beast Sarachnis Giant Mole Kalphite Queen Commander Zilyana Chaos Elemental King Black Dragon Chaos Fanatic Hespori Zalcano The Great Olm Theatre of Blood Normal Gauntlet
+}, {
+  name: "Corporeal Beast",
+  filename: "corporeal_beast.png"
+}, {
+  name: "Sarachnis",
+  filename: "sarachnis.png"
+}, {
+  name: "Giant Mole",
+  filename: "giant_mole.png"
+}, {
+  name: "Kalphite Queen",
+  filname: "kalphite_queen.png"
+}, {
+  name: "Commander Zilyana",
+  filename: "commander_zilyana.png"
+}, {
+  name: "Chaos Elemental",
+  filename: "chaos_elemental.png"
+}, {
+  name: "King Black Dragon",
+  filename: "kbd.png"
+}, {
+  name: "Chaos Fanatic",
+  filename: "chaos_fanatic.png"
+}, {
+  name: "Hespori",
+  filename: "hespori.png"
+}, {
+  name: "Zalcano",
+  filename: "zalcano.png"
+}, {
+  name: "Theatre of Blood",
+  filename: "verzik.png"
+}, {
+  name: "Gauntlet",
+  filename: "gauntlet.png"
+}]);
 
 /***/ }),
 
@@ -29101,31 +29136,30 @@ var animate = function animate() {
 };
 
 var drawImages = function drawImages() {
-  var topImages = images.slice(0, Math.ceil(imgCount / 2));
-  var botImages = images.slice(Math.ceil(imgCount / 2), imgCount);
-  var topSize = w / topImages.length;
-  var botSize = w / botImages.length; // Draw top images
+  ctx.save();
 
-  for (var i = 0; i < topImages.length; i++) {
-    var xCoord = topSize * i + topSize / 2 - imgW / 2;
-    var yCoord = 0;
-    ctx.drawImage(topImages[i], xCoord, yCoord, imgW, imgH);
-  } // Draw bottom images
+  for (var i = 0; i < imgCount; i++) {
+    ctx.save();
+    var rads = 360 / imgCount * Math.PI / 180 * i * 1.1; // Rotate and return
 
+    ctx.translate(cntrX, cntrY);
+    ctx.rotate(rads);
+    ctx.translate(0, -h / 2 + imgH / 2); // Rotate back
 
-  for (var _i = 0; _i < botImages.length; _i++) {
-    var _xCoord = botSize * _i + botSize / 2 - imgW / 2;
+    ctx.rotate(-rads); // Draw image
 
-    var _yCoord = h - imgH;
-
-    ctx.drawImage(botImages[_i], _xCoord, _yCoord, imgW, imgH);
+    ctx.drawImage(images[i], -imgW / 2, -imgH / 2, imgW, imgH);
+    ctx.restore();
   }
+
+  ctx.restore();
 };
 
 var spinImages = function spinImages(canvas, callback, args) {
   var opts = opts = _objectSpread({
     images: [],
-    sound: null
+    sound: null,
+    imgSize: 100
   }, args);
 
   loopCount = 0;
@@ -29143,8 +29177,8 @@ var spinImages = function spinImages(canvas, callback, args) {
   images = opts.images;
   imgCount = images.length;
   audio = opts.audio;
-  imgH = 150;
-  imgW = 150;
+  imgH = opts.imgSize;
+  imgW = opts.imgSize;
   animate();
 };
 
