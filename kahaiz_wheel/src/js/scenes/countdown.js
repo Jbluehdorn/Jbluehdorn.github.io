@@ -32,19 +32,28 @@ const animate = () => {
             audio && audio.play()
         }
     } else {
-        const curFontSize = parseInt(ctx.font.split(' ')[0])
-        const newFont = curFontSize - curVelocity
+        const fontParts = ctx.font.split(' ')
+        const curFontSize = parseInt(fontParts[fontParts.length - 2])
+        const newFontSize = curFontSize - curVelocity
         curVelocity *= .85
 
-        ctx.font = `${newFont}px ${ctx.font.split(' ')[1]}`
+        let newFont = ''
+        for(let i = 0; i < fontParts.length - 2; i++) {
+            newFont += fontParts[i] + ' '
+        }
+        newFont += `${Math.floor(newFontSize)}px ${fontParts[fontParts.length - 1]}`
+
+        ctx.font = newFont
     }
 
-    ctx.fillText(num.toString(), w/2, h/2 + parseInt(ctx.font.split(' ')[0])/2)
+    let fontParts = ctx.font.split(' ')
+
+    ctx.fillText(num.toString(), w/2, h/2 + parseInt(fontParts[fontParts.length - 2])/2)
 }
 
 export const countdown = (canvas, callback, args) => {
     let opts = {
-        font: '75px Helvetica',
+        font: 'bold 75px arial',
         fillStyle: '#FFD700',
         audio: null,
         ...args

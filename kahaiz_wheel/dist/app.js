@@ -28955,18 +28955,28 @@ var animate = function animate() {
       audio && audio.play();
     }
   } else {
-    var curFontSize = parseInt(ctx.font.split(' ')[0]);
-    var newFont = curFontSize - curVelocity;
+    var _fontParts = ctx.font.split(' ');
+
+    var curFontSize = parseInt(_fontParts[_fontParts.length - 2]);
+    var newFontSize = curFontSize - curVelocity;
     curVelocity *= .85;
-    ctx.font = "".concat(newFont, "px ").concat(ctx.font.split(' ')[1]);
+    var newFont = '';
+
+    for (var i = 0; i < _fontParts.length - 2; i++) {
+      newFont += _fontParts[i] + ' ';
+    }
+
+    newFont += "".concat(Math.floor(newFontSize), "px ").concat(_fontParts[_fontParts.length - 1]);
+    ctx.font = newFont;
   }
 
-  ctx.fillText(num.toString(), w / 2, h / 2 + parseInt(ctx.font.split(' ')[0]) / 2);
+  var fontParts = ctx.font.split(' ');
+  ctx.fillText(num.toString(), w / 2, h / 2 + parseInt(fontParts[fontParts.length - 2]) / 2);
 };
 
 var countdown = function countdown(canvas, callback, args) {
   var opts = _objectSpread({
-    font: '75px Helvetica',
+    font: 'bold 75px arial',
     fillStyle: '#FFD700',
     audio: null
   }, args);
@@ -29052,7 +29062,7 @@ var showBossImage = function showBossImage(canvas, callback, args) {
   var opts = _objectSpread({
     image: null,
     name: '',
-    font: '60px Helvetica',
+    font: 'bold 60px Arial',
     fillStyle: '#FFD700',
     audio: null
   }, args);

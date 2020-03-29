@@ -51,7 +51,7 @@ export const showBossImage = (canvas, callback, args) => {
     let opts = {
         image: null,
         name: '',
-        font: '60px Helvetica',
+        font: 'bold 60px Arial',
         fillStyle: '#FFD700',
         audio: null,
         ...args
