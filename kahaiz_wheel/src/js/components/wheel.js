@@ -17,7 +17,7 @@ export default class Wheel extends React.Component {
     }
 
     handleClick = () => {
-        this.setState({running: true})
+        // this.setState({running: true})
         this.spinTheWheel()
     }
 

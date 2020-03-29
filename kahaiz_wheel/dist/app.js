@@ -28743,10 +28743,7 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.handleClick = function () {
-      _this.setState({
-        running: true
-      });
-
+      // this.setState({running: true})
       _this.spinTheWheel();
     };
 
@@ -28873,7 +28870,7 @@ __webpack_require__.r(__webpack_exports__);
   filename: "giant_mole.png"
 }, {
   name: "Kalphite Queen",
-  filname: "kalphite_queen.png"
+  filename: "kalphite_queen.png"
 }, {
   name: "Commander Zilyana",
   filename: "commander_zilyana.png"

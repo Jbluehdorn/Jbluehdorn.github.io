@@ -25,7 +25,7 @@ export default [
     },
     {
         name: "Kalphite Queen",
-        filname: "kalphite_queen.png"
+        filename: "kalphite_queen.png"
     },
     {
         name: "Commander Zilyana",
