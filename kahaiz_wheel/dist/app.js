@@ -28693,10 +28693,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return Wheel; });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _scenes_countdown__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../scenes/countdown */ "./src/js/scenes/countdown.js");
-/* harmony import */ var _scenes_spinImages__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../scenes/spinImages */ "./src/js/scenes/spinImages.js");
-/* harmony import */ var _scenes_showBossImage__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../scenes/showBossImage */ "./src/js/scenes/showBossImage.js");
-/* harmony import */ var _json_bosses__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../json/bosses */ "./src/js/json/bosses.js");
+/* harmony import */ var _util_shuffle__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util/shuffle */ "./src/js/util/shuffle.js");
+/* harmony import */ var _scenes_countdown__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../scenes/countdown */ "./src/js/scenes/countdown.js");
+/* harmony import */ var _scenes_spinImages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../scenes/spinImages */ "./src/js/scenes/spinImages.js");
+/* harmony import */ var _scenes_showBossImage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../scenes/showBossImage */ "./src/js/scenes/showBossImage.js");
+/* harmony import */ var _json_bosses__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../json/bosses */ "./src/js/json/bosses.js");
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _nonIterableSpread(); }
@@ -28722,6 +28723,7 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
 
 
 
@@ -28766,7 +28768,7 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
       var canvas = _this.canvasRef.current;
       var audio = document.getElementById('countdown_audio');
       audio.volume = 0.2;
-      Object(_scenes_countdown__WEBPACK_IMPORTED_MODULE_1__["countdown"])(canvas, cb, {
+      Object(_scenes_countdown__WEBPACK_IMPORTED_MODULE_2__["countdown"])(canvas, cb, {
         fillStyle: '#6441A4',
         audio: audio
       });
@@ -28774,12 +28776,10 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
 
     _this.runSpinAnimation = function (cb) {
       var canvas = _this.canvasRef.current;
-
-      var imgArr = _toConsumableArray(document.getElementById('bossImages').getElementsByTagName('img'));
-
+      var imgArr = Object(_util_shuffle__WEBPACK_IMPORTED_MODULE_1__["shuffle"])(_toConsumableArray(document.getElementById('bossImages').getElementsByTagName('img')));
       var audio = document.getElementById('spin_audio');
       audio.volume = 0.2;
-      Object(_scenes_spinImages__WEBPACK_IMPORTED_MODULE_2__["spinImages"])(canvas, cb, {
+      Object(_scenes_spinImages__WEBPACK_IMPORTED_MODULE_3__["spinImages"])(canvas, cb, {
         images: imgArr,
         audio: audio,
         imgSize: 50
@@ -28788,7 +28788,7 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
 
     _this.runShowBossImageAnimation = function (cb) {
       var canvas = _this.canvasRef.current;
-      var boss = _json_bosses__WEBPACK_IMPORTED_MODULE_4__["default"][Math.floor(Math.random() * _json_bosses__WEBPACK_IMPORTED_MODULE_4__["default"].length)];
+      var boss = _json_bosses__WEBPACK_IMPORTED_MODULE_5__["default"][Math.floor(Math.random() * _json_bosses__WEBPACK_IMPORTED_MODULE_5__["default"].length)];
 
       var img = _toConsumableArray(document.getElementById('bossImages').getElementsByTagName('img')).find(function (el) {
         return el.src.includes(boss.filename);
@@ -28796,7 +28796,7 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
 
       var audio = document.getElementById('found_audio');
       audio.volume = 0.2;
-      Object(_scenes_showBossImage__WEBPACK_IMPORTED_MODULE_3__["showBossImage"])(canvas, cb, {
+      Object(_scenes_showBossImage__WEBPACK_IMPORTED_MODULE_4__["showBossImage"])(canvas, cb, {
         image: img,
         name: boss.name,
         audio: audio,
@@ -29155,7 +29155,7 @@ var drawImages = function drawImages() {
 
   for (var i = 0; i < imgCount; i++) {
     ctx.save();
-    var rads = 360 / imgCount * Math.PI / 180 * i * 1.1; // Rotate and return
+    var rads = 360 / imgCount * Math.PI / 180 * i; // Rotate and return
 
     ctx.translate(cntrX, cntrY);
     ctx.rotate(rads);
@@ -29195,6 +29195,35 @@ var spinImages = function spinImages(canvas, callback, args) {
   imgH = opts.imgSize;
   imgW = opts.imgSize;
   animate();
+};
+
+/***/ }),
+
+/***/ "./src/js/util/shuffle.js":
+/*!********************************!*\
+  !*** ./src/js/util/shuffle.js ***!
+  \********************************/
+/*! exports provided: shuffle */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "shuffle", function() { return shuffle; });
+var shuffle = function shuffle(arr) {
+  var currentIndex = arr.length;
+  var temporaryValue, randomIndex; // While there remain elements to shuffle...
+
+  while (0 !== currentIndex) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1; // And swap it with the current element.
+
+    temporaryValue = arr[currentIndex];
+    arr[currentIndex] = arr[randomIndex];
+    arr[randomIndex] = temporaryValue;
+  }
+
+  return arr;
 };
 
 /***/ }),

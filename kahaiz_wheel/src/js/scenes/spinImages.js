@@ -50,7 +50,7 @@ const drawImages = () => {
 
     for(let i = 0; i < imgCount; i++) {
         ctx.save()
-        let rads = 360 / imgCount * Math.PI / 180 * i * 1.1
+        let rads = 360 / imgCount * Math.PI / 180 * i
 
         // Rotate and return
         ctx.translate(cntrX, cntrY)

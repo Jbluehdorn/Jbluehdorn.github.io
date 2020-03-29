@@ -1,5 +1,6 @@
 import React from 'react'
 
+import { shuffle } from '../util/shuffle'
 import { countdown } from '../scenes/countdown'
 import { spinImages } from '../scenes/spinImages'
 import { showBossImage } from '../scenes/showBossImage'
@@ -44,7 +45,7 @@ export default class Wheel extends React.Component {
 
     runSpinAnimation = (cb) => {
         const canvas = this.canvasRef.current
-        const imgArr = [...document.getElementById('bossImages').getElementsByTagName('img')]
+        const imgArr = shuffle([...document.getElementById('bossImages').getElementsByTagName('img')])
         const audio = document.getElementById('spin_audio')
         audio.volume = 0.2
 
