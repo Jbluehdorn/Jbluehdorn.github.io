@@ -28743,7 +28743,10 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.handleClick = function () {
-      // this.setState({running: true})
+      _this.setState({
+        running: true
+      });
+
       _this.spinTheWheel();
     };
 
