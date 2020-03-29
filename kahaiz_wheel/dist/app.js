@@ -29159,11 +29159,11 @@ var drawImages = function drawImages() {
 
     ctx.translate(cntrX, cntrY);
     ctx.rotate(rads);
-    ctx.translate(0, -h / 2 + imgH / 2); // Rotate back
+    ctx.translate(0, -h / 2 + imgH / 2); // Draw image
 
-    ctx.rotate(-rads); // Draw image
+    ctx.drawImage(images[i], -imgW / 2, -imgH / 2, imgW, imgH); // Rotate back
 
-    ctx.drawImage(images[i], -imgW / 2, -imgH / 2, imgW, imgH);
+    ctx.rotate(-rads);
     ctx.restore();
   }
 

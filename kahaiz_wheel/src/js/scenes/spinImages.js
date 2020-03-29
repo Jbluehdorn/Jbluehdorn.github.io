@@ -57,11 +57,11 @@ const drawImages = () => {
         ctx.rotate(rads)
         ctx.translate(0, -h/2 + imgH/2)
 
-        // Rotate back
-        ctx.rotate(-rads)
-
         // Draw image
         ctx.drawImage(images[i], -imgW/2, -imgH/2, imgW, imgH)
+
+        // Rotate back
+        ctx.rotate(-rads)
 
         ctx.restore()
     }
