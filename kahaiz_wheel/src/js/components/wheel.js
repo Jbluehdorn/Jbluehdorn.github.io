@@ -34,8 +34,10 @@ export default class Wheel extends React.Component {
     runStartAnimation = (cb) => {
         const canvas = this.canvasRef.current
         const audio = document.getElementById('countdown_audio')
+        audio.volume = 0.2
 
         countdown(canvas, cb, {
+            fillStyle: '#6441A4',
             audio: audio
         })
     }
@@ -44,6 +46,7 @@ export default class Wheel extends React.Component {
         const canvas = this.canvasRef.current
         const imgArr = [...document.getElementById('bossImages').getElementsByTagName('img')]
         const audio = document.getElementById('spin_audio')
+        audio.volume = 0.2
 
         spinImages(canvas, cb, {
             images: imgArr,
@@ -59,11 +62,13 @@ export default class Wheel extends React.Component {
             return el.src.includes(boss.filename) 
         })
         const audio = document.getElementById('found_audio')
+        audio.volume = 0.2
 
         showBossImage(canvas, cb, {
             image: img,
             name: boss.name,
-            audio: audio
+            audio: audio,
+            fillStyle: '#6441A4'
         })
     }
 
@@ -74,7 +79,7 @@ export default class Wheel extends React.Component {
                     <div className="col-12">
                         <div className="card">
                             <div className="card-header">
-                                <h1 className="card-title">The Wheel of Kahaiz</h1>
+                                <h1 className="card-title text-center">The Wheel of Kahaiz</h1>
                             </div>
                             <div className="card-body">
                                 <canvas ref={this.canvasRef} id="board" height="400" width="700"></canvas>

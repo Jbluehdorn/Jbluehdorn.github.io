@@ -28765,7 +28765,9 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
     _this.runStartAnimation = function (cb) {
       var canvas = _this.canvasRef.current;
       var audio = document.getElementById('countdown_audio');
+      audio.volume = 0.2;
       Object(_scenes_countdown__WEBPACK_IMPORTED_MODULE_1__["countdown"])(canvas, cb, {
+        fillStyle: '#6441A4',
         audio: audio
       });
     };
@@ -28776,6 +28778,7 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
       var imgArr = _toConsumableArray(document.getElementById('bossImages').getElementsByTagName('img'));
 
       var audio = document.getElementById('spin_audio');
+      audio.volume = 0.2;
       Object(_scenes_spinImages__WEBPACK_IMPORTED_MODULE_2__["spinImages"])(canvas, cb, {
         images: imgArr,
         audio: audio,
@@ -28792,10 +28795,12 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
       });
 
       var audio = document.getElementById('found_audio');
+      audio.volume = 0.2;
       Object(_scenes_showBossImage__WEBPACK_IMPORTED_MODULE_3__["showBossImage"])(canvas, cb, {
         image: img,
         name: boss.name,
-        audio: audio
+        audio: audio,
+        fillStyle: '#6441A4'
       });
     };
 
@@ -28817,7 +28822,7 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
-        className: "card-title"
+        className: "card-title text-center"
       }, "The Wheel of Kahaiz")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("canvas", {
