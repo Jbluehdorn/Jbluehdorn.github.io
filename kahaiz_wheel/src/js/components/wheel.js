@@ -9,7 +9,9 @@ import bossData from '../json/bosses'
 
 export default class Wheel extends React.Component {
     state = {
-        running: false
+        running: false,
+        vorkathEnabled: true,
+        bosses: bossData
     }
     
     constructor(props) {
@@ -45,7 +47,11 @@ export default class Wheel extends React.Component {
 
     runSpinAnimation = (cb) => {
         const canvas = this.canvasRef.current
-        const imgArr = shuffle([...document.getElementById('bossImages').getElementsByTagName('img')])
+        const imgArr = shuffle([...document.getElementById('bossImages').getElementsByTagName('img')].filter(img => {
+            return this.state.bosses.find(boss => {
+                return img.src.includes(boss.filename)
+            })
+        }))
         const audio = document.getElementById('spin_audio')
         audio.volume = 0.2
 
@@ -58,7 +64,7 @@ export default class Wheel extends React.Component {
 
     runShowBossImageAnimation = (cb) => {
         const canvas = this.canvasRef.current
-        const boss = bossData[Math.floor(Math.random() * bossData.length)]
+        const boss = this.state.bosses[Math.floor(Math.random() * this.state.bosses.length)]
         const img = [...document.getElementById('bossImages').getElementsByTagName('img')].find(el => {
             return el.src.includes(boss.filename) 
         })
@@ -71,6 +77,13 @@ export default class Wheel extends React.Component {
             audio: audio,
             fillStyle: '#6441A4'
         })
+    }
+
+    handleVorkathCheck = (e) => {
+        let filteredData = bossData.filter(boss => {
+            return e.target.checked ? boss.name !== 'Vorkath' : true
+        })
+        this.setState({vorkathEnabled: !e.target.checked, bosses: filteredData})
     }
 
     render() {
@@ -90,6 +103,11 @@ export default class Wheel extends React.Component {
                                         <span className="lead">Spin!</span>
                                     </button>
                                 </div>
+
+                                <div className="form-group text-center">
+                                    <input type="checkbox" className="form-check-input" onChange={this.handleVorkathCheck} />
+                                    <label className="form-check-label">Disable Vorkath</label>
+                                </div> 
                             </div>
                         </div>
                     </div>

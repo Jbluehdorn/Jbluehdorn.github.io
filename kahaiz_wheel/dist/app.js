@@ -28741,7 +28741,9 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Wheel).call(this, props));
     _this.state = {
-      running: false
+      running: false,
+      vorkathEnabled: true,
+      bosses: _json_bosses__WEBPACK_IMPORTED_MODULE_5__["default"]
     };
 
     _this.handleClick = function () {
@@ -28776,7 +28778,11 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
 
     _this.runSpinAnimation = function (cb) {
       var canvas = _this.canvasRef.current;
-      var imgArr = Object(_util_shuffle__WEBPACK_IMPORTED_MODULE_1__["shuffle"])(_toConsumableArray(document.getElementById('bossImages').getElementsByTagName('img')));
+      var imgArr = Object(_util_shuffle__WEBPACK_IMPORTED_MODULE_1__["shuffle"])(_toConsumableArray(document.getElementById('bossImages').getElementsByTagName('img')).filter(function (img) {
+        return _this.state.bosses.find(function (boss) {
+          return img.src.includes(boss.filename);
+        });
+      }));
       var audio = document.getElementById('spin_audio');
       audio.volume = 0.2;
       Object(_scenes_spinImages__WEBPACK_IMPORTED_MODULE_3__["spinImages"])(canvas, cb, {
@@ -28788,7 +28794,8 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
 
     _this.runShowBossImageAnimation = function (cb) {
       var canvas = _this.canvasRef.current;
-      var boss = _json_bosses__WEBPACK_IMPORTED_MODULE_5__["default"][Math.floor(Math.random() * _json_bosses__WEBPACK_IMPORTED_MODULE_5__["default"].length)];
+
+      var boss = _this.state.bosses[Math.floor(Math.random() * _this.state.bosses.length)];
 
       var img = _toConsumableArray(document.getElementById('bossImages').getElementsByTagName('img')).find(function (el) {
         return el.src.includes(boss.filename);
@@ -28801,6 +28808,17 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
         name: boss.name,
         audio: audio,
         fillStyle: '#6441A4'
+      });
+    };
+
+    _this.handleVorkathCheck = function (e) {
+      var filteredData = _json_bosses__WEBPACK_IMPORTED_MODULE_5__["default"].filter(function (boss) {
+        return e.target.checked ? boss.name !== 'Vorkath' : true;
+      });
+
+      _this.setState({
+        vorkathEnabled: !e.target.checked,
+        bosses: filteredData
       });
     };
 
@@ -28838,7 +28856,15 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
         disabled: this.state.running
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "lead"
-      }, "Spin!"))))))));
+      }, "Spin!"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "form-group text-center"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+        type: "checkbox",
+        className: "form-check-input",
+        onChange: this.handleVorkathCheck
+      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+        className: "form-check-label"
+      }, "Disable Vorkath")))))));
     }
   }]);
 
