@@ -28929,6 +28929,9 @@ __webpack_require__.r(__webpack_exports__);
 }, {
   name: "Gauntlet",
   filename: "gauntlet.png"
+}, {
+  name: "Corrupted Gauntlet",
+  filename: "corrupted_gauntlet.png"
 }]);
 
 /***/ }),

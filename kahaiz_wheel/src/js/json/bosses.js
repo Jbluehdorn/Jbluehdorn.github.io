@@ -58,5 +58,9 @@ export default [
     {
         name: "Gauntlet",
         filename: "gauntlet.png"
+    },
+    {
+        name: "Corrupted Gauntlet",
+        filename: "corrupted_gauntlet.png"
     }
 ]
