@@ -36,7 +36,7 @@ const animate = () => {
 
         ctx.font = `${newFont}px ${ctx.font.split(' ')[1]}`
 
-        ctx.fillText(name, w/2, h/2 + 100)
+        ctx.fillText(name, w/2, h/2 + 125)
     } else {
         cancelAnimationFrame(rAF)
         ctx.restore()

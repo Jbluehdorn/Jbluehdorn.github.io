@@ -28772,7 +28772,8 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
       audio.volume = 0.2;
       Object(_scenes_countdown__WEBPACK_IMPORTED_MODULE_2__["countdown"])(canvas, cb, {
         fillStyle: '#6441A4',
-        audio: audio
+        audio: audio,
+        font: '75px runescape-bold'
       });
     };
 
@@ -28807,7 +28808,8 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
         image: img,
         name: boss.name,
         audio: audio,
-        fillStyle: '#6441A4'
+        fillStyle: '#6441A4',
+        font: '75px runescape-bold'
       });
     };
 
@@ -29076,7 +29078,7 @@ var animate = function animate() {
     var newFont = curFontSize - 1;
     txtScale *= 1.00001;
     ctx.font = "".concat(newFont, "px ").concat(ctx.font.split(' ')[1]);
-    ctx.fillText(name, w / 2, h / 2 + 100);
+    ctx.fillText(name, w / 2, h / 2 + 125);
   } else {
     cancelAnimationFrame(rAF);
     ctx.restore();

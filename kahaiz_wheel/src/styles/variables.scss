@@ -1,3 +1,20 @@
+@font-face {
+    font-family: 'runescape';
+    font-style: normal;
+    font-weight: normal;
+    src:	url('https://images.wikia.nocookie.net/runescape/images/a/ab/Runescape_chat.eot') format('embedded-opentype'),
+      local("RuneScape Chat"),
+      url('https://images.wikia.nocookie.net/runescape/images/8/87/Runescape_chat.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'runescape-bold';
+    font-style: normal;
+    font-weight: bold;
+    src:	url('https://images.wikia.nocookie.net/runescape/images/1/1e/Runescape_chat_bold.eot') format('embedded-opentype'),
+      url('https://images.wikia.nocookie.net/runescape/images/e/e8/Runescape_chat_bold.woff') format('woff');
+}
+
 // COLORS
 $clrBg: #111;
 $clrBgSecondary: #292929;
@@ -10,4 +27,4 @@ $clrTxtSecondary: #FFF;
 // BOOTSTRAP OVERRIDES
 $primary: $clrPrimary;
 $secondary: $clrSecondary;
-$font-family-sans-serif: 'Arial Black', Gadget, sans-serif !default;
+$font-family-sans-serif: 'runescape-bold', 'Arial Black', Gadget, sans-serif !default;
