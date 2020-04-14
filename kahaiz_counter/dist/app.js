@@ -28689,21 +28689,23 @@ var Counter = /*#__PURE__*/function (_React$Component) {
           var audio;
 
           switch (12 - _this.state.count) {
-            case 3:
+            case 4:
               audio = document.getElementById('three_audio');
               break;
 
-            case 2:
+            case 3:
               audio = document.getElementById('two_audio');
               break;
 
-            case 1:
+            case 2:
               audio = document.getElementById('one_audio');
               break;
 
-            case 0:
+            case 1:
               audio = _this.state.style === 'mage' ? document.getElementById('range_audio') : document.getElementById('mage_audio');
+              break;
 
+            case 0:
               _this.setState({
                 count: 0,
                 style: _this.state.style === 'range' ? 'mage' : 'range'

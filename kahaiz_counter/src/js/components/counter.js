@@ -30,19 +30,21 @@ export default class Counter extends React.Component {
             timer: setInterval(() => {
                 let audio
                 switch(12 - this.state.count) {
-                    case 3:
+                    case 4:
                         audio = document.getElementById('three_audio')
                         break
-                    case 2:
+                    case 3:
                         audio = document.getElementById('two_audio')
                         break
-                    case 1:
+                    case 2:
                         audio = document.getElementById('one_audio')
                         break
-                    case 0:
+                    case 1:
                         audio = this.state.style === 'mage' ?
                             document.getElementById('range_audio') :
                             document.getElementById('mage_audio')
+                        break
+                    case 0:
                         this.setState({
                             count: 0,
                             style: this.state.style === 'range' ? 'mage' : 'range'
