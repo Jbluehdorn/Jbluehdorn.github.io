@@ -28715,7 +28715,10 @@ var Counter = /*#__PURE__*/function (_React$Component) {
               audio = null;
           }
 
-          if (audio) audio.play();
+          if (audio) {
+            audio.load();
+            audio.play();
+          }
 
           _this.setState({
             count: _this.state.count + 1
@@ -28752,7 +28755,7 @@ var Counter = /*#__PURE__*/function (_React$Component) {
         src: "./assets/img/".concat(_this.state.style === 'range' ? 'missles.png' : 'magic.png')
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "text-center mt-1"
-      }, "Switch to ", _this.state.style === 'range' ? 'Mage' : 'Range', " in ", 13 - _this.state.count, " seconds"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, "Switch to ", _this.state.style === 'range' ? 'Mage' : 'Range', " in ", 12 - _this.state.count, " seconds"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-primary btn-lg btn-block",
         onClick: _this.trample
       }, "Trampled"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {

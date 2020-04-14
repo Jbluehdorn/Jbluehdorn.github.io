@@ -52,8 +52,10 @@ export default class Counter extends React.Component {
                         audio = null
                 }
 
-                if(audio)
+                if(audio) {
+                    audio.load()
                     audio.play()
+                }
 
                 this.setState({count: this.state.count + 1})
             }, 1000)
@@ -89,7 +91,7 @@ export default class Counter extends React.Component {
                                         <img src={`./assets/img/${this.state.style === 'range' ? 'missles.png' : 'magic.png'}`} />
  
                                         <p className="text-center mt-1">
-                                            Switch to {this.state.style === 'range' ? 'Mage' : 'Range'} in {13 - this.state.count} seconds
+                                            Switch to {this.state.style === 'range' ? 'Mage' : 'Range'} in {12 - this.state.count} seconds
                                         </p>
                                         <button className="btn btn-primary btn-lg btn-block" onClick={this.trample}>
                                             Trampled
