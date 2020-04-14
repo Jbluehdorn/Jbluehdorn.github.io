@@ -28753,11 +28753,15 @@ var Counter = /*#__PURE__*/function (_React$Component) {
         className: "runningGroup"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "text-center mb-0"
-      }, "Pray ", _this.state.style === 'range' ? 'Range' : 'Mage'), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
+      }, "Pray ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: _this.state.style
+      }, _this.state.style === 'range' ? 'Range' : 'Mage')), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
         src: "./assets/img/".concat(_this.state.style === 'range' ? 'missles.png' : 'magic.png')
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "text-center mt-1"
-      }, "Switch to ", _this.state.style === 'range' ? 'Mage' : 'Range', " in ", 12 - _this.state.count, " seconds"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, "Switch to ", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: _this.state.style === 'range' ? 'mage' : 'range'
+      }, _this.state.style === 'range' ? 'Mage' : 'Range'), " in ", 12 - _this.state.count, " seconds"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-primary btn-lg btn-block",
         onClick: _this.trample
       }, "Trampled"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {

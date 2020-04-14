@@ -10896,6 +10896,14 @@ a.text-dark:focus {
   }
 }
 
+.counter .range {
+  color: #228B22;
+}
+
+.counter .mage {
+  color: #00BFFF;
+}
+
 .counter .btn-lg,
 .counter .btn-group-lg > .btn {
   padding: 2rem;
