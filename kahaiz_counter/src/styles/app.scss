@@ -1,0 +1,28 @@
+@import './variables.scss';
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+
+@import './components/counter.scss';
+
+body, html {
+    background: $clrBg;
+    color: $clrTxtPrimary;
+    text-shadow: 0 0 5px rgba(0,0,0, 0.5);
+}
+
+body {
+    margin-top: 15px;
+}
+
+.card {
+    background: $clrBgSecondary;
+
+    .card-header {
+        .card-title {
+            margin-bottom: 0;
+        }
+    }
+
+    .card-body {
+        color: $clrTxtSecondary;
+    }
+}
