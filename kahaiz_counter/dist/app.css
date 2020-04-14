@@ -10907,8 +10907,8 @@ a.text-dark:focus {
 }
 
 .counter .runningGroup img {
+  width: 50px;
   display: block;
-  width: 5%;
   margin: auto;
 }
 

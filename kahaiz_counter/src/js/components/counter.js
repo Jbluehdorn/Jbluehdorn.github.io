@@ -83,9 +83,13 @@ export default class Counter extends React.Component {
                                 }
                                 { this.state.running &&
                                     <div className="runningGroup">
+                                        <p className="text-center mb-0">
+                                            Pray {this.state.style === 'range' ? 'Range' : 'Mage'}
+                                        </p>
                                         <img src={`./assets/img/${this.state.style === 'range' ? 'missles.png' : 'magic.png'}`} />
-                                        <p className="text-center">
-                                            Pray {this.state.style === 'range' ? 'Mage' : 'Range'} in {13 - this.state.count} seconds
+ 
+                                        <p className="text-center mt-1">
+                                            Switch to {this.state.style === 'range' ? 'Mage' : 'Range'} in {13 - this.state.count} seconds
                                         </p>
                                         <button className="btn btn-primary btn-lg btn-block" onClick={this.trample}>
                                             Trampled
