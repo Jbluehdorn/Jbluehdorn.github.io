@@ -28702,7 +28702,7 @@ var Counter = /*#__PURE__*/function (_React$Component) {
               break;
 
             case 0:
-              audio = _this.state.style === 'range' ? document.getElementById('range_audio') : document.getElementById('mage_audio');
+              audio = _this.state.style === 'mage' ? document.getElementById('range_audio') : document.getElementById('mage_audio');
 
               _this.setState({
                 count: 0,
@@ -28747,7 +28747,7 @@ var Counter = /*#__PURE__*/function (_React$Component) {
       }, "Start (1 sec after 1st attack)"), _this.state.running && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "runningGroup"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("img", {
-        src: "./assets/img/".concat(_this.state.style === 'range' ? 'magic.png' : 'missles.png')
+        src: "./assets/img/".concat(_this.state.style === 'range' ? 'missles.png' : 'magic.png')
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "text-center"
       }, "Pray ", _this.state.style === 'range' ? 'Mage' : 'Range', " in ", 13 - _this.state.count, " seconds"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {

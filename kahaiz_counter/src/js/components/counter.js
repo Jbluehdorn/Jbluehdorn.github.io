@@ -40,7 +40,7 @@ export default class Counter extends React.Component {
                         audio = document.getElementById('one_audio')
                         break
                     case 0:
-                        audio = this.state.style === 'range' ?
+                        audio = this.state.style === 'mage' ?
                             document.getElementById('range_audio') :
                             document.getElementById('mage_audio')
                         this.setState({
@@ -83,7 +83,7 @@ export default class Counter extends React.Component {
                                 }
                                 { this.state.running &&
                                     <div className="runningGroup">
-                                        <img src={`./assets/img/${this.state.style === 'range' ? 'magic.png' : 'missles.png'}`} />
+                                        <img src={`./assets/img/${this.state.style === 'range' ? 'missles.png' : 'magic.png'}`} />
                                         <p className="text-center">
                                             Pray {this.state.style === 'range' ? 'Mage' : 'Range'} in {13 - this.state.count} seconds
                                         </p>
