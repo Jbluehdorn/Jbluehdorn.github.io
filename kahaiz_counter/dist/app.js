@@ -28750,7 +28750,7 @@ var Counter = /*#__PURE__*/function (_React$Component) {
         src: "./assets/img/".concat(_this.state.style === 'range' ? 'magic.png' : 'missles.png')
       }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
         className: "text-center"
-      }, "Pray ", _this.state.style === 'range' ? 'Mage' : 'Range', " in ", 12 - _this.state.count, " seconds"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, "Pray ", _this.state.style === 'range' ? 'Mage' : 'Range', " in ", 13 - _this.state.count, " seconds"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-primary btn-lg btn-block",
         onClick: _this.trample
       }, "Trampled"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
