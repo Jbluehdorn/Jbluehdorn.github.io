@@ -72,6 +72,7 @@ export default class Counter extends React.Component {
                 }
 
                 if(audio) {
+                    audio.volume = 0.5
                     audio.load()
                     audio.play()
                 }
