@@ -28672,7 +28672,14 @@ var Counter = /*#__PURE__*/function (_React$Component) {
       style: 'range',
       count: 4,
       running: false,
-      timer: null
+      timer: null,
+      audio: {
+        one: null,
+        two: null,
+        three: null,
+        range: null,
+        mage: null
+      }
     }, _this.reset = function () {
       if (_this.state.timer) clearInterval(_this.state.timer);
 
@@ -28690,19 +28697,19 @@ var Counter = /*#__PURE__*/function (_React$Component) {
 
           switch (12 - _this.state.count) {
             case 4:
-              audio = document.getElementById('three_audio');
+              audio = _this.state.audio.three;
               break;
 
             case 3:
-              audio = document.getElementById('two_audio');
+              audio = _this.state.audio.two;
               break;
 
             case 2:
-              audio = document.getElementById('one_audio');
+              audio = _this.state.audio.one;
               break;
 
             case 1:
-              audio = _this.state.style === 'mage' ? document.getElementById('range_audio') : document.getElementById('mage_audio');
+              audio = _this.state.style === 'mage' ? _this.state.audio.range : _this.state.audio.mage;
               break;
 
             case 0:
@@ -28775,6 +28782,15 @@ var Counter = /*#__PURE__*/function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       this.reset();
+      this.setState({
+        audio: {
+          one: document.getElementById('one_audio'),
+          two: document.getElementById('two_audio'),
+          three: document.getElementById('three_audio'),
+          range: document.getElementById('range_audio'),
+          mage: document.getElementById('mage_audio')
+        }
+      });
     }
   }]);
 

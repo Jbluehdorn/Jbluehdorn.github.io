@@ -5,11 +5,28 @@ export default class Counter extends React.Component {
         style: 'range',
         count: 4,
         running: false,
-        timer: null
+        timer: null,
+        audio: {
+            one: null,
+            two: null,
+            three: null,
+            range: null,
+            mage: null
+        }
     }
 
     componentDidMount() {
         this.reset()
+
+        this.setState({
+            audio: {
+                one: document.getElementById('one_audio'),
+                two: document.getElementById('two_audio'),
+                three: document.getElementById('three_audio'),
+                range: document.getElementById('range_audio'),
+                mage: document.getElementById('mage_audio')
+            }
+        })
     }
 
     reset = () => {
@@ -31,18 +48,18 @@ export default class Counter extends React.Component {
                 let audio
                 switch(12 - this.state.count) {
                     case 4:
-                        audio = document.getElementById('three_audio')
+                        audio = this.state.audio.three
                         break
                     case 3:
-                        audio = document.getElementById('two_audio')
+                        audio = this.state.audio.two
                         break
                     case 2:
-                        audio = document.getElementById('one_audio')
+                        audio = this.state.audio.one
                         break
                     case 1:
                         audio = this.state.style === 'mage' ?
-                            document.getElementById('range_audio') :
-                            document.getElementById('mage_audio')
+                            this.state.audio.range :
+                            this.state.audio.mage
                         break
                     case 0:
                         this.setState({
