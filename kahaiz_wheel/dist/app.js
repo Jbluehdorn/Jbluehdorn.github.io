@@ -28964,45 +28964,55 @@ var rAF;
 var velocity;
 var curVelocity;
 var cb;
-var audio;
+var audio; // Throttling controls
+
+var fps = 60;
+var fpsInterval, now, then, elapsed;
 
 var animate = function animate() {
-  rAF = requestAnimationFrame(animate); // Clear the canvas
+  rAF = requestAnimationFrame(animate); // calc time since last loop
 
-  ctx.clearRect(0, 0, w, h); // Check if the number has changed
+  now = Date.now();
+  elapsed = now - then; // if enough time has passed, draw the next frame
 
-  if (Date.now() - start > 1000) {
-    start = Date.now();
-    ctx.font = originalFont;
-    curVelocity = velocity;
-    num--;
+  if (elapsed > fpsInterval) {
+    then = now - elapsed % fpsInterval; // Clear the canvas
 
-    if (num === 0) {
-      cancelAnimationFrame(rAF);
-      ctx.clearRect(0, 0, w, h);
-      typeof cb === 'function' && cb();
-      return;
+    ctx.clearRect(0, 0, w, h); // Check if the number has changed
+
+    if (Date.now() - start > 1000) {
+      start = Date.now();
+      ctx.font = originalFont;
+      curVelocity = velocity;
+      num--;
+
+      if (num === 0) {
+        cancelAnimationFrame(rAF);
+        ctx.clearRect(0, 0, w, h);
+        typeof cb === 'function' && cb();
+        return;
+      } else {
+        audio && audio.play();
+      }
     } else {
-      audio && audio.play();
+      var _fontParts = ctx.font.split(' ');
+
+      var curFontSize = parseInt(_fontParts[_fontParts.length - 2]);
+      var newFontSize = curFontSize - curVelocity;
+      curVelocity *= .85;
+      var newFont = '';
+
+      for (var i = 0; i < _fontParts.length - 2; i++) {
+        newFont += _fontParts[i] + ' ';
+      }
+
+      newFont += "".concat(Math.floor(newFontSize), "px ").concat(_fontParts[_fontParts.length - 1]);
+      ctx.font = newFont;
     }
-  } else {
-    var _fontParts = ctx.font.split(' ');
 
-    var curFontSize = parseInt(_fontParts[_fontParts.length - 2]);
-    var newFontSize = curFontSize - curVelocity;
-    curVelocity *= .85;
-    var newFont = '';
-
-    for (var i = 0; i < _fontParts.length - 2; i++) {
-      newFont += _fontParts[i] + ' ';
-    }
-
-    newFont += "".concat(Math.floor(newFontSize), "px ").concat(_fontParts[_fontParts.length - 1]);
-    ctx.font = newFont;
+    var fontParts = ctx.font.split(' ');
+    ctx.fillText(num.toString(), w / 2, h / 2 + parseInt(fontParts[fontParts.length - 2]) / 2);
   }
-
-  var fontParts = ctx.font.split(' ');
-  ctx.fillText(num.toString(), w / 2, h / 2 + parseInt(fontParts[fontParts.length - 2]) / 2);
 };
 
 var countdown = function countdown(canvas, callback, args) {
@@ -29028,6 +29038,8 @@ var countdown = function countdown(canvas, callback, args) {
   ctx.fillStyle = opts.fillStyle;
   ctx.fillText('3', w / 2, h / 2);
   audio && audio.play();
+  fpsInterval = 1000 / fps;
+  then = Date.now();
   animate();
 };
 
@@ -29050,43 +29062,53 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 var ctx, h, w, rAF, cb;
-var image, name, txtScale, imgScale, imgH, imgW, loopCount, audioHasPlayed, audio;
+var image, name, txtScale, imgScale, imgH, imgW, loopCount, audioHasPlayed, audio; // Throttling controls
+
+var fps = 60;
+var fpsInterval, now, then, elapsed;
 
 var animate = function animate() {
-  rAF = requestAnimationFrame(animate); //clear the current contents
+  rAF = requestAnimationFrame(animate); // calc time since last loop
 
-  ctx.restore();
+  now = Date.now();
+  elapsed = now - then; // if enough time has passed, draw the next frame
 
-  if (loopCount >= 100) {
-    cancelAnimationFrame(rAF);
-    audioHasPlayed = false;
-    return;
-  }
+  if (elapsed > fpsInterval) {
+    then = now - elapsed % fpsInterval; //clear the current contents
 
-  if (audio && !audioHasPlayed) {
-    audioHasPlayed = true;
-    audio.play();
-  }
-
-  if (loopCount <= 10) {
-    ctx.clearRect(0, 0, w, h);
-    ctx.drawImage(image, w / 2 - imgW * imgScale / 2, h * imgScale / 2 - imgH / 2, imgW * imgScale, imgH * imgScale);
-    imgScale *= 1.0075;
-  } else if (loopCount < 25) {
-    ctx.clearRect(0, h / 2 + 50, w, h);
-    var curFontSize = parseInt(ctx.font.split(' ')[0]);
-    var newFont = curFontSize - 1;
-    txtScale *= 1.00001;
-    ctx.font = "".concat(newFont, "px ").concat(ctx.font.split(' ')[1]);
-    ctx.fillText(name, w / 2, h / 2 + 125);
-  } else {
-    cancelAnimationFrame(rAF);
     ctx.restore();
-    typeof cb === 'function' && cb();
-    return;
-  }
 
-  loopCount++;
+    if (loopCount >= 100) {
+      cancelAnimationFrame(rAF);
+      audioHasPlayed = false;
+      return;
+    }
+
+    if (audio && !audioHasPlayed) {
+      audioHasPlayed = true;
+      audio.play();
+    }
+
+    if (loopCount <= 10) {
+      ctx.clearRect(0, 0, w, h);
+      ctx.drawImage(image, w / 2 - imgW * imgScale / 2, h * imgScale / 2 - imgH / 2, imgW * imgScale, imgH * imgScale);
+      imgScale *= 1.0075;
+    } else if (loopCount < 25) {
+      ctx.clearRect(0, h / 2 + 50, w, h);
+      var curFontSize = parseInt(ctx.font.split(' ')[0]);
+      var newFont = curFontSize - 1;
+      txtScale *= 1.00001;
+      ctx.font = "".concat(newFont, "px ").concat(ctx.font.split(' ')[1]);
+      ctx.fillText(name, w / 2, h / 2 + 125);
+    } else {
+      cancelAnimationFrame(rAF);
+      ctx.restore();
+      typeof cb === 'function' && cb();
+      return;
+    }
+
+    loopCount++;
+  }
 };
 
 var showBossImage = function showBossImage(canvas, callback, args) {
@@ -29116,6 +29138,8 @@ var showBossImage = function showBossImage(canvas, callback, args) {
   image = opts.image;
   name = opts.name;
   audio = opts.audio;
+  fpsInterval = 1000 / fps;
+  then = Date.now();
   animate();
 };
 
@@ -29140,45 +29164,55 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 var cb, ctx, h, w, cntrX, cntrY, images, imgCount, imgH, imgW, rAF, audio;
 var loopCount = 0,
     dScale = 1,
-    audioHasPlayed = false;
+    audioHasPlayed = false; // Rate throttling controls
+
+var fps = 60;
+var fpsInterval, now, then, elapsed;
 
 var animate = function animate() {
-  rAF = requestAnimationFrame(animate);
+  rAF = requestAnimationFrame(animate); // calc time since last loop
 
-  if (loopCount >= 175) {
+  now = Date.now();
+  elapsed = now - then; //if enough time has passed, draw the next frame
+
+  if (elapsed > fpsInterval) {
+    then = now - elapsed % fpsInterval;
+
+    if (loopCount >= 175) {
+      ctx.restore();
+      ctx.clearRect(0, 0, w, h);
+      ctx.resetTransform();
+      cancelAnimationFrame(rAF);
+      audioHasPlayed = false;
+      typeof cb === 'function' && cb();
+      return;
+    }
+
+    if (loopCount < 75) {
+      drawImages();
+      loopCount++;
+      return;
+    }
+
+    if (audio && !audioHasPlayed) {
+      audioHasPlayed = true;
+      audio.play();
+    } //clear the canvas 
+
+
     ctx.restore();
-    ctx.clearRect(0, 0, w, h);
-    ctx.resetTransform();
-    cancelAnimationFrame(rAF);
-    audioHasPlayed = false;
-    typeof cb === 'function' && cb();
-    return;
-  }
+    ctx.clearRect(-2, -2, w + 2, h + 2); // rotate about center
 
-  if (loopCount < 75) {
+    ctx.translate(cntrX, cntrY);
+    ctx.rotate(5 * Math.PI / 180);
+    ctx.translate(-cntrX, -cntrY); // move and scale
+
+    ctx.translate(cntrX - cntrX * dScale, cntrY - cntrY * dScale);
+    ctx.scale(dScale, dScale);
     drawImages();
+    dScale *= .999;
     loopCount++;
-    return;
   }
-
-  if (audio && !audioHasPlayed) {
-    audioHasPlayed = true;
-    audio.play();
-  } //clear the canvas 
-
-
-  ctx.restore();
-  ctx.clearRect(-2, -2, w + 2, h + 2); // rotate about center
-
-  ctx.translate(cntrX, cntrY);
-  ctx.rotate(5 * Math.PI / 180);
-  ctx.translate(-cntrX, -cntrY); // move and scale
-
-  ctx.translate(cntrX - cntrX * dScale, cntrY - cntrY * dScale);
-  ctx.scale(dScale, dScale);
-  drawImages();
-  dScale *= .999;
-  loopCount++;
 };
 
 var drawImages = function drawImages() {
@@ -29225,6 +29259,8 @@ var spinImages = function spinImages(canvas, callback, args) {
   audio = opts.audio;
   imgH = opts.imgSize;
   imgW = opts.imgSize;
+  fpsInterval = 1000 / fps;
+  then = Date.now();
   animate();
 };
 

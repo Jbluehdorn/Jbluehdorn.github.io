@@ -1,50 +1,63 @@
 let ctx, h, w, rAF, cb 
 let image, name, txtScale, imgScale, imgH, imgW, loopCount, audioHasPlayed, audio
 
+// Throttling controls
+const fps = 60
+let fpsInterval, now, then, elapsed
+
 const animate = () => {
     rAF = requestAnimationFrame(animate)
 
-    //clear the current contents
-    ctx.restore()
-    
-    if(loopCount >= 100) {
-        cancelAnimationFrame(rAF)
-        audioHasPlayed = false
-        return
-    }
+    // calc time since last loop
+    now = Date.now()
+    elapsed = now - then
 
-    if(audio && !audioHasPlayed) {
-        audioHasPlayed = true
-        audio.play()
-    }
+    // if enough time has passed, draw the next frame
+    if(elapsed > fpsInterval) {
+        then = now - (elapsed % fpsInterval)
 
-    if(loopCount <= 10) {
-        ctx.clearRect(0, 0, w, h)
-        ctx.drawImage(
-            image, 
-            w / 2 - imgW * imgScale / 2, 
-            h * imgScale / 2 - imgH / 2, 
-            imgW * imgScale, 
-            imgH * imgScale
-        )
-        imgScale *= 1.0075
-    } else if (loopCount < 25) {
-        ctx.clearRect(0, h/2 + 50, w, h)
-        const curFontSize = parseInt(ctx.font.split(' ')[0])
-        const newFont = curFontSize - 1
-        txtScale *= 1.00001
-
-        ctx.font = `${newFont}px ${ctx.font.split(' ')[1]}`
-
-        ctx.fillText(name, w/2, h/2 + 125)
-    } else {
-        cancelAnimationFrame(rAF)
+        //clear the current contents
         ctx.restore()
-        typeof cb === 'function' && cb()
-        return
-    }
+        
+        if(loopCount >= 100) {
+            cancelAnimationFrame(rAF)
+            audioHasPlayed = false
+            return
+        }
 
-    loopCount++
+        if(audio && !audioHasPlayed) {
+            audioHasPlayed = true
+            audio.play()
+        }
+
+        if(loopCount <= 10) {
+            ctx.clearRect(0, 0, w, h)
+            ctx.drawImage(
+                image, 
+                w / 2 - imgW * imgScale / 2, 
+                h * imgScale / 2 - imgH / 2, 
+                imgW * imgScale, 
+                imgH * imgScale
+            )
+            imgScale *= 1.0075
+        } else if (loopCount < 25) {
+            ctx.clearRect(0, h/2 + 50, w, h)
+            const curFontSize = parseInt(ctx.font.split(' ')[0])
+            const newFont = curFontSize - 1
+            txtScale *= 1.00001
+
+            ctx.font = `${newFont}px ${ctx.font.split(' ')[1]}`
+
+            ctx.fillText(name, w/2, h/2 + 125)
+        } else {
+            cancelAnimationFrame(rAF)
+            ctx.restore()
+            typeof cb === 'function' && cb()
+            return
+        }
+
+        loopCount++
+    }
 }
 
 export const showBossImage = (canvas, callback, args) => {
@@ -79,6 +92,9 @@ export const showBossImage = (canvas, callback, args) => {
     image = opts.image
     name = opts.name
     audio = opts.audio
+
+    fpsInterval = 1000 / fps
+    then = Date.now()
 
     animate()
 }
