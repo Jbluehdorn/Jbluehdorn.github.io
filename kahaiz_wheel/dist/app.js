@@ -28708,6 +28708,12 @@ function _iterableToArray(iter) { if (Symbol.iterator in Object(iter) || Object.
 
 function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = new Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } }
 
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -28742,8 +28748,12 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Wheel).call(this, props));
     _this.state = {
       running: false,
-      vorkathEnabled: true,
-      bosses: _json_bosses__WEBPACK_IMPORTED_MODULE_5__["default"]
+      bosses: _json_bosses__WEBPACK_IMPORTED_MODULE_5__["default"].map(function (boss) {
+        return _objectSpread({}, boss, {
+          enabled: true
+        });
+      }),
+      opsModalShown: false
     };
 
     _this.handleClick = function () {
@@ -28780,7 +28790,7 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
     _this.runSpinAnimation = function (cb) {
       var canvas = _this.canvasRef.current;
       var imgArr = Object(_util_shuffle__WEBPACK_IMPORTED_MODULE_1__["shuffle"])(_toConsumableArray(document.getElementById('bossImages').getElementsByTagName('img')).filter(function (img) {
-        return _this.state.bosses.find(function (boss) {
+        return _this.filteredBosses.find(function (boss) {
           return img.src.includes(boss.filename);
         });
       }));
@@ -28796,7 +28806,7 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
     _this.runShowBossImageAnimation = function (cb) {
       var canvas = _this.canvasRef.current;
 
-      var boss = _this.state.bosses[Math.floor(Math.random() * _this.state.bosses.length)];
+      var boss = _this.filteredBosses[Math.floor(Math.random() * _this.filteredBosses.length)];
 
       var img = _toConsumableArray(document.getElementById('bossImages').getElementsByTagName('img')).find(function (el) {
         return el.src.includes(boss.filename);
@@ -28813,24 +28823,31 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
       });
     };
 
-    _this.handleVorkathCheck = function (e) {
-      var filteredData = _json_bosses__WEBPACK_IMPORTED_MODULE_5__["default"].filter(function (boss) {
-        return e.target.checked ? boss.name !== 'Vorkath' : true;
-      });
-
+    _this.handleToggleBoss = function (e, boss) {
       _this.setState({
-        vorkathEnabled: !e.target.checked,
-        bosses: filteredData
+        bosses: _this.state.bosses.map(function (el) {
+          if (el.name === boss.name) {
+            el.enabled = e.target.checked;
+          }
+
+          return el;
+        })
       });
     };
 
-    _this.canvasRef = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
-    return _this;
-  }
+    _this.handleOpenModal = function () {
+      _this.setState({
+        opsModalShown: true
+      });
+    };
 
-  _createClass(Wheel, [{
-    key: "render",
-    value: function render() {
+    _this.handleCloseModal = function () {
+      _this.setState({
+        opsModalShown: false
+      });
+    };
+
+    _this.renderBody = function () {
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "wheel"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -28846,7 +28863,7 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
       }, "The Wheel of Kahaiz")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("canvas", {
-        ref: this.canvasRef,
+        ref: _this.canvasRef,
         id: "board",
         height: "400",
         width: "700"
@@ -28854,19 +28871,76 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
         className: "form-group text-center"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-primary",
-        onClick: this.handleClick,
-        disabled: this.state.running
+        onClick: _this.handleClick,
+        disabled: _this.state.running
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
         className: "lead"
       }, "Spin!"))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "form-group text-center"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
-        type: "checkbox",
-        className: "form-check-input",
-        onChange: this.handleVorkathCheck
-      }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
-        className: "form-check-label"
-      }, "Disable Vorkath")))))));
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-secondary",
+        onClick: _this.handleOpenModal
+      }, "Config")))))));
+    };
+
+    _this.renderOptionsModal = function () {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal",
+        tabIndex: "-1",
+        style: {
+          display: _this.state.opsModalShown ? 'block' : 'none'
+        }
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-dialog"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-content"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-header"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h5", {
+        className: "modal-title"
+      }, "Options")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "modal-body"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "container-fluid"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "row"
+      }, _this.state.bosses.map(function (boss, index) {
+        return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+          className: "col-6 custom-control custom-switch",
+          key: index
+        }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("input", {
+          type: "checkbox",
+          className: "custom-control-input",
+          id: "".concat(index),
+          checked: boss.enabled,
+          onChange: function onChange(e) {
+            return _this.handleToggleBoss(e, boss);
+          }
+        }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("label", {
+          className: "custom-control-label",
+          htmlFor: "".concat(index)
+        }, boss.name));
+      }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-primary btn-block",
+        onClick: _this.handleCloseModal
+      }, "Close")))));
+    };
+
+    _this.canvasRef = react__WEBPACK_IMPORTED_MODULE_0___default.a.createRef();
+    return _this;
+  }
+
+  _createClass(Wheel, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_0___default.a.Fragment, null, this.renderBody(), this.renderOptionsModal());
+    }
+  }, {
+    key: "filteredBosses",
+    get: function get() {
+      return this.state.bosses.filter(function (boss) {
+        return boss.enabled;
+      });
     }
   }]);
 
@@ -28930,7 +29004,7 @@ __webpack_require__.r(__webpack_exports__);
   filename: "verzik.png"
 }, {
   name: "Gauntlet",
-  filename: "gauntlet.png"
+  filename: "normal_gauntlet.png"
 }, {
   name: "Corrupted Gauntlet",
   filename: "corrupted_gauntlet.png"

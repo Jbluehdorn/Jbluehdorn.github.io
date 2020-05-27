@@ -10,13 +10,19 @@ import bossData from '../json/bosses'
 export default class Wheel extends React.Component {
     state = {
         running: false,
-        vorkathEnabled: true,
-        bosses: bossData
+        bosses: bossData.map(boss => {
+            return {...boss, enabled: true}
+        }),
+        opsModalShown: false
     }
-    
+
     constructor(props) {
         super(props)
         this.canvasRef = React.createRef()
+    }
+
+    get filteredBosses() {
+        return this.state.bosses.filter(boss => boss.enabled)
     }
 
     handleClick = () => {
@@ -49,7 +55,7 @@ export default class Wheel extends React.Component {
     runSpinAnimation = (cb) => {
         const canvas = this.canvasRef.current
         const imgArr = shuffle([...document.getElementById('bossImages').getElementsByTagName('img')].filter(img => {
-            return this.state.bosses.find(boss => {
+            return this.filteredBosses.find(boss => {
                 return img.src.includes(boss.filename)
             })
         }))
@@ -65,7 +71,7 @@ export default class Wheel extends React.Component {
 
     runShowBossImageAnimation = (cb) => {
         const canvas = this.canvasRef.current
-        const boss = this.state.bosses[Math.floor(Math.random() * this.state.bosses.length)]
+        const boss = this.filteredBosses[Math.floor(Math.random() * this.filteredBosses.length)]
         const img = [...document.getElementById('bossImages').getElementsByTagName('img')].find(el => {
             return el.src.includes(boss.filename) 
         })
@@ -81,15 +87,32 @@ export default class Wheel extends React.Component {
         })
     }
 
-    handleVorkathCheck = (e) => {
-        let filteredData = bossData.filter(boss => {
-            return e.target.checked ? boss.name !== 'Vorkath' : true
+    handleToggleBoss = (e, boss) => {
+        this.setState({
+            bosses: this.state.bosses.map(el => {
+                if(el.name === boss.name) {
+                    el.enabled = e.target.checked
+                }
+
+                return el
+            })
         })
-        this.setState({vorkathEnabled: !e.target.checked, bosses: filteredData})
     }
 
-    render() {
-        return (
+    handleOpenModal = () => {
+        this.setState({
+            opsModalShown: true
+        })
+    }
+
+    handleCloseModal = () => {
+        this.setState({
+            opsModalShown: false
+        })
+    }
+
+    renderBody = () => {
+        return ( 
             <div className="wheel">
                 <div className="row">
                     <div className="col-12">
@@ -107,14 +130,60 @@ export default class Wheel extends React.Component {
                                 </div>
 
                                 <div className="form-group text-center">
-                                    <input type="checkbox" className="form-check-input" onChange={this.handleVorkathCheck} />
-                                    <label className="form-check-label">Disable Vorkath</label>
-                                </div> 
+                                    <button className="btn btn-secondary" onClick={this.handleOpenModal}>
+                                        Config
+                                    </button>
+                                </div>
+                                
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        )
+    }
+
+    renderOptionsModal = () => {
+        return (
+            <div className="modal" tabIndex="-1" style={{ display: this.state.opsModalShown ? 'block' : 'none' }}>
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title">
+                                Options
+                            </h5>
+                        </div>
+
+                        <div className="modal-body">
+                            <div className="container-fluid"> 
+                                <div className="row">
+                                    {this.state.bosses.map((boss, index) => {
+                                        return (
+                                            <div className="col-6 custom-control custom-switch" key={index}>
+                                                <input type="checkbox" className="custom-control-input" id={`${index}`} checked={boss.enabled} onChange={(e) => this.handleToggleBoss(e, boss)} />
+                                                <label className="custom-control-label" htmlFor={`${index}`}>{boss.name}</label>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </div>
+
+                            <br />
+
+                            <button className="btn btn-primary btn-block" onClick={this.handleCloseModal}>Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        )
+    }
+
+    render() {
+        return (
+            <>
+                { this.renderBody() }
+                { this.renderOptionsModal() }
+            </>
         )
     }
 }

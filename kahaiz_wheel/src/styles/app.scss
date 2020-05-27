@@ -30,3 +30,21 @@ body {
         color: $clrTxtSecondary;
     }
 }
+
+.modal {
+    background-color: rgba(0, 0, 0, 0.4);
+    
+    .modal-content {
+        background: $clrBgSecondary;
+
+        .modal-header {
+            .modal-title {
+                margin-bottom: 0;
+            }
+        }
+    
+        .modal-body {
+            color: $clrTxtSecondary;
+        }
+    }
+}

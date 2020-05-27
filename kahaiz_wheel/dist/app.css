@@ -10929,3 +10929,19 @@ body {
   color: #FFF;
 }
 
+.modal {
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal .modal-content {
+  background: #292929;
+}
+
+.modal .modal-content .modal-header .modal-title {
+  margin-bottom: 0;
+}
+
+.modal .modal-content .modal-body {
+  color: #FFF;
+}
+
