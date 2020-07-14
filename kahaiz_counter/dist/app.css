@@ -10943,3 +10943,8 @@ body {
   color: #FFF;
 }
 
+#contact {
+  float: right;
+  margin-right: 1em;
+}
+
