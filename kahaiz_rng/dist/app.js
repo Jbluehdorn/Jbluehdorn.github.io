@@ -45977,7 +45977,12 @@ var Rng = /*#__PURE__*/function (_React$Component) {
       tempMax: 50,
       min: undefined,
       max: undefined,
-      value: undefined
+      value: undefined,
+      rigged: false
+    }, _this.handleRigChange = function (rig) {
+      _this.setState({
+        rigged: rig
+      });
     }, _this.handleMinChange = function (e) {
       _this.setState({
         tempMin: parseInt(e.target.value)
@@ -46041,6 +46046,8 @@ var Rng = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
+      var _this2 = this;
+
       return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "rng"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -46084,7 +46091,21 @@ var Rng = /*#__PURE__*/function (_React$Component) {
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-primary",
         onClick: this.handleBtnClick
-      }, "Roll the dice!")))))));
+      }, "Roll the dice!")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "text-center mt-1"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-sm btn-secondary mr-1",
+        disabled: this.state.rigged,
+        onClick: function onClick() {
+          return _this2.handleRigChange(true);
+        }
+      }, "Rig"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+        className: "btn btn-sm btn-secondary ml-1",
+        disabled: !this.state.rigged,
+        onClick: function onClick() {
+          return _this2.handleRigChange(false);
+        }
+      }, "Un-Rig")))))));
     }
   }]);
 

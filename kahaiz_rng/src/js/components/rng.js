@@ -8,13 +8,20 @@ export default class Rng extends React.Component {
         tempMax: 50,
         min: undefined,
         max: undefined,
-        value: undefined
+        value: undefined,
+        rigged: false
     }
 
     componentDidMount() {
         this.setState({
             min: this.state.tempMin,
             max: this.state.tempMax
+        })
+    }
+
+    handleRigChange = (rig) => {
+        this.setState({
+            rigged: rig
         })
     }
 
@@ -105,6 +112,13 @@ export default class Rng extends React.Component {
 
                                 <div className="text-center mt-1">
                                     <button className="btn btn-primary" onClick={this.handleBtnClick}>Roll the dice!</button>
+                                </div>
+
+                                <hr />
+
+                                <div className="text-center mt-1">
+                                    <button className="btn btn-sm btn-secondary mr-1" disabled={this.state.rigged} onClick={() => this.handleRigChange(true)}>Rig</button>
+                                    <button className="btn btn-sm btn-secondary ml-1" disabled={!this.state.rigged} onClick={() => this.handleRigChange(false)}>Un-Rig</button>
                                 </div>
                             </div>
                         </div>

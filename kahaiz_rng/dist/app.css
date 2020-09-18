@@ -10904,6 +10904,11 @@ a.text-dark:focus {
   font-size: 1.5rem;
 }
 
+.rng .btn.btn-sm,
+.rng .btn-group-sm > .btn {
+  font-size: 1rem;
+}
+
 .rng .big-number {
   font-size: 3rem;
 }
