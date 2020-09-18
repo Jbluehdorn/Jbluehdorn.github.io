@@ -45974,7 +45974,7 @@ var Rng = /*#__PURE__*/function (_React$Component) {
 
     return _possibleConstructorReturn(_this, (_temp = _this = _super.call.apply(_super, [this].concat(args)), _this.state = {
       tempMin: 1,
-      tempMax: 1000,
+      tempMax: 50,
       min: undefined,
       max: undefined,
       value: undefined
@@ -46113,8 +46113,8 @@ var Rng = /*#__PURE__*/function (_React$Component) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\User\Documents\projects\Jbluehdorn.github.io\kahaiz_rng\src\js\app.js */"./src/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\User\Documents\projects\Jbluehdorn.github.io\kahaiz_rng\src\styles\app.scss */"./src/styles/app.scss");
+__webpack_require__(/*! C:\Users\blueh\projects\Jbluehdorn.github.io\kahaiz_rng\src\js\app.js */"./src/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\blueh\projects\Jbluehdorn.github.io\kahaiz_rng\src\styles\app.scss */"./src/styles/app.scss");
 
 
 /***/ })
