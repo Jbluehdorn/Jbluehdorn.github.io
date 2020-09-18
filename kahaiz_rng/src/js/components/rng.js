@@ -117,6 +117,7 @@ export default class Rng extends React.Component {
                                 <hr />
 
                                 <div className="text-center mt-1">
+                            <p>The dice are currently: {this.state.rigged ? <span className="text-success">Rigged</span> : <span className="text-danger">Not Rigged</span>}</p>
                                     <button className="btn btn-sm btn-secondary mr-1" disabled={this.state.rigged} onClick={() => this.handleRigChange(true)}>Rig</button>
                                     <button className="btn btn-sm btn-secondary ml-1" disabled={!this.state.rigged} onClick={() => this.handleRigChange(false)}>Un-Rig</button>
                                 </div>

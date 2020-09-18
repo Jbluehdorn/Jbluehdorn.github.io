@@ -46093,7 +46093,11 @@ var Rng = /*#__PURE__*/function (_React$Component) {
         onClick: this.handleBtnClick
       }, "Roll the dice!")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "text-center mt-1"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "The dice are currently: ", this.state.rigged ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "text-success"
+      }, "Rigged") : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+        className: "text-danger"
+      }, "Not Rigged")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-sm btn-secondary mr-1",
         disabled: this.state.rigged,
         onClick: function onClick() {
