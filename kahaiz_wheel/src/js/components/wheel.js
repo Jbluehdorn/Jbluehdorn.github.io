@@ -31,6 +31,7 @@ export default class Wheel extends React.Component {
     }
 
     spinTheWheel = () => {
+        console.log(this.filteredBosses)
         this.runStartAnimation(() => {
             this.runSpinAnimation(() => {
                 this.runShowBossImageAnimation(() => {

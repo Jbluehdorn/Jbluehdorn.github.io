@@ -185,6 +185,8 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.spinTheWheel = function () {
+      console.log(_this.filteredBosses);
+
       _this.runStartAnimation(function () {
         _this.runSpinAnimation(function () {
           _this.runShowBossImageAnimation(function () {
@@ -453,6 +455,15 @@ __webpack_require__.r(__webpack_exports__);
 }, {
   name: "Corrupted Gauntlet",
   filename: "corrupted_gauntlet.png"
+}, {
+  name: "Barrows",
+  filename: "barrows.png"
+}, {
+  name: "Tempoross",
+  filename: "tempoross.png"
+}, {
+  name: "Chambers of Xeric",
+  filename: "olm.png"
 }]);
 
 /***/ }),

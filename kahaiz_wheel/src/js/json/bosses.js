@@ -62,5 +62,17 @@ export default [
     {
         name: "Corrupted Gauntlet",
         filename: "corrupted_gauntlet.png"
+    },
+    {
+        name: "Barrows",
+        filename: "barrows.png"
+    },
+    {
+        name: "Tempoross",
+        filename: "tempoross.png"
+    },
+    {
+        name: "Chambers of Xeric",
+        filename: "olm.png"
     }
 ]
