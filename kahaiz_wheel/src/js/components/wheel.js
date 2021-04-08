@@ -19,10 +19,42 @@ export default class Wheel extends React.Component {
     constructor(props) {
         super(props)
         this.canvasRef = React.createRef()
+        this.localStorage = window.localStorage
+    }
+
+    componentDidMount() {
+        this.loadBossData()
+    }
+
+    componentDidUpdate(prevProps, prevState) {
+        if(prevState.bosses !== this.state.bosses) {
+            this.saveBossData()
+        }
     }
 
     get filteredBosses() {
         return this.state.bosses.filter(boss => boss.enabled)
+    }
+
+    loadBossData = () => {
+        const bossDataString = this.localStorage.getItem('bossData')
+
+        if(!!bossDataString && bossDataString !== 'undefined') {
+            const bossData = JSON.parse(bossDataString)
+            this.setState({
+                bosses: this.state.bosses.map(boss => {
+                    const foundBoss = bossData.find(dataBoss => {
+                        return dataBoss.name === boss.name
+                    })
+
+                    return foundBoss ? foundBoss : boss
+                })
+            })
+        }
+    }
+
+    saveBossData = () => {
+        this.localStorage.setItem('bossData', JSON.stringify(this.state.bosses))
     }
 
     handleClick = () => {
@@ -31,7 +63,6 @@ export default class Wheel extends React.Component {
     }
 
     spinTheWheel = () => {
-        console.log(this.filteredBosses)
         this.runStartAnimation(() => {
             this.runSpinAnimation(() => {
                 this.runShowBossImageAnimation(() => {

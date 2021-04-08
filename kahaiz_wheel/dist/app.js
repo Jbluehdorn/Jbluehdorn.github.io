@@ -176,6 +176,28 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
       opsModalShown: false
     };
 
+    _this.loadBossData = function () {
+      var bossDataString = _this.localStorage.getItem('bossData');
+
+      if (!!bossDataString && bossDataString !== 'undefined') {
+        var _bossData = JSON.parse(bossDataString);
+
+        _this.setState({
+          bosses: _this.state.bosses.map(function (boss) {
+            var foundBoss = _bossData.find(function (dataBoss) {
+              return dataBoss.name === boss.name;
+            });
+
+            return foundBoss ? foundBoss : boss;
+          })
+        });
+      }
+    };
+
+    _this.saveBossData = function () {
+      _this.localStorage.setItem('bossData', JSON.stringify(_this.state.bosses));
+    };
+
     _this.handleClick = function () {
       _this.setState({
         running: true
@@ -185,8 +207,6 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.spinTheWheel = function () {
-      console.log(_this.filteredBosses);
-
       _this.runStartAnimation(function () {
         _this.runSpinAnimation(function () {
           _this.runShowBossImageAnimation(function () {
@@ -371,10 +391,23 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.canvasRef = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0__.createRef();
+    _this.localStorage = window.localStorage;
     return _this;
   }
 
   _createClass(Wheel, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      this.loadBossData();
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate(prevProps, prevState) {
+      if (prevState.bosses !== this.state.bosses) {
+        this.saveBossData();
+      }
+    }
+  }, {
     key: "filteredBosses",
     get: function get() {
       return this.state.bosses.filter(function (boss) {
