@@ -497,6 +497,12 @@ __webpack_require__.r(__webpack_exports__);
 }, {
   name: "Chambers of Xeric",
   filename: "olm.png"
+}, {
+  name: "K'ril Tsutsaroth",
+  filename: "kril.png"
+}, {
+  name: "Kree'arra",
+  filename: "kreearra.png"
 }]);
 
 /***/ }),
