@@ -503,6 +503,9 @@ __webpack_require__.r(__webpack_exports__);
 }, {
   name: "Kree'arra",
   filename: "kreearra.png"
+}, {
+  name: "Slayer Boss",
+  filename: "slayer.png"
 }]);
 
 /***/ }),

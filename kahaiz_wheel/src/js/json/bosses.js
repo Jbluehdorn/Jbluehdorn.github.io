@@ -82,5 +82,9 @@ export default [
     {
         name: "Kree'arra",
         filename: "kreearra.png"
+    },
+    {
+        name: "Slayer Boss",
+        filename: "slayer.png"
     }
 ]
