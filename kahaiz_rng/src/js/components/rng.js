@@ -9,13 +9,23 @@ export default class Rng extends React.Component {
         min: undefined,
         max: undefined,
         value: undefined,
-        rigged: false
+        rigged: false,
+        sinceCount: undefined,
+        buttonHasBeenPressed: false
+    }
+
+    constructor(props) {
+        super(props)
+        this.localStorage = window.localStorage
     }
 
     componentDidMount() {
+        let sinceCount = parseInt(this.localStorage.getItem('sinceCount'))
+
         this.setState({
             min: this.state.tempMin,
-            max: this.state.tempMax
+            max: this.state.tempMax,
+            sinceCount: sinceCount ? sinceCount : 0
         })
     }
 
@@ -63,6 +73,13 @@ export default class Rng extends React.Component {
         })
     }
 
+    incrementSinceCount = () => {
+        this.setState({
+            sinceCount: this.state.sinceCount + 1
+        })
+        this.localStorage.setItem('sinceCount', this.state.sinceCount)
+    }
+
     handleBtnClick = () => {
         let count = 0
 
@@ -78,8 +95,21 @@ export default class Rng extends React.Component {
 
             if(count === 150) {
                 clearInterval(timer)
+                this.incrementSinceCount()
+                if(!this.state.buttonHasBeenPressed) {
+                    this.setState({
+                        buttonHasBeenPressed: true
+                    })
+                }
             }
         }, 5)
+    }
+    
+    handleBtnResetClick = () => {
+        this.setState({
+            sinceCount: 0
+        })
+        this.localStorage.setItem('sinceCount', 0)
     }
 
     render() {
@@ -111,13 +141,22 @@ export default class Rng extends React.Component {
                                 </form>
 
                                 <div className="text-center mt-1">
+                                    <p>
+                                        There have been {this.state.sinceCount} attempts since someone last won.&nbsp;
+                                        { this.state.sinceCount !== 0 && 
+                                            <span><a href="#" className="text-danger" onClick={this.handleBtnResetClick}>(Reset)</a></span>
+                                        }
+                                    </p>
+                                </div>
+
+                                <div className="text-center mt-1">
                                     <button className="btn btn-primary" onClick={this.handleBtnClick}>Roll the dice!</button>
                                 </div>
 
                                 <hr />
 
                                 <div className="text-center mt-1">
-                            <p>The dice are currently: {this.state.rigged ? <span className="text-success">Rigged</span> : <span className="text-danger">Not Rigged</span>}</p>
+                                    <p>The dice are currently: {this.state.rigged ? <span className="text-success">Rigged</span> : <span className="text-danger">Not Rigged</span>}</p>
                                     <button className="btn btn-sm btn-secondary mr-1" disabled={this.state.rigged} onClick={() => this.handleRigChange(true)}>Rig</button>
                                     <button className="btn btn-sm btn-secondary ml-1" disabled={!this.state.rigged} onClick={() => this.handleRigChange(false)}>Un-Rig</button>
                                 </div>

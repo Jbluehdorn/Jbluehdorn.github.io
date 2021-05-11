@@ -45963,31 +45963,36 @@ var Rng = /*#__PURE__*/function (_React$Component) {
 
   var _super = _createSuper(Rng);
 
-  function Rng() {
-    var _temp, _this;
+  function Rng(props) {
+    var _this;
 
     _classCallCheck(this, Rng);
 
-    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
-      args[_key] = arguments[_key];
-    }
-
-    return _possibleConstructorReturn(_this, (_temp = _this = _super.call.apply(_super, [this].concat(args)), _this.state = {
+    _this = _super.call(this, props);
+    _this.state = {
       tempMin: 1,
       tempMax: 50,
       min: undefined,
       max: undefined,
       value: undefined,
-      rigged: false
-    }, _this.handleRigChange = function (rig) {
+      rigged: false,
+      sinceCount: undefined,
+      buttonHasBeenPressed: false
+    };
+
+    _this.handleRigChange = function (rig) {
       _this.setState({
         rigged: rig
       });
-    }, _this.handleMinChange = function (e) {
+    };
+
+    _this.handleMinChange = function (e) {
       _this.setState({
         tempMin: parseInt(e.target.value)
       });
-    }, _this.handleMinBlur = function () {
+    };
+
+    _this.handleMinBlur = function () {
       if (_this.state.tempMin >= _this.state.max) {
         _this.setState({
           tempMin: _this.state.min
@@ -45999,11 +46004,15 @@ var Rng = /*#__PURE__*/function (_React$Component) {
       _this.setState({
         min: _this.state.tempMin
       });
-    }, _this.handleMaxChange = function (e) {
+    };
+
+    _this.handleMaxChange = function (e) {
       _this.setState({
         tempMax: parseInt(e.target.value)
       });
-    }, _this.handleMaxBlur = function () {
+    };
+
+    _this.handleMaxBlur = function () {
       if (_this.state.tempMax <= _this.state.min) {
         _this.setState({
           tempMax: _this.state.max
@@ -46015,7 +46024,17 @@ var Rng = /*#__PURE__*/function (_React$Component) {
       _this.setState({
         max: _this.state.tempMax
       });
-    }, _this.handleBtnClick = function () {
+    };
+
+    _this.incrementSinceCount = function () {
+      _this.setState({
+        sinceCount: _this.state.sinceCount + 1
+      });
+
+      _this.localStorage.setItem('sinceCount', _this.state.sinceCount);
+    };
+
+    _this.handleBtnClick = function () {
       var count = 0;
       var timer = setInterval(function () {
         count++;
@@ -46030,17 +46049,38 @@ var Rng = /*#__PURE__*/function (_React$Component) {
 
         if (count === 150) {
           clearInterval(timer);
+
+          _this.incrementSinceCount();
+
+          if (!_this.state.buttonHasBeenPressed) {
+            _this.setState({
+              buttonHasBeenPressed: true
+            });
+          }
         }
       }, 5);
-    }, _temp));
+    };
+
+    _this.handleBtnResetClick = function () {
+      _this.setState({
+        sinceCount: 0
+      });
+
+      _this.localStorage.setItem('sinceCount', 0);
+    };
+
+    _this.localStorage = window.localStorage;
+    return _this;
   }
 
   _createClass(Rng, [{
     key: "componentDidMount",
     value: function componentDidMount() {
+      var sinceCount = parseInt(this.localStorage.getItem('sinceCount'));
       this.setState({
         min: this.state.tempMin,
-        max: this.state.tempMax
+        max: this.state.tempMax,
+        sinceCount: sinceCount ? sinceCount : 0
       });
     }
   }, {
@@ -46087,6 +46127,12 @@ var Rng = /*#__PURE__*/function (_React$Component) {
         onChange: this.handleMaxChange,
         onBlur: this.handleMaxBlur
       }))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+        className: "text-center mt-1"
+      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, "There have been ", this.state.sinceCount, " attempts since someone last won.\xA0", this.state.sinceCount !== 0 && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("a", {
+        href: "#",
+        className: "text-danger",
+        onClick: this.handleBtnResetClick
+      }, "(Reset)")))), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "text-center mt-1"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("button", {
         className: "btn btn-primary",
@@ -46138,8 +46184,8 @@ var Rng = /*#__PURE__*/function (_React$Component) {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\blueh\projects\Jbluehdorn.github.io\kahaiz_rng\src\js\app.js */"./src/js/app.js");
-module.exports = __webpack_require__(/*! C:\Users\blueh\projects\Jbluehdorn.github.io\kahaiz_rng\src\styles\app.scss */"./src/styles/app.scss");
+__webpack_require__(/*! C:\Users\Jordan Bluehdorn\projects\Jbluehdorn.github.io\kahaiz_rng\src\js\app.js */"./src/js/app.js");
+module.exports = __webpack_require__(/*! C:\Users\Jordan Bluehdorn\projects\Jbluehdorn.github.io\kahaiz_rng\src\styles\app.scss */"./src/styles/app.scss");
 
 
 /***/ })
