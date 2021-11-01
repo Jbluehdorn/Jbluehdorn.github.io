@@ -46100,7 +46100,7 @@ var Rng = /*#__PURE__*/function (_React$Component) {
         className: "card-header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "card-title text-center"
-      }, "\uD83D\uDC80 Spooky Dice of Destiny \uD83D\uDC80")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "\uD83E\uDD83 Thankful Dice of Destiny \uD83E\uDD83")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
       }, !!this.state.value && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "text-center big-number"

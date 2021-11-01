@@ -302,7 +302,7 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
                 className: "card-header",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h1", {
                   className: "card-title text-center",
-                  children: "\uD83D\uDC80 The King's Wheel of Spook \uD83D\uDC80"
+                  children: "\uD83E\uDD83 The King's Wheel of Thankfulness \uD83E\uDD83"
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
                 className: "card-body",
