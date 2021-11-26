@@ -150,7 +150,7 @@ export default class Wheel extends React.Component {
                     <div className="col-12">
                         <div className="card">
                             <div className="card-header">
-                                <h1 className="card-title text-center">🦃 The King's Wheel of Thankfulness 🦃</h1>
+                                <h1 className="card-title text-center">🎄 The King's Wheel of Merriment 🎄</h1>
                             </div>
                             <div className="card-body">
                                 <canvas ref={this.canvasRef} id="board" height="400" width="700"></canvas>
