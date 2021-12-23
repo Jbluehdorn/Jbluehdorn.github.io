@@ -86,5 +86,9 @@ export default [
     {
         name: "Slayer Boss",
         filename: "slayer.png"
+    },
+    {
+        name: "Nex",
+        filename: "nex.png"
     }
 ]
