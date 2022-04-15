@@ -45971,7 +45971,7 @@ var Rng = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
     _this.state = {
       tempMin: 1,
-      tempMax: 50,
+      tempMax: 28,
       min: undefined,
       max: undefined,
       value: undefined,

@@ -5,7 +5,7 @@ import _ from 'lodash'
 export default class Rng extends React.Component {
     state = {
         tempMin: 1,
-        tempMax: 50,
+        tempMax: 28,
         min: undefined,
         max: undefined,
         value: undefined,
