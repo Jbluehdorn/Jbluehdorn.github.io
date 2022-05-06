@@ -509,6 +509,9 @@ __webpack_require__.r(__webpack_exports__);
 }, {
   name: "Nex",
   filename: "nex.png"
+}, {
+  name: "Scorpia",
+  filename: "scorpia.png"
 }]);
 
 /***/ }),

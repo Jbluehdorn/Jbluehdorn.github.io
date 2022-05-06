@@ -90,5 +90,9 @@ export default [
     {
         name: "Nex",
         filename: "nex.png"
+    },
+    {
+        name: "Scorpia",
+        filename: "scorpia.png"
     }
 ]
