@@ -47,7 +47,7 @@ export default class Wheel extends React.Component {
                         return dataBoss.name === boss.name
                     })
                     
-                    boss.enabled = foundBoss.enabled
+                    boss.enabled = foundBoss ? foundBoss.enabled : boss.enabled
 
                     return boss
                 })
@@ -105,7 +105,6 @@ export default class Wheel extends React.Component {
 
     runShowBossImageAnimation = (cb) => {
         const canvas = this.canvasRef.current
-        // const boss = this.filteredBosses[Math.floor(Math.random() * this.filteredBosses.length)]
         const boss = this.pickRandomBoss(this.filteredBosses)
         const img = [...document.getElementById('bossImages').getElementsByTagName('img')].find(el => {
             return el.src.includes(boss.filename) 
