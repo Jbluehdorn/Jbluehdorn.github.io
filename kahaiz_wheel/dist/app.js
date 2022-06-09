@@ -188,7 +188,7 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
               return dataBoss.name === boss.name;
             });
 
-            boss.enabled = foundBoss.enabled;
+            boss.enabled = foundBoss ? foundBoss.enabled : boss.enabled;
             return boss;
           })
         });
@@ -247,7 +247,7 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.runShowBossImageAnimation = function (cb) {
-      var canvas = _this.canvasRef.current; // const boss = this.filteredBosses[Math.floor(Math.random() * this.filteredBosses.length)]
+      var canvas = _this.canvasRef.current;
 
       var boss = _this.pickRandomBoss(_this.filteredBosses);
 
