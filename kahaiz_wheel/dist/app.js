@@ -188,7 +188,8 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
               return dataBoss.name === boss.name;
             });
 
-            return foundBoss ? foundBoss : boss;
+            boss.enabled = foundBoss.enabled;
+            return boss;
           })
         });
       }
@@ -246,9 +247,9 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
     };
 
     _this.runShowBossImageAnimation = function (cb) {
-      var canvas = _this.canvasRef.current;
+      var canvas = _this.canvasRef.current; // const boss = this.filteredBosses[Math.floor(Math.random() * this.filteredBosses.length)]
 
-      var boss = _this.filteredBosses[Math.floor(Math.random() * _this.filteredBosses.length)];
+      var boss = _this.pickRandomBoss(_this.filteredBosses);
 
       var img = _toConsumableArray(document.getElementById('bossImages').getElementsByTagName('img')).find(function (el) {
         return el.src.includes(boss.filename);
@@ -263,6 +264,17 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
         fillStyle: '#6441A4',
         font: '75px runescape-bold'
       });
+    };
+
+    _this.pickRandomBoss = function (bosses) {
+      var weightedBossArr = bosses.reduce(function (bossArr, boss) {
+        for (var i = 0; i < boss.weight; i++) {
+          bossArr.push(boss);
+        }
+
+        return bossArr;
+      }, []);
+      return weightedBossArr[Math.floor(Math.random() * weightedBossArr.length)];
     };
 
     _this.handleToggleBoss = function (e, boss) {
@@ -442,76 +454,104 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ([{
   name: "General Graardor",
-  filename: "graardor.png"
+  filename: "graardor.png",
+  weight: 5
 }, {
   name: "Zulrah",
-  filename: "zulrah.png"
+  filename: "zulrah.png",
+  weight: 5
 }, {
   name: "Vorkath",
-  filename: "vorkath.png"
+  filename: "vorkath.png",
+  weight: 5
 }, {
   name: "Corporeal Beast",
-  filename: "corporeal_beast.png"
+  filename: "corporeal_beast.png",
+  weight: 5
 }, {
   name: "Sarachnis",
-  filename: "sarachnis.png"
+  filename: "sarachnis.png",
+  weight: 5
 }, {
   name: "Giant Mole",
-  filename: "giant_mole.png"
+  filename: "giant_mole.png",
+  weight: 5
 }, {
   name: "Kalphite Queen",
-  filename: "kalphite_queen.png"
+  filename: "kalphite_queen.png",
+  weight: 5
 }, {
   name: "Commander Zilyana",
-  filename: "commander_zilyana.png"
+  filename: "commander_zilyana.png",
+  weight: 5
 }, {
   name: "Chaos Elemental",
-  filename: "chaos_elemental.png"
+  filename: "chaos_elemental.png",
+  weight: 5
 }, {
   name: "King Black Dragon",
-  filename: "kbd.png"
+  filename: "kbd.png",
+  weight: 5
 }, {
   name: "Chaos Fanatic",
-  filename: "chaos_fanatic.png"
+  filename: "chaos_fanatic.png",
+  weight: 5
 }, {
   name: "Hespori",
-  filename: "hespori.png"
+  filename: "hespori.png",
+  weight: 5
 }, {
   name: "Zalcano",
-  filename: "zalcano.png"
+  filename: "zalcano.png",
+  weight: 5
 }, {
   name: "Theatre of Blood",
-  filename: "verzik.png"
+  filename: "verzik.png",
+  weight: 5
 }, {
   name: "Gauntlet",
-  filename: "normal_gauntlet.png"
+  filename: "normal_gauntlet.png",
+  weight: 5
 }, {
   name: "Corrupted Gauntlet",
-  filename: "corrupted_gauntlet.png"
+  filename: "corrupted_gauntlet.png",
+  weight: 5
 }, {
   name: "Barrows",
-  filename: "barrows.png"
+  filename: "barrows.png",
+  weight: 5
 }, {
   name: "Tempoross",
-  filename: "tempoross.png"
+  filename: "tempoross.png",
+  weight: 5
 }, {
   name: "Chambers of Xeric",
-  filename: "olm.png"
+  filename: "olm.png",
+  weight: 5
 }, {
   name: "K'ril Tsutsaroth",
-  filename: "kril.png"
+  filename: "kril.png",
+  weight: 5
 }, {
   name: "Kree'arra",
-  filename: "kreearra.png"
+  filename: "kreearra.png",
+  weight: 5
 }, {
   name: "Slayer Boss",
-  filename: "slayer.png"
+  filename: "slayer.png",
+  weight: 5
 }, {
   name: "Nex",
-  filename: "nex.png"
+  filename: "nex.png",
+  weight: 5
 }, {
   name: "Scorpia",
-  filename: "scorpia.png"
+  filename: "scorpia.png",
+  weight: 5
+}, {
+  name: "Marbles for a Bond",
+  filename: "bond.png",
+  weight: 4
 }]);
 
 /***/ }),

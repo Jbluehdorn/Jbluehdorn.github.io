@@ -46,8 +46,10 @@ export default class Wheel extends React.Component {
                     const foundBoss = bossData.find(dataBoss => {
                         return dataBoss.name === boss.name
                     })
+                    
+                    boss.enabled = foundBoss.enabled
 
-                    return foundBoss ? foundBoss : boss
+                    return boss
                 })
             })
         }
@@ -103,7 +105,8 @@ export default class Wheel extends React.Component {
 
     runShowBossImageAnimation = (cb) => {
         const canvas = this.canvasRef.current
-        const boss = this.filteredBosses[Math.floor(Math.random() * this.filteredBosses.length)]
+        // const boss = this.filteredBosses[Math.floor(Math.random() * this.filteredBosses.length)]
+        const boss = this.pickRandomBoss(this.filteredBosses)
         const img = [...document.getElementById('bossImages').getElementsByTagName('img')].find(el => {
             return el.src.includes(boss.filename) 
         })
@@ -117,6 +120,18 @@ export default class Wheel extends React.Component {
             fillStyle: '#6441A4',
             font: '75px runescape-bold'
         })
+    }
+
+    pickRandomBoss = (bosses) => {
+        let weightedBossArr = bosses.reduce((bossArr, boss) => {
+            for(let i = 0; i < boss.weight; i++) {
+                bossArr.push(boss)
+            }
+
+            return bossArr
+        }, [])
+
+        return weightedBossArr[Math.floor(Math.random() * weightedBossArr.length)]
     }
 
     handleToggleBoss = (e, boss) => {
