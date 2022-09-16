@@ -123,5 +123,10 @@ export default [
         name: "Marbles for a Bond",
         filename: "bond.png",
         weight: 4
+    },
+    {
+        name: "Tombs of Amascut",
+        filename: "warden.png",
+        weight: 5
     }
 ]
