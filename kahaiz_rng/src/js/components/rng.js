@@ -119,7 +119,7 @@ export default class Rng extends React.Component {
                     <div className="col-12">
                         <div className="card">
                             <div className="card-header">
-                                <h1 className="card-title text-center">💘😻Kinky Dice of UwU😻💘</h1>
+                                <h1 className="card-title text-center">🍀🍺Kng O'Kng's Dice of the Lucky🍻🍀</h1>
                             </div>
                             <div className="card-body">
                                 { !!this.state.value &&

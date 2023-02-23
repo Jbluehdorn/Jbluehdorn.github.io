@@ -46100,7 +46100,7 @@ var Rng = /*#__PURE__*/function (_React$Component) {
         className: "card-header"
       }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", {
         className: "card-title text-center"
-      }, "\uD83D\uDC98\uD83D\uDE3BKinky Dice of UwU\uD83D\uDE3B\uD83D\uDC98")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
+      }, "\uD83C\uDF40\uD83C\uDF7AKng O'Kng's Dice of the Lucky\uD83C\uDF7B\uD83C\uDF40")), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "card-body"
       }, !!this.state.value && react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
         className: "text-center big-number"

@@ -314,7 +314,7 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
                 className: "card-header",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h1", {
                   className: "card-title text-center",
-                  children: "\uD83D\uDC98\uD83D\uDE3BThe Lovers' Wheel of UwU\uD83D\uDE3B\uD83D\uDC98"
+                  children: "\uD83C\uDF40\uD83C\uDF7AKng O'Kng's Shamrock Wheel\uD83C\uDF7B\uD83C\uDF40"
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
                 className: "card-body",
