@@ -128,5 +128,25 @@ export default [
         name: "Tombs of Amascut",
         filename: "warden.png",
         weight: 5
+    },
+    {
+        name: "Callisto",
+        filename: "artio.png",
+        weight: 5
+    },
+    {
+        name: "Phantom Muspah",
+        filename: "muspah.png",
+        weight: 5
+    },
+    {
+        name: "Venenatis",
+        filename: "venenatis.png",
+        weight: 5
+    },
+    {
+        name: "Vet'ion",
+        filename: "vetion.png",
+        weight: 5
     }
 ]

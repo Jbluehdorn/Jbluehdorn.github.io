@@ -314,7 +314,7 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
                 className: "card-header",
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h1", {
                   className: "card-title text-center",
-                  children: "\uD83C\uDF40\uD83C\uDF7AKng O'Kng's Shamrock Wheel\uD83C\uDF7B\uD83C\uDF40"
+                  children: "\uD83D\uDC51The Kng's Wheel\uD83D\uDC51"
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
                 className: "card-body",
@@ -555,6 +555,22 @@ __webpack_require__.r(__webpack_exports__);
 }, {
   name: "Tombs of Amascut",
   filename: "warden.png",
+  weight: 5
+}, {
+  name: "Callisto",
+  filename: "artio.png",
+  weight: 5
+}, {
+  name: "Phantom Muspah",
+  filename: "muspah.png",
+  weight: 5
+}, {
+  name: "Venenatis",
+  filename: "venenatis.png",
+  weight: 5
+}, {
+  name: "Vet'ion",
+  filename: "vetion.png",
   weight: 5
 }]);
 
