@@ -80,7 +80,7 @@ export default class Wheel extends React.Component {
         audio.volume = 0.2
 
         countdown(canvas, cb, {
-            fillStyle: '#6441A4',
+            fillStyle: '#FFD700',
             audio: audio,
             font: '75px runescape-bold'
         })
@@ -116,7 +116,7 @@ export default class Wheel extends React.Component {
             image: img,
             name: boss.name,
             audio: audio,
-            fillStyle: '#6441A4',
+            fillStyle: '#FFD700',
             font: '75px runescape-bold'
         })
     }

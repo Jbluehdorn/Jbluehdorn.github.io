@@ -68,7 +68,7 @@ const animate = () => {
 export const countdown = (canvas, callback, args) => {
     let opts = {
         font: 'bold 75px arial',
-        fillStyle: '#FFD700',
+        fillStyle: '#FFFFFF',
         audio: null,
         ...args
     }

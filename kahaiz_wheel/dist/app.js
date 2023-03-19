@@ -224,7 +224,7 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
       var audio = document.getElementById('countdown_audio');
       audio.volume = 0.2;
       (0,_scenes_countdown__WEBPACK_IMPORTED_MODULE_2__.countdown)(canvas, cb, {
-        fillStyle: '#6441A4',
+        fillStyle: '#FFD700',
         audio: audio,
         font: '75px runescape-bold'
       });
@@ -261,7 +261,7 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
         image: img,
         name: boss.name,
         audio: audio,
-        fillStyle: '#6441A4',
+        fillStyle: '#FFD700',
         font: '75px runescape-bold'
       });
     };
@@ -656,7 +656,7 @@ var animate = function animate() {
 var countdown = function countdown(canvas, callback, args) {
   var opts = _objectSpread({
     font: 'bold 75px arial',
-    fillStyle: '#FFD700',
+    fillStyle: '#FFFFFF',
     audio: null
   }, args);
 
@@ -754,7 +754,7 @@ var showBossImage = function showBossImage(canvas, callback, args) {
     image: null,
     name: '',
     font: 'bold 60px Arial',
-    fillStyle: '#FFD700',
+    fillStyle: '#FFFFFF',
     audio: null
   }, args);
 
