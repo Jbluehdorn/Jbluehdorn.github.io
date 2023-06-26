@@ -1,4 +1,5 @@
 import React from 'react'
+import voices from '../voices.json'
 
 export default class Counter extends React.Component {
     state = {
@@ -6,6 +7,7 @@ export default class Counter extends React.Component {
         count: 4,
         running: false,
         timer: null,
+        voice: null,
         audio: {
             one: null,
             two: null,
@@ -18,15 +20,7 @@ export default class Counter extends React.Component {
     componentDidMount() {
         this.reset()
 
-        this.setState({
-            audio: {
-                one: document.getElementById('one_audio'),
-                two: document.getElementById('two_audio'),
-                three: document.getElementById('three_audio'),
-                range: document.getElementById('range_audio'),
-                mage: document.getElementById('mage_audio')
-            }
-        })
+        this.setVoice(voices[0])
     }
 
     reset = () => {
@@ -88,6 +82,21 @@ export default class Counter extends React.Component {
         })
     }
 
+    setVoice = (voice) => { 
+        const audioGroup = document.getElementById(voice.container)
+
+        this.setState({
+            voice: voice.name,
+            audio: {
+                one: audioGroup.querySelector('.one_audio'),
+                two: audioGroup.querySelector('.two_audio'),
+                three: audioGroup.querySelector('.three_audio'),
+                range: audioGroup.querySelector('.range_audio'),
+                mage: audioGroup.querySelector('.mage_audio')
+            }
+        })
+    }
+
     render = () => {
         return (
             <div className="counter">
@@ -99,9 +108,30 @@ export default class Counter extends React.Component {
                             </div>
                             <div className="card-body">
                                 { !this.state.running &&
-                                    <button className="btn btn-primary btn-lg btn-block" onClick={this.start}>
-                                        Start (1 sec after 1st attack)
-                                    </button>
+                                    <div>
+                                        <button className="btn btn-primary btn-lg btn-block" onClick={this.start}>
+                                            Start (1 sec after 1st attack)
+                                        </button>
+                                        <hr />
+                                        <div className="dropdownContainer">
+                                            <label className="label label-default">
+                                                Voice:
+                                            </label>
+                                            <div className="voiceDropdown">
+                                                <button className="btn btn-secondary dropdown-toggle" type="button" id="voiceDropdown" data-toggle="dropdown">
+                                                    {this.state.voice}
+                                                </button>
+                                                <div className="dropdown-menu" aria-labelledby="voiceDropdown">
+                                                    {
+                                                        voices
+                                                            .map(voice => {
+                                                                return <a className="dropdown-item" key={voice.container} onClick={() => this.setVoice(voice)}>{voice.name}</a>
+                                                            })
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 }
                                 { this.state.running &&
                                     <div className="runningGroup">

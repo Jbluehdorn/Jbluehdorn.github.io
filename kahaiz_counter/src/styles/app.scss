@@ -31,3 +31,17 @@ body {
     float: right;
     margin-right: 1em;
 }
+
+.dropdownContainer {
+    font-size: 1.5rem;
+
+    .label {
+        display: inline-block;
+        padding-right: 10px;
+    }
+
+    .voiceDropdown {
+        display: inline-block;
+        width: 80%;
+    }
+}
