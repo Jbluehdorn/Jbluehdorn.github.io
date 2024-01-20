@@ -6,6 +6,7 @@ import { spinImages } from '../scenes/spinImages'
 import { showBossImage } from '../scenes/showBossImage'
 
 import bossData from '../json/bosses'
+import skillData from '../json/skills'
 
 export default class Wheel extends React.Component {
     state = {
@@ -13,7 +14,8 @@ export default class Wheel extends React.Component {
         bosses: bossData.map(boss => {
             return {...boss, enabled: true}
         }),
-        opsModalShown: false
+        opsModalShown: false,
+        isSotwWheel: false
     }
 
     constructor(props) {
@@ -23,12 +25,16 @@ export default class Wheel extends React.Component {
     }
 
     componentDidMount() {
-        this.loadBossData()
+        this.loadBossData(this.props.isSotwWheel)
     }
 
     componentDidUpdate(prevProps, prevState) {
         if(prevState.bosses !== this.state.bosses) {
-            this.saveBossData()
+            this.saveBossData(this.state.isSotwWheel)
+        }
+
+        if(prevState.isSotwWheel !== this.state.isSotwWheel) {
+            this.loadWheelInfo()
         }
     }
 
@@ -36,27 +42,41 @@ export default class Wheel extends React.Component {
         return this.state.bosses.filter(boss => boss.enabled)
     }
 
-    loadBossData = () => {
-        const bossDataString = this.localStorage.getItem('bossData')
+    loadWheelInfo = () => {
+        this.setState({
+            bosses: this.getBossStorageInfo(
+                this.state.isSotwWheel ? 
+                    skillData.map(skill => { return { ...skill, enabled: true}}) : 
+                    bossData.map(boss => { return {...boss, enabled: true}}),
+                this.state.isSotwWheel)
+        })
+    }
+
+    getBossStorageInfo = (bosses, isSotw = false) => {
+        const bossDataString = this.localStorage.getItem(isSotw ? 'skillsData' : 'bossData')
 
         if(!!bossDataString && bossDataString !== 'undefined') {
             const bossData = JSON.parse(bossDataString)
-            this.setState({
-                bosses: this.state.bosses.map(boss => {
-                    const foundBoss = bossData.find(dataBoss => {
-                        return dataBoss.name === boss.name
-                    })
-                    
-                    boss.enabled = foundBoss ? foundBoss.enabled : boss.enabled
-
-                    return boss
+            return bosses.map(boss => {
+                const foundBoss = bossData.find(dataBoss => {
+                    return dataBoss.name === boss.name
                 })
+                
+                boss.enabled = foundBoss ? foundBoss.enabled : boss.enabled
+
+                return boss
             })
         }
     }
 
-    saveBossData = () => {
-        this.localStorage.setItem('bossData', JSON.stringify(this.state.bosses))
+    loadBossData = (isSotw = false) => {
+        this.setState({
+            bosses: this.getBossStorageInfo(this.state.bosses, isSotw)
+        })
+    }
+
+    saveBossData = (isSotw = false) => {
+        this.localStorage.setItem(isSotw ? 'skillsData' : 'bossData', JSON.stringify(this.state.bosses))
     }
 
     handleClick = () => {
@@ -133,6 +153,12 @@ export default class Wheel extends React.Component {
         return weightedBossArr[Math.floor(Math.random() * weightedBossArr.length)]
     }
 
+    handleSwitchType = (e) => {
+        this.setState({
+            isSotwWheel: e.target.checked
+        })
+    }
+
     handleToggleBoss = (e, boss) => {
         this.setState({
             bosses: this.state.bosses.map(el => {
@@ -202,6 +228,12 @@ export default class Wheel extends React.Component {
 
                         <div className="modal-body">
                             <div className="container-fluid"> 
+                                <div className="row mb-2">
+                                    <div className="col-6 custom-control custom-switch">
+                                        <input type="checkbox" className="custom-control-input" id="WheelTypeSwitch" checked={this.state.isSotwWheel} onChange={(e) => this.handleSwitchType(e)} />
+                                        <label className="custom-control-label" htmlFor="WheelTypeSwitch">SOTW Mode</label>
+                                    </div>
+                                </div>
                                 <div className="row">
                                     {this.state.bosses.map((boss, index) => {
                                         return (

@@ -90,7 +90,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _scenes_spinImages__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../scenes/spinImages */ "./src/js/scenes/spinImages.js");
 /* harmony import */ var _scenes_showBossImage__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../scenes/showBossImage */ "./src/js/scenes/showBossImage.js");
 /* harmony import */ var _json_bosses__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../json/bosses */ "./src/js/json/bosses.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _json_skills__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../json/skills */ "./src/js/json/skills.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -122,6 +123,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf ? Objec
 
 
 
+
 var Wheel = /*#__PURE__*/function (_React$Component) {
   _inherits(Wheel, _React$Component);
   function Wheel(props) {
@@ -135,25 +137,45 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
           enabled: true
         });
       }),
-      opsModalShown: false
+      opsModalShown: false,
+      isSotwWheel: false
     };
-    _this.loadBossData = function () {
-      var bossDataString = _this.localStorage.getItem('bossData');
+    _this.loadWheelInfo = function () {
+      _this.setState({
+        bosses: _this.getBossStorageInfo(_this.state.isSotwWheel ? _json_skills__WEBPACK_IMPORTED_MODULE_6__["default"].map(function (skill) {
+          return _objectSpread(_objectSpread({}, skill), {}, {
+            enabled: true
+          });
+        }) : _json_bosses__WEBPACK_IMPORTED_MODULE_5__["default"].map(function (boss) {
+          return _objectSpread(_objectSpread({}, boss), {}, {
+            enabled: true
+          });
+        }), _this.state.isSotwWheel)
+      });
+    };
+    _this.getBossStorageInfo = function (bosses) {
+      var isSotw = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+      var bossDataString = _this.localStorage.getItem(isSotw ? 'skillsData' : 'bossData');
       if (!!bossDataString && bossDataString !== 'undefined') {
         var _bossData = JSON.parse(bossDataString);
-        _this.setState({
-          bosses: _this.state.bosses.map(function (boss) {
-            var foundBoss = _bossData.find(function (dataBoss) {
-              return dataBoss.name === boss.name;
-            });
-            boss.enabled = foundBoss ? foundBoss.enabled : boss.enabled;
-            return boss;
-          })
+        return bosses.map(function (boss) {
+          var foundBoss = _bossData.find(function (dataBoss) {
+            return dataBoss.name === boss.name;
+          });
+          boss.enabled = foundBoss ? foundBoss.enabled : boss.enabled;
+          return boss;
         });
       }
     };
+    _this.loadBossData = function () {
+      var isSotw = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+      _this.setState({
+        bosses: _this.getBossStorageInfo(_this.state.bosses, isSotw)
+      });
+    };
     _this.saveBossData = function () {
-      _this.localStorage.setItem('bossData', JSON.stringify(_this.state.bosses));
+      var isSotw = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+      _this.localStorage.setItem(isSotw ? 'skillsData' : 'bossData', JSON.stringify(_this.state.bosses));
     };
     _this.handleClick = function () {
       _this.setState({
@@ -222,6 +244,11 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
       }, []);
       return weightedBossArr[Math.floor(Math.random() * weightedBossArr.length)];
     };
+    _this.handleSwitchType = function (e) {
+      _this.setState({
+        isSotwWheel: e.target.checked
+      });
+    };
     _this.handleToggleBoss = function (e, boss) {
       _this.setState({
         bosses: _this.state.bosses.map(function (el) {
@@ -243,41 +270,41 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
       });
     };
     _this.renderBody = function () {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         className: "wheel",
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
           className: "row",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
             className: "col-12",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
               className: "card",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
                 className: "card-header",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h1", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h1", {
                   className: "card-title text-center",
                   children: "\uD83D\uDC51The Kng's Wheel\uD83D\uDC51"
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
                 className: "card-body",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("canvas", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("canvas", {
                   ref: _this.canvasRef,
                   id: "board",
                   height: "400",
                   width: "700"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
                   className: "form-group text-center",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
                     className: "btn btn-primary",
                     onClick: _this.handleClick,
                     disabled: _this.state.running,
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("span", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
                       className: "lead",
                       children: "Spin!"
                     })
                   })
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
                   className: "form-group text-center",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
                     className: "btn btn-secondary",
                     onClick: _this.handleOpenModal,
                     children: "Config"
@@ -290,32 +317,50 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
       });
     };
     _this.renderOptionsModal = function () {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
         className: "modal",
         tabIndex: "-1",
         style: {
           display: _this.state.opsModalShown ? 'block' : 'none'
         },
-        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
           className: "modal-dialog",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
             className: "modal-content",
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
               className: "modal-header",
-              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("h5", {
+              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("h5", {
                 className: "modal-title",
                 children: "Options"
               })
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
               className: "modal-body",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
                 className: "container-fluid",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                  className: "row mb-2",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                    className: "col-6 custom-control custom-switch",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+                      type: "checkbox",
+                      className: "custom-control-input",
+                      id: "WheelTypeSwitch",
+                      checked: _this.state.isSotwWheel,
+                      onChange: function onChange(e) {
+                        return _this.handleSwitchType(e);
+                      }
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("label", {
+                      className: "custom-control-label",
+                      htmlFor: "WheelTypeSwitch",
+                      children: "SOTW Mode"
+                    })]
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
                   className: "row",
                   children: _this.state.bosses.map(function (boss, index) {
-                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
+                    return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
                       className: "col-6 custom-control custom-switch",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
                         type: "checkbox",
                         className: "custom-control-input",
                         id: "".concat(index),
@@ -323,15 +368,15 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
                         onChange: function onChange(e) {
                           return _this.handleToggleBoss(e, boss);
                         }
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("label", {
                         className: "custom-control-label",
                         htmlFor: "".concat(index),
                         children: boss.name
                       })]
                     }, index);
                   })
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("button", {
+                })]
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
                 className: "btn btn-primary btn-block",
                 onClick: _this.handleCloseModal,
                 children: "Close"
@@ -348,13 +393,16 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
   _createClass(Wheel, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      this.loadBossData();
+      this.loadBossData(this.props.isSotwWheel);
     }
   }, {
     key: "componentDidUpdate",
     value: function componentDidUpdate(prevProps, prevState) {
       if (prevState.bosses !== this.state.bosses) {
-        this.saveBossData();
+        this.saveBossData(this.state.isSotwWheel);
+      }
+      if (prevState.isSotwWheel !== this.state.isSotwWheel) {
+        this.loadWheelInfo();
       }
     }
   }, {
@@ -367,7 +415,7 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.Fragment, {
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.Fragment, {
         children: [this.renderBody(), this.renderOptionsModal()]
       });
     }
@@ -523,6 +571,116 @@ __webpack_require__.r(__webpack_exports__);
 }, {
   name: "The Leviathan",
   filename: "leviathan.png",
+  weight: 5
+}]);
+
+/***/ }),
+
+/***/ "./src/js/json/skills.js":
+/*!*******************************!*\
+  !*** ./src/js/json/skills.js ***!
+  \*******************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ([{
+  name: "Attack",
+  filename: "attack.png",
+  weight: 5
+}, {
+  name: "Defence",
+  filename: "defence.png",
+  weight: 5
+}, {
+  name: "Ranged",
+  filename: "ranged.png",
+  weight: 5
+}, {
+  name: "Strength",
+  filename: "strength.png",
+  weight: 5
+}, {
+  name: "Prayer",
+  filename: "prayer.png",
+  weight: 5
+}, {
+  name: "Magic",
+  filename: "magic.png",
+  weight: 5
+}, {
+  name: "Runecrafting",
+  filename: "runecrafting.png",
+  weight: 5
+}, {
+  name: "Construction",
+  filename: "construction.png",
+  weight: 5
+}, {
+  name: "Hitpoints",
+  filename: "hitpoints.png",
+  weight: 5
+}, {
+  name: "Agility",
+  filename: "agility.png",
+  weight: 5
+}, {
+  name: "Herblore",
+  filename: "herblore.png",
+  weight: 5
+}, {
+  name: "Thieving",
+  filename: "thieving.png",
+  weight: 5
+}, {
+  name: "Crafting",
+  filename: "crafting.png",
+  weight: 5
+}, {
+  name: "Fletching",
+  filename: "fletching.png",
+  weight: 5
+}, {
+  name: "Slayer",
+  filename: "slayer_skill.png",
+  weight: 5
+}, {
+  name: "Hunter",
+  filename: "hunter.png",
+  weight: 5
+}, {
+  name: "Mining",
+  filename: "mining.png",
+  weight: 5
+}, {
+  name: "Smithing",
+  filename: "smithing.png",
+  weight: 5
+}, {
+  name: "Fishing",
+  filename: "fishing.png",
+  weight: 5
+}, {
+  name: "Cooking",
+  filename: "cooking.png",
+  weight: 5
+}, {
+  name: "Firemaking",
+  filename: "firemaking.png",
+  weight: 5
+}, {
+  name: "Woodcutting",
+  filename: "woodcutting.png",
+  weight: 5
+}, {
+  name: "Farming",
+  filename: "farming.png",
+  weight: 5
+}, {
+  name: "Bossing",
+  filename: "bossing.png",
   weight: 5
 }]);
 
