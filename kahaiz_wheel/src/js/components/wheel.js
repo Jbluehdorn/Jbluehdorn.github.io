@@ -71,6 +71,8 @@ export default class Wheel extends React.Component {
                 return boss
             })
         }
+
+        return bosses
     }
 
     loadBossData = (isSotw = false) => {
