@@ -386,8 +386,12 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
         })
       });
     };
+    console.log('bossData', _json_bosses__WEBPACK_IMPORTED_MODULE_5__["default"]);
+    console.log('skillData', _json_skills__WEBPACK_IMPORTED_MODULE_6__["default"]);
     _this.canvasRef = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createRef();
     _this.localStorage = window.localStorage;
+    console.log('localStorageSkillData', _this.localStorage.getItem('skillsData'));
+    console.log('localStorageBossData', _this.localStorage.getItem('bossData'));
     return _this;
   }
   _createClass(Wheel, [{
