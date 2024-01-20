@@ -235,7 +235,7 @@ export default class Wheel extends React.Component {
                                     </div>
                                 </div>
                                 <div className="row">
-                                    {this.state.bosses.map((boss, index) => {
+                                    {this.state.bosses && this.state.bosses.map((boss, index) => {
                                         return (
                                             <div className="col-6 custom-control custom-switch" key={index}>
                                                 <input type="checkbox" className="custom-control-input" id={`${index}`} checked={boss.enabled} onChange={(e) => this.handleToggleBoss(e, boss)} />
