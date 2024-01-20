@@ -166,6 +166,7 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
           return boss;
         });
       }
+      return bosses;
     };
     _this.loadBossData = function () {
       var isSotw = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
