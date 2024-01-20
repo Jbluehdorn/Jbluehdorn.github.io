@@ -148,5 +148,25 @@ export default [
         name: "Vet'ion",
         filename: "vetion.png",
         weight: 5
+    },
+    {
+        name: "Duke Sucellus",
+        filename: "duke_sucellus.png",
+        weight: 5
+    },
+    {
+        name: "Vardorvis",
+        filename: "vardorvis.png",
+        weight: 5
+    },
+    {
+        name: "The Whisperer",
+        filename: "whisperer.png",
+        weight: 5
+    },
+    {
+        name: "The Leviathan",
+        filename: "leviathan.png",
+        weight: 5
     }
 ]
