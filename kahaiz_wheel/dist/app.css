@@ -9918,6 +9918,10 @@ h3 {
   background: black;
 }
 
+.custom-switch :hover {
+  cursor: pointer;
+}
+
 body, html {
   background: #111;
   color: #6441A4;
