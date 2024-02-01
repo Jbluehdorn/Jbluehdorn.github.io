@@ -306,7 +306,9 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
                     className: "btn btn-primary",
                     onClick: _this.handleClick,
-                    disabled: _this.state.running,
+                    disabled: _this.state.running || !_this.state.bosses.some(function (e) {
+                      return e.enabled;
+                    }),
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("span", {
                       className: "lead",
                       children: "Spin!"

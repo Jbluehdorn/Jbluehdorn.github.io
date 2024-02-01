@@ -206,7 +206,7 @@ export default class Wheel extends React.Component {
                                 <canvas ref={this.canvasRef} id="board" height="400" width="700"></canvas>
                                 
                                 <div className="form-group text-center">
-                                    <button className="btn btn-primary" onClick={this.handleClick} disabled={this.state.running}>
+                                    <button className="btn btn-primary" onClick={this.handleClick} disabled={this.state.running || !this.state.bosses.some(e => e.enabled)}>
                                         <span className="lead">Spin!</span>
                                     </button>
                                 </div>
