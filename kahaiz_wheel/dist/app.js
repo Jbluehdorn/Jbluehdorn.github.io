@@ -250,6 +250,15 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
         isSotwWheel: e.target.checked
       });
     };
+    _this.handleSwitchEnableAll = function (e) {
+      _this.setState({
+        bosses: _this.state.bosses.map(function (el) {
+          return _objectSpread(_objectSpread({}, el), {}, {
+            enabled: e.target.checked
+          });
+        })
+      });
+    };
     _this.handleToggleBoss = function (e, boss) {
       _this.setState({
         bosses: _this.state.bosses.map(function (el) {
@@ -339,25 +348,13 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
                 className: "container-fluid",
                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                  className: "row mb-2",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
-                    className: "col-6 custom-control custom-switch",
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
-                      type: "checkbox",
-                      className: "custom-control-input",
-                      id: "WheelTypeSwitch",
-                      checked: _this.state.isSotwWheel,
-                      onChange: function onChange(e) {
-                        return _this.handleSwitchType(e);
-                      }
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("label", {
-                      className: "custom-control-label",
-                      htmlFor: "WheelTypeSwitch",
-                      children: "SOTW Mode"
-                    })]
+                  className: "row",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("p", {
+                    className: "mb-0",
+                    children: [_this.state.isSotwWheel ? 'Skills' : 'Bosses', ":"]
                   })
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                  className: "row",
+                  className: "row mb-3",
                   children: _this.state.bosses && _this.state.bosses.map(function (boss, index) {
                     return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
                       className: "col-6 custom-control custom-switch",
@@ -376,6 +373,47 @@ var Wheel = /*#__PURE__*/function (_React$Component) {
                       })]
                     }, index);
                   })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                  className: "row",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("p", {
+                    className: "mb-0",
+                    children: "Controls:"
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                  className: "row",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                    className: "col-6 custom-control custom-switch",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+                      type: "checkbox",
+                      className: "custom-control-input",
+                      id: "WheelTypeSwitch",
+                      checked: _this.state.isSotwWheel,
+                      onChange: function onChange(e) {
+                        return _this.handleSwitchType(e);
+                      }
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("label", {
+                      className: "custom-control-label",
+                      htmlFor: "WheelTypeSwitch",
+                      children: "SOTW Mode"
+                    })]
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                    className: "col-6 custom-control custom-switch",
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+                      type: "checkbox",
+                      className: "custom-control-input",
+                      id: "EnableAllSwitch",
+                      checked: _this.state.bosses.every(function (boss) {
+                        return boss.enabled;
+                      }),
+                      onChange: function onChange(e) {
+                        return _this.handleSwitchEnableAll(e);
+                      }
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("label", {
+                      className: "custom-control-label",
+                      htmlFor: "EnableAllSwitch",
+                      children: "Enable/Disable All"
+                    })]
+                  })]
                 })]
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("button", {
                 className: "btn btn-primary btn-block",

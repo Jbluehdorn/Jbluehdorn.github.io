@@ -161,6 +161,14 @@ export default class Wheel extends React.Component {
         })
     }
 
+    handleSwitchEnableAll = (e) => {
+        this.setState({
+            bosses: this.state.bosses.map(el => {
+                return {...el, enabled: e.target.checked }
+            })
+        })
+    }
+
     handleToggleBoss = (e, boss) => {
         this.setState({
             bosses: this.state.bosses.map(el => {
@@ -230,13 +238,12 @@ export default class Wheel extends React.Component {
 
                         <div className="modal-body">
                             <div className="container-fluid"> 
-                                <div className="row mb-2">
-                                    <div className="col-6 custom-control custom-switch">
-                                        <input type="checkbox" className="custom-control-input" id="WheelTypeSwitch" checked={this.state.isSotwWheel} onChange={(e) => this.handleSwitchType(e)} />
-                                        <label className="custom-control-label" htmlFor="WheelTypeSwitch">SOTW Mode</label>
-                                    </div>
-                                </div>
                                 <div className="row">
+                                    <p className="mb-0">
+                                        {this.state.isSotwWheel ? 'Skills' : 'Bosses'}:
+                                    </p>
+                                </div>
+                                <div className="row mb-3">
                                     {this.state.bosses && this.state.bosses.map((boss, index) => {
                                         return (
                                             <div className="col-6 custom-control custom-switch" key={index}>
@@ -245,6 +252,23 @@ export default class Wheel extends React.Component {
                                             </div>
                                         )
                                     })}
+                                </div>
+
+                                <div className="row">
+                                    <p className="mb-0">
+                                        Controls:
+                                    </p>
+                                </div>
+                                
+                                <div className="row">
+                                    <div className="col-6 custom-control custom-switch">
+                                        <input type="checkbox" className="custom-control-input" id="WheelTypeSwitch" checked={this.state.isSotwWheel} onChange={(e) => this.handleSwitchType(e)} />
+                                        <label className="custom-control-label" htmlFor="WheelTypeSwitch">SOTW Mode</label>
+                                    </div>
+                                    <div className="col-6 custom-control custom-switch">
+                                        <input type="checkbox" className="custom-control-input" id="EnableAllSwitch" checked={this.state.bosses.every(boss => boss.enabled)} onChange={(e) => this.handleSwitchEnableAll(e)} />
+                                        <label className="custom-control-label" htmlFor="EnableAllSwitch">Enable/Disable All</label>
+                                    </div>
                                 </div>
                             </div>
 
