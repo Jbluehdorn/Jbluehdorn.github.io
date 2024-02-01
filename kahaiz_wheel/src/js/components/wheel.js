@@ -20,12 +20,8 @@ export default class Wheel extends React.Component {
 
     constructor(props) {
         super(props)
-        console.log('bossData', bossData)
-        console.log('skillData', skillData)
         this.canvasRef = React.createRef()
         this.localStorage = window.localStorage
-        console.log('localStorageSkillData', this.localStorage.getItem('skillsData'))
-        console.log('localStorageBossData', this.localStorage.getItem('bossData'))
     }
 
     componentDidMount() {
