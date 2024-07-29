@@ -61,7 +61,7 @@ export default [
     },
     {
         name: "Crafting",
-        filename: "crafting.png",
+        filename: "craftingskill.png",
         weight: 5
     },
     {
