@@ -8,14 +8,20 @@ import { showBossImage } from '../scenes/showBossImage'
 import bossData from '../json/bosses'
 import skillData from '../json/skills'
 
+const WheelType = Object.freeze({
+    BOSS: "BOSS",
+    SOTW: "SOTW",
+    BOTW: "BOTW"
+})
+
+
 export default class Wheel extends React.Component {
     state = {
         running: false,
-        bosses: bossData.map(boss => {
-            return {...boss, enabled: true}
-        }),
+        bosses: [],
         opsModalShown: false,
-        isSotwWheel: false
+        wheelType: WheelType.BOSS,
+        filterTerm: ''
     }
 
     constructor(props) {
@@ -25,35 +31,66 @@ export default class Wheel extends React.Component {
     }
 
     componentDidMount() {
-        this.loadBossData(this.props.isSotwWheel)
+        this.loadWheelInfo()
     }
 
     componentDidUpdate(prevProps, prevState) {
         if(prevState.bosses !== this.state.bosses) {
-            this.saveBossData(this.state.isSotwWheel)
+            this.saveBossData()
         }
 
-        if(prevState.isSotwWheel !== this.state.isSotwWheel) {
+        if(prevState.wheelType !== this.state.wheelType) {
             this.loadWheelInfo()
         }
     }
 
-    get filteredBosses() {
+    get enabledBosses() {
         return this.state.bosses.filter(boss => boss.enabled)
     }
 
+    get sortedBosses() {
+        return this.state.bosses
+                .sort((a, b) => a.name.localeCompare(b.name))
+                .filter(boss => boss.name.toLowerCase().includes(this.state.filterTerm.toLowerCase()))
+    }
+
+    get title() {
+        switch (this.state.wheelType) {
+            case WheelType.BOSS:
+                return "The Boss Wheel"
+            case WheelType.BOTW:
+                return "Boss of the Week"
+            case WheelType.SOTW:
+                return "Skill of the Week"
+        }
+    }
+
     loadWheelInfo = () => {
+        let bosses = []
+
+        switch (this.state.wheelType) {
+            case WheelType.BOSS:
+                bosses = bossData
+                            .map(boss => { return { ...boss, enabled: true } })
+                            .filter(boss => boss.isSlayer !== true)
+                break
+            case WheelType.SOTW:
+                bosses = skillData.map(skill => { return { ...skill, enabled: true } })
+                break
+            case WheelType.BOTW:
+                bosses = bossData
+                            .map(boss => { return { ...boss, enabled: true } })
+                            .filter(boss => boss.name !== "Slayer Boss")
+                break
+        }
+
         this.setState({
-            bosses: this.getBossStorageInfo(
-                this.state.isSotwWheel ? 
-                    skillData.map(skill => { return { ...skill, enabled: true}}) : 
-                    bossData.map(boss => { return {...boss, enabled: true}}),
-                this.state.isSotwWheel)
+            bosses: this.getBossStorageInfo(bosses)
         })
     }
 
-    getBossStorageInfo = (bosses, isSotw = false) => {
-        const bossDataString = this.localStorage.getItem(isSotw ? 'skillsData' : 'bossData')
+    getBossStorageInfo = (bosses) => {
+        const bossDataString = this.localStorage.getItem(this.state.wheelType)
 
         if(!!bossDataString && bossDataString !== 'undefined') {
             const bossData = JSON.parse(bossDataString)
@@ -71,14 +108,8 @@ export default class Wheel extends React.Component {
         return bosses
     }
 
-    loadBossData = (isSotw = false) => {
-        this.setState({
-            bosses: this.getBossStorageInfo(this.state.bosses, isSotw)
-        })
-    }
-
-    saveBossData = (isSotw = false) => {
-        this.localStorage.setItem(isSotw ? 'skillsData' : 'bossData', JSON.stringify(this.state.bosses))
+    saveBossData = () => {
+        this.localStorage.setItem(this.state.wheelType, JSON.stringify(this.state.bosses))
     }
 
     handleClick = () => {
@@ -111,7 +142,7 @@ export default class Wheel extends React.Component {
     runSpinAnimation = (cb) => {
         const canvas = this.canvasRef.current
         const imgArr = shuffle([...document.getElementById('bossImages').getElementsByTagName('img')].filter(img => {
-            return this.filteredBosses.find(boss => {
+            return this.enabledBosses.find(boss => {
                 return img.src.includes(boss.filename)
             })
         }))
@@ -127,7 +158,7 @@ export default class Wheel extends React.Component {
 
     runShowBossImageAnimation = (cb) => {
         const canvas = this.canvasRef.current
-        const boss = this.pickRandomBoss(this.filteredBosses)
+        const boss = this.pickRandomBoss(this.enabledBosses)
         const img = [...document.getElementById('bossImages').getElementsByTagName('img')].find(el => {
             return el.src.includes(boss.filename) 
         })
@@ -155,25 +186,20 @@ export default class Wheel extends React.Component {
         return weightedBossArr[Math.floor(Math.random() * weightedBossArr.length)]
     }
 
-    handleSwitchType = (e) => {
-        this.setState({
-            isSotwWheel: e.target.checked
-        })
-    }
-
-    handleSwitchEnableAll = (e) => {
+    handleSwitchEnableAll = (enabled) => {
         this.setState({
             bosses: this.state.bosses.map(el => {
-                return {...el, enabled: e.target.checked }
+                return {...el, enabled: enabled }
             })
         })
     }
 
-    handleToggleBoss = (e, boss) => {
+    handleEnableBossClick = (boss, enabled) => {
         this.setState({
             bosses: this.state.bosses.map(el => {
-                if(el.name === boss.name) {
-                    el.enabled = e.target.checked
+                if (el.name === boss.name)
+                {
+                    el.enabled = enabled
                 }
 
                 return el
@@ -200,7 +226,7 @@ export default class Wheel extends React.Component {
                     <div className="col-12">
                         <div className="card">
                             <div className="card-header">
-                                <h1 className="card-title text-center">👑The Kng's Wheel👑</h1>
+                                <h1 className="card-title text-center">👑{this.title}👑</h1>
                             </div>
                             <div className="card-body">
                                 <canvas ref={this.canvasRef} id="board" height="400" width="700"></canvas>
@@ -238,37 +264,64 @@ export default class Wheel extends React.Component {
 
                         <div className="modal-body">
                             <div className="container-fluid"> 
-                                <div className="row">
-                                    <p className="mb-0">
-                                        {this.state.isSotwWheel ? 'Skills' : 'Bosses'}:
+                                <div className="row mb-1">
+                                    <div className="col px-0">
+                                        <select className="custom-select" type={WheelType} value={this.state.wheelType} onChange={e => this.setState({wheelType: e.target.value})}>
+                                            <option value={WheelType.BOSS}>Boss</option>
+                                            <option value={WheelType.SOTW}>SOTW</option>
+                                            <option value={WheelType.BOTW}>BOTW</option>
+                                        </select>
+                                    </div>
+                                    <div className="col px-0">
+                                        <button className="btn btn-primary mx-1" onClick={e => this.handleSwitchEnableAll(true)}>Enable All</button>
+                                        <button className="btn btn-primary" onClick={e => this.handleSwitchEnableAll(false)}>Disable All</button>
+                                    </div>
+                                </div>
+
+                                <div className="row mt-3">
+                                    <p className="mb-0" style={{fontSize: "1.1rem"}}>
+                                        {this.state.wheelType === WheelType.SOTW ? 'Skills' : 'Bosses'}:
                                     </p>
                                 </div>
-                                <div className="row mb-3">
-                                    {this.state.bosses && this.state.bosses.map((boss, index) => {
-                                        return (
-                                            <div className="col-6 custom-control custom-switch" key={index}>
-                                                <input type="checkbox" className="custom-control-input" id={`${index}`} checked={boss.enabled} onChange={(e) => this.handleToggleBoss(e, boss)} />
-                                                <label className="custom-control-label" htmlFor={`${index}`}>{boss.name}</label>
-                                            </div>
-                                        )
+
+                                <div className="row mb-1">
+                                    <input type="text"
+                                            className="form-control"
+                                            placeholder="Search..."
+                                            value={this.state.filterTerm}
+                                            onChange={e => this.setState({filterTerm: e.target.value})} />
+                                </div>
+
+                                {/* Enabled Options */}
+                                <div className="row">
+                                    {this.state.bosses && this.sortedBosses?.map((boss, index) => {
+                                        if (boss.enabled)
+                                        {
+                                            return (
+                                                <div className="badge badge-pill badge-success m-1"
+                                                     key={index}
+                                                     onClick={() => this.handleEnableBossClick(boss, false)}
+                                                     style={{ fontSize: "1rem", cursor: "pointer" }}>+ {boss.name}</div>
+                                            )
+                                        }
                                     })}
                                 </div>
 
-                                <div className="row">
-                                    <p className="mb-0">
-                                        Controls:
-                                    </p>
-                                </div>
+                                <hr className="hr" />
                                 
+                                {/* Disabled Options */}
                                 <div className="row">
-                                    <div className="col-6 custom-control custom-switch">
-                                        <input type="checkbox" className="custom-control-input" id="WheelTypeSwitch" checked={this.state.isSotwWheel} onChange={(e) => this.handleSwitchType(e)} />
-                                        <label className="custom-control-label" htmlFor="WheelTypeSwitch">SOTW Mode</label>
-                                    </div>
-                                    <div className="col-6 custom-control custom-switch">
-                                        <input type="checkbox" className="custom-control-input" id="EnableAllSwitch" checked={this.state.bosses.every(boss => boss.enabled)} onChange={(e) => this.handleSwitchEnableAll(e)} />
-                                        <label className="custom-control-label" htmlFor="EnableAllSwitch">Enable/Disable All</label>
-                                    </div>
+                                    {this.state.bosses && this.sortedBosses?.map((boss, index) => {
+                                        if (!boss.enabled)
+                                        {
+                                            return (
+                                                <div className="badge badge-pill badge-danger m-1"
+                                                    onClick={() => this.handleEnableBossClick(boss, true)}
+                                                    key={index}
+                                                    style={{ fontSize: "1rem", cursor: "pointer" }}>- {boss.name}</div>
+                                            )
+                                        }
+                                    })}
                                 </div>
                             </div>
 
