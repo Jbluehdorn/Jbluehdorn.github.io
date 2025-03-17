@@ -1,0 +1,93 @@
+@import './variables.scss';
+@import '../../node_modules/bootstrap/scss/bootstrap.scss';
+
+body, html {
+    margin-top: 0 !important;
+    background: $clrBg;
+    color: $clrTxtPrimary;
+    font-size: 1.1rem;
+    text-shadow: 0 0 5px rgba(0,0,0, 0.5);
+}
+
+header {
+    background: $clrPrimary;
+    color: $clrTxtSecondary;
+}
+
+body {
+    margin-top: 15px;
+}
+
+#hiddenImages {
+    display: none;
+}
+
+.btn-avatar, .btn-avatar:hover {
+    width: 45px;
+    height: 75px;
+    padding: 0 5px;
+    margin: 5px auto;
+    display: block;
+    border: 1px solid $chromeGold;
+    background: #160D0b;
+}
+
+.teamPortrait {
+    margin: 10px auto 0 auto;
+    width: 400px;
+    position: relative;
+
+    img {
+        width: 400px;
+        height: 400px;
+        border: 1px solid $chromeGold;
+    }
+
+    h2 {
+        position: absolute;
+        top: 325px;
+        background: -webkit-linear-gradient(right, rgba(19,6,6, 0), rgb(19, 6, 6, 1));
+        padding-left: 25px;
+        width: 400px;
+        padding-bottom: 5px;
+    }
+}
+
+.healthbar {
+    width: 400px;
+    margin: 10px auto 0 auto;
+    font-size: 1.05rem;
+}
+
+.card {
+    background: $clrBgSecondary;
+
+    .card-header {
+        .card-title {
+            color: $clrTxtSecondary;
+            margin-bottom: 0;
+        }
+    }
+
+    .card-body {
+        color: $clrTxtSecondary;
+    }
+}
+
+.modal {
+    background-color: rgba(0, 0, 0, 0.4);
+    
+    .modal-content {
+        background: $clrBgSecondary;
+
+        .modal-header {
+            .modal-title {
+                margin-bottom: 0;
+            }
+        }
+    
+        .modal-body {
+            color: $clrTxtSecondary;
+        }
+    }
+}
