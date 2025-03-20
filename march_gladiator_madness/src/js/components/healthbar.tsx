@@ -1,11 +1,11 @@
 import React from 'react'
 
 interface HealthBarProps {
-    maxHp: number,
-    currentHp: number
+    maxHp: number | undefined,
+    currentHp: number | undefined
 }
 
-const HealthBar = ({ maxHp, currentHp }: HealthBarProps) => {
+const HealthBar = ({ maxHp = 0, currentHp = 0 }: HealthBarProps) => {
     const getCurrentPercent = () => {
         return Math.floor((currentHp / maxHp) * 100)
     }
@@ -24,7 +24,7 @@ const HealthBar = ({ maxHp, currentHp }: HealthBarProps) => {
 
     return (
         <>
-            <div className="progress healthbar" role="progressbar" aria-valuenow={currentHp} aria-valuemin="0" aria-valuemax={maxHp}>
+            <div className="progress healthbar" role="progressbar" aria-valuenow={currentHp} aria-valuemin={0} aria-valuemax={maxHp}>
                 <div className={`progress-bar ${getClassName(getCurrentPercent())}`} style={{ width: `${getCurrentPercent()}%` }}>{ `${currentHp}/${maxHp}`}</div>
             </div>
         </>

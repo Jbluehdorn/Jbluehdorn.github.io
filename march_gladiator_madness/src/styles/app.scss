@@ -32,14 +32,30 @@ body {
     background: #160D0b;
 }
 
+#fightSimulator {
+    .fightInfo {
+        border: 1px solid $chromeGold;
+        background: #160D0b;
+    }
+}
+
 .teamPortrait {
     margin: 10px auto 0 auto;
     width: 400px;
-    position: relative;
+
+    .photo {
+        position: relative;
+    }
 
     img {
         width: 400px;
         height: 400px;
+        border: 1px solid $chromeGold;
+    }
+
+    h1 {
+        text-align: center;
+        background: #160D0b;
         border: 1px solid $chromeGold;
     }
 

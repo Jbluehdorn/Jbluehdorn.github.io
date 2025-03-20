@@ -11,7 +11,7 @@ enum Stage {
 }
 
 const Battleground = () => {
-    const [teams, setTeams] = React.useState([])
+    const [teams, setTeams] = React.useState<Team[]>([])
     const [currentStage, setCurrentStage] = React.useState(Stage.Selection)
 
     const handleTeamsSelected = (teams: Team[]) => {
@@ -19,12 +19,17 @@ const Battleground = () => {
         setCurrentStage(Stage.Fight)
     }
 
+    const reset = () => {
+        setTeams([])
+        setCurrentStage(Stage.Selection)
+    }
+
     const loadCurrentStage = () => {
         switch (currentStage) {
             case Stage.Selection:
                 return (<TeamSelector onTeamsSelected={(teams: Team[]) => handleTeamsSelected(teams)} />)
             case Stage.Fight:
-                return (<FightSimulator teams={teams} onConfirmFinish={() => setCurrentStage(Stage.Selection)} /> )
+                return (<FightSimulator teams={teams} onConfirmFinish={reset} /> )
         }
     }
 

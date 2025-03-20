@@ -28126,6 +28126,10 @@ var Battleground = function Battleground() {
     setTeams(teams);
     setCurrentStage(Stage.Fight);
   };
+  var reset = function reset() {
+    setTeams([]);
+    setCurrentStage(Stage.Selection);
+  };
   var loadCurrentStage = function loadCurrentStage() {
     switch (currentStage) {
       case Stage.Selection:
@@ -28137,9 +28141,7 @@ var Battleground = function Battleground() {
       case Stage.Fight:
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fightsimulator__WEBPACK_IMPORTED_MODULE_2__["default"], {
           teams: teams,
-          onConfirmFinish: function onConfirmFinish() {
-            return setCurrentStage(Stage.Selection);
-          }
+          onConfirmFinish: reset
         });
     }
   };
@@ -28203,77 +28205,141 @@ var Target;
 var FightSimulator = function FightSimulator(_a) {
   var teams = _a.teams,
     onConfirmFinish = _a.onConfirmFinish;
-  var _b = react__WEBPACK_IMPORTED_MODULE_0___default().useState(undefined),
+  var _b = react__WEBPACK_IMPORTED_MODULE_0___default().useState(),
     firstMascot = _b[0],
     setFirstMascot = _b[1];
-  var _c = react__WEBPACK_IMPORTED_MODULE_0___default().useState(undefined),
+  var _c = react__WEBPACK_IMPORTED_MODULE_0___default().useState(),
     secondMascot = _c[0],
     setSecondMascot = _c[1];
-  var _d = react__WEBPACK_IMPORTED_MODULE_0___default().useState(0),
-    round = _d[0],
-    setRound = _d[1];
-  var _e = react__WEBPACK_IMPORTED_MODULE_0___default().useState(['']),
-    currentInitiativeState = _e[0],
-    setCurrentInitiativeState = _e[1];
-  var _f = react__WEBPACK_IMPORTED_MODULE_0___default().useState([]),
-    turns = _f[0],
-    setTurns = _f[1];
-  var _g = react__WEBPACK_IMPORTED_MODULE_0___default().useState([]),
-    script = _g[0],
-    setScript = _g[1];
+  var _d = react__WEBPACK_IMPORTED_MODULE_0___default().useState([]),
+    script = _d[0],
+    setScript = _d[1];
+  var _e = react__WEBPACK_IMPORTED_MODULE_0___default().useState(),
+    display = _e[0],
+    setDisplay = _e[1];
+  var _f = react__WEBPACK_IMPORTED_MODULE_0___default().useState(false),
+    scriptRunFinished = _f[0],
+    setScriptRunFinished = _f[1];
   react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {
-    var interval = setInterval(function () {
-      if (combatOver()) {
-        clearInterval(interval);
-      }
-      runRound(round);
-    }, 1000);
-    return function () {
-      return clearInterval(interval);
-    };
-  }, [round, firstMascot]);
-  react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {
-    loadMascots();
+    generateCombatReport();
   }, []);
-  var loadMascots = function loadMascots() {
-    setFirstMascot((0,_utils_mascots__WEBPACK_IMPORTED_MODULE_1__.GetMascotBattleStats)(teams[0].mascot, teams[0].seed));
-    setSecondMascot((0,_utils_mascots__WEBPACK_IMPORTED_MODULE_1__.GetMascotBattleStats)(teams[1].mascot, teams[1].seed));
-  };
-  var determineInitiative = function determineInitiative() {
-    var firstMascotInit = (0,_utils_dice__WEBPACK_IMPORTED_MODULE_2__.GetRollResult)(_utils_dice__WEBPACK_IMPORTED_MODULE_2__.Dice.D20, firstMascot.initiative);
-    var secondMascotInit = (0,_utils_dice__WEBPACK_IMPORTED_MODULE_2__.GetRollResult)(_utils_dice__WEBPACK_IMPORTED_MODULE_2__.Dice.D20, secondMascot.initiative);
-    if (firstMascotInit > secondMascotInit) {
-      setTurns([Target.firstMascot, Target.secondMascot]);
-      setCurrentInitiativeState(["".concat(teams[0].name, " goes first!")]);
-    } else {
-      setTurns([Target.secondMascot, Target.firstMascot]);
-      setCurrentInitiativeState(["".concat(teams[1].name, " goes first!")]);
-    }
-    setRound(1);
-  };
-  var runRound = function runRound(round) {
-    if (!mascotsReady()) return;
-    if (round === 0) {
-      determineInitiative();
-      return;
-    }
-    var attacker = round % 2 === 0 ? Target.firstMascot : Target.secondMascot;
-    if (true) {
-      var attackInfo = ["".concat(teams[0].name, " attacks!")];
-      for (var i = 0; i < firstMascot.attackCount; i++) {
-        var attack = getRandomElement(firstMascot.attacks);
-        attackInfo.push("".concat(teams[0].name, " ").concat(attack.flavorText, " ").concat(teams[1].name));
-        damageMascot(Target.secondMascot, attack.calculateDamage(firstMascot.attackCount, firstMascot.attackMod));
+  // Run the display
+  react__WEBPACK_IMPORTED_MODULE_0___default().useEffect(function () {
+    var timerRef;
+    var currIndex = 0;
+    var eventQueue = [];
+    if (!!script.length) {
+      for (var i = 0; i < script.length; i++) {
+        var currRound = script[i];
+        for (var k = 0; k < currRound.events.length; k++) {
+          eventQueue.push(currRound.events[k]);
+        }
       }
-      console.log(attackInfo);
-      setCurrentInitiativeState(attackInfo);
+      timerRef = setInterval(function () {
+        var currEvent = eventQueue[currIndex];
+        if (!currEvent) {
+          setScriptRunFinished(true);
+          clearInterval(timerRef);
+        }
+        // Safety valve
+        if (currIndex > 1000) {
+          clearInterval(timerRef);
+        }
+        if (!!currEvent.attacker) {
+          var target = currEvent.attacker === teams[0] ? Target.secondMascot : Target.firstMascot;
+          setMascotHp(target, Math.max(currEvent.defenderHp, 0));
+        }
+        setDisplay("".concat(currEvent.displayInfo));
+        currIndex++;
+      }, 2000);
     }
-  };
+  }, [script]);
   var mascotsReady = function mascotsReady() {
     return !!firstMascot && !!secondMascot;
   };
-  var combatOver = function combatOver() {
-    return firstMascot.currentHp <= 0 || secondMascot.currentHp <= 0;
+  var generateCombatReport = function generateCombatReport() {
+    var round = 0;
+    var script = [];
+    var turns = [];
+    var firstMascot = (0,_utils_mascots__WEBPACK_IMPORTED_MODULE_1__.GetMascotBattleStats)(teams[0].mascot, teams[0].seed);
+    var secondMascot = (0,_utils_mascots__WEBPACK_IMPORTED_MODULE_1__.GetMascotBattleStats)(teams[1].mascot, teams[1].seed);
+    setFirstMascot(__assign(__assign({}, firstMascot), {
+      currentHp: firstMascot.maxHp
+    }));
+    setSecondMascot(__assign(__assign({}, secondMascot), {
+      currentHp: secondMascot.maxHp
+    }));
+    while (true) {
+      var currentRoundInfo = {
+        number: round,
+        events: []
+      };
+      // Someones dead so we can just end
+      if (firstMascot.currentHp <= 0 || secondMascot.currentHp <= 0) {
+        break;
+      }
+      // Fail safe
+      if (round > 100) {
+        break;
+      }
+      // Determine Initiative
+      if (round === 0) {
+        var firstMascotInit = (0,_utils_dice__WEBPACK_IMPORTED_MODULE_2__.GetRollResult)(_utils_dice__WEBPACK_IMPORTED_MODULE_2__.Dice.D20, 1, firstMascot.initiative);
+        var secondMascotInit = (0,_utils_dice__WEBPACK_IMPORTED_MODULE_2__.GetRollResult)(_utils_dice__WEBPACK_IMPORTED_MODULE_2__.Dice.D20, 1, secondMascot.initiative);
+        if (firstMascotInit > secondMascotInit) {
+          turns = [Target.firstMascot, Target.secondMascot];
+        } else {
+          turns = [Target.secondMascot, Target.firstMascot];
+        }
+        var firstTeam = turns[0] === Target.firstMascot ? teams[0].name : teams[1].name;
+        var initiativeEvent = {
+          displayInfo: "".concat(firstTeam, " goes first!"),
+          damage: 0
+        };
+        currentRoundInfo.events.push(initiativeEvent);
+      } else {
+        // Iterate through the turns
+        for (var i = 0; i < turns.length; i++) {
+          var attacker = turns[i] === Target.firstMascot ? firstMascot : secondMascot;
+          var attackerTeam = attacker === firstMascot ? teams[0] : teams[1];
+          var defender = turns[i] === Target.firstMascot ? secondMascot : firstMascot;
+          var defenderTeam = defender === firstMascot ? teams[0] : teams[1];
+          for (var k = 0; k < attacker.attackCount; k++) {
+            var attack = getRandomElement(attacker.attacks);
+            var attackRoll = (0,_utils_dice__WEBPACK_IMPORTED_MODULE_2__.GetRollResult)(_utils_dice__WEBPACK_IMPORTED_MODULE_2__.Dice.D20, 1, attacker.attackMod);
+            if (attackRoll < defender.armorClass) {
+              var missEvent = {
+                displayInfo: "".concat(attackerTeam.mascotName, "'s ").concat(attack.name, " attack misses!"),
+                damage: 0
+              };
+              currentRoundInfo.events.push(missEvent);
+            } else {
+              var damage = attack.calculateDamage(attacker.attackDiceCount, attacker.attackMod);
+              defender.currentHp -= damage;
+              var attackEvent = {
+                displayInfo: "".concat(attackerTeam.mascotName, " ").concat(attack.flavorText, " ").concat(defenderTeam.mascotName, " for ").concat(damage, " damage!"),
+                attacker: attackerTeam,
+                defender: defenderTeam,
+                defenderHp: defender.currentHp,
+                damage: damage
+              };
+              currentRoundInfo.events.push(attackEvent);
+            }
+          }
+          if (defender.currentHp <= 0) {
+            currentRoundInfo.events.push({
+              displayInfo: "".concat(attackerTeam.name, " wins!"),
+              defenderHp: 0,
+              damage: 0
+            });
+            break;
+          }
+        }
+      }
+      script.push(currentRoundInfo);
+      round++;
+    }
+    setScript(script);
   };
   var getRandomElement = function getRandomElement(arr) {
     if (arr.length === 0) {
@@ -28282,46 +28348,66 @@ var FightSimulator = function FightSimulator(_a) {
     var randomIndex = Math.floor(Math.random() * arr.length);
     return arr[randomIndex];
   };
-  var damageMascot = function damageMascot(target, damage) {
-    if (target === Target.firstMascot) {
-      setFirstMascot(__assign(__assign({}, firstMascot), {
-        currentHp: Math.max(firstMascot.currentHp - damage, 0)
-      }));
-    }
-    if (target === Target.secondMascot) {
-      setSecondMascot(__assign(__assign({}, secondMascot), {
-        currentHp: Math.max(secondMascot.currentHp - damage, 0)
-      }));
+  var setMascot = function setMascot(target, mascot) {
+    switch (target) {
+      case Target.firstMascot:
+        setFirstMascot(mascot);
+        break;
+      case Target.secondMascot:
+        setSecondMascot(mascot);
+        break;
     }
   };
+  var setMascotHp = function setMascotHp(target, hp) {
+    var mascot = target === Target.firstMascot ? firstMascot : secondMascot;
+    mascot.currentHp = hp;
+    setMascot(target, mascot);
+  };
+  var getMascotHp = function getMascotHp(mascot) {
+    if (!mascot) {
+      return 0;
+    }
+    return Math.max(mascot.currentHp, 0);
+  };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "container-fluid"
+    className: "container-fluid",
+    id: "fightSimulator"
   }, mascotsReady() && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "row"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "col-5"
+    className: "col-4"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_teamportrait__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    team: teams[0]
+    team: teams[0],
+    name: teams[0].mascotName
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_healthbar__WEBPACK_IMPORTED_MODULE_5__["default"], {
-    currentHp: firstMascot.currentHp,
-    maxHp: firstMascot.maxHp
+    currentHp: getMascotHp(firstMascot),
+    maxHp: firstMascot === null || firstMascot === void 0 ? void 0 : firstMascot.maxHp
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "col-2"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
+    className: "col-4",
+    style: {
+      textAlign: 'center'
+    }
+  }, !display && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
     src: (0,_utils_imageLoader__WEBPACK_IMPORTED_MODULE_3__["default"])('effects', 'versus'),
     style: {
       margin: 'auto',
       height: '250px'
     }
-  }), currentInitiativeState.map(function (state) {
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, state);
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "col-5"
+  }), !!display && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "card fightInfo"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "card-body"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, display), scriptRunFinished && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
+    className: "btn btn-primary",
+    onClick: onConfirmFinish
+  }, "Reset")))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "col-4"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_teamportrait__WEBPACK_IMPORTED_MODULE_4__["default"], {
-    team: teams[1]
+    team: teams[1],
+    name: teams[1].mascotName
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_healthbar__WEBPACK_IMPORTED_MODULE_5__["default"], {
-    currentHp: secondMascot.currentHp,
-    maxHp: secondMascot.maxHp
+    currentHp: getMascotHp(secondMascot),
+    maxHp: secondMascot === null || secondMascot === void 0 ? void 0 : secondMascot.maxHp
   }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (FightSimulator);
@@ -28343,8 +28429,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 
 var HealthBar = function HealthBar(_a) {
-  var maxHp = _a.maxHp,
-    currentHp = _a.currentHp;
+  var _b = _a.maxHp,
+    maxHp = _b === void 0 ? 0 : _b,
+    _c = _a.currentHp,
+    currentHp = _c === void 0 ? 0 : _c;
   var getCurrentPercent = function getCurrentPercent() {
     return Math.floor(currentHp / maxHp * 100);
   };
@@ -28361,7 +28449,7 @@ var HealthBar = function HealthBar(_a) {
     className: "progress healthbar",
     role: "progressbar",
     "aria-valuenow": currentHp,
-    "aria-valuemin": "0",
+    "aria-valuemin": 0,
     "aria-valuemax": maxHp
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "progress-bar ".concat(getClassName(getCurrentPercent())),
@@ -28445,12 +28533,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 var TeamPortrait = function TeamPortrait(_a) {
-  var team = _a.team;
+  var team = _a.team,
+    name = _a.name;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, !team && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", null, "Select a team..."), team && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "teamPortrait"
+  }, !!name && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h1", null, name), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "photo"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("img", {
     src: (0,_utils_imageLoader__WEBPACK_IMPORTED_MODULE_1__["default"])('action', team.logo)
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "#", team.seed, " ", team.name)));
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, "#", team.seed, " ", team.name))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (TeamPortrait);
 
@@ -28476,17 +28567,12 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-while (_utils_teams__WEBPACK_IMPORTED_MODULE_1__["default"].length < 64) {
-  _utils_teams__WEBPACK_IMPORTED_MODULE_1__["default"].forEach(function (team) {
-    _utils_teams__WEBPACK_IMPORTED_MODULE_1__["default"].push(team);
-  });
-}
 var TeamSelector = function TeamSelector(_a) {
   var onTeamsSelected = _a.onTeamsSelected;
-  var _b = react__WEBPACK_IMPORTED_MODULE_0___default().useState(null),
+  var _b = react__WEBPACK_IMPORTED_MODULE_0___default().useState(),
     firstTeam = _b[0],
     setFirstTeam = _b[1];
-  var _c = react__WEBPACK_IMPORTED_MODULE_0___default().useState(null),
+  var _c = react__WEBPACK_IMPORTED_MODULE_0___default().useState(),
     secondTeam = _c[0],
     setSecondTeam = _c[1];
   var handleTeamSelect = function handleTeamSelect(team) {
@@ -28506,8 +28592,8 @@ var TeamSelector = function TeamSelector(_a) {
     onTeamsSelected([firstTeam, secondTeam]);
   };
   var resetTeams = function resetTeams() {
-    setFirstTeam(null);
-    setSecondTeam(null);
+    setFirstTeam(undefined);
+    setSecondTeam(undefined);
   };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "container-fluid teamSelector"
@@ -28518,7 +28604,7 @@ var TeamSelector = function TeamSelector(_a) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_teamportrait__WEBPACK_IMPORTED_MODULE_2__["default"], {
     team: firstTeam
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "selectionGrid col-6 p-0"
+    className: "selectionGrid col-6 py-0 px-1"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "container-fluid"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -28648,7 +28734,27 @@ __webpack_require__.r(__webpack_exports__);
 var Mascot;
 (function (Mascot) {
   Mascot[Mascot["Wildcat"] = 0] = "Wildcat";
-  Mascot[Mascot["Bluedevil"] = 1] = "Bluedevil";
+  Mascot[Mascot["HornedDevil"] = 1] = "HornedDevil";
+  Mascot[Mascot["Tiger"] = 2] = "Tiger";
+  Mascot[Mascot["Hornet"] = 3] = "Hornet";
+  Mascot[Mascot["SmallBird"] = 4] = "SmallBird";
+  Mascot[Mascot["Badger"] = 5] = "Badger";
+  Mascot[Mascot["Mermaid"] = 6] = "Mermaid";
+  Mascot[Mascot["Commoner"] = 7] = "Commoner";
+  Mascot[Mascot["Mastiff"] = 8] = "Mastiff";
+  Mascot[Mascot["Bandit"] = 9] = "Bandit";
+  Mascot[Mascot["Goat"] = 10] = "Goat";
+  Mascot[Mascot["AirElemental"] = 11] = "AirElemental";
+  Mascot[Mascot["Boar"] = 12] = "Boar";
+  Mascot[Mascot["Eagle"] = 13] = "Eagle";
+  Mascot[Mascot["Wolf"] = 14] = "Wolf";
+  Mascot[Mascot["Gladiator"] = 15] = "Gladiator";
+  Mascot[Mascot["Crocodile"] = 16] = "Crocodile";
+  Mascot[Mascot["Turtle"] = 17] = "Turtle";
+  Mascot[Mascot["Deer"] = 18] = "Deer";
+  Mascot[Mascot["Hawk"] = 19] = "Hawk";
+  Mascot[Mascot["Bull"] = 20] = "Bull";
+  Mascot[Mascot["Solar"] = 21] = "Solar";
 })(Mascot || (Mascot = {}));
 function GetMascotBattleStats(mascot, seed) {
   var baseStats = mascotBattleBaseStats.find(function (stats) {
@@ -28664,6 +28770,7 @@ function GetMascotBattleStats(mascot, seed) {
     attackCount: baseStats.attackCount,
     armorClass: baseStats.armorClass,
     attackMod: baseStats.attackMod,
+    attackDiceCount: baseStats.attackDiceCount,
     maxHp: maxHitPoints,
     currentHp: maxHitPoints,
     initiative: baseStats.initiative
@@ -28690,26 +28797,326 @@ var attacks = {
     calculateDamage: function calculateDamage(diceCount, mod) {
       return (0,_dice__WEBPACK_IMPORTED_MODULE_0__.GetRollResult)(_dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D8, diceCount, mod);
     }
+  },
+  sting: {
+    name: 'Sting',
+    flavorText: 'stings',
+    calculateDamage: function calculateDamage(diceCount, mod) {
+      return (0,_dice__WEBPACK_IMPORTED_MODULE_0__.GetRollResult)(_dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D6, diceCount, mod) + (0,_dice__WEBPACK_IMPORTED_MODULE_0__.GetRollResult)(_dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D4, 2);
+    }
+  },
+  beak: {
+    name: 'Beak',
+    flavorText: 'snaps their beak at',
+    calculateDamage: function calculateDamage(diceCount, mod) {
+      return (0,_dice__WEBPACK_IMPORTED_MODULE_0__.GetRollResult)(_dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D4, diceCount, mod);
+    }
+  },
+  bite: {
+    name: 'Bite',
+    flavorText: 'bites',
+    calculateDamage: function calculateDamage(diceCount, mod) {
+      return (0,_dice__WEBPACK_IMPORTED_MODULE_0__.GetRollResult)(_dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D8, diceCount, mod);
+    }
+  },
+  trident: {
+    name: 'Trident',
+    flavorText: 'stabs their trident at',
+    calculateDamage: function calculateDamage(diceCount, mod) {
+      return (0,_dice__WEBPACK_IMPORTED_MODULE_0__.GetRollResult)(_dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D6, diceCount, mod) + (0,_dice__WEBPACK_IMPORTED_MODULE_0__.GetRollResult)(_dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D4, 1);
+    }
+  },
+  pitchfork: {
+    name: 'Pitch Fork',
+    flavorText: 'stabs their pitch fork at',
+    calculateDamage: function calculateDamage(diceCount, mod) {
+      return (0,_dice__WEBPACK_IMPORTED_MODULE_0__.GetRollResult)(_dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D6, diceCount, mod);
+    }
+  },
+  scimitar: {
+    name: 'Scimitar',
+    flavorText: 'swings their blade at',
+    calculateDamage: function calculateDamage(diceCount, mod) {
+      return (0,_dice__WEBPACK_IMPORTED_MODULE_0__.GetRollResult)(_dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D6, diceCount, mod);
+    }
+  },
+  pistol: {
+    name: 'Pistol',
+    flavorText: 'fires their pistol at',
+    calculateDamage: function calculateDamage(diceCount, mod) {
+      return (0,_dice__WEBPACK_IMPORTED_MODULE_0__.GetRollResult)(_dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D8, diceCount, mod);
+    }
+  },
+  ram: {
+    name: 'Ram',
+    flavorText: 'rams',
+    calculateDamage: function calculateDamage(diceCount, mod) {
+      return (0,_dice__WEBPACK_IMPORTED_MODULE_0__.GetRollResult)(_dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D4, diceCount, mod);
+    }
+  },
+  thunderousSlam: {
+    name: 'Thunderous Slam',
+    flavorText: 'thunderously slams',
+    calculateDamage: function calculateDamage(diceCount, mod) {
+      return (0,_dice__WEBPACK_IMPORTED_MODULE_0__.GetRollResult)(_dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D8, diceCount, mod);
+    }
+  },
+  gore: {
+    name: 'Gore',
+    flavorText: 'gores',
+    calculateDamage: function calculateDamage(diceCount, mod) {
+      return (0,_dice__WEBPACK_IMPORTED_MODULE_0__.GetRollResult)(_dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D6, diceCount, mod);
+    }
+  },
+  talons: {
+    name: 'Talons',
+    flavorText: 'slashes with their talons at',
+    calculateDamage: function calculateDamage(diceCount, mod) {
+      return (0,_dice__WEBPACK_IMPORTED_MODULE_0__.GetRollResult)(_dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D4, diceCount, mod);
+    }
+  },
+  spear: {
+    name: 'Spear',
+    flavorText: 'stabs their spear at',
+    calculateDamage: function calculateDamage(diceCount, mod) {
+      return (0,_dice__WEBPACK_IMPORTED_MODULE_0__.GetRollResult)(_dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D6, diceCount, mod);
+    }
+  },
+  flyingSword: {
+    name: 'Flying Sword',
+    flavorText: 'slashes their flying sword at',
+    calculateDamage: function calculateDamage(diceCount, mod) {
+      return (0,_dice__WEBPACK_IMPORTED_MODULE_0__.GetRollResult)(_dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D6, diceCount, mod) + (0,_dice__WEBPACK_IMPORTED_MODULE_0__.GetRollResult)(_dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D8, 2 * diceCount);
+    }
+  },
+  slayingBow: {
+    name: 'Slaying Bow',
+    flavorText: 'fires their slaying bow at',
+    calculateDamage: function calculateDamage(diceCount, mod) {
+      return (0,_dice__WEBPACK_IMPORTED_MODULE_0__.GetRollResult)(_dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D8, diceCount, mod) + (0,_dice__WEBPACK_IMPORTED_MODULE_0__.GetRollResult)(_dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D8, 2 * diceCount);
+    }
   }
 };
 var mascotBattleBaseStats = [{
   mascot: Mascot.Wildcat,
   attackCount: 2,
-  attackMod: 3,
+  attackMod: 5,
   attacks: [attacks.rend],
+  attackDiceCount: 1,
   armorClass: 12,
   hitDie: _dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D10,
   consMod: 2,
   initiative: 2
 }, {
-  mascot: Mascot.Bluedevil,
+  mascot: Mascot.HornedDevil,
   attackCount: 3,
-  attackMod: 6,
+  attackMod: 9,
   attacks: [attacks.searingFork, attacks.hurlFlame],
+  attackDiceCount: 3,
   armorClass: 18,
   hitDie: _dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D10,
   consMod: 5,
   initiative: 7
+}, {
+  mascot: Mascot.Tiger,
+  attackCount: 1,
+  attackMod: 5,
+  attacks: [attacks.rend],
+  attackDiceCount: 2,
+  armorClass: 13,
+  hitDie: _dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D10,
+  consMod: 2,
+  initiative: 3
+}, {
+  mascot: Mascot.Hornet,
+  attackCount: 1,
+  attackMod: 4,
+  attacks: [attacks.sting],
+  attackDiceCount: 1,
+  armorClass: 13,
+  hitDie: _dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D8,
+  consMod: 0,
+  initiative: 2
+}, {
+  mascot: Mascot.SmallBird,
+  attackCount: 1,
+  attackMod: 2,
+  attacks: [attacks.beak],
+  attackDiceCount: 1,
+  armorClass: 10,
+  hitDie: _dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D8,
+  consMod: 1,
+  initiative: 0
+}, {
+  mascot: Mascot.Badger,
+  attackCount: 1,
+  attackMod: 2,
+  attacks: [attacks.bite],
+  attackDiceCount: 1,
+  armorClass: 11,
+  hitDie: _dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D4,
+  consMod: 3,
+  initiative: 0
+}, {
+  mascot: Mascot.Mermaid,
+  attackCount: 1,
+  attackMod: 2,
+  attacks: [attacks.trident],
+  attackDiceCount: 1,
+  armorClass: 11,
+  hitDie: _dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D8,
+  consMod: 2,
+  initiative: 1
+}, {
+  mascot: Mascot.Commoner,
+  attackCount: 1,
+  attackMod: 2,
+  attacks: [attacks.pitchfork],
+  attackDiceCount: 1,
+  armorClass: 10,
+  hitDie: _dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D8,
+  consMod: 0,
+  initiative: 0
+}, {
+  mascot: Mascot.Mastiff,
+  attackCount: 1,
+  attackMod: 3,
+  attacks: [attacks.bite],
+  attackDiceCount: 1,
+  armorClass: 12,
+  hitDie: _dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D8,
+  consMod: 1,
+  initiative: 2
+}, {
+  mascot: Mascot.Bandit,
+  attackCount: 1,
+  attackMod: 3,
+  attacks: [attacks.scimitar, attacks.pistol],
+  attackDiceCount: 1,
+  armorClass: 12,
+  hitDie: _dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D8,
+  consMod: 1,
+  initiative: 1
+}, {
+  mascot: Mascot.Goat,
+  attackCount: 1,
+  attackMod: 2,
+  attacks: [attacks.ram],
+  attackDiceCount: 1,
+  armorClass: 10,
+  hitDie: _dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D8,
+  consMod: 0,
+  initiative: 0
+}, {
+  mascot: Mascot.AirElemental,
+  attackCount: 2,
+  attackMod: 8,
+  attacks: [attacks.thunderousSlam],
+  attackDiceCount: 2,
+  armorClass: 15,
+  hitDie: _dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D10,
+  consMod: 2,
+  initiative: 5
+}, {
+  mascot: Mascot.Boar,
+  attackCount: 1,
+  attackMod: 3,
+  attacks: [attacks.gore],
+  attackDiceCount: 1,
+  armorClass: 11,
+  hitDie: _dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D8,
+  consMod: 2,
+  initiative: 0
+}, {
+  mascot: Mascot.Eagle,
+  attackCount: 1,
+  attackMod: 4,
+  attacks: [attacks.talons],
+  attackDiceCount: 1,
+  armorClass: 12,
+  hitDie: _dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D6,
+  consMod: 1,
+  initiative: 2
+}, {
+  mascot: Mascot.Wolf,
+  attackCount: 1,
+  attackMod: 4,
+  attacks: [attacks.bite],
+  attackDiceCount: 1,
+  armorClass: 12,
+  hitDie: _dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D8,
+  consMod: 1,
+  initiative: 2
+}, {
+  mascot: Mascot.Gladiator,
+  attackCount: 2,
+  attackMod: 7,
+  attacks: [attacks.spear],
+  attackDiceCount: 2,
+  armorClass: 16,
+  hitDie: _dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D8,
+  consMod: 6,
+  initiative: 5
+}, {
+  mascot: Mascot.Crocodile,
+  attackCount: 1,
+  attackMod: 4,
+  attacks: [attacks.bite],
+  attackDiceCount: 1,
+  armorClass: 12,
+  hitDie: _dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D10,
+  consMod: 3,
+  initiative: 0
+}, {
+  mascot: Mascot.Turtle,
+  attackCount: 1,
+  attackMod: 0,
+  attacks: [attacks.bite],
+  attackDiceCount: 1,
+  armorClass: 17,
+  hitDie: _dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D4,
+  consMod: 0,
+  initiative: -3
+}, {
+  mascot: Mascot.Deer,
+  attackCount: 1,
+  attackMod: 2,
+  attacks: [attacks.ram],
+  attackDiceCount: 1,
+  armorClass: 13,
+  hitDie: _dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D8,
+  consMod: 0,
+  initiative: 3
+}, {
+  mascot: Mascot.Hawk,
+  attackCount: 1,
+  attackMod: 5,
+  attacks: [attacks.talons],
+  attackDiceCount: 1,
+  armorClass: 13,
+  hitDie: _dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D4,
+  consMod: -1,
+  initiative: 3
+}, {
+  mascot: Mascot.Bull,
+  attackCount: 1,
+  attackMod: 8,
+  attacks: [attacks.gore],
+  attackDiceCount: 2,
+  armorClass: 12,
+  hitDie: _dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D10,
+  consMod: 4,
+  initiative: 0
+}, {
+  mascot: Mascot.Solar,
+  attackCount: 2,
+  attackMod: 15,
+  attacks: [attacks.flyingSword, attacks.slayingBow],
+  attackDiceCount: 4,
+  armorClass: 21,
+  hitDie: _dice__WEBPACK_IMPORTED_MODULE_0__.Dice.D10,
+  consMod: 8,
+  initiative: 20
 }];
 
 /***/ }),
@@ -28730,13 +29137,219 @@ __webpack_require__.r(__webpack_exports__);
 var Teams = [{
   name: 'Arizona',
   mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Wildcat,
+  mascotName: 'Wilbur',
   logo: 'ArizonaWildcats',
+  seed: 4
+}, {
+  name: 'Auburn',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Tiger,
+  mascotName: 'Aubie',
+  logo: 'AuburnTigers',
   seed: 1
 }, {
-  name: 'Duke',
-  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Bluedevil,
-  logo: 'DukeBlueDevils',
+  name: 'Alabama State',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Hornet,
+  mascotName: 'Hornet',
+  logo: 'AlabamaStateHornets',
+  seed: 16
+}, {
+  name: 'Louisville',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.SmallBird,
+  mascotName: 'Louie',
+  logo: 'LouisvilleCardinals',
+  seed: 8
+}, {
+  name: 'Creighton',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.SmallBird,
+  mascotName: 'Billy Bluejay',
+  logo: 'CreightonBluejays',
+  seed: 9
+}, {
+  name: 'Michigan',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Badger,
+  mascotName: 'Biff',
+  logo: 'MichiganWolverines',
+  seed: 5
+}, {
+  name: 'San Diego',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Mermaid,
+  mascotName: 'King Triton',
+  logo: 'SanDiegoTritons',
+  seed: 12
+}, {
+  name: 'Texas AM',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Commoner,
+  mascotName: 'Reveille',
+  logo: 'TexasAMAggies',
   seed: 4
+}, {
+  name: 'Yale',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Mastiff,
+  mascotName: 'Handsome Dan',
+  logo: 'YaleBulldogs',
+  seed: 13
+}, {
+  name: 'Ole Miss',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Bandit,
+  mascotName: 'Tony',
+  logo: 'OleMissRebels',
+  seed: 6
+}, {
+  name: 'North Carolina',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Goat,
+  mascotName: 'Rameses',
+  logo: 'NorthCarolinaTarHeels',
+  seed: 11
+}, {
+  name: 'Iowa State',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.AirElemental,
+  mascotName: 'Cy',
+  logo: 'IowaStateCyclones',
+  seed: 3
+}, {
+  name: 'Lipscomb',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Boar,
+  mascotName: 'Lou',
+  logo: 'LipscombBison',
+  seed: 14
+}, {
+  name: 'Marquette',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Eagle,
+  mascotName: 'Iggy',
+  logo: 'MarquetteGoldenEagles',
+  seed: 7
+}, {
+  name: 'New Mexico',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Wolf,
+  mascotName: 'Lobo Louie',
+  logo: 'NewMexicoLobos',
+  seed: 10
+}, {
+  name: 'Michigan State',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Gladiator,
+  mascotName: 'Sparty',
+  logo: 'MichiganStateSpartans',
+  seed: 2
+}, {
+  name: 'Bryant',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Mastiff,
+  mascotName: 'Tupper',
+  logo: 'BryantBulldogs',
+  seed: 15
+}, {
+  name: 'Florida',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Crocodile,
+  mascotName: 'Albert',
+  logo: 'FloridaGators',
+  seed: 1
+}, {
+  name: 'Norfolk State',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Gladiator,
+  mascotName: 'Spiro',
+  logo: 'NorfolkStateSpartans',
+  seed: 16
+}, {
+  name: 'UConn',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Mastiff,
+  mascotName: 'Jonathan',
+  logo: 'UconnHuskies',
+  seed: 8
+}, {
+  name: 'Oklahoma',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Bandit,
+  mascotName: 'Boomer',
+  logo: 'OklahomaSooners',
+  seed: 9
+}, {
+  name: 'Memphis',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Tiger,
+  mascotName: 'Tom',
+  logo: 'MemphisTigers',
+  seed: 5
+}, {
+  name: 'Colorado State',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Goat,
+  mascotName: 'Cam',
+  logo: 'ColoradoStateRams',
+  seed: 12
+}, {
+  name: 'Maryland',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Turtle,
+  mascotName: 'Testudo',
+  logo: 'MarylandTerrapins',
+  seed: 4
+}, {
+  name: 'Grand Canyon',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Deer,
+  mascotName: 'Thunder',
+  logo: 'GrandCanyonAntelopes',
+  seed: 13
+}, {
+  name: 'Missouri',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Tiger,
+  mascotName: 'Truman',
+  logo: 'MissouriTigers',
+  seed: 6
+}, {
+  name: 'Drake',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Mastiff,
+  mascotName: 'Spike',
+  logo: 'DrakeBulldogs',
+  seed: 11
+}, {
+  name: 'Texas Tech',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Bandit,
+  mascotName: 'Raider Red',
+  logo: 'TexasTechRedRaiders',
+  seed: 3
+}, {
+  name: 'UNC Wilmington',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Hawk,
+  mascotName: 'Sammy C. Hawk',
+  logo: 'UNCWilmingtonSeahawks',
+  seed: 14
+}, {
+  name: 'Kansas',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Hawk,
+  mascotName: 'The Jayhawk',
+  logo: 'KansasJayhawks',
+  seed: 7
+}, {
+  name: 'Arkansas',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Boar,
+  mascotName: 'Tusk',
+  logo: 'ArkansasRazorbacks',
+  seed: 10
+}, {
+  name: 'St Johns',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.AirElemental,
+  mascotName: 'Johnny Thunderbird',
+  logo: 'StJohnsRedStorm',
+  seed: 2
+}, {
+  name: 'Omaha',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Bull,
+  mascotName: 'Durango',
+  logo: 'OmahaMavericks',
+  seed: 15
+}, {
+  name: 'Duke',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.HornedDevil,
+  mascotName: 'The Blue Devil',
+  logo: 'DukeBlueDevils',
+  seed: 1
+}, {
+  name: 'Mount Saint Marys',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Commoner,
+  mascotName: 'Emmit S. Burg',
+  logo: 'MtStMarysMountaineers',
+  seed: 16
+}, {
+  name: 'Mississippi State',
+  mascot: _mascots__WEBPACK_IMPORTED_MODULE_0__.Mascot.Mastiff,
+  mascotName: 'Bully',
+  logo: 'MississippiStateBulldogs',
+  seed: 8
 }];
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Teams);
 

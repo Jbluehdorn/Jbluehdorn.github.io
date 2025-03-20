@@ -11996,14 +11996,26 @@ body {
   background: #160D0b;
 }
 
+#fightSimulator .fightInfo {
+  border: 1px solid #BBA53D;
+  background: #160D0b;
+}
+
 .teamPortrait {
   margin: 10px auto 0 auto;
   width: 400px;
+}
+.teamPortrait .photo {
   position: relative;
 }
 .teamPortrait img {
   width: 400px;
   height: 400px;
+  border: 1px solid #BBA53D;
+}
+.teamPortrait h1, .teamPortrait .h1 {
+  text-align: center;
+  background: #160D0b;
   border: 1px solid #BBA53D;
 }
 .teamPortrait h2, .teamPortrait .h2 {

@@ -7,15 +7,9 @@ interface TeamSelectorProps {
     onTeamsSelected(teams: Team[]): void
 }
 
-while (Teams.length < 64) {
-    Teams.forEach((team: Team) => {
-        Teams.push(team)
-    })
-}
-
 const TeamSelector = ({ onTeamsSelected }: TeamSelectorProps) => {
-    const [firstTeam, setFirstTeam] = React.useState(null)
-    const [secondTeam, setSecondTeam] = React.useState(null)
+    const [firstTeam, setFirstTeam] = React.useState<Team | undefined>()
+    const [secondTeam, setSecondTeam] = React.useState<Team | undefined>()
 
     const handleTeamSelect = (team: Team) => {
         if (!firstTeam) {
@@ -34,12 +28,12 @@ const TeamSelector = ({ onTeamsSelected }: TeamSelectorProps) => {
     }
 
     const beginFight = () => {
-        onTeamsSelected([firstTeam, secondTeam])
+        onTeamsSelected([firstTeam!, secondTeam!])
     }
 
     const resetTeams = () => {
-        setFirstTeam(null)
-        setSecondTeam(null)
+        setFirstTeam(undefined)
+        setSecondTeam(undefined)
     }
 
     return (
@@ -48,7 +42,7 @@ const TeamSelector = ({ onTeamsSelected }: TeamSelectorProps) => {
                 <div className="selectionPortrait col-3 p-0">
                     <TeamPortrait team={firstTeam} />
                 </div>
-                <div className="selectionGrid col-6 p-0">
+                <div className="selectionGrid col-6 py-0 px-1">
                     <div className="container-fluid">
                         <div className="row">
                             {

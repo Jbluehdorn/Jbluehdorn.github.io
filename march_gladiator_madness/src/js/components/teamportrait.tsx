@@ -3,10 +3,11 @@ import { Team } from '../utils/teams'
 import LoadImageSrc from '../utils/imageLoader'
 
 interface TeamPortraitProps {
-    team: Team
+    team: Team | undefined,
+    name?: string | undefined
 }
 
-const TeamPortrait = ({ team }: TeamPortraitProps) => {
+const TeamPortrait = ({ team, name }: TeamPortraitProps) => {
     return (
         <>
             {
@@ -18,8 +19,13 @@ const TeamPortrait = ({ team }: TeamPortraitProps) => {
             {
                 team &&
                 <div className="teamPortrait">
-                    <img src={LoadImageSrc('action', team.logo)} />
-                    <h2>#{team.seed} {team.name}</h2>
+                    {!!name &&
+                        <h1>{name}</h1>
+                    }
+                    <div className="photo">
+                        <img src={LoadImageSrc('action', team.logo)} />
+                        <h2>#{team.seed} {team.name}</h2>
+                    </div>
                 </div>
             }
         </>

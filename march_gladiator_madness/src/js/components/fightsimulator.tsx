@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { Team } from '../utils/teams'
-import { GetMascotBattleStats, MascotBattleStats } from '../utils/mascots'
+import { GetMascotBattleStats, MascotBattleStats, Attack } from '../utils/mascots'
 import { GetRollResult, Dice } from '../utils/dice'
 import LoadImageSrc from '../utils/imageLoader'
 
@@ -13,12 +13,17 @@ interface FightSimulatorProps {
     onConfirmFinish(): void
 }
 
-interface Round {
-    number: number,
-    events: string[],
+interface Event {
+    displayInfo: string,
     attacker?: Team,
     defender?: Team,
+    defenderHp?: number,
     damage: number
+}
+
+interface Round {
+    number: number,
+    events: Event[]
 }
 
 enum Target {
@@ -27,78 +32,167 @@ enum Target {
 }
 
 const FightSimulator = ({ teams, onConfirmFinish }: FightSimulatorProps) => {
-    const [firstMascot, setFirstMascot] = React.useState<MascotBattleStats>(undefined)
-    const [secondMascot, setSecondMascot] = React.useState<MascotBattleStats>(undefined)
-    const [round, setRound] = React.useState(0)
-    const [currentInitiativeState, setCurrentInitiativeState] = React.useState([''])
-    const [turns, setTurns] = React.useState<Target[]>([])
+    const [firstMascot, setFirstMascot] = React.useState<MascotBattleStats>()
+    const [secondMascot, setSecondMascot] = React.useState<MascotBattleStats>()
     const [script, setScript] = React.useState<Round[]>([])
+    const [display, setDisplay] = React.useState<string>()
+    const [scriptRunFinished, setScriptRunFinished] = React.useState<boolean>(false)
+
 
     React.useEffect(() => {
-        const interval = setInterval(() => {
-            if (combatOver())
-            {
-                clearInterval(interval)
-            }
-            runRound(round)
-        }, 1000);
-    
-        return () => clearInterval(interval);
-    }, [round, firstMascot])
-
-    React.useEffect(() => {
-        loadMascots()
+        generateCombatReport()
     }, [])
 
-    const loadMascots = () => {
-        setFirstMascot(GetMascotBattleStats(teams[0].mascot, teams[0].seed))
-        setSecondMascot(GetMascotBattleStats(teams[1].mascot, teams[1].seed))
-    }
+    // Run the display
+    React.useEffect(() => {
+        let timerRef: NodeJS.Timeout
+        let currIndex = 0
+        let eventQueue: Event[] = []
 
-    const determineInitiative = () => {
-        const firstMascotInit = GetRollResult(Dice.D20, firstMascot.initiative)
-        const secondMascotInit = GetRollResult(Dice.D20, secondMascot.initiative)
+        if (!!script.length) {
+            for (let i = 0; i < script.length; i++) {
+                let currRound: Round = script[i]
 
-        if (firstMascotInit > secondMascotInit) {
-            setTurns([Target.firstMascot, Target.secondMascot])
-            setCurrentInitiativeState([`${teams[0].name} goes first!`])
-        } else {
-            setTurns([Target.secondMascot, Target.firstMascot])
-            setCurrentInitiativeState([`${teams[1].name} goes first!`])
-        }
-
-        setRound(1)
-    }
-
-    const runRound = (round: number) => {
-        if (!mascotsReady())
-            return
-
-        if (round === 0) {
-            determineInitiative()
-            return
-        }
-
-        let attacker = round % 2 === 0 ? Target.firstMascot : Target.secondMascot
-
-        if (true) {
-            let attackInfo = [`${teams[0].name} attacks!`]
-            for (let i = 0; i < firstMascot.attackCount; i++) {
-                let attack = getRandomElement(firstMascot.attacks)
-                attackInfo.push(`${teams[0].name} ${attack.flavorText} ${teams[1].name}`)
-                damageMascot(Target.secondMascot, attack.calculateDamage(firstMascot.attackCount, firstMascot.attackMod))
+                for (let k = 0; k < currRound.events.length; k++) {
+                    eventQueue.push(currRound.events[k])
+                }
             }
-            console.log(attackInfo)
-            setCurrentInitiativeState(attackInfo)
+
+            timerRef = setInterval(() => {
+                let currEvent: Event = eventQueue[currIndex]
+
+                if (!currEvent) {
+                    setScriptRunFinished(true)
+                    clearInterval(timerRef)
+                }
+
+                // Safety valve
+                if (currIndex > 1000) {
+                    clearInterval(timerRef)
+                }
+
+                if (!!currEvent.attacker) {
+                    let target = currEvent.attacker === teams[0] ? Target.secondMascot : Target.firstMascot
+                    
+                    setMascotHp(target, Math.max(currEvent.defenderHp!, 0))
+                }
+
+                setDisplay(`${currEvent.displayInfo}`)
+
+                currIndex++
+            }, 2000)
         }
-    }
+
+        
+    }, [script])
 
     const mascotsReady = () => {
         return !!firstMascot && !!secondMascot
     }
 
-    const combatOver = () => {
-        return firstMascot.currentHp <= 0 || secondMascot.currentHp <= 0
+    const generateCombatReport = () => {
+        let round = 0;
+        let script: Round[] = []
+
+        let turns: Target[] = []
+    
+        let firstMascot = GetMascotBattleStats(teams[0].mascot, teams[0].seed)
+        let secondMascot = GetMascotBattleStats(teams[1].mascot, teams[1].seed)
+
+        setFirstMascot({ ...firstMascot, currentHp: firstMascot.maxHp })
+        setSecondMascot({ ...secondMascot, currentHp: secondMascot.maxHp })
+
+        while (true) {
+            let currentRoundInfo: Round = {
+                number: round,
+                events: [],
+            }
+
+            // Someones dead so we can just end
+            if (firstMascot.currentHp <= 0 || secondMascot.currentHp <= 0) {
+                break
+            }
+
+            // Fail safe
+            if (round > 100) {
+                break
+            }
+
+            // Determine Initiative
+            if (round === 0) {
+                const firstMascotInit = GetRollResult(Dice.D20, 1, firstMascot.initiative)
+                const secondMascotInit = GetRollResult(Dice.D20, 1, secondMascot.initiative)
+
+                if (firstMascotInit > secondMascotInit) {
+                    turns = [Target.firstMascot, Target.secondMascot]
+                } else {
+                    turns = [Target.secondMascot, Target.firstMascot]
+                }
+                
+                let firstTeam = turns[0] === Target.firstMascot ? teams[0].name : teams[1].name
+
+                let initiativeEvent: Event = {
+                    displayInfo: `${firstTeam} goes first!`,
+                    damage: 0
+                }
+
+                currentRoundInfo.events.push(initiativeEvent)
+            } else {
+                // Iterate through the turns
+                for (let i = 0; i < turns.length; i++) {
+                    let attacker: MascotBattleStats = turns[i] === Target.firstMascot ? firstMascot : secondMascot
+                    let attackerTeam: Team = attacker === firstMascot ? teams[0] : teams[1]
+
+                    let defender: MascotBattleStats = turns[i] === Target.firstMascot ? secondMascot : firstMascot
+                    let defenderTeam: Team = defender === firstMascot ? teams[0] : teams[1]
+
+                    for (let k = 0; k < attacker.attackCount; k++) {
+                        let attack: Attack = getRandomElement(attacker.attacks)
+
+                        let attackRoll = GetRollResult(Dice.D20, 1, attacker.attackMod)
+
+                        if (attackRoll < defender.armorClass) {
+                            let missEvent: Event = {
+                                displayInfo: `${attackerTeam.mascotName}'s ${attack.name} attack misses!`,
+                                damage: 0
+                            }
+
+                            currentRoundInfo.events.push(missEvent)
+                        } else {
+                            let damage = attack.calculateDamage(attacker.attackDiceCount, attacker.attackMod)
+    
+                            defender.currentHp -= damage
+    
+                            let attackEvent: Event = {
+                                displayInfo: `${attackerTeam.mascotName} ${attack.flavorText} ${defenderTeam.mascotName} for ${damage} damage!`,
+                                attacker: attackerTeam,
+                                defender: defenderTeam,
+                                defenderHp: defender.currentHp,
+                                damage: damage
+                            }
+    
+                            currentRoundInfo.events.push(attackEvent)
+
+                        }
+                    }
+
+                    if (defender.currentHp <= 0) {
+                        currentRoundInfo.events.push({
+                            displayInfo: `${attackerTeam.name} wins!`,
+                            defenderHp: 0,
+                            damage: 0
+                        } as Event)
+
+                        break
+                    }
+                }
+            }
+
+            script.push(currentRoundInfo)
+            round++
+        }
+
+        setScript(script)
     }
 
     const getRandomElement = (arr: any[]) => {
@@ -109,37 +203,64 @@ const FightSimulator = ({ teams, onConfirmFinish }: FightSimulatorProps) => {
         return arr[randomIndex];
     }
 
-    const damageMascot = (target: Target, damage: number) => { 
-        if (target === Target.firstMascot) {
-            setFirstMascot({...firstMascot, currentHp: Math.max(firstMascot.currentHp - damage, 0)})
-        } 
-
-        if (target === Target.secondMascot) {
-            setSecondMascot({...secondMascot, currentHp: Math.max(secondMascot.currentHp - damage, 0)})
+    const setMascot = (target: Target, mascot: MascotBattleStats) => {
+        switch (target) {
+            case Target.firstMascot:
+                setFirstMascot(mascot)
+                break
+            case Target.secondMascot:
+                setSecondMascot(mascot)
+                break
         }
     }
 
+    const setMascotHp = (target: Target, hp: number) => {
+        let mascot: MascotBattleStats = target === Target.firstMascot ? firstMascot! : secondMascot!
+
+        mascot.currentHp = hp
+
+        setMascot(target, mascot)
+    }
+
+    const getMascotHp = (mascot: MascotBattleStats | undefined) => {
+        if (!mascot) {
+            return 0
+        }
+
+        return Math.max(mascot!.currentHp, 0)
+    }
+
     return (
-        <div className="container-fluid">
+        <div className="container-fluid" id="fightSimulator">
             {
                 mascotsReady() &&
                 <div className="row">
-                    <div className="col-5">
-                        <TeamPortrait team={teams[0]} />
-                        <HealthBar currentHp={firstMascot.currentHp} maxHp={firstMascot.maxHp} />
+                    <div className="col-4">
+                        <TeamPortrait team={teams[0]} name={teams[0].mascotName} />
+                        <HealthBar currentHp={getMascotHp(firstMascot)} maxHp={firstMascot?.maxHp} />
                     </div>
-                    <div className="col-2">
-                        <img src={LoadImageSrc('effects', 'versus')} style={{ margin: 'auto', height: '250px' }} />
-
-                        {
-                            currentInitiativeState.map((state: string) => {
-                                return <h2>{state}</h2>
-                            })
+                    <div className="col-4" style={{textAlign: 'center'}}>
+                        { !display &&
+                            <img src={LoadImageSrc('effects', 'versus')} style={{ margin: 'auto', height: '250px' }} />
+                        }
+                        
+                        { !!display &&
+                            <div className="card fightInfo">
+                                <div className="card-body">
+                                    <h1>{display}</h1>
+                                    
+                                    {scriptRunFinished &&
+                                        <button className="btn btn-primary" onClick={onConfirmFinish}>
+                                            Reset
+                                        </button>
+                                    }
+                                </div>
+                            </div>
                         }
                     </div>
-                    <div className="col-5">
-                        <TeamPortrait team={teams[1]} />
-                        <HealthBar currentHp={secondMascot.currentHp} maxHp={secondMascot.maxHp} />
+                    <div className="col-4">
+                        <TeamPortrait team={teams[1]} name={teams[1].mascotName} />
+                        <HealthBar currentHp={getMascotHp(secondMascot)} maxHp={secondMascot?.maxHp} />
                     </div>
                 </div>
             }
