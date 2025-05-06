@@ -14,6 +14,18 @@ const WheelType = Object.freeze({
     BOTW: "BOTW"
 })
 
+const Holiday = Object.freeze({
+    BIRTHDAY: 'BIRTHDAY',
+    HALLOWEEN: 'HALLOWEEN',
+    CHRISTMAS: 'CHRISTMAS',
+    THANKSGIVING: 'THANKSGIVING',
+    INDEPENDENCEDAY: 'INDEPENDENCEDAY',
+    SAINTPATRICKS: 'STPATRICKS',
+    EASTER: 'EASTER',
+    VALENTINES: 'VALENTINES',
+    NONE: 'NONE'
+})
+
 
 export default class Wheel extends React.Component {
     state = {
@@ -55,13 +67,94 @@ export default class Wheel extends React.Component {
     }
 
     get title() {
+        let titleString = ''
+        let currentFlairs = this.currentTitleFlairs
+
         switch (this.state.wheelType) {
             case WheelType.BOSS:
-                return "The Boss Wheel"
+                titleString = this.currentBossWheelName
+                break
             case WheelType.BOTW:
-                return "Boss of the Week"
+                titleString = "Boss of the Week"
+                break
             case WheelType.SOTW:
-                return "Skill of the Week"
+                titleString = "Skill of the Week"
+                break
+        }
+
+        
+        return `${currentFlairs[0]} ${titleString} ${currentFlairs[1]}`
+    }
+
+    get currentHoliday() {
+        let today = new Date()
+        let month = today.getMonth()
+
+        switch (month) {
+            case 1:
+                return today.getDate() < 15 ? Holiday.VALENTINES : Holiday.NONE
+            case 2:
+                return today.getDate() < 18 ? Holiday.SAINTPATRICKS : Holiday.NONE
+            case 3:
+                return Holiday.EASTER
+            case 5:
+                return today.getDate() < 8 ? Holiday.BIRTHDAY : Holiday.NONE
+            case 6:
+                return today.getDate() < 8 ? Holiday.INDEPENDENCEDAY : Holiday.NONE
+            case 9:
+                return Holiday.HALLOWEEN
+            case 10:
+                return Holiday.THANKSGIVING
+            case 11:
+                return Holiday.CHRISTMAS
+            default: 
+                return Holiday.NONE
+        }
+    }
+
+    get currentBossWheelName() {
+        switch (this.currentHoliday) {
+            case Holiday.VALENTINES:
+                return 'The Wheel of Love'
+            case Holiday.SAINTPATRICKS:
+                return 'The Wheel o\' Bossin\''
+            case Holiday.EASTER:
+                return 'The Boss Wheel'
+            case Holiday.BIRTHDAY:
+                return 'The Birthday Boy Wheel'
+            case Holiday.INDEPENDENCEDAY:
+                return 'The Freedom Wheel'
+            case Holiday.HALLOWEEN:
+                return 'The Spooky Wheel'
+            case Holiday.THANKSGIVING:
+                return 'The Thankful Wheel'
+            case Holiday.CHRISTMAS:
+                return 'The Christmas Wheel'
+            default:
+                return 'The Boss Wheel'
+        }
+    }
+
+    get currentTitleFlairs() {
+        switch (this.currentHoliday) {
+            case Holiday.VALENTINES:
+                return ['❤️', '❤️']
+            case Holiday.SAINTPATRICKS:
+                return ['🍀', '🍻']
+            case Holiday.EASTER:
+                return ['🐰', '🥚']
+            case Holiday.BIRTHDAY:
+                return ['🎂', '🎁']
+            case Holiday.INDEPENDENCEDAY:
+                return ['🎆', '🦅']
+            case Holiday.HALLOWEEN:
+                return ['🎃', '👻']
+            case Holiday.THANKSGIVING:
+                return ['🦃', '🍗']
+            case Holiday.CHRISTMAS:
+                return ['🎄', '🎅']
+            default:
+                return ['👑', '👑']
         }
     }
 
@@ -226,7 +319,7 @@ export default class Wheel extends React.Component {
                     <div className="col-12">
                         <div className="card">
                             <div className="card-header">
-                                <h1 className="card-title text-center">👑{this.title}👑</h1>
+                                <h1 className="card-title text-center">{this.title}</h1>
                             </div>
                             <div className="card-body">
                                 <canvas ref={this.canvasRef} id="board" height="400" width="700"></canvas>
