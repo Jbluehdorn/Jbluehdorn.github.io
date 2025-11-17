@@ -262,5 +262,29 @@ export default [
         filename: "kraken.png",
         weight: 5,
         isSlayer: true
+    },
+    {
+        name: "Yama",
+        filename: "yama.png",
+        weight: 5,
+        isSlayer: false
+    },
+    {
+        name: "Royal Titans",
+        filename: "royal_titans.png",
+        weight: 5,
+        isSlayer: false
+    },
+    {
+        name: "Doom of Mokhaiotl",
+        filename: "doom.png",
+        weight: 5,
+        isSlayer: false
+    },
+    {
+        name: "Shellbane Gryphon",
+        filename: "shellbane_gryphon.png",
+        weight: 5,
+        isSlayer: false
     }
 ]

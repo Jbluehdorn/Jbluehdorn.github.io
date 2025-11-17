@@ -118,5 +118,10 @@ export default [
         name: "Bossing",
         filename: "bossing.png",
         weight: 5
+    },
+    {
+        name: "Sailing",
+        filename: "sailing.png",
+        weight: 5
     }
 ]

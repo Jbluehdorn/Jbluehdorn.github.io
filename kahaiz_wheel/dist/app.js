@@ -847,6 +847,26 @@ __webpack_require__.r(__webpack_exports__);
   filename: "kraken.png",
   weight: 5,
   isSlayer: true
+}, {
+  name: "Yama",
+  filename: "yama.png",
+  weight: 5,
+  isSlayer: false
+}, {
+  name: "Royal Titans",
+  filename: "royal_titans.png",
+  weight: 5,
+  isSlayer: false
+}, {
+  name: "Doom of Mokhaiotl",
+  filename: "doom.png",
+  weight: 5,
+  isSlayer: false
+}, {
+  name: "Shellbane Gryphon",
+  filename: "shellbane_gryphon.png",
+  weight: 5,
+  isSlayer: false
 }]);
 
 /***/ }),
@@ -956,6 +976,10 @@ __webpack_require__.r(__webpack_exports__);
 }, {
   name: "Bossing",
   filename: "bossing.png",
+  weight: 5
+}, {
+  name: "Sailing",
+  filename: "sailing.png",
   weight: 5
 }]);
 
