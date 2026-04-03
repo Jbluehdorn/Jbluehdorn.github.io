@@ -25,15 +25,26 @@ window.VillagerEngine = (function () {
     return villagerMap.get(name.toLowerCase()) || null;
   }
 
-  // P = (1 / totalSpecies) * (1 / villagersInThatSpecies)
-  function getVillagerProbability(villagerName) {
-    const v = villagerMap.get(villagerName.toLowerCase());
-    if (!v) return 0;
-    const speciesCount = speciesGroups.get(v.species).length;
-    return (1 / totalSpecies) * (1 / speciesCount);
+  // Build adjusted species groups after removing excluded villagers
+  function getAdjustedGroups(excludedNames) {
+    const excluded = new Set(excludedNames.map(n => n.toLowerCase()));
+    const adjusted = new Map();
+
+    speciesGroups.forEach((members, species) => {
+      const remaining = members.filter(v => !excluded.has(v.name.toLowerCase()));
+      if (remaining.length > 0) {
+        adjusted.set(species, remaining);
+      }
+    });
+
+    return adjusted;
   }
 
-  function calculateResults(villagerNames, attempts) {
+  function calculateResults(villagerNames, attempts, excludedNames) {
+    const excluded = excludedNames || [];
+    const adjusted = getAdjustedGroups(excluded);
+    const adjSpeciesCount = adjusted.size;
+
     const results = [];
     let combinedSingleAttemptProb = 0;
 
@@ -41,7 +52,10 @@ window.VillagerEngine = (function () {
       const v = villagerMap.get(name.toLowerCase());
       if (!v) continue;
 
-      const p = getVillagerProbability(name);
+      const speciesMembers = adjusted.get(v.species);
+      if (!speciesMembers) continue;
+
+      const p = (1 / adjSpeciesCount) * (1 / speciesMembers.length);
       const pInN = 1 - Math.pow(1 - p, attempts);
 
       results.push({
@@ -70,5 +84,5 @@ window.VillagerEngine = (function () {
     };
   }
 
-  return { getAllVillagerNames, getVillagerInfo, getVillagerProbability, calculateResults };
+  return { getAllVillagerNames, getVillagerInfo, calculateResults };
 })();

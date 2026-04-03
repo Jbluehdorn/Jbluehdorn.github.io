@@ -40,6 +40,89 @@ label {
 }
 
 /* Search */
+.section-box {
+  margin-bottom: 20px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 8px;
+  user-select: none;
+}
+
+.section-header label {
+  margin-bottom: 0;
+  cursor: pointer;
+}
+
+.section-header-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.collapse-arrow {
+  font-size: 10px;
+  color: #8a7d6d;
+  transition: transform 0.15s;
+  display: inline-block;
+}
+
+.collapse-arrow.expanded {
+  transform: rotate(90deg);
+}
+
+.section-body {
+  padding-left: 2px;
+}
+
+/* Info tooltip */
+.info-tooltip {
+  position: relative;
+  cursor: help;
+  font-size: 14px;
+  line-height: 1;
+}
+
+.info-tooltip-text {
+  visibility: hidden;
+  opacity: 0;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: calc(100% + 8px);
+  width: 260px;
+  background: #3d3225;
+  color: #faf6ef;
+  font-size: 12px;
+  font-weight: 400;
+  text-transform: none;
+  letter-spacing: 0;
+  line-height: 1.5;
+  padding: 10px 12px;
+  border-radius: 8px;
+  z-index: 200;
+  transition: opacity 0.15s;
+  pointer-events: none;
+}
+
+.info-tooltip-text::before {
+  content: '';
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-bottom-color: #3d3225;
+}
+
+.info-tooltip:hover .info-tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+
 .input-section {
   display: flex;
   gap: 16px;
@@ -181,6 +264,11 @@ label {
   width: 22px;
   height: 22px;
   border-radius: 50%;
+}
+
+.island-pill {
+  background: #e3ecf5;
+  color: #2d4f6b;
 }
 
 .remove-btn {

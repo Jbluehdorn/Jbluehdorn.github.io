@@ -14,17 +14,97 @@
   <script src="villagers.js"></script>
   <script src="probability.js"></script>
   <script type="text/babel" data-type="module">
-const { useState, useMemo, useRef, useCallback } = React;
+const { useState, useMemo, useRef, useCallback, useEffect } = React;
 const engine = window.VillagerEngine;
 const allNames = engine.getAllVillagerNames();
 
+function loadFromStorage(key, fallback) {
+  try {
+    const val = localStorage.getItem(key);
+    return val ? JSON.parse(val) : fallback;
+  } catch { return fallback; }
+}
+
+function VillagerSearch({ onAdd, excludeNames, placeholder, id }) {
+  const [text, setText] = useState('');
+  const [suggestions, setSuggestions] = useState([]);
+  const [active, setActive] = useState(-1);
+  const normalize = (s) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+  const handleChange = (e) => {
+    const val = e.target.value;
+    setText(val);
+    if (!val.trim()) { setSuggestions([]); setActive(-1); return; }
+    const nv = normalize(val);
+    const filtered = allNames.filter(n =>
+      normalize(n).startsWith(nv) && !excludeNames.some(sv => sv.toLowerCase() === n.toLowerCase())
+    ).slice(0, 8);
+    setSuggestions(filtered);
+    setActive(filtered.length > 0 ? 0 : -1);
+  };
+
+  const submit = (name) => {
+    onAdd(name);
+    setText('');
+    setSuggestions([]);
+    setActive(-1);
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === 'ArrowDown') { e.preventDefault(); setActive(prev => Math.min(prev + 1, suggestions.length - 1)); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); setActive(prev => Math.max(prev - 1, 0)); }
+    else if (e.key === 'Enter') { e.preventDefault(); if (active >= 0 && suggestions[active]) submit(suggestions[active]); else if (text.trim()) submit(text.trim()); }
+    else if (e.key === 'Escape') { setSuggestions([]); setActive(-1); }
+  };
+
+  return (
+    <div className="search-row">
+      <div className="search-wrapper">
+        <input id={id} type="text" value={text} onChange={handleChange} onKeyDown={handleKeyDown} placeholder={placeholder} autoComplete="off" />
+        {suggestions.length > 0 && (
+          <ul className="suggestions">
+            {suggestions.map((name, i) => {
+              const info = engine.getVillagerInfo(name);
+              return (
+                <li key={name} className={i === active ? 'active' : ''} onMouseDown={() => submit(name)} onMouseEnter={() => setActive(i)}>
+                  {info && info.iconImage && <img src={info.iconImage} alt="" className="suggestion-icon" />}
+                  <span>{name}</span>
+                  {info && <span className="species-tag">{info.species}</span>}
+                </li>
+              );
+            })}
+          </ul>
+        )}
+      </div>
+      <button className="add-btn" onClick={() => { if (active >= 0 && suggestions[active]) submit(suggestions[active]); else if (text.trim()) submit(text.trim()); }}>Add</button>
+    </div>
+  );
+}
+
 function App() {
-  const [searchText, setSearchText] = useState('');
+  const [islandVillagers, setIslandVillagers] = useState(() => loadFromStorage('islandVillagers', []));
+  const [islandExpanded, setIslandExpanded] = useState(true);
   const [selectedVillagers, setSelectedVillagers] = useState([]);
   const [ticketCount, setTicketCount] = useState(1);
-  const [suggestions, setSuggestions] = useState([]);
-  const [activeSuggestion, setActiveSuggestion] = useState(-1);
   const fileInputRef = useRef(null);
+
+  useEffect(() => {
+    localStorage.setItem('islandVillagers', JSON.stringify(islandVillagers));
+  }, [islandVillagers]);
+
+  const addIslandVillager = useCallback((name) => {
+    const info = engine.getVillagerInfo(name);
+    if (!info) return;
+    setIslandVillagers(prev => {
+      if (prev.length >= 10) return prev;
+      if (prev.some(v => v.toLowerCase() === info.name.toLowerCase())) return prev;
+      return [...prev, info.name];
+    });
+  }, []);
+
+  const removeIslandVillager = useCallback((name) => {
+    setIslandVillagers(prev => prev.filter(v => v !== name));
+  }, []);
 
   const addVillager = useCallback((name) => {
     const info = engine.getVillagerInfo(name);
@@ -33,53 +113,15 @@ function App() {
       if (prev.some(v => v.toLowerCase() === info.name.toLowerCase())) return prev;
       return [...prev, info.name];
     });
-    setSearchText('');
-    setSuggestions([]);
-    setActiveSuggestion(-1);
   }, []);
 
   const removeVillager = useCallback((name) => {
     setSelectedVillagers(prev => prev.filter(v => v !== name));
   }, []);
 
-  const normalize = (s) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
-
-  const handleSearchChange = (e) => {
-    const val = e.target.value;
-    setSearchText(val);
-    if (val.trim().length === 0) {
-      setSuggestions([]);
-      setActiveSuggestion(-1);
-      return;
-    }
-    const normalizedVal = normalize(val);
-    const filtered = allNames.filter(n =>
-      normalize(n).startsWith(normalizedVal) &&
-      !selectedVillagers.some(sv => sv.toLowerCase() === n.toLowerCase())
-    ).slice(0, 8);
-    setSuggestions(filtered);
-    setActiveSuggestion(filtered.length > 0 ? 0 : -1);
-  };
-
-  const handleKeyDown = (e) => {
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      setActiveSuggestion(prev => Math.min(prev + 1, suggestions.length - 1));
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      setActiveSuggestion(prev => Math.max(prev - 1, 0));
-    } else if (e.key === 'Enter') {
-      e.preventDefault();
-      if (activeSuggestion >= 0 && suggestions[activeSuggestion]) {
-        addVillager(suggestions[activeSuggestion]);
-      } else if (searchText.trim()) {
-        addVillager(searchText.trim());
-      }
-    } else if (e.key === 'Escape') {
-      setSuggestions([]);
-      setActiveSuggestion(-1);
-    }
-  };
+  // All names that shouldn't appear in either search
+  const allExcludedFromIsland = useMemo(() => [...islandVillagers], [islandVillagers]);
+  const allExcludedFromWishlist = useMemo(() => [...selectedVillagers, ...islandVillagers], [selectedVillagers, islandVillagers]);
 
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
@@ -87,8 +129,7 @@ function App() {
     const reader = new FileReader();
     reader.onload = (event) => {
       const text = event.target.result;
-      const names = text.split(',').map(n => n.trim()).filter(Boolean);
-      names.forEach(name => addVillager(name));
+      text.split(',').map(n => n.trim()).filter(Boolean).forEach(name => addVillager(name));
     };
     reader.readAsText(file);
     e.target.value = '';
@@ -96,26 +137,19 @@ function App() {
 
   const handleTicketChange = (e) => {
     const raw = e.target.value;
-    if (raw === '') {
-      setTicketCount('');
-      return;
-    }
+    if (raw === '') { setTicketCount(''); return; }
     const val = parseInt(raw, 10);
-    if (!isNaN(val) && val >= 1) {
-      setTicketCount(val);
-    }
+    if (!isNaN(val) && val >= 1) setTicketCount(val);
   };
 
   const handleTicketBlur = () => {
-    if (ticketCount === '' || ticketCount < 1) {
-      setTicketCount(1);
-    }
+    if (ticketCount === '' || ticketCount < 1) setTicketCount(1);
   };
 
   const results = useMemo(() => {
     if (selectedVillagers.length === 0 || ticketCount === '' || ticketCount < 1) return null;
-    return engine.calculateResults(selectedVillagers, ticketCount);
-  }, [selectedVillagers, ticketCount]);
+    return engine.calculateResults(selectedVillagers, ticketCount, islandVillagers);
+  }, [selectedVillagers, ticketCount, islandVillagers]);
 
   const formatPercent = (p) => {
     if (p >= 1) return '100%';
@@ -128,55 +162,42 @@ function App() {
       <h1>🏝️ Villager Calculator</h1>
       <p className="subtitle">Calculate your odds of finding your dreamies!</p>
 
+      <div className="section-box">
+        <div className="section-header" onClick={() => setIslandExpanded(prev => !prev)}>
+          <span className="section-header-left">
+            <span className={"collapse-arrow" + (islandExpanded ? " expanded" : "")}>▶</span>
+            <label>Your Island Residents ({islandVillagers.length}/10)</label>
+            <span className="info-tooltip">
+              ℹ️
+              <span className="info-tooltip-text">Your current residents are removed from the villager pool, which adjusts the probability calculations. The game won't offer you a villager you already have.</span>
+            </span>
+          </span>
+        </div>
+        {islandExpanded && (
+          <div className="section-body">
+            <VillagerSearch onAdd={addIslandVillager} excludeNames={allExcludedFromIsland} placeholder="Add a current resident..." id="island-search" />
+            {islandVillagers.length > 0 && (
+              <div className="pills" style={{marginTop: '8px'}}>
+                {islandVillagers.map(name => {
+                  const info = engine.getVillagerInfo(name);
+                  return (
+                    <span key={name} className="pill island-pill" title={name}>
+                      {info && info.iconImage && <img src={info.iconImage} alt={name} className="pill-icon" />}
+                      <span className="pill-name">{name}</span>
+                      <button className="remove-btn" onClick={() => removeIslandVillager(name)}>✕</button>
+                    </span>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+
       <div className="input-section">
         <div className="search-container">
-          <label htmlFor="villager-search">Search Villagers</label>
-          <div className="search-row">
-            <div className="search-wrapper">
-              <input
-                id="villager-search"
-                type="text"
-                value={searchText}
-                onChange={handleSearchChange}
-                onKeyDown={handleKeyDown}
-                placeholder="Type a villager name..."
-                autoComplete="off"
-              />
-              {suggestions.length > 0 && (
-                <ul className="suggestions">
-                  {suggestions.map((name, i) => {
-                    const info = engine.getVillagerInfo(name);
-                    return (
-                      <li
-                        key={name}
-                        className={i === activeSuggestion ? 'active' : ''}
-                        onMouseDown={() => addVillager(name)}
-                        onMouseEnter={() => setActiveSuggestion(i)}
-                      >
-                        {info && info.iconImage && (
-                          <img src={info.iconImage} alt="" className="suggestion-icon" />
-                        )}
-                        <span>{name}</span>
-                        {info && <span className="species-tag">{info.species}</span>}
-                      </li>
-                    );
-                  })}
-                </ul>
-              )}
-            </div>
-            <button
-              className="add-btn"
-              onClick={() => {
-                if (activeSuggestion >= 0 && suggestions[activeSuggestion]) {
-                  addVillager(suggestions[activeSuggestion]);
-                } else if (searchText.trim()) {
-                  addVillager(searchText.trim());
-                }
-              }}
-            >
-              Add
-            </button>
-          </div>
+          <label htmlFor="villager-search">Dreamie Wishlist</label>
+          <VillagerSearch onAdd={addVillager} excludeNames={allExcludedFromWishlist} placeholder="Add a dreamie..." id="villager-search" />
         </div>
 
         <div className="file-upload">
@@ -196,7 +217,7 @@ function App() {
 
       {selectedVillagers.length > 0 && (
         <div className="villager-list">
-          <label>Selected Villagers ({selectedVillagers.length})</label>
+          <label>Dreamie Wishlist ({selectedVillagers.length})</label>
           <div className="pills">
             {selectedVillagers.map(name => {
               const info = engine.getVillagerInfo(name);
