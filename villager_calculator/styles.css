@@ -79,55 +79,11 @@ label {
   padding-left: 2px;
 }
 
-/* Info tooltip */
-.info-tooltip {
-  position: relative;
-  cursor: help;
-  font-size: 14px;
-  line-height: 1;
-  flex-shrink: 0;
-}
-
-.info-tooltip-text {
-  display: none;
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  top: calc(100% + 8px);
-  width: 260px;
-  background: #3d3225;
-  color: #faf6ef;
+.section-hint {
   font-size: 12px;
-  font-weight: 400;
-  text-transform: none;
-  letter-spacing: 0;
-  line-height: 1.5;
-  padding: 10px 12px;
-  border-radius: 8px;
-  z-index: 200;
-  pointer-events: none;
-}
-
-.info-tooltip-text::before {
-  content: '';
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 6px solid transparent;
-  border-bottom-color: #3d3225;
-}
-
-/* Desktop: hover to show */
-@media (hover: hover) {
-  .info-tooltip:hover .info-tooltip-text {
-    display: block;
-  }
-}
-
-/* Touch/mobile: show via .active class toggled by JS */
-.info-tooltip.active .info-tooltip-text {
-  display: block;
+  color: #8a7d6d;
+  margin-bottom: 10px;
+  font-style: italic;
 }
 
 .input-section {
