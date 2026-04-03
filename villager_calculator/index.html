@@ -84,13 +84,31 @@ function VillagerSearch({ onAdd, excludeNames, placeholder, id }) {
 function App() {
   const [islandVillagers, setIslandVillagers] = useState(() => loadFromStorage('islandVillagers', []));
   const [islandExpanded, setIslandExpanded] = useState(true);
+  const [tooltipOpen, setTooltipOpen] = useState(false);
   const [selectedVillagers, setSelectedVillagers] = useState([]);
   const [ticketCount, setTicketCount] = useState(1);
   const fileInputRef = useRef(null);
+  const tooltipRef = useRef(null);
 
   useEffect(() => {
     localStorage.setItem('islandVillagers', JSON.stringify(islandVillagers));
   }, [islandVillagers]);
+
+  // Dismiss tooltip when tapping outside
+  useEffect(() => {
+    if (!tooltipOpen) return;
+    const handler = (e) => {
+      if (tooltipRef.current && !tooltipRef.current.contains(e.target)) {
+        setTooltipOpen(false);
+      }
+    };
+    document.addEventListener('touchstart', handler);
+    document.addEventListener('mousedown', handler);
+    return () => {
+      document.removeEventListener('touchstart', handler);
+      document.removeEventListener('mousedown', handler);
+    };
+  }, [tooltipOpen]);
 
   const addIslandVillager = useCallback((name) => {
     const info = engine.getVillagerInfo(name);
@@ -167,7 +185,7 @@ function App() {
           <span className="section-header-left">
             <span className={"collapse-arrow" + (islandExpanded ? " expanded" : "")}>▶</span>
             <label>Your Island Residents ({islandVillagers.length}/10)</label>
-            <span className="info-tooltip">
+            <span ref={tooltipRef} className={"info-tooltip" + (tooltipOpen ? " active" : "")} onClick={(e) => { e.stopPropagation(); setTooltipOpen(prev => !prev); }}>
               ℹ️
               <span className="info-tooltip-text">Your current residents are removed from the villager pool, which adjusts the probability calculations. The game won't offer you a villager you already have.</span>
             </span>
