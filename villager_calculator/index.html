@@ -169,7 +169,7 @@ function App() {
             <label>Your Island Residents ({islandVillagers.length}/10)</label>
           </span>
         </div>
-        <p className="section-hint">Your island residents won't show up on mystery islands</p>
+        {islandExpanded && <p className="section-hint">Your island residents won't show up on mystery islands</p>}
         {islandExpanded && (
           <div className="section-body">
             <VillagerSearch onAdd={addIslandVillager} excludeNames={allExcludedFromIsland} placeholder="Add a current resident..." id="island-search" />
