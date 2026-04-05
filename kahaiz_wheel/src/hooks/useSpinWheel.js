@@ -24,6 +24,7 @@ const STOP_VELOCITY = 0.0003
 
 // Exponential ease-out: fast start, smooth continuous deceleration
 function multiPhaseEase(t) {
+  if (t >= 1) return 1
   return 1 - Math.pow(2, -10 * t)
 }
 
