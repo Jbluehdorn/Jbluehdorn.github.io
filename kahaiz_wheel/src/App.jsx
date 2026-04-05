@@ -17,6 +17,7 @@ export default function App() {
     spinning,
     dragging,
     winner,
+    bgImageRef,
     loadedItems,
     loadItems,
     drawWheel,
@@ -89,6 +90,12 @@ export default function App() {
 
       {/* Wheel area */}
       <main className="wheel-stage">
+        <img
+          ref={bgImageRef}
+          alt=""
+          className="wheel-bg-image"
+          style={{ display: 'none' }}
+        />
         <div className="canvas-wrapper">
           <canvas
             ref={canvasRef}

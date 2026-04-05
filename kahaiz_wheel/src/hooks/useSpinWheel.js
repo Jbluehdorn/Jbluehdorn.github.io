@@ -22,6 +22,11 @@ const FRICTION = 0.985
 // Velocity below which the wheel stops (radians/ms)
 const STOP_VELOCITY = 0.0003
 
+// Exponential ease-out: fast start, smooth continuous deceleration
+function multiPhaseEase(t) {
+  return 1 - Math.pow(2, -10 * t)
+}
+
 export function useSpinWheel() {
   const canvasRef = useRef(null)
   const animRef = useRef(null)
@@ -32,6 +37,7 @@ export function useSpinWheel() {
   const [loadedItems, setLoadedItems] = useState([])
   const itemsRef = useRef([])
   const lastSegmentRef = useRef(-1)
+  const bgImageRef = useRef(null)
 
   // Drag tracking refs
   const isDraggingRef = useRef(false)
@@ -187,6 +193,18 @@ export function useSpinWheel() {
     drawWheel(ctx, itemsRef.current, angleRef.current, canvas.width, canvas.height)
   }, [drawWheel])
 
+  // Update the background image element directly (bypasses React render)
+  const updateBgImage = (item) => {
+    if (bgImageRef.current) {
+      if (item) {
+        bgImageRef.current.src = `./assets/img/${item.filename}`
+        bgImageRef.current.style.display = 'block'
+      } else {
+        bgImageRef.current.style.display = 'none'
+      }
+    }
+  }
+
   // Play tick when crossing segment boundaries
   const playTickIfNeeded = useCallback((currentAngle, isDecelerating) => {
     const items = itemsRef.current
@@ -201,6 +219,7 @@ export function useSpinWheel() {
 
     if (currentSegment !== lastSegmentRef.current) {
       lastSegmentRef.current = currentSegment
+      updateBgImage(items[currentSegment])
       if (tickAudioRef.current) {
         const tick = tickAudioRef.current.cloneNode()
         tick.volume = isDecelerating ? 0.15 : 0.08
@@ -317,9 +336,9 @@ export function useSpinWheel() {
       const totalAngle = direction * fullRotations + angleDiff
 
       const startAngle = angleRef.current
-      // Duration: gentle flick ~2.5s, hard flick ~6s
-      const minDuration = 3500
-      const maxDuration = 6000
+      // Duration: gentle flick ~7s, hard flick ~12s
+      const minDuration = 7000
+      const maxDuration = 12000
       const duration = minDuration + speedFactor * (maxDuration - minDuration) + Math.random() * 500
       const startTime = performance.now()
       lastSegmentRef.current = -1
@@ -327,7 +346,7 @@ export function useSpinWheel() {
       const animate = (now) => {
         const elapsed = now - startTime
         const progress = Math.min(elapsed / duration, 1)
-        const eased = 1 - Math.pow(1 - progress, 3)
+        const eased = multiPhaseEase(progress)
         const currentAngle = startAngle + totalAngle * eased
         angleRef.current = currentAngle
         redraw()
@@ -338,6 +357,7 @@ export function useSpinWheel() {
         const currentSegment = Math.floor(pointerAngle / sliceAngle) % count
         if (currentSegment !== lastSegmentRef.current) {
           lastSegmentRef.current = currentSegment
+          updateBgImage(items[currentSegment])
           if (tickAudioRef.current && progress < 0.95) {
             const tick = tickAudioRef.current.cloneNode()
             tick.volume = Math.min(0.2, 0.05 + progress * 0.15)
@@ -359,6 +379,7 @@ export function useSpinWheel() {
 
           setWinner(actualWinner)
           setSpinning(false)
+          updateBgImage(null)
           if (winAudioRef.current) {
             winAudioRef.current.currentTime = 0
             winAudioRef.current.play().catch(() => {})
@@ -402,14 +423,14 @@ export function useSpinWheel() {
     const totalAngle = fullRotations + angleDiff
 
     const startAngle = angleRef.current
-    const duration = 4000 + Math.random() * 2000
+    const duration = 8000 + Math.random() * 4000
     const startTime = performance.now()
     lastSegmentRef.current = -1
 
     const animate = (now) => {
       const elapsed = now - startTime
       const progress = Math.min(elapsed / duration, 1)
-      const eased = 1 - Math.pow(1 - progress, 3)
+      const eased = multiPhaseEase(progress)
       const currentAngle = startAngle + totalAngle * eased
       angleRef.current = currentAngle
 
@@ -424,6 +445,7 @@ export function useSpinWheel() {
       const currentSegment = Math.floor(pointerAngle / sliceAngle) % count
       if (currentSegment !== lastSegmentRef.current) {
         lastSegmentRef.current = currentSegment
+        updateBgImage(items[currentSegment])
         if (tickAudioRef.current && progress < 0.95) {
           const tick = tickAudioRef.current.cloneNode()
           tick.volume = Math.min(0.2, 0.05 + progress * 0.15)
@@ -445,6 +467,7 @@ export function useSpinWheel() {
 
         setWinner(actualWinner)
         setSpinning(false)
+        updateBgImage(null)
         if (winAudioRef.current) {
           winAudioRef.current.currentTime = 0
           winAudioRef.current.play().catch(() => {})
@@ -495,7 +518,7 @@ export function useSpinWheel() {
     const animate = (now) => {
       const elapsed = now - startTime
       const progress = Math.min(elapsed / duration, 1)
-      const eased = 1 - Math.pow(1 - progress, 3)
+      const eased = multiPhaseEase(progress)
       const currentAngle = startAngle + totalAngle * eased
       angleRef.current = currentAngle
       redraw()
@@ -525,6 +548,7 @@ export function useSpinWheel() {
         const landedIndex = Math.floor(finalPointer / sliceAngle) % count
         setWinner(items[landedIndex])
         setSpinning(false)
+        updateBgImage(null)
         if (winAudioRef.current) {
           winAudioRef.current.currentTime = 0
           winAudioRef.current.play().catch(() => {})
@@ -546,6 +570,7 @@ export function useSpinWheel() {
     spinning,
     dragging,
     winner,
+    bgImageRef,
     loadedItems,
     loadItems,
     drawWheel,
