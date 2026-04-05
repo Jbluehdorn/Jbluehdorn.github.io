@@ -98,7 +98,7 @@ export function useSpinWheel() {
 
       // Icon
       const iconSize = Math.min(48 * scaleFactor, radius * 0.12 * scaleFactor)
-      const iconDist = radius * 0.65
+      const iconDist = radius * 0.82
       if (items[i].image) {
         ctx.drawImage(
           items[i].image,
