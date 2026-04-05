@@ -24,7 +24,6 @@ const STOP_VELOCITY = 0.0003
 
 // Exponential ease-out: fast start, smooth continuous deceleration
 function multiPhaseEase(t) {
-  if (t >= 1) return 1
   return 1 - Math.pow(2, -10 * t)
 }
 
@@ -371,7 +370,7 @@ export function useSpinWheel() {
         } else {
           animRef.current = null
           spinningRef.current = false
-          const finalAngle = startAngle + totalAngle
+          const finalAngle = angleRef.current
           const finalPointer =
             (((-finalAngle - Math.PI / 2) % (2 * Math.PI)) + 2 * Math.PI) %
             (2 * Math.PI)
@@ -459,7 +458,7 @@ export function useSpinWheel() {
       } else {
         animRef.current = null
         spinningRef.current = false
-        const finalAngle = startAngle + totalAngle
+        const finalAngle = angleRef.current
         const finalPointer =
           (((-finalAngle - Math.PI / 2) % (2 * Math.PI)) + 2 * Math.PI) %
           (2 * Math.PI)
@@ -542,7 +541,7 @@ export function useSpinWheel() {
       } else {
         animRef.current = null
         spinningRef.current = false
-        const finalAngle = startAngle + totalAngle
+        const finalAngle = angleRef.current
         const finalPointer =
           (((-finalAngle - Math.PI / 2) % (2 * Math.PI)) + 2 * Math.PI) %
           (2 * Math.PI)
