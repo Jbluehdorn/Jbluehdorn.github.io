@@ -87,7 +87,7 @@ export function useSpinWheel() {
       ctx.lineWidth = 1.5
       ctx.stroke()
 
-      // Draw icon and text in segment
+      // Draw icon in segment
       ctx.save()
       const midAngle = startAngle + sliceAngle / 2
       ctx.translate(centerX, centerY)
@@ -98,7 +98,7 @@ export function useSpinWheel() {
 
       // Icon
       const iconSize = Math.min(48 * scaleFactor, radius * 0.12 * scaleFactor)
-      const iconDist = radius * 0.82
+      const iconDist = radius * 0.65
       if (items[i].image) {
         ctx.drawImage(
           items[i].image,
@@ -108,22 +108,6 @@ export function useSpinWheel() {
           iconSize
         )
       }
-
-      // Text
-      const fontSize = Math.max(9, Math.min(22, radius * 0.055 * scaleFactor))
-      ctx.font = `bold ${fontSize}px 'RuneScape', 'Arial Black', sans-serif`
-      ctx.fillStyle = '#ffd700'
-      ctx.shadowColor = 'rgba(0,0,0,0.8)'
-      ctx.shadowBlur = 3
-      ctx.textAlign = 'center'
-      ctx.textBaseline = 'middle'
-
-      const textDist = radius * 0.38
-      const name = items[i].name
-      const maxChars = Math.max(8, Math.floor(16 * scaleFactor))
-      const displayName = name.length > maxChars ? name.slice(0, maxChars - 2) + '…' : name
-      ctx.fillText(displayName, textDist, 0)
-      ctx.shadowBlur = 0
 
       ctx.restore()
     }
