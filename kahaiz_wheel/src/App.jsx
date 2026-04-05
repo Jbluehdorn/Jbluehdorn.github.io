@@ -15,6 +15,7 @@ export default function App() {
   const {
     canvasRef,
     spinning,
+    dragging,
     winner,
     loadedItems,
     loadItems,
@@ -22,6 +23,9 @@ export default function App() {
     spin,
     dismissWinner,
     angleRef,
+    onDragStart,
+    onDragMove,
+    onDragEnd,
   } = useSpinWheel()
 
   const holiday = getCurrentHoliday()
@@ -86,10 +90,20 @@ export default function App() {
       {/* Wheel area */}
       <main className="wheel-stage">
         <div className="canvas-wrapper">
-          <canvas ref={canvasRef} className="wheel-canvas" />
+          <canvas
+            ref={canvasRef}
+            className={`wheel-canvas ${dragging ? 'grabbing' : ''}`}
+            onPointerDown={(e) => {
+              e.currentTarget.setPointerCapture(e.pointerId)
+              onDragStart(e.clientX, e.clientY)
+            }}
+            onPointerMove={(e) => onDragMove(e.clientX, e.clientY)}
+            onPointerUp={() => onDragEnd()}
+            onPointerCancel={() => onDragEnd()}
+          />
         </div>
 
-        {/* Spin */}
+        {/* Spin button fallback */}
         <div className="controls">
           <button
             className="spin-btn"

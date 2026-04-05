@@ -91,6 +91,12 @@ body {
 .wheel-canvas {
   display: block;
   max-width: 100%;
+  cursor: grab;
+  touch-action: none;
+}
+
+.wheel-canvas.grabbing {
+  cursor: grabbing;
 }
 
 /* --- Controls --- */
