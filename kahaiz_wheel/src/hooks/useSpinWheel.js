@@ -176,6 +176,8 @@ export function useSpinWheel() {
     const count = items.length
     if (count === 0) return
 
+    const sliceAngle = (2 * Math.PI) / count
+
     // Pick winner using weighted random
     const weightedArr = enabledItems.reduce((arr, item) => {
       for (let i = 0; i < item.weight; i++) arr.push(item)
@@ -185,17 +187,24 @@ export function useSpinWheel() {
       weightedArr[Math.floor(Math.random() * weightedArr.length)]
     const winnerIndex = items.findIndex((i) => i.name === chosenWinner.name)
 
-    // Calculate target angle so winner lands at top (pointer)
-    const sliceAngle = (2 * Math.PI) / count
-    // The pointer is at -PI/2 (top). We need the midpoint of winnerIndex's slice at that angle.
-    const targetMid = -Math.PI / 2 - winnerIndex * sliceAngle - sliceAngle / 2
-    // Add several full rotations for dramatic effect
+    // Calculate final angle so the pointer (at top, -PI/2) points to the winner's segment.
+    // Segment i spans from angle + i*sliceAngle to angle + (i+1)*sliceAngle.
+    // We need: finalAngle + winnerIndex*sliceAngle + sliceAngle/2 ≡ -PI/2 (mod 2PI)
+    // So: finalAngle = -PI/2 - winnerIndex*sliceAngle - sliceAngle/2
+    // Add a random offset within the segment so it doesn't always land dead center
+    const jitter = (Math.random() - 0.5) * sliceAngle * 0.7
+    const desiredFinal = -Math.PI / 2 - winnerIndex * sliceAngle - sliceAngle / 2 + jitter
+
+    // Normalize desiredFinal into [0, 2PI)
+    const normalizedTarget = ((desiredFinal % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI)
+    const normalizedCurrent = ((angleRef.current % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI)
+
+    // Total spin = enough full rotations + the difference to land on target
     const fullRotations = (6 + Math.random() * 4) * 2 * Math.PI
-    const currentAngle = angleRef.current % (2 * Math.PI)
-    const targetAngle = targetMid - currentAngle + fullRotations
+    const angleDiff = ((normalizedTarget - normalizedCurrent) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI)
+    const totalAngle = fullRotations + angleDiff
 
     const startAngle = angleRef.current
-    const totalAngle = targetAngle
     const duration = 4000 + Math.random() * 2000
     const startTime = performance.now()
 
@@ -217,10 +226,10 @@ export function useSpinWheel() {
       drawWheel(ctx, items, currentAngle, canvas.width, canvas.height)
 
       // Tick sound when crossing segment boundaries
-      const normalizedAngle =
+      const pointerAngle =
         (((-currentAngle - Math.PI / 2) % (2 * Math.PI)) + 2 * Math.PI) %
         (2 * Math.PI)
-      const currentSegment = Math.floor(normalizedAngle / sliceAngle) % count
+      const currentSegment = Math.floor(pointerAngle / sliceAngle) % count
       if (currentSegment !== lastSegmentRef.current) {
         lastSegmentRef.current = currentSegment
         if (tickAudioRef.current && progress < 0.95) {
@@ -233,8 +242,15 @@ export function useSpinWheel() {
       if (progress < 1) {
         animRef.current = requestAnimationFrame(animate)
       } else {
-        // Done spinning
-        setWinner(chosenWinner)
+        // Done — read winner from where the pointer actually landed
+        const finalAngle = startAngle + totalAngle
+        const finalPointer =
+          (((-finalAngle - Math.PI / 2) % (2 * Math.PI)) + 2 * Math.PI) %
+          (2 * Math.PI)
+        const landedIndex = Math.floor(finalPointer / sliceAngle) % count
+        const actualWinner = items[landedIndex]
+
+        setWinner(actualWinner)
         setSpinning(false)
         if (winAudioRef.current) {
           winAudioRef.current.currentTime = 0
