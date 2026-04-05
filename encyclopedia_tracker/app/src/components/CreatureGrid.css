@@ -1,0 +1,77 @@
+.creature-grid-section {
+  margin-bottom: 24px;
+}
+
+.location-group {
+  margin-bottom: 16px;
+}
+
+.location-label {
+  margin: 0 0 8px 0;
+  font-size: 0.95rem;
+  color: #5c4a32;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 4px;
+  border-bottom: 1px solid #e0d8c8;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s;
+}
+
+.location-label:hover {
+  background: #f0ece0;
+  border-radius: 6px 6px 0 0;
+}
+
+.collapse-arrow {
+  font-size: 0.8rem;
+  transition: transform 0.2s;
+  display: inline-block;
+}
+
+.collapse-arrow.collapsed {
+  transform: rotate(-90deg);
+}
+
+.grid-count {
+  font-weight: normal;
+  font-size: 0.8rem;
+  color: #999;
+}
+
+.creature-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+  gap: 8px;
+}
+
+.creature-grid-empty {
+  text-align: center;
+  padding: 48px 20px;
+  color: #999;
+}
+
+.empty-icon {
+  font-size: 2.5rem;
+  margin-bottom: 8px;
+}
+
+.creature-grid-empty p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.empty-hint {
+  font-size: 0.8rem !important;
+  color: #bbb;
+  margin-top: 4px !important;
+}
+
+@media (max-width: 600px) {
+  .creature-grid {
+    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+    gap: 6px;
+  }
+}

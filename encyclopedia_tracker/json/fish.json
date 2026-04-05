@@ -1,0 +1,2788 @@
+[
+  {
+    "Name": "anchovy",
+    "Critterpedia Filename": "FishAntyobi",
+    "Furniture Filename": "FtrFishAntyobi",
+    "Internal ID": 4201,
+    "Unique Entry ID": "LzuWkSQP55uEpRCP5",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Anchovy_(fish)",
+    "iconUrl": "https://dodo.ac/np/images/7/7f/Anchovy_%28Fish%29_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: All year South: All year",
+    "timeOfDay": {
+      "start": 4,
+      "end": 21,
+      "allDay": false
+    },
+    "timeOfDayRaw": "4 AM – 9 PM"
+  },
+  {
+    "Name": "angelfish",
+    "Critterpedia Filename": "FishAngelfish",
+    "Furniture Filename": "FtrFishAngelfish",
+    "Internal ID": 2247,
+    "Unique Entry ID": "XTCFCk2SiuY5YXLZ7",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Angelfish",
+    "iconUrl": "https://dodo.ac/np/images/c/cd/Angelfish_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: May – Oct South: Nov – Apr",
+    "timeOfDay": {
+      "start": 16,
+      "end": 9,
+      "allDay": false
+    },
+    "timeOfDayRaw": "4 PM – 9 AM"
+  },
+  {
+    "Name": "arapaima",
+    "Critterpedia Filename": "FishPiraruku",
+    "Furniture Filename": "FtrFishPiraruku",
+    "Internal ID": 2253,
+    "Unique Entry ID": "mZy4BES54bqwi97br",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Arapaima",
+    "iconUrl": "https://dodo.ac/np/images/b/b1/Arapaima_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Jun – Sep South: Dec – Mar",
+    "timeOfDay": {
+      "start": 16,
+      "end": 9,
+      "allDay": false
+    },
+    "timeOfDayRaw": "4 PM – 9 AM"
+  },
+  {
+    "Name": "arowana",
+    "Critterpedia Filename": "FishArowana",
+    "Furniture Filename": "FtrFishArowana",
+    "Internal ID": 2250,
+    "Unique Entry ID": "F68AvCaqddBJL7ZSN",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Arowana",
+    "iconUrl": "https://dodo.ac/np/images/6/67/Arowana_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Jun – Sep South: Dec – Mar",
+    "timeOfDay": {
+      "start": 16,
+      "end": 9,
+      "allDay": false
+    },
+    "timeOfDayRaw": "4 PM – 9 AM"
+  },
+  {
+    "Name": "barred knifejaw",
+    "Critterpedia Filename": "FishIshidai",
+    "Furniture Filename": "FtrFishIshidai",
+    "Internal ID": 2265,
+    "Unique Entry ID": "X3R9SFSAaDzBF4fE3",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Barred_Knifejaw",
+    "iconUrl": "https://dodo.ac/np/images/d/d5/Barred_Knifejaw_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Mar – Nov South: Sep – May",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "barreleye",
+    "Critterpedia Filename": "FishDemenigisu",
+    "Furniture Filename": "FtrFishDemenigisu",
+    "Internal ID": 4204,
+    "Unique Entry ID": "BpqTa4zmTjv3Nm4wE",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Barreleye",
+    "iconUrl": "https://dodo.ac/np/images/e/e0/Barreleye_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: All year South: All year",
+    "timeOfDay": {
+      "start": 21,
+      "end": 4,
+      "allDay": false
+    },
+    "timeOfDayRaw": "9 PM – 4 AM"
+  },
+  {
+    "Name": "betta",
+    "Critterpedia Filename": "FishBeta",
+    "Furniture Filename": "FtrFishBeta",
+    "Internal ID": 4191,
+    "Unique Entry ID": "7QcQXzwZoNGiNA94k",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Betta",
+    "iconUrl": "https://dodo.ac/np/images/0/0b/Betta_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: May – Oct South: Nov – Apr",
+    "timeOfDay": {
+      "start": 9,
+      "end": 16,
+      "allDay": false
+    },
+    "timeOfDayRaw": "9 AM – 4 PM"
+  },
+  {
+    "Name": "bitterling",
+    "Critterpedia Filename": "FishTanago",
+    "Furniture Filename": "FtrFishTanago",
+    "Internal ID": 2215,
+    "Unique Entry ID": "Drj6eLRBgg4T9KhNx",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Bitterling",
+    "iconUrl": "https://dodo.ac/np/images/4/4d/Bitterling_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        11,
+        12
+      ],
+      "south": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    "timeOfYearRaw": "North: Nov – Mar South: May – Sep",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "black bass",
+    "Critterpedia Filename": "FishBlackbass",
+    "Furniture Filename": "FtrFishBlackbass",
+    "Internal ID": 2234,
+    "Unique Entry ID": "wAZvfTca7GyaTtLcQ",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Black_Bass",
+    "iconUrl": "https://dodo.ac/np/images/0/00/Black_Bass_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: All year South: All year",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "blowfish",
+    "Critterpedia Filename": "FishFugu",
+    "Furniture Filename": "FtrFishFugu",
+    "Internal ID": 2262,
+    "Unique Entry ID": "aDsmTcByApycafxTa",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Blowfish",
+    "iconUrl": "https://dodo.ac/np/images/9/95/Blowfish_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        11,
+        12
+      ],
+      "south": [
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    "timeOfYearRaw": "North: Nov – Feb South: May – Aug",
+    "timeOfDay": {
+      "start": 21,
+      "end": 4,
+      "allDay": false
+    },
+    "timeOfDayRaw": "9 PM – 4 AM"
+  },
+  {
+    "Name": "blue marlin",
+    "Critterpedia Filename": "FishKajiki",
+    "Furniture Filename": "FtrFishKajiki",
+    "Internal ID": 2275,
+    "Unique Entry ID": "jhtsYRHydAcZnd6bJ",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Blue_Marlin",
+    "iconUrl": "https://dodo.ac/np/images/2/2a/Blue_Marlin_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        11,
+        12
+      ],
+      "south": [
+        1,
+        2,
+        3
+      ]
+    },
+    "timeOfYearRaw": "North: Nov – Apr; Jul – Sep South: Jan – Mar; May – Oct",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "bluegill",
+    "Critterpedia Filename": "FishBlueguill",
+    "Furniture Filename": "FtrFishBlueguill",
+    "Internal ID": 2232,
+    "Unique Entry ID": "8ygccYFCrWf4hwYGR",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Bluegill",
+    "iconUrl": "https://dodo.ac/np/images/0/0c/Bluegill_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: All year South: All year",
+    "timeOfDay": {
+      "start": 9,
+      "end": 16,
+      "allDay": false
+    },
+    "timeOfDayRaw": "9 AM – 4 PM"
+  },
+  {
+    "Name": "butterfly fish",
+    "Critterpedia Filename": "FishChouchouuo",
+    "Furniture Filename": "FtrFishChouchouuo",
+    "Internal ID": 2259,
+    "Unique Entry ID": "S4rkio2M3WB5cyy8Y",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Butterfly_Fish",
+    "iconUrl": "https://dodo.ac/np/images/4/47/Butterfly_Fish_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Apr – Sep South: Oct – Mar",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "carp",
+    "Critterpedia Filename": "FishKoi",
+    "Furniture Filename": "FtrFishKoi",
+    "Internal ID": 2219,
+    "Unique Entry ID": "4DwwvGDwPQvZTn9Fb",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Carp",
+    "iconUrl": "https://dodo.ac/np/images/5/5d/Carp_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: All year South: All year",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "catfish",
+    "Critterpedia Filename": "FishNamazu",
+    "Furniture Filename": "FtrFishNamazu",
+    "Internal ID": 2229,
+    "Unique Entry ID": "nbPtvwf7HCQxA9Nc4",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Catfish",
+    "iconUrl": "https://dodo.ac/np/images/0/0d/Catfish_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: May – Oct South: Nov – Apr",
+    "timeOfDay": {
+      "start": 16,
+      "end": 9,
+      "allDay": false
+    },
+    "timeOfDayRaw": "4 PM – 9 AM"
+  },
+  {
+    "Name": "char",
+    "Critterpedia Filename": "FishOoiwana",
+    "Furniture Filename": "FtrFishOoiwana",
+    "Internal ID": 2239,
+    "Unique Entry ID": "ahbnwCqp3EZXa96KC",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Char",
+    "iconUrl": "https://dodo.ac/np/images/8/80/Char_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "south": [
+        3,
+        4,
+        5
+      ]
+    },
+    "timeOfYearRaw": "North: Mar – Jun; Sep – Nov South: Mar – May; Sep – Dec",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "Mar – Jun (NH), Sep – Dec (SH):4 PM – 9 AMSep – Nov (NH), Mar – May (SH):All day"
+  },
+  {
+    "Name": "cherry salmon",
+    "Critterpedia Filename": "FishYamame",
+    "Furniture Filename": "FtrFishYamame",
+    "Internal ID": 2238,
+    "Unique Entry ID": "sJyBbeLbpzn7LyzFr",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Cherry_Salmon",
+    "iconUrl": "https://dodo.ac/np/images/d/db/Cherry_Salmon_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "south": [
+        3,
+        4,
+        5
+      ]
+    },
+    "timeOfYearRaw": "North: Mar – Jun; Sep – Nov South: Mar – May; Sep – Dec",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "Mar – Jun (NH), Sep – Dec (SH):4 PM – 9 AMSep – Nov (NH), Mar – May (SH):All day"
+  },
+  {
+    "Name": "clown fish",
+    "Critterpedia Filename": "FishKumanomi",
+    "Furniture Filename": "FtrFishKumanomi",
+    "Internal ID": 2257,
+    "Unique Entry ID": "L9qxZaMoBhwxvpMyh",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Clown_Fish",
+    "iconUrl": "https://dodo.ac/np/images/4/4f/Clown_Fish_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Apr – Sep South: Oct – Mar",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "coelacanth",
+    "Critterpedia Filename": "FishSirakansu",
+    "Furniture Filename": "FtrFishSirakansu",
+    "Internal ID": 2284,
+    "Unique Entry ID": "NjMZQ6Xi9NswEXnHH",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Coelacanth",
+    "iconUrl": "https://dodo.ac/np/images/4/45/Coelacanth_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: All year South: All year",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "crawfish",
+    "Critterpedia Filename": "FishZarigani",
+    "Furniture Filename": "FtrFishZarigani",
+    "Internal ID": 2223,
+    "Unique Entry ID": "W7TrwpycmfgniZipi",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Crawfish",
+    "iconUrl": "https://dodo.ac/np/images/9/96/Crawfish_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Apr – Sep South: Oct – Mar",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "crucian carp",
+    "Critterpedia Filename": "FishFuna",
+    "Furniture Filename": "FtrFishFuna",
+    "Internal ID": 328,
+    "Unique Entry ID": "Pdw7vmJz9PRM4ggbf",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Crucian_Carp",
+    "iconUrl": "https://dodo.ac/np/images/f/f2/Crucian_Carp_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: All year South: All year",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "dab",
+    "Critterpedia Filename": "FishKarei",
+    "Furniture Filename": "FtrFishKarei",
+    "Internal ID": 2268,
+    "Unique Entry ID": "noA2Kfp8TaFgaLs5n",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Dab",
+    "iconUrl": "https://dodo.ac/np/images/1/1f/Dab_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    "timeOfYearRaw": "North: Oct – Apr South: Apr – Oct",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "dace",
+    "Critterpedia Filename": "FishUgui",
+    "Furniture Filename": "FtrFishUgui",
+    "Internal ID": 2217,
+    "Unique Entry ID": "dWmXFdnjByWT5nEok",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Dace",
+    "iconUrl": "https://dodo.ac/np/images/d/db/Dace_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: All year South: All year",
+    "timeOfDay": {
+      "start": 16,
+      "end": 9,
+      "allDay": false
+    },
+    "timeOfDayRaw": "4 PM – 9 AM"
+  },
+  {
+    "Name": "dorado",
+    "Critterpedia Filename": "FishDolado",
+    "Furniture Filename": "FtrFishDolado",
+    "Internal ID": 2251,
+    "Unique Entry ID": "G7ZwD67cRMHBwTSKH",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Dorado",
+    "iconUrl": "https://dodo.ac/np/images/f/fe/Dorado_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Jun – Sep South: Dec – Mar",
+    "timeOfDay": {
+      "start": 4,
+      "end": 21,
+      "allDay": false
+    },
+    "timeOfDayRaw": "4 AM – 9 PM"
+  },
+  {
+    "Name": "football fish",
+    "Critterpedia Filename": "FishChouchinankou",
+    "Furniture Filename": "FtrFishChouchinankou",
+    "Internal ID": 2273,
+    "Unique Entry ID": "vQHfve6DygtcYqwdi",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Football_Fish",
+    "iconUrl": "https://dodo.ac/np/images/3/34/Football_Fish_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        11,
+        12
+      ],
+      "south": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    "timeOfYearRaw": "North: Nov – Mar South: May – Sep",
+    "timeOfDay": {
+      "start": 16,
+      "end": 9,
+      "allDay": false
+    },
+    "timeOfDayRaw": "4 PM – 9 AM"
+  },
+  {
+    "Name": "freshwater goby",
+    "Critterpedia Filename": "FishDonko",
+    "Furniture Filename": "FtrFishDonko",
+    "Internal ID": 2227,
+    "Unique Entry ID": "SfXYNdtaid6hdQhvZ",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Freshwater_Goby",
+    "iconUrl": "https://dodo.ac/np/images/e/ec/Freshwater_Goby_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: All year South: All year",
+    "timeOfDay": {
+      "start": 16,
+      "end": 9,
+      "allDay": false
+    },
+    "timeOfDayRaw": "4 PM – 9 AM"
+  },
+  {
+    "Name": "frog",
+    "Critterpedia Filename": "FishKaeru",
+    "Furniture Filename": "FtrFishKaeru",
+    "Internal ID": 2226,
+    "Unique Entry ID": "LcQLs85qPPdLajLje",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Frog_(fish)",
+    "iconUrl": "https://dodo.ac/np/images/2/2f/Frog_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "south": [
+        1,
+        2,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: May – Aug South: Nov – Feb",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "gar",
+    "Critterpedia Filename": "FishGa",
+    "Furniture Filename": "FtrFishGa",
+    "Internal ID": 2252,
+    "Unique Entry ID": "x5yAYQgMJW9Kf7WyM",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Gar",
+    "iconUrl": "https://dodo.ac/np/images/a/a2/Gar_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Jun – Sep South: Dec – Mar",
+    "timeOfDay": {
+      "start": 16,
+      "end": 9,
+      "allDay": false
+    },
+    "timeOfDayRaw": "4 PM – 9 AM"
+  },
+  {
+    "Name": "giant snakehead",
+    "Critterpedia Filename": "FishRaigyo",
+    "Furniture Filename": "FtrFishRaigyo",
+    "Internal ID": 2231,
+    "Unique Entry ID": "KyWQRd8W2FePM42wB",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Giant_Snakehead",
+    "iconUrl": "https://dodo.ac/np/images/5/50/Giant_Snakehead_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        6,
+        7,
+        8
+      ],
+      "south": [
+        1,
+        2,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Jun – Aug South: Dec – Feb",
+    "timeOfDay": {
+      "start": 9,
+      "end": 16,
+      "allDay": false
+    },
+    "timeOfDayRaw": "9 AM – 4 PM"
+  },
+  {
+    "Name": "giant trevally",
+    "Critterpedia Filename": "FishRouninaji",
+    "Furniture Filename": "FtrFishGT",
+    "Internal ID": 2276,
+    "Unique Entry ID": "53qtm8cMH4RfqJiAH",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Giant_Trevally",
+    "iconUrl": "https://dodo.ac/np/images/1/17/Giant_Trevally_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: May – Oct South: Nov – Apr",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "golden trout",
+    "Critterpedia Filename": "FishGoldenTorauto",
+    "Furniture Filename": "FtrFishGoldenTorauto",
+    "Internal ID": 4193,
+    "Unique Entry ID": "wwGzR7FzWNJ7cDz9X",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Golden_Trout",
+    "iconUrl": "https://dodo.ac/np/images/f/fc/Golden_Trout_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        3,
+        4,
+        5
+      ],
+      "south": [
+        3,
+        4,
+        5
+      ]
+    },
+    "timeOfYearRaw": "North: Mar – May; Sep – Nov South: Mar – May; Sep – Nov",
+    "timeOfDay": {
+      "start": 16,
+      "end": 9,
+      "allDay": false
+    },
+    "timeOfDayRaw": "4 PM – 9 AM"
+  },
+  {
+    "Name": "goldfish",
+    "Critterpedia Filename": "FishKingyo",
+    "Furniture Filename": "FtrFishKingyo",
+    "Internal ID": 329,
+    "Unique Entry ID": "5NwmwhEQxBNZCPiBR",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Goldfish",
+    "iconUrl": "https://dodo.ac/np/images/7/71/Goldfish_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: All year South: All year",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "great white shark",
+    "Critterpedia Filename": "FishSame",
+    "Furniture Filename": "FtrFishSame",
+    "Internal ID": 2280,
+    "Unique Entry ID": "EPypAeJGuTDGFJRnx",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Great_White_Shark",
+    "iconUrl": "https://dodo.ac/np/images/2/20/Great_White_Shark_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Jun – Sep South: Dec – Mar",
+    "timeOfDay": {
+      "start": 16,
+      "end": 9,
+      "allDay": false
+    },
+    "timeOfDayRaw": "4 PM – 9 AM"
+  },
+  {
+    "Name": "guppy",
+    "Critterpedia Filename": "FishGuppi",
+    "Furniture Filename": "FtrFishGuppi",
+    "Internal ID": 2245,
+    "Unique Entry ID": "WtdZnARNxnWRobej2",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Guppy",
+    "iconUrl": "https://dodo.ac/np/images/3/38/Guppy_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Apr – Nov South: Oct – May",
+    "timeOfDay": {
+      "start": 9,
+      "end": 16,
+      "allDay": false
+    },
+    "timeOfDayRaw": "9 AM – 4 PM"
+  },
+  {
+    "Name": "hammerhead shark",
+    "Critterpedia Filename": "FishShumokuzame",
+    "Furniture Filename": "FtrFishShumokuzame",
+    "Internal ID": 2279,
+    "Unique Entry ID": "guHT5g6H7tJEyqYzf",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Hammerhead_Shark",
+    "iconUrl": "https://dodo.ac/np/images/e/ec/Hammerhead_Shark_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Jun – Sep South: Dec – Mar",
+    "timeOfDay": {
+      "start": 16,
+      "end": 9,
+      "allDay": false
+    },
+    "timeOfDayRaw": "4 PM – 9 AM"
+  },
+  {
+    "Name": "horse mackerel",
+    "Critterpedia Filename": "FishAji",
+    "Furniture Filename": "FtrFishAji",
+    "Internal ID": 2264,
+    "Unique Entry ID": "L24RYPaEcm9ZXkTui",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Horse_Mackerel",
+    "iconUrl": "https://dodo.ac/np/images/a/a3/Horse_Mackerel_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: All year South: All year",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "killifish",
+    "Critterpedia Filename": "FishMedaka",
+    "Furniture Filename": "FtrFishMedaka",
+    "Internal ID": 2222,
+    "Unique Entry ID": "ZR9dsEApEXCjtXu3k",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Killifish",
+    "iconUrl": "https://dodo.ac/np/images/e/ea/Killifish_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "south": [
+        1,
+        2,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Apr – Aug South: Oct – Feb",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "king salmon",
+    "Critterpedia Filename": "FishKingsalmon",
+    "Furniture Filename": "FtrFishKingsalmon",
+    "Internal ID": 2243,
+    "Unique Entry ID": "Pf5cXKo8pzdB45rAA",
+    "Nookipedia Link": "https://nookipedia.com/wiki/King_Salmon",
+    "iconUrl": "https://dodo.ac/np/images/e/e1/King_Salmon_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        9
+      ],
+      "south": [
+        3
+      ]
+    },
+    "timeOfYearRaw": "North: Sep South: Mar",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "koi",
+    "Critterpedia Filename": "FishNishikigoi",
+    "Furniture Filename": "FtrFishNishikigoi",
+    "Internal ID": 2220,
+    "Unique Entry ID": "kNwjLeqjg8bFevfiG",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Koi",
+    "iconUrl": "https://dodo.ac/np/images/2/2d/Koi_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: All year South: All year",
+    "timeOfDay": {
+      "start": 16,
+      "end": 9,
+      "allDay": false
+    },
+    "timeOfDayRaw": "4 PM – 9 AM"
+  },
+  {
+    "Name": "loach",
+    "Critterpedia Filename": "FishDojou",
+    "Furniture Filename": "FtrFishDojou",
+    "Internal ID": 2228,
+    "Unique Entry ID": "95yBKrQ4tdyWj4H25",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Loach",
+    "iconUrl": "https://dodo.ac/np/images/a/a5/Loach_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        3,
+        4,
+        5
+      ],
+      "south": [
+        9,
+        10,
+        11
+      ]
+    },
+    "timeOfYearRaw": "North: Mar – May South: Sep – Nov",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "mahi-mahi",
+    "Critterpedia Filename": "FishShiira",
+    "Furniture Filename": "FtrFishShiira",
+    "Internal ID": 4202,
+    "Unique Entry ID": "D7gY39QDo8BBNs2Ne",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Mahi-Mahi",
+    "iconUrl": "https://dodo.ac/np/images/d/d6/Mahi-Mahi_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: May – Oct South: Nov – Apr",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "mitten crab",
+    "Critterpedia Filename": "FishSyanhaigani",
+    "Furniture Filename": "FtrFishShanghai",
+    "Internal ID": 2244,
+    "Unique Entry ID": "s2jqSYbMWBX6qCLDm",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Mitten_Crab",
+    "iconUrl": "https://dodo.ac/np/images/9/9d/Mitten_Crab_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        9,
+        10,
+        11
+      ],
+      "south": [
+        3,
+        4,
+        5
+      ]
+    },
+    "timeOfYearRaw": "North: Sep – Nov South: Mar – May",
+    "timeOfDay": {
+      "start": 16,
+      "end": 9,
+      "allDay": false
+    },
+    "timeOfDayRaw": "4 PM – 9 AM"
+  },
+  {
+    "Name": "moray eel",
+    "Critterpedia Filename": "FishUtsubo",
+    "Furniture Filename": "FtrFishUtsubo",
+    "Internal ID": 2271,
+    "Unique Entry ID": "4nLynLTMRtoqcCfh4",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Moray_Eel",
+    "iconUrl": "https://dodo.ac/np/images/3/3e/Moray_Eel_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        8,
+        9,
+        10
+      ],
+      "south": [
+        2,
+        3,
+        4
+      ]
+    },
+    "timeOfYearRaw": "North: Aug – Oct South: Feb – Apr",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "Napoleonfish",
+    "Critterpedia Filename": "FishNaporeonfish",
+    "Furniture Filename": "FtrFishNaporeonfish",
+    "Internal ID": 2260,
+    "Unique Entry ID": "dm4THC3AYR6CZ8bvJ",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Napoleonfish",
+    "iconUrl": "https://dodo.ac/np/images/3/30/Napoleonfish_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        7,
+        8
+      ],
+      "south": [
+        1,
+        2
+      ]
+    },
+    "timeOfYearRaw": "North: Jul – Aug South: Jan – Feb",
+    "timeOfDay": {
+      "start": 4,
+      "end": 21,
+      "allDay": false
+    },
+    "timeOfDayRaw": "4 AM – 9 PM"
+  },
+  {
+    "Name": "neon tetra",
+    "Critterpedia Filename": "FishNeontetora",
+    "Furniture Filename": "FtrFishNeontetora",
+    "Internal ID": 2248,
+    "Unique Entry ID": "aEyRb96wcz9m8yjFN",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Neon_Tetra",
+    "iconUrl": "https://dodo.ac/np/images/4/42/Neon_Tetra_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Apr – Nov South: Oct – May",
+    "timeOfDay": {
+      "start": 9,
+      "end": 16,
+      "allDay": false
+    },
+    "timeOfDayRaw": "9 AM – 4 PM"
+  },
+  {
+    "Name": "nibble fish",
+    "Critterpedia Filename": "FishDokutaafish",
+    "Furniture Filename": "FtrFishDoctor",
+    "Internal ID": 2246,
+    "Unique Entry ID": "pkPKYsMiXsTWNz4L4",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Nibble_Fish",
+    "iconUrl": "https://dodo.ac/np/images/0/0b/Nibble_Fish_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: May – Sep South: Nov – Mar",
+    "timeOfDay": {
+      "start": 9,
+      "end": 16,
+      "allDay": false
+    },
+    "timeOfDayRaw": "9 AM – 4 PM"
+  },
+  {
+    "Name": "oarfish",
+    "Critterpedia Filename": "FishRyuuguunotukai",
+    "Furniture Filename": "FtrFishRyugu",
+    "Internal ID": 2283,
+    "Unique Entry ID": "qgvEPGk759xaBqwXP",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Oarfish",
+    "iconUrl": "https://dodo.ac/np/images/5/50/Oarfish_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        12
+      ],
+      "south": [
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    "timeOfYearRaw": "North: Dec – May South: Jun – Nov",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "ocean sunfish",
+    "Critterpedia Filename": "FishManbou",
+    "Furniture Filename": "FtrFishManbou",
+    "Internal ID": 2278,
+    "Unique Entry ID": "6BwK6LHbjFAKzgE82",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Ocean_Sunfish",
+    "iconUrl": "https://dodo.ac/np/images/e/eb/Ocean_Sunfish_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3
+      ]
+    },
+    "timeOfYearRaw": "North: Jul – Sep South: Jan – Mar",
+    "timeOfDay": {
+      "start": 4,
+      "end": 21,
+      "allDay": false
+    },
+    "timeOfDayRaw": "4 AM – 9 PM"
+  },
+  {
+    "Name": "olive flounder",
+    "Critterpedia Filename": "FishHirame",
+    "Furniture Filename": "FtrFishHirame",
+    "Internal ID": 2269,
+    "Unique Entry ID": "TXSteKMHuQ9ZfqPXm",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Olive_Flounder",
+    "iconUrl": "https://dodo.ac/np/images/b/b3/Olive_Flounder_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: All year South: All year",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "pale chub",
+    "Critterpedia Filename": "FishOikawa",
+    "Furniture Filename": "FtrFishOikawa",
+    "Internal ID": 2216,
+    "Unique Entry ID": "pCn9TLap3rWiLYfnF",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Pale_Chub",
+    "iconUrl": "https://dodo.ac/np/images/e/e2/Pale_Chub_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: All year South: All year",
+    "timeOfDay": {
+      "start": 9,
+      "end": 16,
+      "allDay": false
+    },
+    "timeOfDayRaw": "9 AM – 4 PM"
+  },
+  {
+    "Name": "pike",
+    "Critterpedia Filename": "FishPaiku",
+    "Furniture Filename": "FtrFishPaiku",
+    "Internal ID": 2235,
+    "Unique Entry ID": "XxrB6iKQPhBkYKaXD",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Pike",
+    "iconUrl": "https://dodo.ac/np/images/9/9f/Pike_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    "timeOfYearRaw": "North: Sep – Dec South: Mar – Jun",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "piranha",
+    "Critterpedia Filename": "FishPirania",
+    "Furniture Filename": "FtrFishPirania",
+    "Internal ID": 2249,
+    "Unique Entry ID": "5C59HAFxmwNSjH4Zq",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Piranha",
+    "iconUrl": "https://dodo.ac/np/images/c/c6/Piranha_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Jun – Sep South: Dec – Mar",
+    "timeOfDay": {
+      "start": 9,
+      "end": 16,
+      "allDay": false
+    },
+    "timeOfDayRaw": "9 AM – 4 PM & 9 PM – 4 AM"
+  },
+  {
+    "Name": "pond smelt",
+    "Critterpedia Filename": "FishWakasagi",
+    "Furniture Filename": "FtrFishWakasagi",
+    "Internal ID": 2236,
+    "Unique Entry ID": "DDb2GPEjapPmbYbWG",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Pond_Smelt",
+    "iconUrl": "https://dodo.ac/np/images/0/0f/Pond_Smelt_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        12
+      ],
+      "south": [
+        6,
+        7,
+        8
+      ]
+    },
+    "timeOfYearRaw": "North: Dec – Feb South: Jun – Aug",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "pop-eyed goldfish",
+    "Critterpedia Filename": "FishDemekin",
+    "Furniture Filename": "FtrFishDemekin",
+    "Internal ID": 2221,
+    "Unique Entry ID": "RvqzuA438gGqRJ7NG",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Pop-Eyed_Goldfish",
+    "iconUrl": "https://dodo.ac/np/images/0/0d/Pop-Eyed_Goldfish_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: All year South: All year",
+    "timeOfDay": {
+      "start": 9,
+      "end": 16,
+      "allDay": false
+    },
+    "timeOfDayRaw": "9 AM – 4 PM"
+  },
+  {
+    "Name": "puffer fish",
+    "Critterpedia Filename": "FishHarisenbon",
+    "Furniture Filename": "FtrFishHarisenbon",
+    "Internal ID": 2263,
+    "Unique Entry ID": "jNkgaybfSsv8MkaQ2",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Puffer_Fish",
+    "iconUrl": "https://dodo.ac/np/images/e/ee/Puffer_Fish_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3
+      ]
+    },
+    "timeOfYearRaw": "North: Jul – Sep South: Jan – Mar",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "rainbowfish",
+    "Critterpedia Filename": "FishRainbowfish",
+    "Furniture Filename": "FtrFishRainbowfish",
+    "Internal ID": 4194,
+    "Unique Entry ID": "XJfkdS4C2MPYiscST",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Rainbowfish",
+    "iconUrl": "https://dodo.ac/np/images/e/e7/Rainbowfish_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: May – Oct South: Nov – Apr",
+    "timeOfDay": {
+      "start": 9,
+      "end": 16,
+      "allDay": false
+    },
+    "timeOfDayRaw": "9 AM – 4 PM"
+  },
+  {
+    "Name": "ranchu goldfish",
+    "Critterpedia Filename": "FishRanchu",
+    "Furniture Filename": "FtrFishRanchu",
+    "Internal ID": 5254,
+    "Unique Entry ID": "4NE2SteWKEaBYjgWb",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Ranchu_Goldfish",
+    "iconUrl": "https://dodo.ac/np/images/3/35/Ranchu_Goldfish_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: All year South: All year",
+    "timeOfDay": {
+      "start": 9,
+      "end": 16,
+      "allDay": false
+    },
+    "timeOfDayRaw": "9 AM – 4 PM"
+  },
+  {
+    "Name": "ray",
+    "Critterpedia Filename": "FishEi",
+    "Furniture Filename": "FtrFishEi",
+    "Internal ID": 2277,
+    "Unique Entry ID": "gP5F7wWFvFqiZzuGw",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Ray",
+    "iconUrl": "https://dodo.ac/np/images/9/9b/Ray_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "south": [
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "timeOfYearRaw": "North: Aug – Nov South: Feb – May",
+    "timeOfDay": {
+      "start": 4,
+      "end": 21,
+      "allDay": false
+    },
+    "timeOfDayRaw": "4 AM – 9 PM"
+  },
+  {
+    "Name": "red snapper",
+    "Critterpedia Filename": "FishTai",
+    "Furniture Filename": "FtrFishTai",
+    "Internal ID": 2267,
+    "Unique Entry ID": "iY4zfgojAfLskW4CQ",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Red_Snapper",
+    "iconUrl": "https://dodo.ac/np/images/c/c1/Red_Snapper_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: All year South: All year",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "ribbon eel",
+    "Critterpedia Filename": "FishHanahigeutubo",
+    "Furniture Filename": "FtrFishHanahige",
+    "Internal ID": 2272,
+    "Unique Entry ID": "T9zeSBHpB5qyAZTxu",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Ribbon_Eel",
+    "iconUrl": "https://dodo.ac/np/images/2/26/Ribbon_Eel_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Jun – Oct South: Dec – Apr",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "saddled bichir",
+    "Critterpedia Filename": "FishEndorikerii",
+    "Furniture Filename": "FtrFishEndlicheri",
+    "Internal ID": 2254,
+    "Unique Entry ID": "bcTmnwZxrw2iJsQmf",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Saddled_Bichir",
+    "iconUrl": "https://dodo.ac/np/images/4/46/Saddled_Bichir_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Jun – Sep South: Dec – Mar",
+    "timeOfDay": {
+      "start": 21,
+      "end": 4,
+      "allDay": false
+    },
+    "timeOfDayRaw": "9 PM – 4 AM"
+  },
+  {
+    "Name": "salmon",
+    "Critterpedia Filename": "FishSake",
+    "Furniture Filename": "FtrFishSake",
+    "Internal ID": 2242,
+    "Unique Entry ID": "iwXhnZcSezNxqdNQf",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Salmon",
+    "iconUrl": "https://dodo.ac/np/images/c/ca/Salmon_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        9
+      ],
+      "south": [
+        3
+      ]
+    },
+    "timeOfYearRaw": "North: Sep South: Mar",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "saw shark",
+    "Critterpedia Filename": "FishNokogirizame",
+    "Furniture Filename": "FtrFishNokogiri",
+    "Internal ID": 2281,
+    "Unique Entry ID": "tsrT7a8cbtwZrmJTz",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Saw_Shark",
+    "iconUrl": "https://dodo.ac/np/images/4/45/Saw_Shark_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Jun – Sep South: Dec – Mar",
+    "timeOfDay": {
+      "start": 16,
+      "end": 9,
+      "allDay": false
+    },
+    "timeOfDayRaw": "4 PM – 9 AM"
+  },
+  {
+    "Name": "sea bass",
+    "Critterpedia Filename": "FishSuzuki",
+    "Furniture Filename": "FtrFishSuzuki",
+    "Internal ID": 2266,
+    "Unique Entry ID": "LkA5hzibm6uiHDB9g",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Sea_Bass",
+    "iconUrl": "https://dodo.ac/np/images/7/7f/Sea_Bass_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: All year South: All year",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "sea butterfly",
+    "Critterpedia Filename": "FishKurione",
+    "Furniture Filename": "FtrFishKurione",
+    "Internal ID": 2255,
+    "Unique Entry ID": "kd5beizyQGeyjeM79",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Sea_Butterfly",
+    "iconUrl": "https://dodo.ac/np/images/f/f7/Sea_Butterfly_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        12
+      ],
+      "south": [
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    "timeOfYearRaw": "North: Dec – Mar South: Jun – Sep",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "sea horse",
+    "Critterpedia Filename": "FishTatsunootoshigo",
+    "Furniture Filename": "FtrFishTatsunootoshigo",
+    "Internal ID": 2256,
+    "Unique Entry ID": "Pw5oZqC29NWEGRfyS",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Sea_Horse",
+    "iconUrl": "https://dodo.ac/np/images/d/dc/Sea_Horse_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Apr – Nov South: Oct – May",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "snapping turtle",
+    "Critterpedia Filename": "FishKamitsukigame",
+    "Furniture Filename": "FtrFishKamitukigame",
+    "Internal ID": 4192,
+    "Unique Entry ID": "SJa3LLde3Yuz4H3D7",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Snapping_Turtle",
+    "iconUrl": "https://dodo.ac/np/images/b/b1/Snapping_Turtle_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Apr – Oct South: Oct – Apr",
+    "timeOfDay": {
+      "start": 21,
+      "end": 4,
+      "allDay": false
+    },
+    "timeOfDayRaw": "9 PM – 4 AM"
+  },
+  {
+    "Name": "soft-shelled turtle",
+    "Critterpedia Filename": "FishSuppon",
+    "Furniture Filename": "FtrFishSuppon",
+    "Internal ID": 2224,
+    "Unique Entry ID": "izuY2f4GtEGT3BtuR",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Soft-Shelled_Turtle",
+    "iconUrl": "https://dodo.ac/np/images/e/eb/Soft-Shelled_Turtle_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        8,
+        9
+      ],
+      "south": [
+        2,
+        3
+      ]
+    },
+    "timeOfYearRaw": "North: Aug – Sep South: Feb – Mar",
+    "timeOfDay": {
+      "start": 16,
+      "end": 9,
+      "allDay": false
+    },
+    "timeOfDayRaw": "4 PM – 9 AM"
+  },
+  {
+    "Name": "squid",
+    "Critterpedia Filename": "FishIka",
+    "Furniture Filename": "FtrFishIka",
+    "Internal ID": 2270,
+    "Unique Entry ID": "qxHJ6BGgyQujkC28w",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Squid",
+    "iconUrl": "https://dodo.ac/np/images/b/bf/Squid_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        12
+      ],
+      "south": [
+        1,
+        2,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Dec – Aug South: Jun – Feb",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "stringfish",
+    "Critterpedia Filename": "FishItou",
+    "Furniture Filename": "FtrFishItou",
+    "Internal ID": 2241,
+    "Unique Entry ID": "APXg8kSzjcmoGGWSP",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Stringfish",
+    "iconUrl": "https://dodo.ac/np/images/e/eb/Stringfish_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        12
+      ],
+      "south": [
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    "timeOfYearRaw": "North: Dec – Mar South: Jun – Sep",
+    "timeOfDay": {
+      "start": 16,
+      "end": 9,
+      "allDay": false
+    },
+    "timeOfDayRaw": "4 PM – 9 AM"
+  },
+  {
+    "Name": "sturgeon",
+    "Critterpedia Filename": "FishTyouzame",
+    "Furniture Filename": "FtrFishTyouzame",
+    "Internal ID": 4189,
+    "Unique Entry ID": "XabKYtzYDNSNrFvpw",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Sturgeon",
+    "iconUrl": "https://dodo.ac/np/images/9/91/Sturgeon_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    "timeOfYearRaw": "North: Sep – Mar South: Mar – Sep",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "suckerfish",
+    "Critterpedia Filename": "FishKobanzame",
+    "Furniture Filename": "FtrFishKobanzame",
+    "Internal ID": 4203,
+    "Unique Entry ID": "FPpwmMDn9rYAJazyS",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Suckerfish",
+    "iconUrl": "https://dodo.ac/np/images/d/de/Suckerfish_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Jun – Sep South: Dec – Mar",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "surgeonfish",
+    "Critterpedia Filename": "FishNanyouhagi",
+    "Furniture Filename": "FtrFishNanyouhagi",
+    "Internal ID": 2258,
+    "Unique Entry ID": "s7iioofF5C7PzCZyF",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Surgeonfish",
+    "iconUrl": "https://dodo.ac/np/images/c/cb/Surgeonfish_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Apr – Sep South: Oct – Mar",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "sweetfish",
+    "Critterpedia Filename": "FishAyu",
+    "Furniture Filename": "FtrFishAyu",
+    "Internal ID": 2237,
+    "Unique Entry ID": "dWgg2bjCicuiZjXW6",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Sweetfish",
+    "iconUrl": "https://dodo.ac/np/images/6/6a/Sweetfish_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3
+      ]
+    },
+    "timeOfYearRaw": "North: Jul – Sep South: Jan – Mar",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "tadpole",
+    "Critterpedia Filename": "FishOtamajakusi",
+    "Furniture Filename": "FtrFishOtama",
+    "Internal ID": 2225,
+    "Unique Entry ID": "rb8MsjWopKYWuQK8s",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Tadpole",
+    "iconUrl": "https://dodo.ac/np/images/b/bb/Tadpole_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "south": [
+        1,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Mar – Jul South: Sep – Jan",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "tilapia",
+    "Critterpedia Filename": "FishThirapia",
+    "Furniture Filename": "FtrFishThirapia",
+    "Internal ID": 4190,
+    "Unique Entry ID": "as78rnkwY3ahrTkBY",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Tilapia",
+    "iconUrl": "https://dodo.ac/np/images/e/ef/Tilapia_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Jun – Oct South: Dec – Apr",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "tuna",
+    "Critterpedia Filename": "FishMaguro",
+    "Furniture Filename": "FtrFishMaguro",
+    "Internal ID": 2274,
+    "Unique Entry ID": "4PnGXx9DSb866AeCM",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Tuna",
+    "iconUrl": "https://dodo.ac/np/images/4/4b/Tuna_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        11,
+        12
+      ],
+      "south": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    "timeOfYearRaw": "North: Nov – Apr South: May – Nov",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "whale shark",
+    "Critterpedia Filename": "FishJinbeezame",
+    "Furniture Filename": "FtrFishJinbee",
+    "Internal ID": 2282,
+    "Unique Entry ID": "r3RAtJsXENwnFvQh7",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Whale_Shark",
+    "iconUrl": "https://dodo.ac/np/images/4/4f/Whale_Shark_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Jun – Sep South: Dec – Mar",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "yellow perch",
+    "Critterpedia Filename": "FishYellowparch",
+    "Furniture Filename": "FtrFishYellowparch",
+    "Internal ID": 2233,
+    "Unique Entry ID": "bLgE5dicZniF5zZDW",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Yellow_Perch",
+    "iconUrl": "https://dodo.ac/np/images/6/67/Yellow_Perch_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    "timeOfYearRaw": "North: Oct – Mar South: Apr – Sep",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  },
+  {
+    "Name": "zebra turkeyfish",
+    "Critterpedia Filename": "FishMinokasago",
+    "Furniture Filename": "FtrFishMinokasago",
+    "Internal ID": 2261,
+    "Unique Entry ID": "h7fa7Fh3Ay7vAxgE2",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Zebra_Turkeyfish",
+    "iconUrl": "https://dodo.ac/np/images/8/85/Zebra_Turkeyfish_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Apr – Nov South: Oct – May",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day"
+  }
+]

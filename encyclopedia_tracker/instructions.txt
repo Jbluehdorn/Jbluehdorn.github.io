@@ -1,0 +1,22 @@
+I want to create an app that can parse image data from an uploaded screenshot and read a user's animal crossing encyclopedia data. 
+Then it should parse and save that data to local storage. 
+It should then show them all the available fish, insects, and sea creatures that they can catch based on the date and time. 
+
+Before you start, you should know that our base data to work from is all listed in the json directory of this project.
+
+==Workflows==
+
+Upload
+1. User uploads a photo from their phone of their in-game encyclopedia. 
+2. We cross-reference that with our json data to map all the encyclopedia entries we see.
+3. That information gets saved to localStorage for further user
+
+Display
+1. We check the date and time of the user to get a base of where to start
+2. We check through our data to see what is available that they haven't already collected
+3. We show them all the available 
+4. We allow the user to change the date, time, and hemisphere of the user to account for users that have adjusted their times manually
+
+==Extra needs==
+1. Our data overall is incomplete. Before we can do any of this, I need you to write a script that goes to the page in the json files that is called "Nookipedia Link" and get the information for the photo that we will be comparing to as well as the time of year and time of day that the creature is available. Note that most will need a different time available for northern and southern hemisphere that our data should be able to account for.
+2. We will need a mechanism that can parse images and for that I will need your assistance. Seeing as I will be uploading this into my public github repository, I can't use anything that requires a private key.

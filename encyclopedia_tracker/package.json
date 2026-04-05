@@ -1,0 +1,17 @@
+{
+  "name": "encyclopedia_tracker",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "cheerio": "^1.2.0",
+    "node-fetch": "^2.7.0",
+    "sharp": "^0.34.5"
+  }
+}

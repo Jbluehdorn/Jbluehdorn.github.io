@@ -116,7 +116,7 @@ export default function App() {
       </main>
 
       {/* Winner announcement */}
-      <WinnerBanner winner={winner} onDismiss={dismissWinner} />
+      <WinnerBanner winner={winner} wheelType={wheelType} onDismiss={dismissWinner} />
 
       {/* Settings modal */}
       <SettingsModal
