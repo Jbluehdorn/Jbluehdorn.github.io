@@ -8,13 +8,6 @@ export default defineConfig({
   build: {
     outDir: 'dist',
     emptyOutDir: true,
-    rollupOptions: {
-      input: 'src/main.jsx',
-      output: {
-        entryFileNames: 'app.js',
-        assetFileNames: 'app[extname]',
-      },
-    },
   },
   server: {
     open: true,
