@@ -4,6 +4,7 @@ const ROUTES = [
   { id: 'encyclopedia', label: 'Encyclopedia', emoji: '📖' },
   { id: 'villager-calc', label: 'Island Odds', emoji: '🎫' },
   { id: 'villager-tracker', label: 'My Villagers', emoji: '🏠' },
+  { id: 'art-tracker', label: 'Art Guide', emoji: '🎨' },
 ]
 
 const DEFAULT_ROUTE = ROUTES[0].id

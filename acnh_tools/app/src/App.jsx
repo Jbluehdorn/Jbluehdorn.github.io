@@ -3,11 +3,13 @@ import TabBar from './components/TabBar'
 import Encyclopedia from './features/encyclopedia/Encyclopedia'
 import VillagerCalc from './features/villager-calc/VillagerCalc'
 import VillagerTracker from './features/villager-tracker/VillagerTracker'
+import ArtTracker from './features/art-tracker/ArtTracker'
 
 const FEATURES = {
   'encyclopedia': Encyclopedia,
   'villager-calc': VillagerCalc,
   'villager-tracker': VillagerTracker,
+  'art-tracker': ArtTracker,
 }
 
 export default function App() {
