@@ -52,10 +52,11 @@ export default function App() {
     <div className="app-container">
       {/* Settings gear — fixed top-right */}
       <button
-        className="config-icon"
-        onClick={() => setSettingsOpen(true)}
+        className={`config-icon ${rolling ? 'disabled' : ''}`}
+        onClick={() => !rolling && setSettingsOpen(true)}
         aria-label="Settings"
         title="Settings"
+        disabled={rolling}
       >
         ⚙
       </button>
