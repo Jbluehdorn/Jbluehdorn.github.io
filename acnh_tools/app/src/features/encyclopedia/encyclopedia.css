@@ -57,6 +57,19 @@
   font-weight: 700;
 }
 
+.enc-upload-tab {
+  margin-left: auto;
+  background: #e8d8b8;
+}
+
+.enc-upload-tab.active {
+  background: var(--color-accent-green);
+  color: white;
+}
+  color: var(--color-text-heading);
+  font-weight: 700;
+}
+
 .enc-tab-count {
   font-weight: normal;
   font-size: 0.75rem;

@@ -6,6 +6,7 @@ import { getSettings, saveSettings } from '../../utils/storage'
 import FilterControls from './components/FilterControls'
 import CreatureGrid from './components/CreatureGrid'
 import StatsBar from './components/StatsBar'
+import CameraCapture from './components/CameraCapture'
 import './encyclopedia.css'
 
 export default function Encyclopedia() {
@@ -13,6 +14,7 @@ export default function Encyclopedia() {
   const { collected, toggle, setMultiple, clearAll } = useCollected()
 
   const [activeTab, setActiveTab] = useState('all')
+  const [showCamera, setShowCamera] = useState(false)
   const [currentDate, setCurrentDate] = useState(new Date())
   const [useCustomTime, setUseCustomTime] = useState(false)
   const [showFilter, setShowFilter] = useState('available-now')
@@ -127,7 +129,21 @@ export default function Encyclopedia() {
             {tab.label} <span className="enc-tab-count">{tab.count}</span>
           </button>
         ))}
+        <button
+          className={`enc-tab-btn enc-upload-tab ${showCamera ? 'active' : ''}`}
+          onClick={() => setShowCamera(!showCamera)}
+        >
+          📸 Upload
+        </button>
       </div>
+
+      {showCamera && (
+        <CameraCapture
+          allCreatures={allCreatures}
+          collected={collected}
+          onDetected={(ids) => setMultiple(ids, true)}
+        />
+      )}
 
       <FilterControls
         currentDate={currentDate}
