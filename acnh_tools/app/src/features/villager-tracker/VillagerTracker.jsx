@@ -4,7 +4,7 @@ import { useVillagerData } from '../villager-calc/hooks/useVillagerData'
 import { createVillagerEngine } from '../villager-calc/hooks/villagerEngine'
 import { useChatTracker } from './hooks/useChatTracker'
 import { analyzeDiversity, getUpcomingBirthdays } from './hooks/diversity'
-import VillagerRosterCard from './components/VillagerRosterCard'
+import VillagerRosterCard, { VillagerDetailPanel } from './components/VillagerRosterCard'
 import './villager-tracker.css'
 
 export default function VillagerTracker() {
@@ -217,16 +217,26 @@ export default function VillagerTracker() {
                         key={name}
                         info={info}
                         chattedToday={hasChattedToday(name)}
-                        streak={getChatStreak(name)}
                         onToggleChat={() => toggleChat(name)}
                         onExpand={() => setExpandedVillager(expandedVillager === name ? null : name)}
                         expanded={expandedVillager === name}
                         upcomingBirthday={birthday}
-                        onRemove={() => handleRemoveResident(name)}
                       />
                     );
                   })}
                 </div>
+                {/* Detail panel renders below the grid for the selected villager in this group */}
+                {expandedVillager && members.includes(expandedVillager) && (() => {
+                  const info = engine?.getVillagerInfo(expandedVillager);
+                  if (!info) return null;
+                  return (
+                    <VillagerDetailPanel
+                      info={info}
+                      streak={getChatStreak(expandedVillager)}
+                      onRemove={() => handleRemoveResident(expandedVillager)}
+                    />
+                  );
+                })()}
               </div>
             ))}
           </div>
