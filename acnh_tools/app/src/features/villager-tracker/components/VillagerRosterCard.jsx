@@ -1,6 +1,6 @@
 import './VillagerRosterCard.css'
 
-export default function VillagerRosterCard({ info, chattedToday, streak, onToggleChat, onExpand, expanded, upcomingBirthday }) {
+export default function VillagerRosterCard({ info, chattedToday, streak, onToggleChat, onExpand, expanded, upcomingBirthday, onRemove }) {
   return (
     <div className={`roster-card ${chattedToday ? 'chatted' : ''} ${expanded ? 'expanded' : ''} ${upcomingBirthday?.isToday ? 'birthday-today' : ''}`}>
       <div className="roster-card-main" onClick={onExpand}>
@@ -12,11 +12,7 @@ export default function VillagerRosterCard({ info, chattedToday, streak, onToggl
             </span>
           )}
         </div>
-        <div className="roster-card-info">
-          <span className="roster-card-name">{info.name}</span>
-          <span className="roster-card-species">{info.species}</span>
-          {streak > 1 && <span className="roster-card-streak">🔥 {streak} day streak</span>}
-        </div>
+        <span className="roster-card-name">{info.name}</span>
         <button
           className={`chat-toggle ${chattedToday ? 'active' : ''}`}
           onClick={(e) => { e.stopPropagation(); onToggleChat(); }}
@@ -58,6 +54,17 @@ export default function VillagerRosterCard({ info, chattedToday, streak, onToggl
                 <span className="detail-value">{info.hobby}</span>
               </div>
             )}
+            {streak > 1 && (
+              <div className="detail-row">
+                <span className="detail-label">Chat streak</span>
+                <span className="detail-value">🔥 {streak} days</span>
+              </div>
+            )}
+            <div className="detail-actions">
+              <button className="detail-remove-btn" onClick={onRemove}>
+                Remove from island
+              </button>
+            </div>
           </div>
         </div>
       )}

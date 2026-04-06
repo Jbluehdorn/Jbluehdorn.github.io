@@ -5,7 +5,6 @@ import { createVillagerEngine } from '../villager-calc/hooks/villagerEngine'
 import { useChatTracker } from './hooks/useChatTracker'
 import { analyzeDiversity, getUpcomingBirthdays } from './hooks/diversity'
 import VillagerRosterCard from './components/VillagerRosterCard'
-import DiversityPanel from './components/DiversityPanel'
 import './villager-tracker.css'
 
 export default function VillagerTracker() {
@@ -15,6 +14,8 @@ export default function VillagerTracker() {
   const [expandedVillager, setExpandedVillager] = useState(null);
   const [searchText, setSearchText] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [activeSearchIndex, setActiveSearchIndex] = useState(-1);
+  const [groupBy, setGroupBy] = useState('none');
 
   const engine = useMemo(() => {
     if (villagers.length === 0) return null;
@@ -45,7 +46,56 @@ export default function VillagerTracker() {
     addResident(name);
     setSearchText('');
     setShowSuggestions(false);
+    setActiveSearchIndex(-1);
   };
+
+  const handleSearchKeyDown = (e) => {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setActiveSearchIndex(prev => Math.min(prev + 1, searchResults.length - 1));
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setActiveSearchIndex(prev => Math.max(prev - 1, 0));
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      if (activeSearchIndex >= 0 && searchResults[activeSearchIndex]) {
+        handleAddResident(searchResults[activeSearchIndex].name);
+      } else if (searchResults.length > 0) {
+        handleAddResident(searchResults[0].name);
+      }
+    } else if (e.key === 'Escape') {
+      setShowSuggestions(false);
+      setActiveSearchIndex(-1);
+    }
+  };
+
+  const handleRemoveResident = (name) => {
+    if (window.confirm(`Remove ${name} from your island?`)) {
+      removeResident(name);
+      if (expandedVillager === name) setExpandedVillager(null);
+    }
+  };
+
+  // Group residents based on groupBy selection
+  const groupedResidents = useMemo(() => {
+    if (!engine || residents.length === 0) return [];
+    if (groupBy === 'none') {
+      return [{ label: null, members: residents }];
+    }
+    const groups = new Map();
+    for (const name of residents) {
+      const info = engine.getVillagerInfo(name);
+      if (!info) continue;
+      const key = groupBy === 'species' ? info.species
+        : groupBy === 'personality' ? info.personality
+        : info.gender;
+      if (!groups.has(key)) groups.set(key, []);
+      groups.get(key).push(name);
+    }
+    return [...groups.entries()]
+      .sort((a, b) => b[1].length - a[1].length)
+      .map(([label, members]) => ({ label, members }));
+  }, [engine, residents, groupBy]);
 
   if (loading) {
     return (
@@ -97,15 +147,16 @@ export default function VillagerTracker() {
               type="text"
               className="vt-search-input"
               value={searchText}
-              onChange={(e) => { setSearchText(e.target.value); setShowSuggestions(true); }}
+              onChange={(e) => { setSearchText(e.target.value); setShowSuggestions(true); setActiveSearchIndex(-1); }}
               onFocus={() => searchText.trim() && setShowSuggestions(true)}
+              onKeyDown={handleSearchKeyDown}
               placeholder="Add a villager to your island..."
               autoComplete="off"
             />
             {showSuggestions && searchResults.length > 0 && (
               <ul className="vt-suggestions">
-                {searchResults.map(v => (
-                  <li key={v.name} onMouseDown={() => handleAddResident(v.name)}>
+                {searchResults.map((v, i) => (
+                  <li key={v.name} className={i === activeSearchIndex ? 'active' : ''} onMouseDown={() => handleAddResident(v.name)} onMouseEnter={() => setActiveSearchIndex(i)}>
                     <img src={v.iconImage} alt="" className="suggestion-icon" />
                     <span>{v.name}</span>
                     <span className="species-tag">{v.species}</span>
@@ -117,7 +168,7 @@ export default function VillagerTracker() {
         </div>
       )}
 
-      {/* Roster grid */}
+      {/* Group-by dropdown + Roster */}
       {residents.length === 0 ? (
         <div className="vt-empty">
           <span className="empty-icon">🏝️</span>
@@ -125,47 +176,61 @@ export default function VillagerTracker() {
           <p className="empty-hint">Search above to add your residents!</p>
         </div>
       ) : (
-        <div className="vt-roster-grid">
-          {residents.map(name => {
-            const info = engine?.getVillagerInfo(name);
-            if (!info) return null;
-            const birthday = upcomingBirthdays.find(b => b.name === name);
-            return (
-              <VillagerRosterCard
-                key={name}
-                info={info}
-                chattedToday={hasChattedToday(name)}
-                streak={getChatStreak(name)}
-                onToggleChat={() => toggleChat(name)}
-                onExpand={() => setExpandedVillager(expandedVillager === name ? null : name)}
-                expanded={expandedVillager === name}
-                upcomingBirthday={birthday}
-              />
-            );
-          })}
-        </div>
-      )}
+        <>
+          <div className="vt-group-controls">
+            <label className="vt-group-label">
+              Group by
+              <select value={groupBy} onChange={(e) => setGroupBy(e.target.value)}>
+                <option value="none">None</option>
+                <option value="species">Species</option>
+                <option value="personality">Personality</option>
+                <option value="gender">Gender</option>
+              </select>
+            </label>
+            {diversity.gaps.length > 0 && (
+              <div className="vt-gap-tags">
+                {diversity.gaps.map((gap, i) => (
+                  <span key={i} className={`gap-tag ${gap.type}`}>
+                    {gap.type === 'warning' ? '⚠️' : 'ℹ️'} {gap.message}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
 
-      {/* Remove villager hint */}
-      {residents.length > 0 && expandedVillager && (
-        <div className="vt-remove-section">
-          <button
-            className="vt-remove-btn"
-            onClick={() => {
-              if (window.confirm(`Remove ${expandedVillager} from your island?`)) {
-                removeResident(expandedVillager);
-                setExpandedVillager(null);
-              }
-            }}
-          >
-            Remove {expandedVillager} from island
-          </button>
-        </div>
-      )}
-
-      {/* Diversity analysis */}
-      {residents.length >= 2 && (
-        <DiversityPanel analysis={diversity} />
+          <div className="vt-roster">
+            {groupedResidents.map(({ label, members }) => (
+              <div key={label || 'all'} className="vt-roster-group">
+                {label && (
+                  <h4 className="vt-group-heading">
+                    {label}
+                    <span className="vt-group-count">{members.length}</span>
+                  </h4>
+                )}
+                <div className="vt-roster-grid">
+                  {members.map(name => {
+                    const info = engine?.getVillagerInfo(name);
+                    if (!info) return null;
+                    const birthday = upcomingBirthdays.find(b => b.name === name);
+                    return (
+                      <VillagerRosterCard
+                        key={name}
+                        info={info}
+                        chattedToday={hasChattedToday(name)}
+                        streak={getChatStreak(name)}
+                        onToggleChat={() => toggleChat(name)}
+                        onExpand={() => setExpandedVillager(expandedVillager === name ? null : name)}
+                        expanded={expandedVillager === name}
+                        upcomingBirthday={birthday}
+                        onRemove={() => handleRemoveResident(name)}
+                      />
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
       )}
     </div>
   );

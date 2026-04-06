@@ -1,10 +1,12 @@
 .acnh-tab-bar {
   display: flex;
-  gap: 4px;
-  margin-bottom: 16px;
+  gap: 0;
+  margin-bottom: -1px;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
+  position: relative;
+  z-index: 1;
 }
 
 .acnh-tab-bar::-webkit-scrollbar {
@@ -16,28 +18,31 @@
   align-items: center;
   gap: 6px;
   padding: 10px 18px;
-  border: none;
+  border: 1px solid transparent;
+  border-bottom: 1px solid var(--color-border-light);
   border-radius: 10px 10px 0 0;
   background: var(--color-tab-bg);
-  color: var(--color-text);
+  color: var(--color-text-muted);
   cursor: pointer;
   font-size: 0.9rem;
   font-weight: 500;
   white-space: nowrap;
-  transition: background 0.2s, transform 0.1s;
+  transition: background 0.2s, color 0.2s;
   font-family: inherit;
+  margin-right: 2px;
 }
 
 .acnh-tab:hover {
   background: var(--color-tab-hover);
-  transform: translateY(-1px);
+  color: var(--color-text);
 }
 
 .acnh-tab.active {
   background: var(--color-surface);
-  color: var(--color-text);
+  color: var(--color-text-heading);
   font-weight: 700;
-  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.06);
+  border-color: var(--color-border-light);
+  border-bottom-color: var(--color-surface);
 }
 
 .tab-emoji {

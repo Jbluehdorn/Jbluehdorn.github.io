@@ -99,7 +99,7 @@ input[type='number'] {
 .acnh-content {
   flex: 1;
   background: var(--color-surface);
-  border-radius: var(--radius-lg);
+  border-radius: 0 var(--radius-lg) var(--radius-lg) var(--radius-lg);
   padding: 20px;
   border: 1px solid var(--color-border-light);
 }

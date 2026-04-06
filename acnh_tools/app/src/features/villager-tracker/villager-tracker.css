@@ -125,15 +125,97 @@
   transition: background 0.1s;
 }
 
-.vt-suggestions li:hover {
+.vt-suggestions li:hover,
+.vt-suggestions li.active {
   background: var(--color-accent-light);
 }
 
-/* Roster grid */
-.vt-roster-grid {
+/* Roster grid — compact squares, multiple per row */
+.vt-roster {
   display: flex;
   flex-direction: column;
+  gap: 16px;
+}
+
+.vt-roster-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.vt-group-heading {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--color-text-heading);
+  padding: 4px 2px;
+  border-bottom: 1px solid var(--color-border-light);
+}
+
+.vt-group-count {
+  font-weight: normal;
+  font-size: 0.75rem;
+  color: var(--color-text-faint);
+}
+
+.vt-roster-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
   gap: 8px;
+}
+
+/* Group-by controls */
+.vt-group-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+
+.vt-group-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--color-text-heading);
+  font-weight: 500;
+}
+
+.vt-group-label select {
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: white;
+  font-size: 0.85rem;
+  font-family: inherit;
+}
+
+.vt-gap-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.gap-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px 8px;
+  border-radius: var(--radius-pill);
+  font-size: 0.72rem;
+  font-weight: 500;
+}
+
+.gap-tag.warning {
+  background: #fff3e0;
+  color: #e65100;
+}
+
+.gap-tag.info {
+  background: var(--color-island-pill);
+  color: var(--color-island-text);
 }
 
 /* Empty state */
@@ -157,29 +239,6 @@
 .vt-empty .empty-hint {
   margin-top: 4px;
   font-size: 0.8rem;
-}
-
-/* Remove button */
-.vt-remove-section {
-  text-align: center;
-  margin-top: 12px;
-}
-
-.vt-remove-btn {
-  padding: 6px 16px;
-  border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  background: none;
-  color: var(--color-text-faint);
-  font-size: 0.78rem;
-  cursor: pointer;
-  font-family: inherit;
-  transition: all 0.2s;
-}
-
-.vt-remove-btn:hover {
-  color: var(--color-leaving);
-  border-color: var(--color-leaving);
 }
 
 @media (max-width: 600px) {
