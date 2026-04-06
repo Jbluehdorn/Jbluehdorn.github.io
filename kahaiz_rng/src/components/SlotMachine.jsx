@@ -11,8 +11,12 @@ const DURATION_STEP = 1500
 const BASE_ROTATIONS = 5
 const ROTATIONS_STEP = 2
 
+// Normalized exponential ease-out: smooth deceleration that glides into the final position
+const EASE_K = 5
+const EASE_MAX = 1 - Math.pow(2, -EASE_K)
+
 function easeOutExpo(t) {
-  return 1 - Math.pow(2, -10 * t)
+  return (1 - Math.pow(2, -EASE_K * t)) / EASE_MAX
 }
 
 function getReelCount(max) {

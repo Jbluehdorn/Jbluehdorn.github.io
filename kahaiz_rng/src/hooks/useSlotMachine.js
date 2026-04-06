@@ -35,6 +35,12 @@ export function useSlotMachine() {
     localStorage.setItem('slot_max', max.toString())
   }, [max])
 
+  // Reset stale value when range changes
+  useEffect(() => {
+    setValue(null)
+    setHasRolled(false)
+  }, [min, max])
+
   const updateMin = useCallback((val) => {
     if (typeof val === 'number' && !isNaN(val)) setMin(val)
   }, [])
