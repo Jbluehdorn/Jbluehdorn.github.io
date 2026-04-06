@@ -133,7 +133,7 @@ export default function Encyclopedia() {
           className={`enc-tab-btn enc-upload-tab ${showCamera ? 'active' : ''}`}
           onClick={() => setShowCamera(!showCamera)}
         >
-          {showCamera ? '✕ Close Upload' : '📸 Upload Screenshots'}
+          {showCamera ? '✕ Close Scanner' : '📸 Scanner'}
         </button>
       </div>
 
