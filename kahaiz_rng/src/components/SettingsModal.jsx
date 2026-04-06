@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 export default function SettingsModal({
   show,
@@ -12,7 +12,34 @@ export default function SettingsModal({
   onMaxBlur,
   onToggleRig,
 }) {
+  const [draftMin, setDraftMin] = useState(String(min))
+  const [draftMax, setDraftMax] = useState(String(max))
+
+  // Sync drafts when parent values change (e.g. after validation)
+  useEffect(() => { setDraftMin(String(min)) }, [min])
+  useEffect(() => { setDraftMax(String(max)) }, [max])
+
   if (!show) return null
+
+  const handleMinBlur = () => {
+    const parsed = parseInt(draftMin, 10)
+    if (!isNaN(parsed)) {
+      onMinChange(parsed)
+    } else {
+      setDraftMin(String(min))
+    }
+    onMinBlur()
+  }
+
+  const handleMaxBlur = () => {
+    const parsed = parseInt(draftMax, 10)
+    if (!isNaN(parsed)) {
+      onMaxChange(Math.min(parsed, 999))
+    } else {
+      setDraftMax(String(max))
+    }
+    onMaxBlur()
+  }
 
   return (
     <div className="modal-overlay" onClick={onClose}>
@@ -25,16 +52,17 @@ export default function SettingsModal({
         <div className="modal-body-content">
           {/* Range settings */}
           <div className="setting-group">
-            <label className="setting-label">Dice Range</label>
+            <label className="setting-label">Range</label>
             <div className="range-inputs">
               <div className="range-field">
                 <label className="range-label">Min</label>
                 <input
                   type="number"
                   className="range-input"
-                  value={min}
-                  onChange={(e) => onMinChange(e.target.value)}
-                  onBlur={onMinBlur}
+                  value={draftMin}
+                  min={0}
+                  onChange={(e) => setDraftMin(e.target.value)}
+                  onBlur={handleMinBlur}
                 />
               </div>
               <span className="range-separator">—</span>
@@ -43,9 +71,10 @@ export default function SettingsModal({
                 <input
                   type="number"
                   className="range-input"
-                  value={max}
-                  onChange={(e) => onMaxChange(e.target.value)}
-                  onBlur={onMaxBlur}
+                  value={draftMax}
+                  max={999}
+                  onChange={(e) => setDraftMax(e.target.value)}
+                  onBlur={handleMaxBlur}
                 />
               </div>
             </div>
@@ -53,7 +82,7 @@ export default function SettingsModal({
 
           {/* Rig toggle */}
           <div className="setting-group">
-            <label className="setting-label">Dice Integrity</label>
+            <label className="setting-label">Machine Integrity</label>
             <div className="rig-toggle">
               <button
                 className={`rig-btn ${rigged ? 'active' : ''}`}
@@ -69,7 +98,7 @@ export default function SettingsModal({
               </button>
             </div>
             <p className="rig-status">
-              The dice are currently:{' '}
+              The machine is currently:{' '}
               {rigged ? (
                 <span className="rig-rigged">Rigged</span>
               ) : (

@@ -1,12 +1,14 @@
 import React, { useState, useCallback } from 'react'
 import { getCurrentHoliday, getTitle } from './data/constants'
-import { useDiceRoll } from './hooks/useDiceRoll'
+import { useSlotMachine } from './hooks/useSlotMachine'
+import SlotMachine from './components/SlotMachine.jsx'
 import SettingsModal from './components/SettingsModal.jsx'
 import ResultBanner from './components/ResultBanner.jsx'
 
 export default function App() {
   const [settingsOpen, setSettingsOpen] = useState(false)
   const [showResult, setShowResult] = useState(false)
+  const [rollTrigger, setRollTrigger] = useState(0)
 
   const {
     min,
@@ -16,7 +18,6 @@ export default function App() {
     rigged,
     sinceCount,
     hasRolled,
-    shakeIntensity,
     updateMin,
     updateMax,
     validateMin,
@@ -24,17 +25,24 @@ export default function App() {
     toggleRig,
     resetSinceCount,
     roll,
-  } = useDiceRoll()
+    onRollComplete,
+  } = useSlotMachine()
 
   const holiday = getCurrentHoliday()
   const title = getTitle(holiday)
 
-  const handleRoll = useCallback(() => {
-    setShowResult(false)
-    roll()
-    // Show result banner after roll completes (~7.5s)
-    setTimeout(() => setShowResult(true), 7600)
+  const handlePull = useCallback(() => {
+    const result = roll()
+    if (result !== null) {
+      setShowResult(false)
+      setRollTrigger((prev) => prev + 1)
+    }
   }, [roll])
+
+  const handleRollComplete = useCallback(() => {
+    onRollComplete()
+    setShowResult(true)
+  }, [onRollComplete])
 
   const dismissResult = useCallback(() => {
     setShowResult(false)
@@ -57,26 +65,25 @@ export default function App() {
         <h1 className="app-title">{title}</h1>
       </header>
 
-      {/* Dice stage */}
-      <main className="dice-stage">
-        {/* The big number display */}
-        <div className={`dice-display ${rolling ? 'rolling' : ''} ${value !== null ? 'visible' : ''}`}>
-          <div
-            className="dice-frame"
-            style={{ '--shake': shakeIntensity }}
-          >
-            <span className="dice-value">{value !== null ? value : '?'}</span>
-          </div>
-        </div>
+      {/* Slot machine stage */}
+      <main className="slot-stage">
+        <SlotMachine
+          max={max}
+          targetValue={value}
+          rollTrigger={rollTrigger}
+          rolling={rolling}
+          onPull={handlePull}
+          onRollComplete={handleRollComplete}
+        />
 
-        {/* Roll button */}
+        {/* Pull button fallback */}
         <div className="controls">
           <button
             className="spin-btn"
-            onClick={handleRoll}
+            onClick={handlePull}
             disabled={rolling}
           >
-            {rolling ? '🎲 Rolling...' : '🎯 ROLL'}
+            {rolling ? '🎰 Spinning...' : '🎰 PULL'}
           </button>
         </div>
 
@@ -94,7 +101,7 @@ export default function App() {
 
         {/* Rig status indicator */}
         <div className="rig-indicator">
-          <span className="rig-dot-label">Dice status: </span>
+          <span className="rig-dot-label">Machine status: </span>
           {rigged ? (
             <span className="rig-rigged">🔧 Rigged</span>
           ) : (

@@ -35,26 +35,26 @@ export function getCurrentHoliday() {
   }
 }
 
-export function getDiceName(holiday) {
+export function getSlotName(holiday) {
   switch (holiday) {
     case Holiday.VALENTINES:
-      return 'The Dice of Love'
+      return 'The Slots of Love'
     case Holiday.SAINTPATRICKS:
-      return "The Lucky Dice"
+      return "The Lucky Slots"
     case Holiday.EASTER:
-      return "The Kng's Dice"
+      return "The Kng's Slots"
     case Holiday.BIRTHDAY:
-      return 'The Birthday Dice'
+      return 'The Birthday Slots'
     case Holiday.INDEPENDENCEDAY:
-      return 'The Freedom Dice'
+      return 'The Freedom Slots'
     case Holiday.HALLOWEEN:
-      return 'The Spooky Dice'
+      return 'The Spooky Slots'
     case Holiday.THANKSGIVING:
-      return 'The Thankful Dice'
+      return 'The Thankful Slots'
     case Holiday.CHRISTMAS:
-      return 'The Christmas Dice'
+      return 'The Christmas Slots'
     default:
-      return "The Kng's Dice"
+      return "The Kng's Slots"
   }
 }
 
@@ -83,6 +83,6 @@ export function getTitleFlairs(holiday) {
 
 export function getTitle(holiday) {
   const flairs = getTitleFlairs(holiday)
-  const name = getDiceName(holiday)
+  const name = getSlotName(holiday)
   return `${flairs[0]} ${name} ${flairs[1]}`
 }
