@@ -1,5 +1,6 @@
 .enc-filter-controls {
   padding: 0 0 12px;
+  margin-top: 12px;
   margin-bottom: 16px;
   display: flex;
   flex-wrap: wrap;
