@@ -1,0 +1,66 @@
+import './VillagerRosterCard.css'
+
+export default function VillagerRosterCard({ info, chattedToday, streak, onToggleChat, onExpand, expanded, upcomingBirthday }) {
+  return (
+    <div className={`roster-card ${chattedToday ? 'chatted' : ''} ${expanded ? 'expanded' : ''} ${upcomingBirthday?.isToday ? 'birthday-today' : ''}`}>
+      <div className="roster-card-main" onClick={onExpand}>
+        <div className="roster-card-icon-wrap">
+          <img src={info.iconImage} alt={info.name} className="roster-card-icon" />
+          {upcomingBirthday && (
+            <span className="birthday-badge" title={upcomingBirthday.isToday ? 'Birthday today!' : `Birthday in ${upcomingBirthday.daysUntil} day(s)`}>
+              🎂
+            </span>
+          )}
+        </div>
+        <div className="roster-card-info">
+          <span className="roster-card-name">{info.name}</span>
+          <span className="roster-card-species">{info.species}</span>
+          {streak > 1 && <span className="roster-card-streak">🔥 {streak} day streak</span>}
+        </div>
+        <button
+          className={`chat-toggle ${chattedToday ? 'active' : ''}`}
+          onClick={(e) => { e.stopPropagation(); onToggleChat(); }}
+          title={chattedToday ? 'Chatted today ✓' : 'Tap to mark as chatted'}
+        >
+          💬
+        </button>
+      </div>
+
+      {expanded && (
+        <div className="roster-card-detail">
+          <div className="detail-photo">
+            {info.photoImage && <img src={info.photoImage} alt={info.name} />}
+          </div>
+          <div className="detail-fields">
+            <div className="detail-row">
+              <span className="detail-label">Personality</span>
+              <span className="detail-value">{info.personality}</span>
+            </div>
+            <div className="detail-row">
+              <span className="detail-label">Species</span>
+              <span className="detail-value">{info.species}</span>
+            </div>
+            <div className="detail-row">
+              <span className="detail-label">Gender</span>
+              <span className="detail-value">{info.gender}</span>
+            </div>
+            <div className="detail-row">
+              <span className="detail-label">Birthday</span>
+              <span className="detail-value">{info.birthday || 'Unknown'}</span>
+            </div>
+            <div className="detail-row">
+              <span className="detail-label">Catchphrase</span>
+              <span className="detail-value">"{info.catchphrase}"</span>
+            </div>
+            {info.hobby && (
+              <div className="detail-row">
+                <span className="detail-label">Hobby</span>
+                <span className="detail-value">{info.hobby}</span>
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

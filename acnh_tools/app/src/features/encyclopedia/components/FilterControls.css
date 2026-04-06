@@ -1,0 +1,71 @@
+.enc-filter-controls {
+  background: var(--color-surface);
+  border-radius: var(--radius-lg);
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  border: 1px solid var(--color-border-light);
+}
+
+.filter-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.filter-label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.85rem;
+  color: var(--color-text-heading);
+  font-weight: 500;
+}
+
+.filter-label select {
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-border);
+  background: white;
+  font-size: 0.85rem;
+  font-family: inherit;
+}
+
+.hemisphere-toggle {
+  display: flex;
+  gap: 2px;
+  background: var(--color-border-light);
+  border-radius: var(--radius-md);
+  padding: 2px;
+}
+
+.hem-btn {
+  padding: 4px 10px;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 0.8rem;
+  background: transparent;
+  color: var(--color-text-heading);
+  transition: background 0.2s, color 0.2s;
+  font-family: inherit;
+}
+
+.hem-btn.active {
+  background: var(--color-accent-green);
+  color: white;
+}
+
+.custom-time {
+  flex-wrap: wrap;
+}
+
+@media (max-width: 600px) {
+  .enc-filter-controls {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

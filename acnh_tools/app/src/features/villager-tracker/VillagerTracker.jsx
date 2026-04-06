@@ -1,0 +1,172 @@
+import { useState, useMemo } from 'react'
+import { useIslandResidents } from '../../hooks/useIslandResidents'
+import { useVillagerData } from '../villager-calc/hooks/useVillagerData'
+import { createVillagerEngine } from '../villager-calc/hooks/villagerEngine'
+import { useChatTracker } from './hooks/useChatTracker'
+import { analyzeDiversity, getUpcomingBirthdays } from './hooks/diversity'
+import VillagerRosterCard from './components/VillagerRosterCard'
+import DiversityPanel from './components/DiversityPanel'
+import './villager-tracker.css'
+
+export default function VillagerTracker() {
+  const { villagers, loading, error } = useVillagerData();
+  const { residents, addResident, removeResident, isFull, maxResidents } = useIslandResidents();
+  const { hasChattedToday, toggleChat, getChatStreak, chattedCount, today } = useChatTracker();
+  const [expandedVillager, setExpandedVillager] = useState(null);
+  const [searchText, setSearchText] = useState('');
+  const [showSuggestions, setShowSuggestions] = useState(false);
+
+  const engine = useMemo(() => {
+    if (villagers.length === 0) return null;
+    return createVillagerEngine(villagers);
+  }, [villagers]);
+
+  const normalize = (s) => s.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+
+  const searchResults = useMemo(() => {
+    if (!engine || !searchText.trim()) return [];
+    const nv = normalize(searchText);
+    return engine.getAllVillagers()
+      .filter(v => normalize(v.name).startsWith(nv) && !residents.includes(v.name))
+      .slice(0, 8);
+  }, [engine, searchText, residents]);
+
+  const diversity = useMemo(() => {
+    if (!engine) return { species: [], personality: [], gender: [], gaps: [] };
+    return analyzeDiversity(residents, engine);
+  }, [engine, residents]);
+
+  const upcomingBirthdays = useMemo(() => {
+    if (!engine) return [];
+    return getUpcomingBirthdays(residents, engine);
+  }, [engine, residents]);
+
+  const handleAddResident = (name) => {
+    addResident(name);
+    setSearchText('');
+    setShowSuggestions(false);
+  };
+
+  if (loading) {
+    return (
+      <div className="vt-loading">
+        <div className="loading-spinner">🏠</div>
+        <p>Loading villager data...</p>
+      </div>
+    );
+  }
+
+  if (error) {
+    return <div className="vt-error">Error loading data: {error}</div>;
+  }
+
+  return (
+    <div className="villager-tracker">
+      {/* Header stats */}
+      <div className="vt-header-stats">
+        <div className="vt-stat">
+          <span className="vt-stat-value">{residents.length}/{maxResidents}</span>
+          <span className="vt-stat-label">Residents</span>
+        </div>
+        <div className="vt-stat">
+          <span className="vt-stat-value">{chattedCount}/{residents.length}</span>
+          <span className="vt-stat-label">Chatted Today</span>
+        </div>
+        <div className="vt-stat">
+          <span className="vt-stat-date">{today}</span>
+          <span className="vt-stat-label">ACNH Day</span>
+        </div>
+      </div>
+
+      {/* Birthday alerts */}
+      {upcomingBirthdays.length > 0 && (
+        <div className="vt-birthdays">
+          {upcomingBirthdays.map(b => (
+            <span key={b.name} className={`birthday-alert ${b.isToday ? 'today' : ''}`}>
+              🎂 {b.isToday ? `${b.name}'s birthday is today!` : `${b.name}'s birthday in ${b.daysUntil} day${b.daysUntil !== 1 ? 's' : ''}`}
+            </span>
+          ))}
+        </div>
+      )}
+
+      {/* Add villager search */}
+      {!isFull && engine && (
+        <div className="vt-add-section">
+          <div className="vt-search-wrapper">
+            <input
+              type="text"
+              className="vt-search-input"
+              value={searchText}
+              onChange={(e) => { setSearchText(e.target.value); setShowSuggestions(true); }}
+              onFocus={() => searchText.trim() && setShowSuggestions(true)}
+              placeholder="Add a villager to your island..."
+              autoComplete="off"
+            />
+            {showSuggestions && searchResults.length > 0 && (
+              <ul className="vt-suggestions">
+                {searchResults.map(v => (
+                  <li key={v.name} onMouseDown={() => handleAddResident(v.name)}>
+                    <img src={v.iconImage} alt="" className="suggestion-icon" />
+                    <span>{v.name}</span>
+                    <span className="species-tag">{v.species}</span>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* Roster grid */}
+      {residents.length === 0 ? (
+        <div className="vt-empty">
+          <span className="empty-icon">🏝️</span>
+          <p>No villagers on your island yet.</p>
+          <p className="empty-hint">Search above to add your residents!</p>
+        </div>
+      ) : (
+        <div className="vt-roster-grid">
+          {residents.map(name => {
+            const info = engine?.getVillagerInfo(name);
+            if (!info) return null;
+            const birthday = upcomingBirthdays.find(b => b.name === name);
+            return (
+              <VillagerRosterCard
+                key={name}
+                info={info}
+                chattedToday={hasChattedToday(name)}
+                streak={getChatStreak(name)}
+                onToggleChat={() => toggleChat(name)}
+                onExpand={() => setExpandedVillager(expandedVillager === name ? null : name)}
+                expanded={expandedVillager === name}
+                upcomingBirthday={birthday}
+              />
+            );
+          })}
+        </div>
+      )}
+
+      {/* Remove villager hint */}
+      {residents.length > 0 && expandedVillager && (
+        <div className="vt-remove-section">
+          <button
+            className="vt-remove-btn"
+            onClick={() => {
+              if (window.confirm(`Remove ${expandedVillager} from your island?`)) {
+                removeResident(expandedVillager);
+                setExpandedVillager(null);
+              }
+            }}
+          >
+            Remove {expandedVillager} from island
+          </button>
+        </div>
+      )}
+
+      {/* Diversity analysis */}
+      {residents.length >= 2 && (
+        <DiversityPanel analysis={diversity} />
+      )}
+    </div>
+  );
+}

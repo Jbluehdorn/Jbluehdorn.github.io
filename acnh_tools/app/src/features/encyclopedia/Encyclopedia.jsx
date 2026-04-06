@@ -1,0 +1,195 @@
+import { useState, useEffect, useMemo } from 'react'
+import { useCreatureData } from './hooks/useCreatureData'
+import { useCollected } from './hooks/useCollected'
+import { isAvailableNow, isAvailableThisMonth } from '../../utils/availability'
+import { getSettings, saveSettings } from '../../utils/storage'
+import FilterControls from './components/FilterControls'
+import CreatureGrid from './components/CreatureGrid'
+import StatsBar from './components/StatsBar'
+import './encyclopedia.css'
+
+export default function Encyclopedia() {
+  const { fish, insects, seaCreatures, allCreatures, loading, error } = useCreatureData()
+  const { collected, toggle, setMultiple, clearAll } = useCollected()
+
+  const [activeTab, setActiveTab] = useState('all')
+  const [currentDate, setCurrentDate] = useState(new Date())
+  const [useCustomTime, setUseCustomTime] = useState(false)
+  const [showFilter, setShowFilter] = useState('available-now')
+  const [selectedIds, setSelectedIds] = useState(new Set())
+
+  const handleUseCustomTimeChange = (useCustom) => {
+    setUseCustomTime(useCustom)
+    if (!useCustom) setCurrentDate(new Date())
+  }
+
+  const savedSettings = getSettings()
+  const [hemisphere, setHemisphere] = useState(savedSettings.hemisphere)
+
+  useEffect(() => {
+    if (useCustomTime) return
+    const interval = setInterval(() => setCurrentDate(new Date()), 60000)
+    return () => clearInterval(interval)
+  }, [useCustomTime])
+
+  useEffect(() => {
+    saveSettings({ hemisphere })
+  }, [hemisphere])
+
+  const tabCreatures = useMemo(() => {
+    switch (activeTab) {
+      case 'fish': return fish
+      case 'insects': return insects
+      case 'sea-creatures': return seaCreatures
+      default: return allCreatures
+    }
+  }, [activeTab, fish, insects, seaCreatures, allCreatures])
+
+  const filteredCreatures = useMemo(() => {
+    return tabCreatures.filter(creature => {
+      const isCollected = !!collected[creature['Unique Entry ID']]
+
+      switch (showFilter) {
+        case 'available-now':
+          return isAvailableNow(creature, currentDate, hemisphere) && !isCollected
+        case 'available-month':
+          return isAvailableThisMonth(creature, currentDate.getMonth() + 1, hemisphere) && !isCollected
+        case 'not-collected':
+          return !isCollected
+        case 'collected':
+          return isCollected
+        case 'all':
+        default:
+          return true
+      }
+    })
+  }, [tabCreatures, showFilter, collected, currentDate, hemisphere])
+
+  useEffect(() => { setSelectedIds(new Set()) }, [activeTab, showFilter])
+
+  const handleSelect = (id) => {
+    setSelectedIds(prev => {
+      const next = new Set(prev)
+      next.has(id) ? next.delete(id) : next.add(id)
+      return next
+    })
+  }
+
+  const handleBulkCollect = () => {
+    if (selectedIds.size > 0) {
+      setMultiple([...selectedIds], true)
+      setSelectedIds(new Set())
+    }
+  }
+
+  const handleBulkUncollect = () => {
+    if (selectedIds.size > 0) {
+      setMultiple([...selectedIds], false)
+      setSelectedIds(new Set())
+    }
+  }
+
+  if (loading) {
+    return (
+      <div className="enc-loading">
+        <div className="loading-spinner">🍃</div>
+        <p>Loading creature data...</p>
+      </div>
+    )
+  }
+
+  if (error) {
+    return <div className="enc-error">Error loading data: {error}</div>
+  }
+
+  return (
+    <div className="encyclopedia">
+      <StatsBar
+        allCreatures={allCreatures}
+        fish={fish}
+        insects={insects}
+        seaCreatures={seaCreatures}
+        collected={collected}
+      />
+
+      <div className="enc-tab-bar">
+        {[
+          { key: 'all', label: '📋 All', count: allCreatures.length },
+          { key: 'fish', label: '🐟 Fish', count: fish.length },
+          { key: 'insects', label: '🦗 Insects', count: insects.length },
+          { key: 'sea-creatures', label: '🦑 Sea', count: seaCreatures.length },
+        ].map(tab => (
+          <button
+            key={tab.key}
+            className={`enc-tab-btn ${activeTab === tab.key ? 'active' : ''}`}
+            onClick={() => setActiveTab(tab.key)}
+          >
+            {tab.label} <span className="enc-tab-count">{tab.count}</span>
+          </button>
+        ))}
+      </div>
+
+      <FilterControls
+        currentDate={currentDate}
+        onDateChange={setCurrentDate}
+        hemisphere={hemisphere}
+        onHemisphereChange={setHemisphere}
+        showFilter={showFilter}
+        onShowFilterChange={setShowFilter}
+        useCustomTime={useCustomTime}
+        onUseCustomTimeChange={handleUseCustomTimeChange}
+      />
+
+      <div className="enc-legend">
+        <span className="legend-item"><span className="legend-dot available-now"></span> Available now</span>
+        <span className="legend-item"><span className="legend-dot available-later"></span> Later today</span>
+        <span className="legend-item"><span className="legend-dot leaving-soon"></span> Leaving soon</span>
+        <span className="legend-item"><span className="legend-dot unavailable"></span> Unavailable</span>
+        <span className="legend-item"><span className="legend-dot collected"></span> Collected</span>
+      </div>
+
+      {selectedIds.size > 0 && (() => {
+        const showCollect = showFilter !== 'collected';
+        const showUncollect = showFilter === 'collected' || showFilter === 'all';
+        return (
+          <div className="enc-bulk-bar">
+            <span className="bulk-count">{selectedIds.size} selected</span>
+            {showCollect && (
+              <button className="bulk-btn bulk-collect" onClick={handleBulkCollect}>
+                ✅ Mark Collected
+              </button>
+            )}
+            {showUncollect && (
+              <button className="bulk-btn bulk-uncollect" onClick={handleBulkUncollect}>
+                ↩ Mark Uncollected
+              </button>
+            )}
+            <button className="bulk-btn bulk-clear" onClick={() => setSelectedIds(new Set())}>
+              Clear
+            </button>
+          </div>
+        );
+      })()}
+
+      <CreatureGrid
+        creatures={filteredCreatures}
+        collected={collected}
+        selectedIds={selectedIds}
+        onSelect={handleSelect}
+        currentDate={currentDate}
+        hemisphere={hemisphere}
+      />
+
+      <div className="enc-footer">
+        <button className="clear-data-btn" onClick={() => {
+          if (window.confirm('Clear all collection data? This cannot be undone.')) {
+            clearAll()
+            setSelectedIds(new Set())
+          }
+        }}>
+          Reset Collection Data
+        </button>
+      </div>
+    </div>
+  )
+}

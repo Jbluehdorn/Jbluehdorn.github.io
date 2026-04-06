@@ -1,0 +1,381 @@
+/* Loading/Error */
+.vc-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  gap: 16px;
+}
+
+.vc-error {
+  text-align: center;
+  padding: 40px;
+  color: var(--color-leaving);
+}
+
+/* Sections */
+.vc-section-box {
+  margin-bottom: 20px;
+}
+
+.vc-section-header {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  margin-bottom: 8px;
+  user-select: none;
+}
+
+.vc-section-header label {
+  margin-bottom: 0;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-text-muted);
+}
+
+.vc-section-header-left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.vc-collapse-arrow {
+  font-size: 10px;
+  color: var(--color-text-muted);
+  transition: transform 0.15s;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.vc-collapse-arrow.expanded {
+  transform: rotate(90deg);
+}
+
+.vc-section-body {
+  padding-left: 2px;
+}
+
+.vc-section-hint {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  margin-bottom: 10px;
+  font-style: italic;
+}
+
+/* Search */
+.vc-input-section {
+  display: flex;
+  gap: 16px;
+  align-items: flex-end;
+  margin-bottom: 20px;
+}
+
+.vc-search-container {
+  flex: 1;
+}
+
+.vc-search-row {
+  display: flex;
+  gap: 8px;
+}
+
+.vc-search-wrapper {
+  flex: 1;
+  position: relative;
+}
+
+.vc-search-wrapper input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 15px;
+  font-family: inherit;
+  background: #fff;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.vc-search-wrapper input:focus {
+  border-color: var(--color-accent);
+}
+
+.vc-suggestions {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border: 2px solid var(--color-border);
+  border-top: none;
+  border-radius: 0 0 var(--radius-md) var(--radius-md);
+  list-style: none;
+  z-index: 100;
+  max-height: 260px;
+  overflow-y: auto;
+  padding: 0;
+  margin: 0;
+}
+
+.vc-suggestions li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.vc-suggestions li.active {
+  background: var(--color-accent-light);
+}
+
+/* Pills */
+.vc-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.vc-villager-list {
+  margin-bottom: 20px;
+}
+
+/* File upload */
+.vc-file-upload {
+  flex-shrink: 0;
+}
+
+/* Tickets */
+.vc-ticket-section {
+  margin-bottom: 28px;
+}
+
+.vc-ticket-input-row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  width: fit-content;
+}
+
+.vc-ticket-btn {
+  width: 36px;
+  height: 36px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: #fff;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.15s;
+  font-family: inherit;
+}
+
+.vc-ticket-btn:hover {
+  border-color: var(--color-accent);
+}
+
+.vc-ticket-input-row input {
+  width: 80px;
+  text-align: center;
+  padding: 8px;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-size: 16px;
+  font-family: inherit;
+  background: #fff;
+  outline: none;
+}
+
+.vc-ticket-input-row input:focus {
+  border-color: var(--color-accent);
+}
+
+/* Output */
+.vc-output-section {
+  background: #fff;
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+}
+
+.vc-output-section h2 {
+  font-size: 18px;
+  color: var(--color-accent-dark);
+  margin-bottom: 16px;
+}
+
+.vc-output-section h3 {
+  font-size: 15px;
+  color: var(--color-text-muted);
+  margin-bottom: 10px;
+}
+
+.vc-highlight-box {
+  background: var(--color-card);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+}
+
+.vc-highlight-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-text-muted);
+  margin-bottom: 8px;
+}
+
+.vc-highlight-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.vc-highlight-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
+.vc-highlight-name {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-accent-dark);
+}
+
+.vc-highlight-value {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-highlight);
+  margin-left: auto;
+}
+
+.vc-highlight-value.big {
+  font-size: 28px;
+  color: var(--color-accent-dark);
+}
+
+/* Table */
+.vc-individual-results {
+  margin-top: 16px;
+}
+
+.vc-output-section table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.vc-output-section thead th {
+  text-align: left;
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: var(--color-text-muted);
+  padding: 8px 10px;
+  border-bottom: 2px solid var(--color-border-light);
+}
+
+.vc-output-section tbody tr {
+  border-bottom: 1px solid var(--color-card);
+}
+
+.vc-output-section tbody tr:last-child {
+  border-bottom: none;
+}
+
+.vc-output-section tbody td {
+  padding: 8px 10px;
+  font-size: 14px;
+}
+
+.vc-table-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+}
+
+.vc-prob-cell {
+  font-weight: 700;
+  color: var(--color-accent-dark);
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .vc-input-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .vc-file-upload {
+    display: none;
+  }
+
+  .vc-search-wrapper input {
+    font-size: 16px;
+  }
+
+  .vc-suggestions li {
+    padding: 10px 14px;
+  }
+
+  .vc-pills {
+    gap: 6px;
+  }
+
+  .vc-pills .pill {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+
+  .vc-pills .pill .pill-name {
+    display: none;
+  }
+
+  .vc-pills .pill-icon {
+    width: 26px;
+    height: 26px;
+  }
+
+  .vc-output-section {
+    padding: 16px 12px;
+  }
+
+  .vc-highlight-value.big {
+    font-size: 22px;
+  }
+
+  .vc-highlight-name {
+    font-size: 15px;
+  }
+
+  .vc-highlight-value {
+    font-size: 15px;
+  }
+
+  .vc-individual-results {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .hide-mobile {
+    display: none;
+  }
+
+  .vc-table-icon {
+    width: 32px;
+    height: 32px;
+  }
+
+  .vc-ticket-input-row input {
+    font-size: 16px;
+  }
+}

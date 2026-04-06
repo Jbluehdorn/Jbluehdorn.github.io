@@ -1,0 +1,61 @@
+.acnh-tab-bar {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 16px;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.acnh-tab-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.acnh-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 10px 10px 0 0;
+  background: var(--color-tab-bg);
+  color: var(--color-text);
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: background 0.2s, transform 0.1s;
+  font-family: inherit;
+}
+
+.acnh-tab:hover {
+  background: var(--color-tab-hover);
+  transform: translateY(-1px);
+}
+
+.acnh-tab.active {
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-weight: 700;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.tab-emoji {
+  font-size: 1.1rem;
+}
+
+@media (max-width: 600px) {
+  .acnh-tab {
+    padding: 8px 12px;
+    font-size: 0.82rem;
+    gap: 4px;
+  }
+
+  .tab-label {
+    display: none;
+  }
+
+  .tab-emoji {
+    font-size: 1.3rem;
+  }
+}

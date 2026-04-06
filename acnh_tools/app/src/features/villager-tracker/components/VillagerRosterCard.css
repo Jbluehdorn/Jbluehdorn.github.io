@@ -1,0 +1,173 @@
+.roster-card {
+  background: var(--color-card);
+  border: 2px solid var(--color-border-light);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.roster-card:hover {
+  box-shadow: var(--shadow-sm);
+}
+
+.roster-card.chatted {
+  border-color: var(--color-collected);
+  background: var(--color-collected-bg);
+}
+
+.roster-card.birthday-today {
+  border-color: var(--color-highlight);
+  animation: birthday-glow 2s ease-in-out infinite;
+}
+
+@keyframes birthday-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 160, 60, 0.3); }
+  50% { box-shadow: 0 0 8px 2px rgba(212, 160, 60, 0.2); }
+}
+
+.roster-card-main {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  cursor: pointer;
+}
+
+.roster-card-icon-wrap {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.roster-card-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.birthday-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  font-size: 14px;
+}
+
+.roster-card-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.roster-card-name {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--color-text-heading);
+}
+
+.roster-card-species {
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+}
+
+.roster-card-streak {
+  font-size: 0.72rem;
+  color: var(--color-later);
+  font-weight: 600;
+}
+
+/* Chat toggle */
+.chat-toggle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid var(--color-border);
+  background: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.chat-toggle:hover {
+  border-color: var(--color-accent);
+  transform: scale(1.08);
+}
+
+.chat-toggle.active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  box-shadow: 0 2px 6px rgba(91, 163, 122, 0.4);
+}
+
+/* Detail view */
+.roster-card-detail {
+  padding: 0 12px 12px;
+  border-top: 1px solid var(--color-border-light);
+  display: flex;
+  gap: 16px;
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from { opacity: 0; max-height: 0; }
+  to { opacity: 1; max-height: 400px; }
+}
+
+.detail-photo {
+  flex-shrink: 0;
+  padding-top: 12px;
+}
+
+.detail-photo img {
+  width: 80px;
+  height: 80px;
+  border-radius: var(--radius-md);
+  object-fit: cover;
+}
+
+.detail-fields {
+  flex: 1;
+  padding-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.detail-row {
+  display: flex;
+  gap: 8px;
+  font-size: 0.85rem;
+}
+
+.detail-label {
+  color: var(--color-text-muted);
+  font-weight: 600;
+  min-width: 90px;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.detail-value {
+  color: var(--color-text);
+}
+
+@media (max-width: 600px) {
+  .roster-card-detail {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .detail-photo img {
+    width: 60px;
+    height: 60px;
+  }
+
+  .detail-label {
+    min-width: 80px;
+  }
+}

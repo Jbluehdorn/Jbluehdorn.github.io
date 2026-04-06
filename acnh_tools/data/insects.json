@@ -1,0 +1,2727 @@
+[
+  {
+    "Name": "agrias butterfly",
+    "Critterpedia Filename": "InsectMiirotateha",
+    "Furniture Filename": "FtrInsectMiirotateha",
+    "Internal ID": 620,
+    "Unique Entry ID": "aj95rMzdbSbvZy9A2",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Agrias_Butterfly",
+    "iconUrl": "https://dodo.ac/np/images/6/60/Agrias_Butterfly_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Apr – Sep South: Oct – Mar",
+    "timeOfDay": {
+      "start": 8,
+      "end": 17,
+      "allDay": false
+    },
+    "timeOfDayRaw": "8 AM – 5 PM",
+    "location": "Flying near flowers"
+  },
+  {
+    "Name": "ant",
+    "Critterpedia Filename": "InsectAri",
+    "Furniture Filename": "FtrInsectAri",
+    "Internal ID": 588,
+    "Unique Entry ID": "QZpmczZu4hW2a4Rpv",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Ant",
+    "iconUrl": "https://dodo.ac/np/images/5/5d/Ant_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: All year South: All year",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day",
+    "location": "On/near spoiled turnips/candy/lollipops"
+  },
+  {
+    "Name": "Atlas moth",
+    "Critterpedia Filename": "InsectYonagunisan",
+    "Furniture Filename": "FtrInsectYonagunisan",
+    "Internal ID": 652,
+    "Unique Entry ID": "u2GhYQJXDCQKp7AQ8",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Atlas_Moth",
+    "iconUrl": "https://dodo.ac/np/images/7/7f/Atlas_Moth_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Apr – Sep South: Oct – Mar",
+    "timeOfDay": {
+      "start": 19,
+      "end": 4,
+      "allDay": false
+    },
+    "timeOfDayRaw": "7 PM – 4 AM",
+    "location": "On trees",
+    "weather": "any kind"
+  },
+  {
+    "Name": "bagworm",
+    "Critterpedia Filename": "InsectMinomushi",
+    "Furniture Filename": "FtrInsectMinomushi",
+    "Internal ID": 622,
+    "Unique Entry ID": "QvxgCm82JqHsDknY4",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Bagworm",
+    "iconUrl": "https://dodo.ac/np/images/1/17/Bagworm_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: All year South: All year",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day",
+    "location": "Shaking trees",
+    "weather": "hardwood and cedar"
+  },
+  {
+    "Name": "banded dragonfly",
+    "Critterpedia Filename": "InsectOniyanma",
+    "Furniture Filename": "FtrInsectOniyanma",
+    "Internal ID": 635,
+    "Unique Entry ID": "pCFep58D6QusMSvR7",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Banded_Dragonfly",
+    "iconUrl": "https://dodo.ac/np/images/3/35/Banded_Dragonfly_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: May – Oct South: Nov – Apr",
+    "timeOfDay": {
+      "start": 8,
+      "end": 17,
+      "allDay": false
+    },
+    "timeOfDayRaw": "8 AM – 5 PM",
+    "location": "Flying near water"
+  },
+  {
+    "Name": "bell cricket",
+    "Critterpedia Filename": "InsectSuzumushi",
+    "Furniture Filename": "FtrInsectSuzumushi",
+    "Internal ID": 642,
+    "Unique Entry ID": "d5EQqbQsip82G2CZE",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Bell_Cricket",
+    "iconUrl": "https://dodo.ac/np/images/4/4a/Bell_Cricket_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        9,
+        10
+      ],
+      "south": [
+        3,
+        4
+      ]
+    },
+    "timeOfYearRaw": "North: Sep – Oct South: Mar – Apr",
+    "timeOfDay": {
+      "start": 17,
+      "end": 8,
+      "allDay": false
+    },
+    "timeOfDayRaw": "5 PM – 8 AM",
+    "location": "On the ground"
+  },
+  {
+    "Name": "blue weevil beetle",
+    "Critterpedia Filename": "InsectHousekizoumushi",
+    "Furniture Filename": "FtrInsectHousekizoumushi",
+    "Internal ID": 3485,
+    "Unique Entry ID": "qocWy6r5RXjeThdYy",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Blue_Weevil_Beetle",
+    "iconUrl": "https://dodo.ac/np/images/2/20/Blue_Weevil_Beetle_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        7,
+        8
+      ],
+      "south": [
+        1,
+        2
+      ]
+    },
+    "timeOfYearRaw": "North: Jul – Aug South: Jan – Feb",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day",
+    "location": "On palm trees"
+  },
+  {
+    "Name": "brown cicada",
+    "Critterpedia Filename": "InsectAburazemi",
+    "Furniture Filename": "FtrInsectAburazemi",
+    "Internal ID": 582,
+    "Unique Entry ID": "gBLRZ2J2R2wwYWFCk",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Brown_Cicada",
+    "iconUrl": "https://dodo.ac/np/images/4/44/Brown_Cicada_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        7,
+        8
+      ],
+      "south": [
+        1,
+        2
+      ]
+    },
+    "timeOfYearRaw": "North: Jul – Aug South: Jan – Feb",
+    "timeOfDay": {
+      "start": 8,
+      "end": 17,
+      "allDay": false
+    },
+    "timeOfDayRaw": "8 AM – 5 PM",
+    "location": "On trees",
+    "weather": "hardwood and cedar"
+  },
+  {
+    "Name": "centipede",
+    "Critterpedia Filename": "InsectMukade",
+    "Furniture Filename": "FtrInsectMukade",
+    "Internal ID": 628,
+    "Unique Entry ID": "ubStMQwHMJJcYje38",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Centipede",
+    "iconUrl": "https://dodo.ac/np/images/d/d2/Centipede_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Sep – Jun South: Mar – Dec",
+    "timeOfDay": {
+      "start": 16,
+      "end": 23,
+      "allDay": false
+    },
+    "timeOfDayRaw": "4 PM – 11 PM",
+    "location": "From hitting rocks"
+  },
+  {
+    "Name": "cicada shell",
+    "Critterpedia Filename": "InsectSeminonukegara",
+    "Furniture Filename": "FtrInsectSeminonukegara",
+    "Internal ID": 641,
+    "Unique Entry ID": "6s3MCahAroqpjGybW",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Cicada_Shell",
+    "iconUrl": "https://dodo.ac/np/images/d/d1/Cicada_Shell_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        7,
+        8
+      ],
+      "south": [
+        1,
+        2
+      ]
+    },
+    "timeOfYearRaw": "North: Jul – Aug South: Jan – Feb",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day",
+    "location": "On trees",
+    "weather": "hardwood and cedar"
+  },
+  {
+    "Name": "citrus long-horned beetle",
+    "Critterpedia Filename": "InsectGomadarakamikiri",
+    "Furniture Filename": "FtrInsectGomadarakamikiri",
+    "Internal ID": 609,
+    "Unique Entry ID": "QR88MPLzYxSCHWZJb",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Citrus_Long-Horned_Beetle",
+    "iconUrl": "https://dodo.ac/np/images/9/9a/Citrus_Long-Horned_Beetle_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: All year South: All year",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day",
+    "location": "On tree stumps"
+  },
+  {
+    "Name": "common bluebottle",
+    "Critterpedia Filename": "InsectAosujiageha",
+    "Furniture Filename": "FtrInsectAosujiageha",
+    "Internal ID": 3477,
+    "Unique Entry ID": "vgkW2eovbpxNuGsFZ",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Common_Bluebottle",
+    "iconUrl": "https://dodo.ac/np/images/2/21/Common_Bluebottle_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "south": [
+        1,
+        2,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Apr – Aug South: Oct – Feb",
+    "timeOfDay": {
+      "start": 4,
+      "end": 19,
+      "allDay": false
+    },
+    "timeOfDayRaw": "4 AM – 7 PM",
+    "location": "Flying"
+  },
+  {
+    "Name": "common butterfly",
+    "Critterpedia Filename": "InsectMonshirocho",
+    "Furniture Filename": "FtrInsectMonshirocho",
+    "Internal ID": 626,
+    "Unique Entry ID": "tRJxp5N9XbwAGQHZc",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Common_Butterfly",
+    "iconUrl": "https://dodo.ac/np/images/f/f8/Common_Butterfly_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Sep – Jun South: Mar – Dec",
+    "timeOfDay": {
+      "start": 4,
+      "end": 19,
+      "allDay": false
+    },
+    "timeOfDayRaw": "4 AM – 7 PM",
+    "location": "Flying"
+  },
+  {
+    "Name": "cricket",
+    "Critterpedia Filename": "InsectKohrogi",
+    "Furniture Filename": "FtrInsectKohrogi",
+    "Internal ID": 617,
+    "Unique Entry ID": "Lr7eFJzJJZpWRWekm",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Cricket",
+    "iconUrl": "https://dodo.ac/np/images/8/8f/Cricket_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        9,
+        10,
+        11
+      ],
+      "south": [
+        3,
+        4,
+        5
+      ]
+    },
+    "timeOfYearRaw": "North: Sep – Nov South: Mar – May",
+    "timeOfDay": {
+      "start": 17,
+      "end": 8,
+      "allDay": false
+    },
+    "timeOfDayRaw": "5 PM – 8 AM",
+    "location": "On the ground"
+  },
+  {
+    "Name": "cyclommatus stag",
+    "Critterpedia Filename": "InsectHosoakakuwagata",
+    "Furniture Filename": "FtrInsectHosoakakuwagata",
+    "Internal ID": 602,
+    "Unique Entry ID": "moBevd7J5hwpHeLcs",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Cyclommatus_Stag",
+    "iconUrl": "https://dodo.ac/np/images/a/a0/Cyclommatus_Stag_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        7,
+        8
+      ],
+      "south": [
+        1,
+        2
+      ]
+    },
+    "timeOfYearRaw": "North: Jul – Aug South: Jan – Feb",
+    "timeOfDay": {
+      "start": 17,
+      "end": 8,
+      "allDay": false
+    },
+    "timeOfDayRaw": "5 PM – 8 AM",
+    "location": "On palm trees"
+  },
+  {
+    "Name": "damselfly",
+    "Critterpedia Filename": "InsectItotonbo",
+    "Furniture Filename": "FtrInsectItotonbo",
+    "Internal ID": 5339,
+    "Unique Entry ID": "pBmqsa7CyeKzyRjDT",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Damselfly",
+    "iconUrl": "https://dodo.ac/np/images/c/c8/Damselfly_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        11,
+        12
+      ],
+      "south": [
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    "timeOfYearRaw": "North: Nov – Feb South: May – Aug",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day",
+    "location": "Flying near water"
+  },
+  {
+    "Name": "darner dragonfly",
+    "Critterpedia Filename": "InsectGinyanma",
+    "Furniture Filename": "FtrInsectGinyanma",
+    "Internal ID": 595,
+    "Unique Entry ID": "723NiWMh4iY9RJtAM",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Darner_Dragonfly",
+    "iconUrl": "https://dodo.ac/np/images/5/5c/Darner_Dragonfly_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Apr – Oct South: Oct – Apr",
+    "timeOfDay": {
+      "start": 8,
+      "end": 17,
+      "allDay": false
+    },
+    "timeOfDayRaw": "8 AM – 5 PM",
+    "location": "Flying near water"
+  },
+  {
+    "Name": "diving beetle",
+    "Critterpedia Filename": "InsectGengorou",
+    "Furniture Filename": "FtrInsectGengorou",
+    "Internal ID": 594,
+    "Unique Entry ID": "CBjt7itnPqEtNznrX",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Diving_Beetle",
+    "iconUrl": "https://dodo.ac/np/images/7/78/Diving_Beetle_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: May – Sep South: Nov – Mar",
+    "timeOfDay": {
+      "start": 8,
+      "end": 19,
+      "allDay": false
+    },
+    "timeOfDayRaw": "8 AM – 7 PM",
+    "location": "On rivers and ponds"
+  },
+  {
+    "Name": "drone beetle",
+    "Critterpedia Filename": "InsectKanabun",
+    "Furniture Filename": "FtrInsectKanabun",
+    "Internal ID": 3480,
+    "Unique Entry ID": "uXmtRAQgY3g596tov",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Drone_Beetle",
+    "iconUrl": "https://dodo.ac/np/images/4/48/Drone_Beetle_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        6,
+        7,
+        8
+      ],
+      "south": [
+        1,
+        2,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Jun – Aug South: Dec – Feb",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day",
+    "location": "On trees",
+    "weather": "any kind"
+  },
+  {
+    "Name": "dung beetle",
+    "Critterpedia Filename": "InsectFunkorogashi",
+    "Furniture Filename": "FtrInsectFunkorogashi",
+    "Internal ID": 604,
+    "Unique Entry ID": "p9RhE8wLWpHtcoq5G",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Dung_Beetle",
+    "iconUrl": "https://dodo.ac/np/images/c/c4/Dung_Beetle_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        12
+      ],
+      "south": [
+        6,
+        7,
+        8
+      ]
+    },
+    "timeOfYearRaw": "North: Dec – Feb South: Jun – Aug",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day",
+    "location": "Pushing snowballs"
+  },
+  {
+    "Name": "earth-boring dung beetle",
+    "Critterpedia Filename": "InsectOhsenchikogane",
+    "Furniture Filename": "FtrInsectSenchikogane",
+    "Internal ID": 614,
+    "Unique Entry ID": "k2fqxdYnTF8BpHB7u",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Earth-Boring_Dung_Beetle",
+    "iconUrl": "https://dodo.ac/np/images/5/53/Earth-Boring_Dung_Beetle_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3
+      ]
+    },
+    "timeOfYearRaw": "North: Jul – Sep South: Jan – Mar",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day",
+    "location": "On the ground"
+  },
+  {
+    "Name": "emperor butterfly",
+    "Critterpedia Filename": "InsectMorufuocho",
+    "Furniture Filename": "FtrInsectMorufuocho",
+    "Internal ID": 627,
+    "Unique Entry ID": "Lwkf7oQ3mcWYm6eEY",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Emperor_Butterfly",
+    "iconUrl": "https://dodo.ac/np/images/c/cf/Emperor_Butterfly_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        12
+      ],
+      "south": [
+        6,
+        7,
+        8,
+        9
+      ]
+    },
+    "timeOfYearRaw": "North: Dec – Mar; Jun – Sep South: Jun – Sep; Dec – Mar",
+    "timeOfDay": {
+      "start": 17,
+      "end": 8,
+      "allDay": false
+    },
+    "timeOfDayRaw": "5 PM – 8 AM",
+    "location": "Flying near flowers"
+  },
+  {
+    "Name": "evening cicada",
+    "Critterpedia Filename": "InsectHigurashi",
+    "Furniture Filename": "FtrInsectHigurashi",
+    "Internal ID": 601,
+    "Unique Entry ID": "kzX4apD9C3Nq8khzR",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Evening_Cicada",
+    "iconUrl": "https://dodo.ac/np/images/b/ba/Evening_Cicada_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        7,
+        8
+      ],
+      "south": [
+        1,
+        2
+      ]
+    },
+    "timeOfYearRaw": "North: Jul – Aug South: Jan – Feb",
+    "timeOfDay": {
+      "start": 4,
+      "end": 8,
+      "allDay": false
+    },
+    "timeOfDayRaw": "4 AM – 8 AM & 4 PM – 7 PM",
+    "location": "On trees",
+    "weather": "hardwood and cedar"
+  },
+  {
+    "Name": "firefly",
+    "Critterpedia Filename": "InsectHotaru",
+    "Furniture Filename": "FtrInsectHotaru",
+    "Internal ID": 603,
+    "Unique Entry ID": "PgiwPqykwafyz5EL6",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Firefly",
+    "iconUrl": "https://dodo.ac/np/images/d/d6/Firefly_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        6
+      ],
+      "south": [
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Jun South: Dec",
+    "timeOfDay": {
+      "start": 19,
+      "end": 4,
+      "allDay": false
+    },
+    "timeOfDayRaw": "7 PM – 4 AM",
+    "location": "Flying near water"
+  },
+  {
+    "Name": "flea",
+    "Critterpedia Filename": "InsectNomi",
+    "Furniture Filename": "FtrInsectNomi",
+    "Internal ID": 633,
+    "Unique Entry ID": "QzDywoJEAJDcjGfEF",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Flea",
+    "iconUrl": "https://dodo.ac/np/images/8/89/Flea_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Apr – Nov South: Oct – May",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day",
+    "location": "On villagers"
+  },
+  {
+    "Name": "fly",
+    "Critterpedia Filename": "InsectHae",
+    "Furniture Filename": "FtrInsectHae",
+    "Internal ID": 597,
+    "Unique Entry ID": "xdBmuMgXJ6jGxpabK",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Fly",
+    "iconUrl": "https://dodo.ac/np/images/1/15/Fly_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: All year South: All year",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day",
+    "location": "Flying near trash or rotten turnips"
+  },
+  {
+    "Name": "giant cicada",
+    "Critterpedia Filename": "InsectKumazemi",
+    "Furniture Filename": "FtrInsectKumazemi",
+    "Internal ID": 618,
+    "Unique Entry ID": "nPm2r7idGshQW87MN",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Giant_Cicada",
+    "iconUrl": "https://dodo.ac/np/images/e/e3/Giant_Cicada_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        7,
+        8
+      ],
+      "south": [
+        1,
+        2
+      ]
+    },
+    "timeOfYearRaw": "North: Jul – Aug South: Jan – Feb",
+    "timeOfDay": {
+      "start": 8,
+      "end": 17,
+      "allDay": false
+    },
+    "timeOfDayRaw": "8 AM – 5 PM",
+    "location": "On trees",
+    "weather": "hardwood and cedar"
+  },
+  {
+    "Name": "giant stag",
+    "Critterpedia Filename": "InsectOhkuwagata",
+    "Furniture Filename": "FtrInsectOhkuwagata",
+    "Internal ID": 637,
+    "Unique Entry ID": "KhrTLzayFz23zz2kn",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Giant_Stag",
+    "iconUrl": "https://dodo.ac/np/images/0/08/Giant_Stag_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        7,
+        8
+      ],
+      "south": [
+        1,
+        2
+      ]
+    },
+    "timeOfYearRaw": "North: Jul – Aug South: Jan – Feb",
+    "timeOfDay": {
+      "start": 23,
+      "end": 8,
+      "allDay": false
+    },
+    "timeOfDayRaw": "11 PM – 8 AM",
+    "location": "On trees",
+    "weather": "any kind"
+  },
+  {
+    "Name": "giant water bug",
+    "Critterpedia Filename": "InsectTagame",
+    "Furniture Filename": "FtrInsectTagame",
+    "Internal ID": 5157,
+    "Unique Entry ID": "ZsDdBvqAjZMG8EQkZ",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Giant_Water_Bug",
+    "iconUrl": "https://dodo.ac/np/images/8/86/Giant_Water_Bug_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Apr – Sep South: Oct – Mar",
+    "timeOfDay": {
+      "start": 19,
+      "end": 8,
+      "allDay": false
+    },
+    "timeOfDayRaw": "7 PM – 8 AM",
+    "location": "On rivers and ponds"
+  },
+  {
+    "Name": "giraffe stag",
+    "Critterpedia Filename": "InsectGirafanokogirikuwagata",
+    "Furniture Filename": "FtrInsectGirafanokogirikuwagata",
+    "Internal ID": 3482,
+    "Unique Entry ID": "PSChjzMhGwhnsHTs4",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Giraffe_Stag",
+    "iconUrl": "https://dodo.ac/np/images/c/c7/Giraffe_Stag_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        7,
+        8
+      ],
+      "south": [
+        1,
+        2
+      ]
+    },
+    "timeOfYearRaw": "North: Jul – Aug South: Jan – Feb",
+    "timeOfDay": {
+      "start": 17,
+      "end": 8,
+      "allDay": false
+    },
+    "timeOfDayRaw": "5 PM – 8 AM",
+    "location": "On palm trees"
+  },
+  {
+    "Name": "golden stag",
+    "Critterpedia Filename": "InsectOugononikuwagata",
+    "Furniture Filename": "FtrInsectOugononikuwagata",
+    "Internal ID": 638,
+    "Unique Entry ID": "2C8cSphidFCBPxYEe",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Golden_Stag",
+    "iconUrl": "https://dodo.ac/np/images/b/ba/Golden_Stag_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        7,
+        8
+      ],
+      "south": [
+        1,
+        2
+      ]
+    },
+    "timeOfYearRaw": "North: Jul – Aug South: Jan – Feb",
+    "timeOfDay": {
+      "start": 17,
+      "end": 8,
+      "allDay": false
+    },
+    "timeOfDayRaw": "5 PM – 8 AM",
+    "location": "On palm trees"
+  },
+  {
+    "Name": "goliath beetle",
+    "Critterpedia Filename": "InsectGoraiasuohtsunohanamuguri",
+    "Furniture Filename": "FtrInsectGoraiasuohtsunohanamuguri",
+    "Internal ID": 596,
+    "Unique Entry ID": "wZQMZfhtRyPFAapmF",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Goliath_Beetle",
+    "iconUrl": "https://dodo.ac/np/images/3/3e/Goliath_Beetle_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Jun – Sep South: Dec – Mar",
+    "timeOfDay": {
+      "start": 17,
+      "end": 8,
+      "allDay": false
+    },
+    "timeOfDayRaw": "5 PM – 8 AM",
+    "location": "On palm trees"
+  },
+  {
+    "Name": "grasshopper",
+    "Critterpedia Filename": "InsectKirigirisu",
+    "Furniture Filename": "FtrInsectKirigirisu",
+    "Internal ID": 613,
+    "Unique Entry ID": "zkzSLJPkkcwXwShKc",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Grasshopper",
+    "iconUrl": "https://dodo.ac/np/images/3/37/Grasshopper_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3
+      ]
+    },
+    "timeOfYearRaw": "North: Jul – Sep South: Jan – Mar",
+    "timeOfDay": {
+      "start": 8,
+      "end": 17,
+      "allDay": false
+    },
+    "timeOfDayRaw": "8 AM – 5 PM",
+    "location": "On the ground"
+  },
+  {
+    "Name": "great purple emperor",
+    "Critterpedia Filename": "InsectOhmurasaki",
+    "Furniture Filename": "FtrInsectOhmurasaki",
+    "Internal ID": 3479,
+    "Unique Entry ID": "ZSre7sheZoRqsJwHQ",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Great_Purple_Emperor",
+    "iconUrl": "https://dodo.ac/np/images/8/81/Great_Purple_Emperor_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        5,
+        6,
+        7,
+        8
+      ],
+      "south": [
+        1,
+        2,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: May – Aug South: Nov – Feb",
+    "timeOfDay": {
+      "start": 4,
+      "end": 19,
+      "allDay": false
+    },
+    "timeOfDayRaw": "4 AM – 7 PM",
+    "location": "Flying near flowers"
+  },
+  {
+    "Name": "hermit crab",
+    "Critterpedia Filename": "InsectYadokari",
+    "Furniture Filename": "FtrInsectYadokari",
+    "Internal ID": 651,
+    "Unique Entry ID": "TzbsfYgE4k2qo7fHN",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Hermit_Crab",
+    "iconUrl": "https://dodo.ac/np/images/6/6b/Hermit_Crab_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: All year South: All year",
+    "timeOfDay": {
+      "start": 19,
+      "end": 8,
+      "allDay": false
+    },
+    "timeOfDayRaw": "7 PM – 8 AM",
+    "location": "Disguised on shoreline"
+  },
+  {
+    "Name": "honeybee",
+    "Critterpedia Filename": "InsectMitsubachi",
+    "Furniture Filename": "FtrInsectMitsubachi",
+    "Internal ID": 623,
+    "Unique Entry ID": "yeWiAiqDRwinvumDm",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Honeybee",
+    "iconUrl": "https://dodo.ac/np/images/5/51/Honeybee_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        3,
+        4,
+        5,
+        6,
+        7
+      ],
+      "south": [
+        1,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Mar – Jul South: Sep – Jan",
+    "timeOfDay": {
+      "start": 8,
+      "end": 17,
+      "allDay": false
+    },
+    "timeOfDayRaw": "8 AM – 5 PM",
+    "location": "Flying near flowers"
+  },
+  {
+    "Name": "horned atlas",
+    "Critterpedia Filename": "InsectKohkasasuohkabuto",
+    "Furniture Filename": "FtrInsectKohkasasuohkabuto",
+    "Internal ID": 615,
+    "Unique Entry ID": "S93y8gxrSHFNCFmwJ",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Horned_Atlas",
+    "iconUrl": "https://dodo.ac/np/images/2/2a/Horned_Atlas_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        7,
+        8
+      ],
+      "south": [
+        1,
+        2
+      ]
+    },
+    "timeOfYearRaw": "North: Jul – Aug South: Jan – Feb",
+    "timeOfDay": {
+      "start": 17,
+      "end": 8,
+      "allDay": false
+    },
+    "timeOfDayRaw": "5 PM – 8 AM",
+    "location": "On palm trees"
+  },
+  {
+    "Name": "horned dynastid",
+    "Critterpedia Filename": "InsectKabutomushi",
+    "Furniture Filename": "FtrInsectKabutomushi",
+    "Internal ID": 612,
+    "Unique Entry ID": "zaG8qsKLpbTjysx7D",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Horned_Dynastid",
+    "iconUrl": "https://dodo.ac/np/images/1/10/Horned_Dynastid_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        7,
+        8
+      ],
+      "south": [
+        1,
+        2
+      ]
+    },
+    "timeOfYearRaw": "North: Jul – Aug South: Jan – Feb",
+    "timeOfDay": {
+      "start": 17,
+      "end": 8,
+      "allDay": false
+    },
+    "timeOfDayRaw": "5 PM – 8 AM",
+    "location": "On trees",
+    "weather": "any kind"
+  },
+  {
+    "Name": "horned elephant",
+    "Critterpedia Filename": "InsectZoukabuto",
+    "Furniture Filename": "FtrInsectZoukabuto",
+    "Internal ID": 653,
+    "Unique Entry ID": "M7SHXNEMf78nJD6fE",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Horned_Elephant",
+    "iconUrl": "https://dodo.ac/np/images/e/ea/Horned_Elephant_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        7,
+        8
+      ],
+      "south": [
+        1,
+        2
+      ]
+    },
+    "timeOfYearRaw": "North: Jul – Aug South: Jan – Feb",
+    "timeOfDay": {
+      "start": 17,
+      "end": 8,
+      "allDay": false
+    },
+    "timeOfDayRaw": "5 PM – 8 AM",
+    "location": "On palm trees"
+  },
+  {
+    "Name": "horned hercules",
+    "Critterpedia Filename": "InsectHerakuresuohkabuto",
+    "Furniture Filename": "FtrInsectHerakuresuohkabuto",
+    "Internal ID": 600,
+    "Unique Entry ID": "TqhEomNEMDZ2wcTpk",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Horned_Hercules",
+    "iconUrl": "https://dodo.ac/np/images/2/21/Horned_Hercules_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        7,
+        8
+      ],
+      "south": [
+        1,
+        2
+      ]
+    },
+    "timeOfYearRaw": "North: Jul – Aug South: Jan – Feb",
+    "timeOfDay": {
+      "start": 17,
+      "end": 8,
+      "allDay": false
+    },
+    "timeOfDayRaw": "5 PM – 8 AM",
+    "location": "On palm trees"
+  },
+  {
+    "Name": "jewel beetle",
+    "Critterpedia Filename": "InsectTamamushi",
+    "Furniture Filename": "FtrInsectTamamushi",
+    "Internal ID": 645,
+    "Unique Entry ID": "TYFowxRG4ydcvotkQ",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Jewel_Beetle",
+    "iconUrl": "https://dodo.ac/np/images/4/43/Jewel_Beetle_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "south": [
+        1,
+        2,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Apr – Aug South: Oct – Feb",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day",
+    "location": "On tree stumps"
+  },
+  {
+    "Name": "ladybug",
+    "Critterpedia Filename": "InsectTentoumushi",
+    "Furniture Filename": "FtrInsectTentoumushi",
+    "Internal ID": 647,
+    "Unique Entry ID": "pYSSbvXzkuFneRvQ7",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Ladybug",
+    "iconUrl": "https://dodo.ac/np/images/0/08/Ladybug_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "south": [
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Mar – Jun; Oct South: Apr; Sep – Dec",
+    "timeOfDay": {
+      "start": 8,
+      "end": 17,
+      "allDay": false
+    },
+    "timeOfDayRaw": "8 AM – 5 PM",
+    "location": "On flowers"
+  },
+  {
+    "Name": "long locust",
+    "Critterpedia Filename": "InsectShoryobatta",
+    "Furniture Filename": "FtrInsectShoryobatta",
+    "Internal ID": 644,
+    "Unique Entry ID": "Q57sgq4hQTNZAqWXj",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Long_Locust",
+    "iconUrl": "https://dodo.ac/np/images/9/9d/Long_Locust_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Apr – Nov South: Oct – May",
+    "timeOfDay": {
+      "start": 8,
+      "end": 19,
+      "allDay": false
+    },
+    "timeOfDayRaw": "8 AM – 7 PM",
+    "location": "On the ground"
+  },
+  {
+    "Name": "Madagascan sunset moth",
+    "Critterpedia Filename": "InsectNishikiohtsubamega",
+    "Furniture Filename": "FtrInsectNishikiohtsubamega",
+    "Internal ID": 3484,
+    "Unique Entry ID": "EFWMygLqnJinFoXSW",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Madagascan_Sunset_Moth",
+    "iconUrl": "https://dodo.ac/np/images/6/69/Madagascan_Sunset_Moth_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Apr – Sep South: Oct – Mar",
+    "timeOfDay": {
+      "start": 8,
+      "end": 16,
+      "allDay": false
+    },
+    "timeOfDayRaw": "8 AM – 4 PM",
+    "location": "Flying near flowers"
+  },
+  {
+    "Name": "man-faced stink bug",
+    "Critterpedia Filename": "InsectJinmenkamemushi",
+    "Furniture Filename": "FtrInsectJinmenkamemushi",
+    "Internal ID": 3483,
+    "Unique Entry ID": "zvr84Jvf4s6K23XJ5",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Man-Faced_Stink_Bug",
+    "iconUrl": "https://dodo.ac/np/images/a/ac/Man-Faced_Stink_Bug_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Mar – Oct South: Sep – Apr",
+    "timeOfDay": {
+      "start": 19,
+      "end": 8,
+      "allDay": false
+    },
+    "timeOfDayRaw": "7 PM – 8 AM",
+    "location": "On flowers"
+  },
+  {
+    "Name": "mantis",
+    "Critterpedia Filename": "InsectKamakiri",
+    "Furniture Filename": "FtrInsectKamakiri",
+    "Internal ID": 607,
+    "Unique Entry ID": "Qko2mfz7SaESpMcCv",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Mantis",
+    "iconUrl": "https://dodo.ac/np/images/4/4e/Mantis_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Mar – Nov South: Sep – May",
+    "timeOfDay": {
+      "start": 8,
+      "end": 17,
+      "allDay": false
+    },
+    "timeOfDayRaw": "8 AM – 5 PM",
+    "location": "On flowers"
+  },
+  {
+    "Name": "migratory locust",
+    "Critterpedia Filename": "InsectTonosamabatta",
+    "Furniture Filename": "FtrInsectTonosamabatta",
+    "Internal ID": 648,
+    "Unique Entry ID": "dkGagcjd7aZwFEszw",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Migratory_Locust",
+    "iconUrl": "https://dodo.ac/np/images/d/d0/Migratory_Locust_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "south": [
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "timeOfYearRaw": "North: Aug – Nov South: Feb – May",
+    "timeOfDay": {
+      "start": 8,
+      "end": 19,
+      "allDay": false
+    },
+    "timeOfDayRaw": "8 AM – 7 PM",
+    "location": "On the ground"
+  },
+  {
+    "Name": "miyama stag",
+    "Critterpedia Filename": "InsectMiyamakuwagata",
+    "Furniture Filename": "FtrInsectMiyamakuwagata",
+    "Internal ID": 624,
+    "Unique Entry ID": "qRGGm6MfuP4Aqdk3M",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Miyama_Stag",
+    "iconUrl": "https://dodo.ac/np/images/0/0a/Miyama_Stag_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        7,
+        8
+      ],
+      "south": [
+        1,
+        2
+      ]
+    },
+    "timeOfYearRaw": "North: Jul – Aug South: Jan – Feb",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day",
+    "location": "On trees",
+    "weather": "any kind"
+  },
+  {
+    "Name": "mole cricket",
+    "Critterpedia Filename": "InsectOkera",
+    "Furniture Filename": "FtrInsectOkera",
+    "Internal ID": 634,
+    "Unique Entry ID": "HMWPGeeKw9LP6ucSq",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Mole_Cricket",
+    "iconUrl": "https://dodo.ac/np/images/4/4f/Mole_Cricket_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        11,
+        12
+      ],
+      "south": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ]
+    },
+    "timeOfYearRaw": "North: Nov – May South: May – Nov",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day",
+    "location": "Underground"
+  },
+  {
+    "Name": "monarch butterfly",
+    "Critterpedia Filename": "InsectOhkabamadara",
+    "Furniture Filename": "FtrInsectOhkabamadara",
+    "Internal ID": 636,
+    "Unique Entry ID": "BJPKSZMZ2tkLXkWjL",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Monarch_Butterfly",
+    "iconUrl": "https://dodo.ac/np/images/3/38/Monarch_Butterfly_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        9,
+        10,
+        11
+      ],
+      "south": [
+        3,
+        4,
+        5
+      ]
+    },
+    "timeOfYearRaw": "North: Sep – Nov South: Mar – May",
+    "timeOfDay": {
+      "start": 4,
+      "end": 17,
+      "allDay": false
+    },
+    "timeOfDayRaw": "4 AM – 5 PM",
+    "location": "Flying near flowers"
+  },
+  {
+    "Name": "mosquito",
+    "Critterpedia Filename": "InsectKa",
+    "Furniture Filename": "FtrInsectKa",
+    "Internal ID": 606,
+    "Unique Entry ID": "3mMZ74qpWWnoizJHh",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Mosquito",
+    "iconUrl": "https://dodo.ac/np/images/8/84/Mosquito_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Jun – Sep South: Dec – Mar",
+    "timeOfDay": {
+      "start": 17,
+      "end": 4,
+      "allDay": false
+    },
+    "timeOfDayRaw": "5 PM – 4 AM",
+    "location": "Flying"
+  },
+  {
+    "Name": "moth",
+    "Critterpedia Filename": "InsectGa",
+    "Furniture Filename": "FtrInsectGa",
+    "Internal ID": 592,
+    "Unique Entry ID": "7Kd97rqbYBuzuCHgf",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Moth",
+    "iconUrl": "https://dodo.ac/np/images/a/a0/Moth_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: All year South: All year",
+    "timeOfDay": {
+      "start": 19,
+      "end": 4,
+      "allDay": false
+    },
+    "timeOfDayRaw": "7 PM – 4 AM",
+    "location": "Flying near light sources"
+  },
+  {
+    "Name": "orchid mantis",
+    "Critterpedia Filename": "InsectHanakamakiri",
+    "Furniture Filename": "FtrInsectHanakamakiri",
+    "Internal ID": 598,
+    "Unique Entry ID": "9b4v6nMrrThHEtNbB",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Orchid_Mantis",
+    "iconUrl": "https://dodo.ac/np/images/a/a7/Orchid_Mantis_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Mar – Nov South: Sep – May",
+    "timeOfDay": {
+      "start": 8,
+      "end": 17,
+      "allDay": false
+    },
+    "timeOfDayRaw": "8 AM – 5 PM",
+    "location": "On white flowers"
+  },
+  {
+    "Name": "paper kite butterfly",
+    "Critterpedia Filename": "InsectOhgomamadara",
+    "Furniture Filename": "FtrInsectOhgomamadara",
+    "Internal ID": 3478,
+    "Unique Entry ID": "hzwridDJE99rPHLrZ",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Paper_Kite_Butterfly",
+    "iconUrl": "https://dodo.ac/np/images/9/9e/Paper_Kite_Butterfly_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: All year South: All year",
+    "timeOfDay": {
+      "start": 8,
+      "end": 19,
+      "allDay": false
+    },
+    "timeOfDayRaw": "8 AM – 7 PM",
+    "location": "Flying near flowers"
+  },
+  {
+    "Name": "peacock butterfly",
+    "Critterpedia Filename": "InsectKarasuageha",
+    "Furniture Filename": "FtrInsectKarasuageha",
+    "Internal ID": 610,
+    "Unique Entry ID": "rguKzmnRkGmBMKzyE",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Peacock_Butterfly",
+    "iconUrl": "https://dodo.ac/np/images/7/77/Peacock_Butterfly_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "south": [
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Mar – Jun South: Sep – Dec",
+    "timeOfDay": {
+      "start": 4,
+      "end": 19,
+      "allDay": false
+    },
+    "timeOfDayRaw": "4 AM – 7 PM",
+    "location": "Flying near blue, purple, and black flowers"
+  },
+  {
+    "Name": "pill bug",
+    "Critterpedia Filename": "InsectDangomushi",
+    "Furniture Filename": "FtrInsectDangomushi",
+    "Internal ID": 590,
+    "Unique Entry ID": "SGHXhcTzaNJD2z926",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Pill_Bug",
+    "iconUrl": "https://dodo.ac/np/images/b/b9/Pill_Bug_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Sep – Jun South: Mar – Dec",
+    "timeOfDay": {
+      "start": 23,
+      "end": 16,
+      "allDay": false
+    },
+    "timeOfDayRaw": "11 PM – 4 PM",
+    "location": "From hitting rocks"
+  },
+  {
+    "Name": "pondskater",
+    "Critterpedia Filename": "InsectAmenbo",
+    "Furniture Filename": "FtrInsectAmenbo",
+    "Internal ID": 587,
+    "Unique Entry ID": "eSBNwiuZforpxNYem",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Pondskater",
+    "iconUrl": "https://dodo.ac/np/images/1/1f/Pondskater_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: May – Sep South: Nov – Mar",
+    "timeOfDay": {
+      "start": 8,
+      "end": 19,
+      "allDay": false
+    },
+    "timeOfDayRaw": "8 AM – 7 PM",
+    "location": "On rivers and ponds"
+  },
+  {
+    "Name": "Queen Alexandra's birdwing",
+    "Critterpedia Filename": "InsectArekisandoratoribaneageha",
+    "Furniture Filename": "FtrInsectArekisandoratoribaneageha",
+    "Internal ID": 586,
+    "Unique Entry ID": "PbNXeN9GZuJuow7jv",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Queen_Alexandra's_Birdwing",
+    "iconUrl": "https://dodo.ac/np/images/b/bb/Queen_Alexandra%27s_Birdwing_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: May – Sep South: Nov – Mar",
+    "timeOfDay": {
+      "start": 8,
+      "end": 16,
+      "allDay": false
+    },
+    "timeOfDayRaw": "8 AM – 4 PM",
+    "location": "Flying near flowers"
+  },
+  {
+    "Name": "rainbow stag",
+    "Critterpedia Filename": "InsectNijiirokuwagata",
+    "Furniture Filename": "FtrInsectNijiirokuwagata",
+    "Internal ID": 631,
+    "Unique Entry ID": "Egfv6BDtFMeGZPmfh",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Rainbow_Stag",
+    "iconUrl": "https://dodo.ac/np/images/f/f7/Rainbow_Stag_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        6,
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Jun – Sep South: Dec – Mar",
+    "timeOfDay": {
+      "start": 19,
+      "end": 8,
+      "allDay": false
+    },
+    "timeOfDayRaw": "7 PM – 8 AM",
+    "location": "On trees",
+    "weather": "any kind"
+  },
+  {
+    "Name": "Rajah Brooke's birdwing",
+    "Critterpedia Filename": "InsectAkaeritoribaneageha",
+    "Furniture Filename": "FtrInsectAkaeritoribaneageha",
+    "Internal ID": 584,
+    "Unique Entry ID": "gLpHgXT4pPXP4XfWQ",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Rajah_Brooke's_Birdwing",
+    "iconUrl": "https://dodo.ac/np/images/8/81/Rajah_Brooke%27s_Birdwing_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        12
+      ],
+      "south": [
+        6,
+        7,
+        8
+      ]
+    },
+    "timeOfYearRaw": "North: Dec – Feb; Apr – Sep South: Jun – Aug; Oct – Mar",
+    "timeOfDay": {
+      "start": 8,
+      "end": 17,
+      "allDay": false
+    },
+    "timeOfDayRaw": "8 AM – 5 PM",
+    "location": "Flying near flowers"
+  },
+  {
+    "Name": "red dragonfly",
+    "Critterpedia Filename": "InsectAkiakane",
+    "Furniture Filename": "FtrInsectAkiakane",
+    "Internal ID": 585,
+    "Unique Entry ID": "PKSHvkPphXteXHKuG",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Red_Dragonfly",
+    "iconUrl": "https://dodo.ac/np/images/0/09/Red_Dragonfly_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        9,
+        10
+      ],
+      "south": [
+        3,
+        4
+      ]
+    },
+    "timeOfYearRaw": "North: Sep – Oct South: Mar – Apr",
+    "timeOfDay": {
+      "start": 8,
+      "end": 19,
+      "allDay": false
+    },
+    "timeOfDayRaw": "8 AM – 7 PM",
+    "location": "Flying near water"
+  },
+  {
+    "Name": "rice grasshopper",
+    "Critterpedia Filename": "InsectInago",
+    "Furniture Filename": "FtrInsectInago",
+    "Internal ID": 605,
+    "Unique Entry ID": "ZxXDxrgPvXEHz24Ni",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Rice_Grasshopper",
+    "iconUrl": "https://dodo.ac/np/images/7/78/Rice_Grasshopper_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        8,
+        9,
+        10,
+        11
+      ],
+      "south": [
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "timeOfYearRaw": "North: Aug – Nov South: Feb – May",
+    "timeOfDay": {
+      "start": 8,
+      "end": 19,
+      "allDay": false
+    },
+    "timeOfDayRaw": "8 AM – 7 PM",
+    "location": "On the ground"
+  },
+  {
+    "Name": "robust cicada",
+    "Critterpedia Filename": "InsectMinminzemi",
+    "Furniture Filename": "FtrInsectMinminzemi",
+    "Internal ID": 621,
+    "Unique Entry ID": "cd5ymnRmRvT4n4yjB",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Robust_Cicada",
+    "iconUrl": "https://dodo.ac/np/images/a/a2/Robust_Cicada_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        7,
+        8
+      ],
+      "south": [
+        1,
+        2
+      ]
+    },
+    "timeOfYearRaw": "North: Jul – Aug South: Jan – Feb",
+    "timeOfDay": {
+      "start": 8,
+      "end": 17,
+      "allDay": false
+    },
+    "timeOfDayRaw": "8 AM – 5 PM",
+    "location": "On trees",
+    "weather": "hardwood and cedar"
+  },
+  {
+    "Name": "rosalia batesi beetle",
+    "Critterpedia Filename": "InsectRuriboshikamikiri",
+    "Furniture Filename": "FtrInsectRuriboshikamikiri",
+    "Internal ID": 3487,
+    "Unique Entry ID": "MSTA9vdJmGoDDADrF",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Rosalia_Batesi_Beetle",
+    "iconUrl": "https://dodo.ac/np/images/7/7c/Rosalia_Batesi_Beetle_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: May – Sep South: Nov – Mar",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day",
+    "location": "On tree stumps"
+  },
+  {
+    "Name": "saw stag",
+    "Critterpedia Filename": "InsectNokogirikuwagata",
+    "Furniture Filename": "FtrInsectNokogirikuwagata",
+    "Internal ID": 632,
+    "Unique Entry ID": "YQq3iSiBcBAHTWxc2",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Saw_Stag",
+    "iconUrl": "https://dodo.ac/np/images/0/03/Saw_Stag_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        7,
+        8
+      ],
+      "south": [
+        1,
+        2
+      ]
+    },
+    "timeOfYearRaw": "North: Jul – Aug South: Jan – Feb",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day",
+    "location": "On trees",
+    "weather": "any kind"
+  },
+  {
+    "Name": "scarab beetle",
+    "Critterpedia Filename": "InsectPurachinakogane",
+    "Furniture Filename": "FtrInsectPurachinakogane",
+    "Internal ID": 639,
+    "Unique Entry ID": "2HXdFD8s6BmYYMf4u",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Scarab_Beetle",
+    "iconUrl": "https://dodo.ac/np/images/e/ee/Scarab_Beetle_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        7,
+        8
+      ],
+      "south": [
+        1,
+        2
+      ]
+    },
+    "timeOfYearRaw": "North: Jul – Aug South: Jan – Feb",
+    "timeOfDay": {
+      "start": 23,
+      "end": 8,
+      "allDay": false
+    },
+    "timeOfDayRaw": "11 PM – 8 AM",
+    "location": "On trees",
+    "weather": "any kind"
+  },
+  {
+    "Name": "scorpion",
+    "Critterpedia Filename": "InsectSasori",
+    "Furniture Filename": "FtrInsectSasori",
+    "Internal ID": 640,
+    "Unique Entry ID": "xMzHsHbjvvicZvYxg",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Scorpion",
+    "iconUrl": "https://dodo.ac/np/images/9/95/Scorpion_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: May – Oct South: Nov – Apr",
+    "timeOfDay": {
+      "start": 19,
+      "end": 4,
+      "allDay": false
+    },
+    "timeOfDayRaw": "7 PM – 4 AM",
+    "location": "On the ground"
+  },
+  {
+    "Name": "snail",
+    "Critterpedia Filename": "InsectKatatsumuri",
+    "Furniture Filename": "FtrInsectKatatsumuri",
+    "Internal ID": 611,
+    "Unique Entry ID": "rDNLeQnmJQGxsHpmL",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Snail",
+    "iconUrl": "https://dodo.ac/np/images/e/e9/Snail_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: All year South: All year",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day",
+    "location": "On rocks and bushes"
+  },
+  {
+    "Name": "spider",
+    "Critterpedia Filename": "InsectKumo",
+    "Furniture Filename": "FtrInsectKumo",
+    "Internal ID": 619,
+    "Unique Entry ID": "s2u8kDoMQx7GbAJTR",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Spider",
+    "iconUrl": "https://dodo.ac/np/images/e/e0/Spider_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: All year South: All year",
+    "timeOfDay": {
+      "start": 19,
+      "end": 8,
+      "allDay": false
+    },
+    "timeOfDayRaw": "7 PM – 8 AM",
+    "location": "Shaking trees"
+  },
+  {
+    "Name": "stinkbug",
+    "Critterpedia Filename": "InsectKamemushi",
+    "Furniture Filename": "FtrInsectKamemushi",
+    "Internal ID": 608,
+    "Unique Entry ID": "4u5GZ4z3CyaHhMgqj",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Stinkbug",
+    "iconUrl": "https://dodo.ac/np/images/4/42/Stinkbug_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Mar – Oct South: Sep – Apr",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day",
+    "location": "On flowers"
+  },
+  {
+    "Name": "tarantula",
+    "Critterpedia Filename": "InsectTaranchura",
+    "Furniture Filename": "FtrInsectTaranchura",
+    "Internal ID": 646,
+    "Unique Entry ID": "4mto3ZvrZYpJxbm4c",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Tarantula",
+    "iconUrl": "https://dodo.ac/np/images/b/b5/Tarantula_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        11,
+        12
+      ],
+      "south": [
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ]
+    },
+    "timeOfYearRaw": "North: Nov – Apr South: May – Oct",
+    "timeOfDay": {
+      "start": 19,
+      "end": 4,
+      "allDay": false
+    },
+    "timeOfDayRaw": "7 PM – 4 AM",
+    "location": "On the ground"
+  },
+  {
+    "Name": "tiger beetle",
+    "Critterpedia Filename": "InsectHanmyou",
+    "Furniture Filename": "FtrInsectHanmyou",
+    "Internal ID": 599,
+    "Unique Entry ID": "zzGvu3797KnMb4LCD",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Tiger_Beetle",
+    "iconUrl": "https://dodo.ac/np/images/5/58/Tiger_Beetle_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Feb – Oct South: Aug – Apr",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day",
+    "location": "On the ground"
+  },
+  {
+    "Name": "tiger butterfly",
+    "Critterpedia Filename": "InsectAgehacho",
+    "Furniture Filename": "FtrInsectAgehacho",
+    "Internal ID": 583,
+    "Unique Entry ID": "GcSpepwg536mYnNuu",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Tiger_Butterfly",
+    "iconUrl": "https://dodo.ac/np/images/b/b6/Tiger_Butterfly_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: Mar – Sep South: Sep – Mar",
+    "timeOfDay": {
+      "start": 4,
+      "end": 19,
+      "allDay": false
+    },
+    "timeOfDayRaw": "4 AM – 7 PM",
+    "location": "Flying"
+  },
+  {
+    "Name": "violin beetle",
+    "Critterpedia Filename": "InsectBaiorinmushi",
+    "Furniture Filename": "FtrInsectBaiorinmushi",
+    "Internal ID": 650,
+    "Unique Entry ID": "poAcys5Mr35ELp5PS",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Violin_Beetle",
+    "iconUrl": "https://dodo.ac/np/images/8/86/Violin_Beetle_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        5,
+        6
+      ],
+      "south": [
+        3,
+        4,
+        5
+      ]
+    },
+    "timeOfYearRaw": "North: May – Jun; Sep – Nov South: Mar – May; Nov – Dec",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day",
+    "location": "On tree stumps"
+  },
+  {
+    "Name": "walker cicada",
+    "Critterpedia Filename": "InsectTsukutsukuhousi",
+    "Furniture Filename": "FtrInsectTsukutsukuhousi",
+    "Internal ID": 649,
+    "Unique Entry ID": "QdrL4K7seJHvd4ZZM",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Walker_Cicada",
+    "iconUrl": "https://dodo.ac/np/images/f/f8/Walker_Cicada_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        8,
+        9
+      ],
+      "south": [
+        2,
+        3
+      ]
+    },
+    "timeOfYearRaw": "North: Aug – Sep South: Feb – Mar",
+    "timeOfDay": {
+      "start": 8,
+      "end": 17,
+      "allDay": false
+    },
+    "timeOfDayRaw": "8 AM – 5 PM",
+    "location": "On trees",
+    "weather": "hardwood and cedar"
+  },
+  {
+    "Name": "walking leaf",
+    "Critterpedia Filename": "InsectKonohamushi",
+    "Furniture Filename": "FtrInsectKonohamushi",
+    "Internal ID": 616,
+    "Unique Entry ID": "kuZaMcg2E7ZX56nio",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Walking_Leaf",
+    "iconUrl": "https://dodo.ac/np/images/b/b9/Walking_Leaf_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        7,
+        8,
+        9
+      ],
+      "south": [
+        1,
+        2,
+        3
+      ]
+    },
+    "timeOfYearRaw": "North: Jul – Sep South: Jan – Mar",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day",
+    "location": "Disguised under trees"
+  },
+  {
+    "Name": "walking stick",
+    "Critterpedia Filename": "InsectNanafushi",
+    "Furniture Filename": "FtrInsectNanafushi",
+    "Internal ID": 630,
+    "Unique Entry ID": "WQjgrjYotbwH59vXG",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Walking_Stick",
+    "iconUrl": "https://dodo.ac/np/images/5/58/Walking_Stick_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        7,
+        8,
+        9,
+        10,
+        11
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ]
+    },
+    "timeOfYearRaw": "North: Jul – Nov South: Jan – May",
+    "timeOfDay": {
+      "start": 4,
+      "end": 8,
+      "allDay": false
+    },
+    "timeOfDayRaw": "4 AM – 8 AM & 5 PM – 7 PM",
+    "location": "On trees",
+    "weather": "any kind"
+  },
+  {
+    "Name": "wasp",
+    "Critterpedia Filename": "InsectHachi",
+    "Furniture Filename": "FtrInsectHachi",
+    "Internal ID": 643,
+    "Unique Entry ID": "ZEfBHqM6pFEddBezw",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Wasp",
+    "iconUrl": "https://dodo.ac/np/images/a/a5/Wasp_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: All year South: All year",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day",
+    "location": "Shaking non-fruit hardwood trees or cedar trees"
+  },
+  {
+    "Name": "wharf roach",
+    "Critterpedia Filename": "InsectFunamushi",
+    "Furniture Filename": "FtrInsectFunamushi",
+    "Internal ID": 591,
+    "Unique Entry ID": "2fp9ChfPuPdYefTK3",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Wharf_Roach",
+    "iconUrl": "https://dodo.ac/np/images/1/1f/Wharf_Roach_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ],
+      "south": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12
+      ]
+    },
+    "timeOfYearRaw": "North: All year South: All year",
+    "timeOfDay": {
+      "start": 0,
+      "end": 24,
+      "allDay": true
+    },
+    "timeOfDayRaw": "All day",
+    "location": "On beach rocks"
+  },
+  {
+    "Name": "yellow butterfly",
+    "Critterpedia Filename": "InsectMonkicho",
+    "Furniture Filename": "FtrInsectMonkicho",
+    "Internal ID": 625,
+    "Unique Entry ID": "9d92MqgcnGao8wQjB",
+    "Nookipedia Link": "https://nookipedia.com/wiki/Yellow_Butterfly",
+    "iconUrl": "https://dodo.ac/np/images/4/43/Yellow_Butterfly_NH_Icon.png",
+    "timeOfYear": {
+      "north": [
+        3,
+        4,
+        5,
+        6
+      ],
+      "south": [
+        3,
+        4
+      ]
+    },
+    "timeOfYearRaw": "North: Mar – Jun; Sep – Oct South: Mar – Apr; Sep – Dec",
+    "timeOfDay": {
+      "start": 4,
+      "end": 19,
+      "allDay": false
+    },
+    "timeOfDayRaw": "4 AM – 7 PM",
+    "location": "Flying"
+  }
+]
