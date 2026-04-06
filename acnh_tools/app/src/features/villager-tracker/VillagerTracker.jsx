@@ -4,6 +4,8 @@ import { useVillagerData } from '../villager-calc/hooks/useVillagerData'
 import { createVillagerEngine } from '../villager-calc/hooks/villagerEngine'
 import { useChatTracker } from './hooks/useChatTracker'
 import { analyzeDiversity, getUpcomingBirthdays } from './hooks/diversity'
+import { useConfirm } from '../../hooks/useConfirm'
+import ConfirmModal from '../../components/ConfirmModal'
 import VillagerRosterCard, { VillagerDetailPanel } from './components/VillagerRosterCard'
 import './villager-tracker.css'
 
@@ -16,6 +18,7 @@ export default function VillagerTracker() {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [activeSearchIndex, setActiveSearchIndex] = useState(-1);
   const [groupBy, setGroupBy] = useState('none');
+  const { confirm, confirmState, handleConfirm, handleCancel } = useConfirm();
 
   const engine = useMemo(() => {
     if (villagers.length === 0) return null;
@@ -69,8 +72,9 @@ export default function VillagerTracker() {
     }
   };
 
-  const handleRemoveResident = (name) => {
-    if (window.confirm(`Remove ${name} from your island?`)) {
+  const handleRemoveResident = async (name) => {
+    const yes = await confirm(`Remove ${name} from your island?`);
+    if (yes) {
       removeResident(name);
       if (expandedVillager === name) setExpandedVillager(null);
     }
@@ -244,6 +248,12 @@ export default function VillagerTracker() {
           </div>
         </>
       )}
+
+      <ConfirmModal
+        message={confirmState?.message}
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+      />
     </div>
   );
 }

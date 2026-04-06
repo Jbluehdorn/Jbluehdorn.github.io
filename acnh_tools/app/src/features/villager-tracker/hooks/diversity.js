@@ -7,7 +7,7 @@ export function analyzeDiversity(villagers, engine) {
   const personalityMap = new Map();
   const genderMap = new Map();
 
-  const ALL_PERSONALITIES = ['Lazy', 'Jock', 'Cranky', 'Smug', 'Normal', 'Peppy', 'Snooty', 'Uchi'];
+  const ALL_PERSONALITIES = ['Lazy', 'Jock', 'Cranky', 'Smug', 'Normal', 'Peppy', 'Snooty', 'Big Sister'];
 
   for (const name of villagers) {
     const info = engine.getVillagerInfo(name);
