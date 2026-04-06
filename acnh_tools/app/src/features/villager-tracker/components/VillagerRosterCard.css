@@ -161,14 +161,39 @@
   margin-top: 8px;
   padding-top: 8px;
   border-top: 1px solid var(--color-border-light);
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.detail-chat-btn {
+  padding: 5px 14px;
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-sm);
+  background: none;
+  color: var(--color-accent);
+  font-size: 0.78rem;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.2s;
+}
+
+.detail-chat-btn:hover {
+  background: var(--color-accent-light);
+}
+
+.detail-chat-btn.active {
+  background: var(--color-accent);
+  color: white;
+  border-color: var(--color-accent);
 }
 
 .detail-remove-btn {
   padding: 5px 14px;
-  border: 1px solid var(--color-border);
+  border: 1px solid var(--color-leaving);
   border-radius: var(--radius-sm);
   background: none;
-  color: var(--color-text-faint);
+  color: var(--color-leaving);
   font-size: 0.78rem;
   cursor: pointer;
   font-family: inherit;
@@ -176,8 +201,8 @@
 }
 
 .detail-remove-btn:hover {
-  color: var(--color-leaving);
-  border-color: var(--color-leaving);
+  background: var(--color-leaving);
+  color: white;
 }
 
 @media (max-width: 600px) {

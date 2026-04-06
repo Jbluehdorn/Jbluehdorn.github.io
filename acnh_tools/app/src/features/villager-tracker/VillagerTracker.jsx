@@ -234,6 +234,8 @@ export default function VillagerTracker() {
                       info={info}
                       streak={getChatStreak(expandedVillager)}
                       onRemove={() => handleRemoveResident(expandedVillager)}
+                      chattedToday={hasChattedToday(expandedVillager)}
+                      onToggleChat={() => toggleChat(expandedVillager)}
                     />
                   );
                 })()}

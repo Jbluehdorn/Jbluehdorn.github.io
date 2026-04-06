@@ -25,7 +25,7 @@ export default function VillagerRosterCard({ info, chattedToday, onToggleChat, o
   );
 }
 
-export function VillagerDetailPanel({ info, streak, onRemove }) {
+export function VillagerDetailPanel({ info, streak, onRemove, chattedToday, onToggleChat }) {
   return (
     <div className="roster-detail-panel">
       <div className="detail-photo">
@@ -66,6 +66,12 @@ export function VillagerDetailPanel({ info, streak, onRemove }) {
           </div>
         )}
         <div className="detail-actions">
+          <button
+            className={`detail-chat-btn ${chattedToday ? 'active' : ''}`}
+            onClick={onToggleChat}
+          >
+            💬 {chattedToday ? 'Chatted today ✓' : 'Mark as chatted'}
+          </button>
           <button className="detail-remove-btn" onClick={onRemove}>
             Remove from island
           </button>
