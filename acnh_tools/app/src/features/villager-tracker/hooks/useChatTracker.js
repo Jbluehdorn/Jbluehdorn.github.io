@@ -1,20 +1,20 @@
 import { useLocalStorage } from '../../../hooks/useLocalStorage'
 
 // ACNH day rolls over at 5 AM
-function getACNHDate() {
-  const now = new Date();
-  if (now.getHours() < 5) {
-    now.setDate(now.getDate() - 1);
+function getACNHDate(date) {
+  const d = new Date(date || Date.now());
+  if (d.getHours() < 5) {
+    d.setDate(d.getDate() - 1);
   }
-  return now.toISOString().split('T')[0];
+  return d.toISOString().split('T')[0];
 }
 
 const CHAT_KEY = 'acnh_villager_tracker_chats';
 const HISTORY_DAYS = 30;
 
-export function useChatTracker() {
+export function useChatTracker(currentDate) {
   const [chatHistory, setChatHistory] = useLocalStorage(CHAT_KEY, {});
-  const today = getACNHDate();
+  const today = getACNHDate(currentDate);
 
   const todayChats = chatHistory[today] || [];
 
@@ -27,8 +27,7 @@ export function useChatTracker() {
         ? dayChats.filter(n => n !== villagerName)
         : [...dayChats, villagerName];
 
-      // Clean up old entries beyond HISTORY_DAYS
-      const cutoff = new Date();
+      const cutoff = new Date(currentDate || Date.now());
       cutoff.setDate(cutoff.getDate() - HISTORY_DAYS);
       const cutoffStr = cutoff.toISOString().split('T')[0];
 
@@ -44,7 +43,7 @@ export function useChatTracker() {
 
   const getChatStreak = (villagerName) => {
     let streak = 0;
-    const d = new Date();
+    const d = new Date(currentDate || Date.now());
     if (d.getHours() < 5) d.setDate(d.getDate() - 1);
 
     for (let i = 0; i < HISTORY_DAYS; i++) {

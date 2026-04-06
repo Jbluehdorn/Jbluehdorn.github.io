@@ -9,10 +9,11 @@ import ConfirmModal from '../../components/ConfirmModal'
 import VillagerRosterCard, { VillagerDetailPanel } from './components/VillagerRosterCard'
 import './villager-tracker.css'
 
-export default function VillagerTracker() {
+export default function VillagerTracker({ gameDate }) {
   const { villagers, loading, error } = useVillagerData();
   const { residents, addResident, removeResident, isFull, maxResidents } = useIslandResidents();
-  const { hasChattedToday, toggleChat, getChatStreak, chattedCount, today } = useChatTracker();
+  const { currentDate, setCurrentDate, useCustomTime, setUseCustomTime } = gameDate;
+  const { hasChattedToday, toggleChat, getChatStreak, chattedCount, today } = useChatTracker(currentDate);
   const [expandedVillager, setExpandedVillager] = useState(null);
   const [searchText, setSearchText] = useState('');
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -130,6 +131,29 @@ export default function VillagerTracker() {
           <span className="vt-stat-date">{today}</span>
           <span className="vt-stat-label">ACNH Day</span>
         </div>
+      </div>
+
+      {/* Date controls */}
+      <div className="vt-date-controls">
+        <label className="vt-date-toggle">
+          <input
+            type="checkbox"
+            checked={useCustomTime}
+            onChange={e => setUseCustomTime(e.target.checked)}
+          />
+          Custom date
+        </label>
+        {useCustomTime && (
+          <input
+            type="date"
+            className="vt-date-input"
+            value={currentDate.toISOString().split('T')[0]}
+            onChange={e => {
+              const d = new Date(e.target.value + 'T12:00:00');
+              if (!isNaN(d)) setCurrentDate(d);
+            }}
+          />
+        )}
       </div>
 
       {/* Birthday alerts */}

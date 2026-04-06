@@ -1,20 +1,23 @@
 import { useHashRoute } from './hooks/useHashRoute'
+import { useGameDate } from './hooks/useGameDate'
 import TabBar from './components/TabBar'
 import Encyclopedia from './features/encyclopedia/Encyclopedia'
 import VillagerCalc from './features/villager-calc/VillagerCalc'
 import VillagerTracker from './features/villager-tracker/VillagerTracker'
 import ArtTracker from './features/art-tracker/ArtTracker'
 
-const FEATURES = {
-  'encyclopedia': Encyclopedia,
-  'villager-calc': VillagerCalc,
-  'villager-tracker': VillagerTracker,
-  'art-tracker': ArtTracker,
-}
+const FEATURE_KEYS = ['encyclopedia', 'villager-calc', 'villager-tracker', 'art-tracker']
 
 export default function App() {
   const { route, navigate, routes } = useHashRoute()
-  const ActiveFeature = FEATURES[route]
+  const gameDate = useGameDate()
+
+  const FEATURES = {
+    'encyclopedia': <Encyclopedia gameDate={gameDate} />,
+    'villager-calc': <VillagerCalc />,
+    'villager-tracker': <VillagerTracker gameDate={gameDate} />,
+    'art-tracker': <ArtTracker />,
+  }
 
   return (
     <div className="acnh-app">
@@ -26,7 +29,7 @@ export default function App() {
       <TabBar routes={routes} activeRoute={route} onNavigate={navigate} />
 
       <main className="acnh-content">
-        {ActiveFeature ? <ActiveFeature /> : <p>Tool not found.</p>}
+        {FEATURES[route] || <p>Tool not found.</p>}
       </main>
 
       <footer className="acnh-footer">

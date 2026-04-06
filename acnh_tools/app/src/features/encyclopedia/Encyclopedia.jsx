@@ -9,30 +9,19 @@ import StatsBar from './components/StatsBar'
 import CameraCapture from './components/CameraCapture'
 import './encyclopedia.css'
 
-export default function Encyclopedia() {
+export default function Encyclopedia({ gameDate }) {
   const { fish, insects, seaCreatures, allCreatures, loading, error } = useCreatureData()
   const { collected, toggle, setMultiple, clearAll } = useCollected()
 
+  const { currentDate, setCurrentDate, useCustomTime, setUseCustomTime } = gameDate
+
   const [activeTab, setActiveTab] = useState('all')
   const [showCamera, setShowCamera] = useState(false)
-  const [currentDate, setCurrentDate] = useState(new Date())
-  const [useCustomTime, setUseCustomTime] = useState(false)
   const [showFilter, setShowFilter] = useState('available-now')
   const [selectedIds, setSelectedIds] = useState(new Set())
 
-  const handleUseCustomTimeChange = (useCustom) => {
-    setUseCustomTime(useCustom)
-    if (!useCustom) setCurrentDate(new Date())
-  }
-
   const savedSettings = getSettings()
   const [hemisphere, setHemisphere] = useState(savedSettings.hemisphere)
-
-  useEffect(() => {
-    if (useCustomTime) return
-    const interval = setInterval(() => setCurrentDate(new Date()), 60000)
-    return () => clearInterval(interval)
-  }, [useCustomTime])
 
   useEffect(() => {
     saveSettings({ hemisphere })
@@ -153,7 +142,7 @@ export default function Encyclopedia() {
         showFilter={showFilter}
         onShowFilterChange={setShowFilter}
         useCustomTime={useCustomTime}
-        onUseCustomTimeChange={handleUseCustomTimeChange}
+        onUseCustomTimeChange={setUseCustomTime}
       />
 
       <div className="enc-legend">

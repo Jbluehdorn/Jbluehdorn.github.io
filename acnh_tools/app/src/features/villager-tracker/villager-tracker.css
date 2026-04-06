@@ -49,6 +49,33 @@
   letter-spacing: 0.5px;
 }
 
+/* Date controls */
+.vt-date-controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+  font-size: 0.85rem;
+}
+
+.vt-date-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--color-text-heading);
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.vt-date-input {
+  padding: 4px 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  font-size: 0.85rem;
+  font-family: inherit;
+  background: white;
+}
+
 /* Birthday alerts */
 .vt-birthdays {
   display: flex;
