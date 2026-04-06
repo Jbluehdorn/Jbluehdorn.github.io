@@ -1,10 +1,9 @@
 .camera-capture {
   background: var(--color-surface);
-  border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+  border-radius: 0 var(--radius-lg) var(--radius-lg) var(--radius-lg);
   padding: 16px;
   margin-bottom: 16px;
   border: 1px solid var(--color-border-light);
-  border-top: none;
 }
 
 .camera-capture h3 {
