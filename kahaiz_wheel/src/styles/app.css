@@ -179,7 +179,13 @@ body {
   transition: color 0.2s, transform 0.3s;
 }
 
-.config-icon:hover {
+.config-icon:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.config-icon:hover:not(:disabled) {
   color: #ffd700;
   transform: rotate(45deg);
 }

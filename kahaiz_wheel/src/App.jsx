@@ -77,6 +77,7 @@ export default function App() {
       <button
         className="config-icon"
         onClick={() => setSettingsOpen(true)}
+        disabled={spinning}
         aria-label="Settings"
         title="Settings"
       >

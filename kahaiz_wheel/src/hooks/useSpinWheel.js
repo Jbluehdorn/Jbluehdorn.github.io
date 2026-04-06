@@ -27,6 +27,34 @@ function multiPhaseEase(t) {
   return 1 - Math.pow(2, -10 * t)
 }
 
+// Pointer wobble spring parameters
+const POINTER_SPRING = 600
+const POINTER_DAMPING = 30
+const POINTER_KICK = 5         // radians/sec velocity impulse per tick
+const POINTER_MAX_ANGLE = 0.22 // max deflection in radians (~12.6°)
+const POINTER_MAX_VEL = 15     // cap velocity to prevent runaway
+
+function stepPointerDeflection(deflection, now) {
+  if (deflection.lastTime === 0) {
+    deflection.lastTime = now
+    return deflection.angle
+  }
+  const dt = Math.min((now - deflection.lastTime) / 1000, 0.03)
+  deflection.lastTime = now
+
+  const accel = -POINTER_SPRING * deflection.angle - POINTER_DAMPING * deflection.velocity
+  deflection.velocity += accel * dt
+  deflection.velocity = Math.max(-POINTER_MAX_VEL, Math.min(POINTER_MAX_VEL, deflection.velocity))
+  deflection.angle += deflection.velocity * dt
+  deflection.angle = Math.max(-POINTER_MAX_ANGLE, Math.min(POINTER_MAX_ANGLE, deflection.angle))
+
+  if (Math.abs(deflection.angle) < 0.001 && Math.abs(deflection.velocity) < 0.01) {
+    deflection.angle = 0
+    deflection.velocity = 0
+  }
+  return deflection.angle
+}
+
 export function useSpinWheel() {
   const canvasRef = useRef(null)
   const animRef = useRef(null)
@@ -38,6 +66,8 @@ export function useSpinWheel() {
   const itemsRef = useRef([])
   const lastSegmentRef = useRef(-1)
   const bgImageRef = useRef(null)
+  const pointerDeflectionRef = useRef({ angle: 0, velocity: 0, lastTime: 0 })
+  const prevWheelAngleRef = useRef(0)
 
   // Drag tracking refs
   const isDraggingRef = useRef(false)
@@ -50,13 +80,30 @@ export function useSpinWheel() {
   const winAudioRef = useRef(null)
 
   useEffect(() => {
-    tickAudioRef.current = new Audio('./assets/audio/countdown.wav')
-    tickAudioRef.current.volume = 0.15
-    winAudioRef.current = new Audio('./assets/audio/found.wav')
-    winAudioRef.current.volume = 0.25
+    const tick = new Audio('./assets/audio/countdown.wav')
+    tick.preload = 'auto'
+    tick.volume = 0.15
+    tick.load()
+    tickAudioRef.current = tick
+
+    const win = new Audio('./assets/audio/found.wav')
+    win.preload = 'auto'
+    win.volume = 0.25
+    win.load()
+    winAudioRef.current = win
   }, [])
 
   const loadItems = useCallback(async (enabledItems) => {
+    // Cancel any running animation and reset wheel to default position
+    if (animRef.current) {
+      cancelAnimationFrame(animRef.current)
+      animRef.current = null
+    }
+    angleRef.current = 0
+    spinningRef.current = false
+    setSpinning(false)
+    setWinner(null)
+
     const loaded = await preloadImages(enabledItems)
     setLoadedItems(loaded)
     itemsRef.current = loaded
@@ -156,8 +203,17 @@ export function useSpinWheel() {
 
     ctx.restore()
 
-    // Pointer
+    // Pointer (with wobble deflection)
+    const deflection = stepPointerDeflection(
+      pointerDeflectionRef.current,
+      performance.now()
+    )
     ctx.save()
+    const pivotX = centerX
+    const pivotY = centerY - radius - 38
+    ctx.translate(pivotX, pivotY)
+    ctx.rotate(deflection)
+    ctx.translate(-pivotX, -pivotY)
     ctx.beginPath()
     ctx.moveTo(centerX, centerY - radius - 18)
     ctx.lineTo(centerX - 14, centerY - radius - 38)
@@ -220,6 +276,9 @@ export function useSpinWheel() {
     if (currentSegment !== lastSegmentRef.current) {
       lastSegmentRef.current = currentSegment
       updateBgImage(items[currentSegment])
+      const dir = Math.sign(currentAngle - prevWheelAngleRef.current) || 1
+      pointerDeflectionRef.current.velocity += POINTER_KICK * -dir
+      prevWheelAngleRef.current = currentAngle
       if (tickAudioRef.current) {
         const tick = tickAudioRef.current.cloneNode()
         tick.volume = isDecelerating ? 0.15 : 0.08
@@ -358,6 +417,9 @@ export function useSpinWheel() {
         if (currentSegment !== lastSegmentRef.current) {
           lastSegmentRef.current = currentSegment
           updateBgImage(items[currentSegment])
+          const dir = Math.sign(currentAngle - prevWheelAngleRef.current) || 1
+          pointerDeflectionRef.current.velocity += POINTER_KICK * -dir
+          prevWheelAngleRef.current = currentAngle
           if (tickAudioRef.current && progress < 0.95) {
             const tick = tickAudioRef.current.cloneNode()
             tick.volume = Math.min(0.2, 0.05 + progress * 0.15)
@@ -381,8 +443,9 @@ export function useSpinWheel() {
           setSpinning(false)
           updateBgImage(null)
           if (winAudioRef.current) {
-            winAudioRef.current.currentTime = 0
-            winAudioRef.current.play().catch(() => {})
+            const win = winAudioRef.current.cloneNode()
+            win.volume = 0.25
+            win.play().catch(() => {})
           }
         }
       }
@@ -446,6 +509,9 @@ export function useSpinWheel() {
       if (currentSegment !== lastSegmentRef.current) {
         lastSegmentRef.current = currentSegment
         updateBgImage(items[currentSegment])
+        const dir = Math.sign(currentAngle - prevWheelAngleRef.current) || 1
+        pointerDeflectionRef.current.velocity += POINTER_KICK * -dir
+        prevWheelAngleRef.current = currentAngle
         if (tickAudioRef.current && progress < 0.95) {
           const tick = tickAudioRef.current.cloneNode()
           tick.volume = Math.min(0.2, 0.05 + progress * 0.15)
@@ -469,8 +535,9 @@ export function useSpinWheel() {
         setSpinning(false)
         updateBgImage(null)
         if (winAudioRef.current) {
-          winAudioRef.current.currentTime = 0
-          winAudioRef.current.play().catch(() => {})
+          const win = winAudioRef.current.cloneNode()
+          win.volume = 0.25
+          win.play().catch(() => {})
         }
       }
     }
@@ -529,6 +596,9 @@ export function useSpinWheel() {
       const currentSegment = Math.floor(pointerAngle / sliceAngle) % count
       if (currentSegment !== lastSegmentRef.current) {
         lastSegmentRef.current = currentSegment
+        const dir = Math.sign(currentAngle - prevWheelAngleRef.current) || 1
+        pointerDeflectionRef.current.velocity += POINTER_KICK * -dir
+        prevWheelAngleRef.current = currentAngle
         if (tickAudioRef.current && progress < 0.95) {
           const tick = tickAudioRef.current.cloneNode()
           tick.volume = Math.min(0.2, 0.05 + progress * 0.15)
@@ -550,8 +620,9 @@ export function useSpinWheel() {
         setSpinning(false)
         updateBgImage(null)
         if (winAudioRef.current) {
-          winAudioRef.current.currentTime = 0
-          winAudioRef.current.play().catch(() => {})
+          const win = winAudioRef.current.cloneNode()
+          win.volume = 0.25
+          win.play().catch(() => {})
         }
       }
     }
