@@ -26,10 +26,10 @@ const DATA_PATH = join(__dirname, '..', 'src', 'data', 'episodes.json')
 
 function categorize(title) {
   const t = title.toLowerCase()
+  if (t.includes('black spine') || t.includes('junka')) return 'black_spine'
   if (t.includes('wheel of the worst')) return 'wheel'
   if (t.includes('plinketto')) return 'plinketto'
   if (t.includes('spotlight')) return 'spotlight'
-  if (t.includes('junka')) return 'junka'
   return 'regular'
 }
 
