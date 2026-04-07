@@ -81,6 +81,9 @@ export function useAudio() {
   const effectiveVol = useCallback((vol) => prefs.muted ? 0 : vol, [prefs.muted])
 
   // --- Music management ---
+  const musicHistoryRef = useRef([])
+  const musicHistoryIndexRef = useRef(-1)
+
   const stopMusic = useCallback(() => {
     if (musicRef.current) {
       musicRef.current.pause()
@@ -92,23 +95,62 @@ export function useAudio() {
     setMusicPlaying(false)
   }, [])
 
-  const startMusic = useCallback(() => {
-    stopMusic()
-    const songId = prefs.musicSong === 'random' ? pickRandom(MUSIC_SONGS) : prefs.musicSong
+  const playMusicById = useCallback((songId) => {
+    if (musicRef.current) {
+      musicRef.current.pause()
+      musicRef.current = null
+    }
     if (songId === 'none') return
 
     const song = MUSIC_SONGS.find((s) => s.id === songId)
     setCurrentMusicName(song ? song.label : null)
 
     const audio = new Audio(`./assets/audio/music/${songId}`)
-    audio.loop = true
+    audio.loop = prefs.musicSong !== 'random'
     audio.volume = effectiveVol(prefs.musicVolume)
     audio.preload = 'auto'
+
+    // When random and song ends, auto-advance to next random track
+    if (prefs.musicSong === 'random') {
+      audio.onended = () => {
+        const nextId = pickRandom(MUSIC_SONGS)
+        musicHistoryRef.current.push(nextId)
+        musicHistoryIndexRef.current = musicHistoryRef.current.length - 1
+        playMusicById(nextId)
+      }
+    }
+
     musicRef.current = audio
     musicStartedRef.current = true
     setMusicPlaying(true)
     audio.play().catch(() => {})
-  }, [prefs.musicSong, prefs.musicVolume, prefs.muted, effectiveVol, stopMusic])
+  }, [prefs.musicSong, prefs.musicVolume, prefs.muted, effectiveVol])
+
+  const startMusic = useCallback(() => {
+    stopMusic()
+    const songId = prefs.musicSong === 'random' ? pickRandom(MUSIC_SONGS) : prefs.musicSong
+    if (songId === 'none') return
+
+    musicHistoryRef.current = [songId]
+    musicHistoryIndexRef.current = 0
+    playMusicById(songId)
+  }, [prefs.musicSong, stopMusic, playMusicById])
+
+  const skipMusic = useCallback(() => {
+    const nextId = prefs.musicSong === 'random' ? pickRandom(MUSIC_SONGS) : prefs.musicSong
+    if (nextId === 'none') return
+    musicHistoryRef.current.push(nextId)
+    musicHistoryIndexRef.current = musicHistoryRef.current.length - 1
+    playMusicById(nextId)
+  }, [prefs.musicSong, playMusicById])
+
+  const prevMusic = useCallback(() => {
+    if (musicHistoryIndexRef.current > 0) {
+      musicHistoryIndexRef.current--
+      const prevId = musicHistoryRef.current[musicHistoryIndexRef.current]
+      playMusicById(prevId)
+    }
+  }, [playMusicById])
 
   // Start music on first user interaction
   const ensureMusicStarted = useCallback(() => {
@@ -282,6 +324,8 @@ export function useAudio() {
     dismissFound,
     startMusic,
     stopMusic,
+    skipMusic,
+    prevMusic,
     toggleMusic,
     ensureMusicStarted,
     toggleMute,

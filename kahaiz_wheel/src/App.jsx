@@ -5,6 +5,15 @@ import { useSpinWheel } from './hooks/useSpinWheel'
 import { useAudio } from './hooks/useAudio'
 import SettingsModal from './components/SettingsModal.jsx'
 import WinnerBanner from './components/WinnerBanner.jsx'
+import {
+  Settings,
+  Volume2,
+  VolumeX,
+  SkipBack,
+  SkipForward,
+  Play,
+  Pause,
+} from 'lucide-react'
 
 export default function App() {
   const [wheelType, setWheelType] = useState(WheelType.BOSS)
@@ -20,11 +29,9 @@ export default function App() {
     spinning,
     dragging,
     winner,
-    bgImageRef,
     loadedItems,
     loadItems,
     drawWheel,
-    spin,
     dismissWinner,
     angleRef,
     onDragStart,
@@ -35,25 +42,20 @@ export default function App() {
   const holiday = getCurrentHoliday()
   const title = getTitle(wheelType, holiday)
 
-  // Load images when enabled items change
   useEffect(() => {
     loadItems(enabledItems)
   }, [enabledItems, loadItems])
 
-  // Draw initial wheel when loaded items are ready
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas || loadedItems.length === 0) return
-
     const ctx = canvas.getContext('2d')
     drawWheel(ctx, loadedItems, angleRef.current, canvas.width, canvas.height)
   }, [loadedItems, canvasRef, drawWheel, angleRef])
 
-  // Handle canvas resize
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
-
     const handleResize = () => {
       const container = canvas.parentElement
       const size = Math.min(container.clientWidth - 40, 600)
@@ -64,16 +66,10 @@ export default function App() {
         drawWheel(ctx, loadedItems, angleRef.current, canvas.width, canvas.height)
       }
     }
-
     handleResize()
     window.addEventListener('resize', handleResize)
     return () => window.removeEventListener('resize', handleResize)
   }, [canvasRef, loadedItems, drawWheel, angleRef])
-
-  const handleSpin = useCallback(() => {
-    audio.ensureMusicStarted()
-    spin(enabledItems)
-  }, [spin, enabledItems, audio])
 
   const handleDismissWinner = useCallback(() => {
     audio.dismissFound()
@@ -82,51 +78,22 @@ export default function App() {
 
   return (
     <div className="app-container">
-      {/* Top-right controls */}
-      <div className="top-controls">
-        {audio.currentMusicName && !audio.prefs.muted && (
-          <span className="now-playing">♫ {audio.currentMusicName}</span>
-        )}
-        <button
-          className="mute-icon"
-          onClick={() => { audio.ensureMusicStarted(); audio.toggleMute() }}
-          aria-label={audio.prefs.muted ? 'Unmute' : 'Mute'}
-          title={audio.prefs.muted ? 'Unmute' : 'Mute'}
-        >
-          {audio.prefs.muted ? '🔇' : '🔊'}
-        </button>
-        <button
-          className="play-pause-icon"
-          onClick={() => audio.toggleMusic()}
-          aria-label={audio.musicPlaying ? 'Pause music' : 'Play music'}
-          title={audio.musicPlaying ? 'Pause music' : 'Play music'}
-        >
-          {audio.musicPlaying ? '⏸' : '▶'}
-        </button>
-        <button
-          className="config-icon"
-          onClick={() => setSettingsOpen(true)}
-          disabled={spinning}
-          aria-label="Settings"
-          title="Settings"
-        >
-          ⚙
-        </button>
-      </div>
-
       {/* Header */}
       <header className="app-header">
         <h1 className="app-title">{title}</h1>
       </header>
+      <button
+        className="config-icon"
+        onClick={() => setSettingsOpen(true)}
+        disabled={spinning}
+        aria-label="Settings"
+        title="Settings"
+      >
+        <Settings size={22} />
+      </button>
 
       {/* Wheel area */}
       <main className="wheel-stage">
-        <img
-          ref={bgImageRef}
-          alt=""
-          className="wheel-bg-image"
-          style={{ display: 'none' }}
-        />
         <div className="canvas-wrapper">
           <canvas
             ref={canvasRef}
@@ -141,18 +108,50 @@ export default function App() {
             onPointerCancel={() => onDragEnd()}
           />
         </div>
+      </main>
 
-        {/* Spin button fallback */}
-        <div className="controls">
+      {/* Bottom audio bar */}
+      <footer className="audio-bar">
+        <div className="audio-bar-track">
+          {audio.currentMusicName && !audio.prefs.muted
+            ? audio.currentMusicName
+            : 'No track'}
+        </div>
+        <div className="audio-bar-controls">
           <button
-            className="spin-btn"
-            onClick={handleSpin}
-            disabled={spinning || enabledItems.length === 0}
+            className="audio-bar-btn"
+            onClick={() => { audio.ensureMusicStarted(); audio.toggleMute() }}
+            aria-label={audio.prefs.muted ? 'Unmute' : 'Mute'}
+            title={audio.prefs.muted ? 'Unmute' : 'Mute'}
           >
-            {spinning ? '🎰 Spinning...' : '🎯 SPIN'}
+            {audio.prefs.muted ? <VolumeX size={18} /> : <Volume2 size={18} />}
+          </button>
+          <button
+            className="audio-bar-btn"
+            onClick={() => audio.prevMusic()}
+            aria-label="Previous track"
+            title="Previous track"
+          >
+            <SkipBack size={18} />
+          </button>
+          <button
+            className="audio-bar-btn audio-bar-play"
+            onClick={() => { audio.ensureMusicStarted(); audio.toggleMusic() }}
+            aria-label={audio.musicPlaying ? 'Pause' : 'Play'}
+            title={audio.musicPlaying ? 'Pause' : 'Play'}
+          >
+            {audio.musicPlaying ? <Pause size={20} /> : <Play size={20} />}
+          </button>
+          <button
+            className="audio-bar-btn"
+            onClick={() => audio.skipMusic()}
+            aria-label="Next track"
+            title="Next track"
+          >
+            <SkipForward size={18} />
           </button>
         </div>
-      </main>
+      </footer>
 
       {/* Winner announcement */}
       <WinnerBanner winner={winner} wheelType={wheelType} onDismiss={handleDismissWinner} />

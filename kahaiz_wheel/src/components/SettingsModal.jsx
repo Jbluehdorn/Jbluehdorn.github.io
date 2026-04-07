@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 import { WheelType } from '../data/constants'
 import { FOUND_SONGS, MUSIC_SONGS } from '../hooks/useAudio'
+import { Settings, CircleDot, Volume2, Play } from 'lucide-react'
 
 export default function SettingsModal({
   show,
@@ -35,7 +36,7 @@ export default function SettingsModal({
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-panel" onClick={(e) => e.stopPropagation()}>
         <div className="modal-header-bar">
-          <h2 className="modal-title">⚙ Settings</h2>
+          <h2 className="modal-title"><Settings size={18} /> Settings</h2>
           <button className="modal-close-btn" onClick={onClose}>✕</button>
         </div>
 
@@ -45,13 +46,13 @@ export default function SettingsModal({
             className={`settings-tab ${activeTab === 'wheel' ? 'active' : ''}`}
             onClick={() => setActiveTab('wheel')}
           >
-            🎡 Wheel
+            <CircleDot size={14} /> Wheel
           </button>
           <button
             className={`settings-tab ${activeTab === 'audio' ? 'active' : ''}`}
             onClick={() => setActiveTab('audio')}
           >
-            🔊 Audio
+            <Volume2 size={14} /> Audio
           </button>
         </div>
 
@@ -193,7 +194,7 @@ export default function SettingsModal({
                     title="Preview found sound"
                     disabled={audio.prefs.foundSong === 'none'}
                   >
-                    ▶
+                    <Play size={12} />
                   </button>
                 </div>
                 <div className="audio-setting">

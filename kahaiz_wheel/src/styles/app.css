@@ -49,7 +49,7 @@ body {
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  padding: 20px 10px;
+  padding: 20px 10px 60px;
 }
 
 /* --- Header --- */
@@ -67,6 +67,7 @@ body {
     2px 2px 4px rgba(0, 0, 0, 0.8),
     0 0 30px rgba(255, 165, 0, 0.2);
   letter-spacing: 2px;
+  text-align: center;
 }
 
 /* --- Wheel Stage --- */
@@ -114,118 +115,23 @@ body {
 }
 
 /* --- Controls --- */
-.controls {
-  display: flex;
-  gap: 16px;
-  align-items: center;
-}
-
-/* OSRS-style button base */
-.osrs-btn,
-.spin-btn,
-.config-btn {
-  font-family: 'RuneScape Bold', 'RuneScape', 'Arial Black', sans-serif;
-  border: 2px solid #b8860b;
-  cursor: pointer;
-  transition: all 0.15s ease;
-  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
-  letter-spacing: 1px;
-}
-
-.spin-btn {
-  font-size: 1.4rem;
-  padding: 14px 48px;
-  background: linear-gradient(180deg, #4a7c1f 0%, #2d5a0f 50%, #1a3a08 100%);
-  color: #ffd700;
-  border-radius: 6px;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.1),
-    0 4px 12px rgba(0, 0, 0, 0.4);
-}
-
-.spin-btn:hover:not(:disabled) {
-  background: linear-gradient(180deg, #5a9c2f 0%, #3d7a1f 50%, #2a5a18 100%);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.15),
-    0 4px 16px rgba(255, 215, 0, 0.2);
-  transform: translateY(-1px);
-}
-
-.spin-btn:active:not(:disabled) {
-  transform: translateY(1px);
-  box-shadow:
-    inset 0 2px 4px rgba(0, 0, 0, 0.3),
-    0 1px 4px rgba(0, 0, 0, 0.4);
-}
-
-.spin-btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-/* --- Top Controls Container --- */
-.top-controls {
+/* --- Settings Icon (fixed top-right) --- */
+.config-icon {
   position: fixed;
   top: 16px;
   right: 16px;
   z-index: 50;
+  background: none;
+  border: none;
+  color: #5a5040;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  line-height: 1;
   display: flex;
-  gap: 4px;
   align-items: center;
-}
-
-.mute-icon {
-  background: none;
-  border: none;
-  font-size: 1.4rem;
-  color: #5a5040;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 50%;
-  line-height: 1;
+  justify-content: center;
   transition: color 0.2s;
-}
-
-.mute-icon:hover {
-  color: #ffd700;
-}
-
-.now-playing {
-  font-size: 0.75rem;
-  color: #5a5040;
-  white-space: nowrap;
-  max-width: 160px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  padding-right: 4px;
-}
-
-.play-pause-icon {
-  background: none;
-  border: none;
-  font-size: 1.1rem;
-  color: #5a5040;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 50%;
-  line-height: 1;
-  transition: color 0.2s;
-}
-
-.play-pause-icon:hover {
-  color: #ffd700;
-}
-
-.config-icon {
-  background: none;
-  border: none;
-  font-size: 1.6rem;
-  color: #5a5040;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 50%;
-  line-height: 1;
-  transition: color 0.2s, transform 0.3s;
 }
 
 .config-icon:disabled {
@@ -236,7 +142,60 @@ body {
 
 .config-icon:hover:not(:disabled) {
   color: #ffd700;
-  transform: rotate(45deg);
+}
+
+/* --- Bottom Audio Bar --- */
+.audio-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 6px 16px 8px;
+  background: linear-gradient(180deg, #1a1a18 0%, #111110 100%);
+  border-top: 1px solid #3a3020;
+}
+
+.audio-bar-track {
+  font-size: 0.75rem;
+  color: #8a7a60;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+  margin-bottom: 2px;
+}
+
+.audio-bar-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.audio-bar-btn {
+  background: none;
+  border: none;
+  color: #8a7a60;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.audio-bar-btn:hover {
+  color: #ffd700;
+}
+
+.audio-bar-play {
+  color: #b8860b;
 }
 
 /* --- Modal Overlay --- */
@@ -281,6 +240,9 @@ body {
   font-size: 1.4rem;
   color: #ffd700;
   text-shadow: 0 0 8px rgba(255, 215, 0, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .modal-close-btn {
@@ -318,6 +280,10 @@ body {
   color: #8a7a60;
   cursor: pointer;
   transition: color 0.2s, border-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
 }
 
 .settings-tab:hover {
@@ -490,6 +456,12 @@ body {
 }
 
 .osrs-btn {
+  font-family: 'RuneScape Bold', 'RuneScape', 'Arial Black', sans-serif;
+  border: 2px solid #b8860b;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.6);
+  letter-spacing: 1px;
   padding: 8px 16px;
   font-size: 0.9rem;
   background: linear-gradient(180deg, #4a7c1f 0%, #2d5a0f 100%);
@@ -733,17 +705,7 @@ body {
 /* --- Responsive --- */
 @media (max-width: 480px) {
   .app-container {
-    padding: 10px 5px;
-  }
-
-  .controls {
-    flex-direction: column;
-    width: 100%;
-    gap: 10px;
-  }
-
-  .spin-btn, .config-btn {
-    width: 100%;
+    padding: 10px 5px 60px;
   }
 
   .winner-banner {

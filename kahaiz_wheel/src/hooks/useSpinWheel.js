@@ -66,6 +66,7 @@ export function useSpinWheel({ playTick, playFound }) {
   const itemsRef = useRef([])
   const lastSegmentRef = useRef(-1)
   const bgImageRef = useRef(null)
+  const currentSegmentImageRef = useRef(null)
   const pointerDeflectionRef = useRef({ angle: 0, velocity: 0, lastTime: 0 })
   const prevWheelAngleRef = useRef(0)
 
@@ -129,35 +130,80 @@ export function useSpinWheel({ playTick, playFound }) {
         '#1a3a1a', '#2e1810', '#0f2b3a', '#2e0f1a',
         '#1e2e0f', '#0f1a2e', '#2e1a2e', '#1e0f0f',
       ]
-      ctx.beginPath()
-      ctx.moveTo(centerX, centerY)
-      ctx.arc(centerX, centerY, radius, startAngle, endAngle)
-      ctx.closePath()
-      ctx.fillStyle = colors[i % colors.length]
+      const sliceColor = colors[i % colors.length]
+
+      // Define the wedge path
+      const wedgePath = () => {
+        ctx.beginPath()
+        ctx.moveTo(centerX, centerY)
+        ctx.arc(centerX, centerY, radius, startAngle, endAngle)
+        ctx.closePath()
+      }
+
+      // Base fill
+      wedgePath()
+      ctx.fillStyle = sliceColor
       ctx.fill()
-      ctx.strokeStyle = '#b8860b'
-      ctx.lineWidth = 1.5
-      ctx.stroke()
 
-      // Icon
-      ctx.save()
-      const midAngle = startAngle + sliceAngle / 2
-      ctx.translate(centerX, centerY)
-      ctx.rotate(midAngle)
-
-      const scaleFactor = Math.min(2.5, Math.max(1, 30 / count))
-      const iconSize = Math.min(48 * scaleFactor, radius * 0.12 * scaleFactor)
-      const iconDist = radius * 0.82
+      // Giant icon clipped to wedge
       if (items[i].image) {
+        ctx.save()
+        wedgePath()
+        ctx.clip()
+
+        const midAngle = startAngle + sliceAngle / 2
+        const iconSize = radius * 1.3
+        const iconDist = radius * 0.5
+        const iconX = centerX + Math.cos(midAngle) * iconDist
+        const iconY = centerY + Math.sin(midAngle) * iconDist
+
+        ctx.translate(iconX, iconY)
+        ctx.rotate(midAngle + Math.PI / 2)
         ctx.drawImage(
           items[i].image,
-          iconDist - iconSize / 2,
+          -iconSize / 2,
           -iconSize / 2,
           iconSize,
           iconSize
         )
+        ctx.restore()
+
+        // Color overlay
+        ctx.save()
+        wedgePath()
+        ctx.fillStyle = sliceColor
+        ctx.globalAlpha = 0.9
+        ctx.fill()
+        ctx.restore()
       }
-      ctx.restore()
+
+      // Wedge border
+      wedgePath()
+      ctx.strokeStyle = '#b8860b'
+      ctx.lineWidth = 1.5
+      ctx.stroke()
+
+      // Small clear icon at outer edge
+      if (items[i].image) {
+        ctx.save()
+        const midAngle = startAngle + sliceAngle / 2
+        const scaleFactor = Math.min(2.5, Math.max(1, 30 / count))
+        const smallSize = Math.min(48 * scaleFactor, radius * 0.12 * scaleFactor)
+        const smallDist = radius * 0.82
+        const smallX = centerX + Math.cos(midAngle) * smallDist
+        const smallY = centerY + Math.sin(midAngle) * smallDist
+
+        ctx.translate(smallX, smallY)
+        ctx.rotate(midAngle + Math.PI / 2)
+        ctx.drawImage(
+          items[i].image,
+          -smallSize / 2,
+          -smallSize / 2,
+          smallSize,
+          smallSize
+        )
+        ctx.restore()
+      }
     }
 
     // Center hub
@@ -238,8 +284,9 @@ export function useSpinWheel({ playTick, playFound }) {
     drawWheel(ctx, itemsRef.current, angleRef.current, canvas.width, canvas.height)
   }, [drawWheel])
 
-  // Update the background image element directly (bypasses React render)
+  // Update the current segment image for the center hub
   const updateBgImage = (item) => {
+    currentSegmentImageRef.current = item ? item.image : null
     if (bgImageRef.current) {
       if (item) {
         bgImageRef.current.src = `./assets/img/${item.filename}`
