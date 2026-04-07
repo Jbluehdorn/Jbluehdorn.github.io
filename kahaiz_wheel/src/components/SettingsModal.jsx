@@ -93,13 +93,24 @@ export default function SettingsModal({
 
               {/* Search */}
               <div className="setting-group">
-                <input
-                  type="text"
-                  className="search-input"
-                  placeholder="Search..."
-                  value={filterTerm}
-                  onChange={(e) => setFilterTerm(e.target.value)}
-                />
+                <div className="search-wrapper">
+                  <input
+                    type="text"
+                    className="search-input"
+                    placeholder="Search..."
+                    value={filterTerm}
+                    onChange={(e) => setFilterTerm(e.target.value)}
+                  />
+                  {filterTerm && (
+                    <button
+                      className="search-clear"
+                      onClick={() => setFilterTerm('')}
+                      aria-label="Clear search"
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
               </div>
 
               {/* Enabled items */}
