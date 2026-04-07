@@ -1,0 +1,15 @@
+# Best of the Worst Wheel
+
+Build me a wheel that works like the wheel found in ../kahaiz_wheel
+
+This wheel needs to have every episode of Best of the Worst from RedLetterMedia on youtube on it
+
+It will cycle through all the episodes and randomly pick one episode to watch
+
+It will have distinct differences due to its size
+
+Design wise, I was to only show 5 or so episodes on a half arc to simulate a much larger wheel but it will be random episodes
+
+We will need to scrape with a node script which runs on build to get any new episodes that we don't have loaded (could be multiple and will be many for the first time we run it)
+
+The wheel will just spin with a button and can slow at an exponential rate 

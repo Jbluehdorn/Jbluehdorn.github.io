@@ -1,0 +1,23 @@
+{
+  "name": "botw-wheel",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "scrape": "node scripts/scrape-episodes.mjs",
+    "dev": "node scripts/predev.mjs && vite",
+    "build": "node scripts/scrape-episodes.mjs && node scripts/predev.mjs && vite build && node scripts/postbuild.mjs",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "lucide-react": "^1.7.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "@vitejs/plugin-react": "^4.2.0",
+    "vite": "^5.4.0"
+  }
+}

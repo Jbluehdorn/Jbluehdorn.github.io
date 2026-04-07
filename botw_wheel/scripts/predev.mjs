@@ -1,0 +1,18 @@
+import { writeFileSync } from 'fs'
+
+const devHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best of the Worst Wheel</title>
+</head>
+<body>
+    <div id="app"></div>
+    <script type="module" src="./src/main.jsx"></script>
+</body>
+</html>
+`
+
+writeFileSync('index.html', devHtml)
+console.log('Restored dev index.html')
