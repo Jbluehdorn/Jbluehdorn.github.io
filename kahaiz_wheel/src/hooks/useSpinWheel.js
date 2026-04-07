@@ -128,11 +128,21 @@ export function useSpinWheel({ playTick, playFound }) {
       const startAngle = angle + i * sliceAngle
       const endAngle = startAngle + sliceAngle
 
-      const colors = [
+      const fallbackColors = [
         '#1a3a1a', '#2e1810', '#0f2b3a', '#2e0f1a',
         '#1e2e0f', '#0f1a2e', '#2e1a2e', '#1e0f0f',
       ]
-      const sliceColor = colors[i % colors.length]
+      let sliceColor
+      // Skills (no isSlayer property) use darkened item color
+      if (items[i].color && items[i].isSlayer === undefined) {
+        const ic = items[i].color
+        const r = parseInt(ic.slice(1, 3), 16)
+        const g = parseInt(ic.slice(3, 5), 16)
+        const b = parseInt(ic.slice(5, 7), 16)
+        sliceColor = `rgb(${Math.round(r * 0.25)}, ${Math.round(g * 0.25)}, ${Math.round(b * 0.25)})`
+      } else {
+        sliceColor = fallbackColors[i % fallbackColors.length]
+      }
 
       // Define the wedge path
       const wedgePath = () => {
