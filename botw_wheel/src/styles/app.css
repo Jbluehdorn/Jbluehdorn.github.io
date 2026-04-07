@@ -140,7 +140,6 @@ body {
 .shelves {
   display: flex;
   flex-direction: column;
-  gap: 0;
 }
 
 .shelf {
@@ -148,32 +147,16 @@ body {
 }
 
 .shelf-tapes {
-  display: flex;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
   gap: 6px;
   padding: 8px 6px 4px;
-  justify-content: center;
-  flex-wrap: nowrap;
 }
 
-.shelf-board {
-  height: 6px;
-  background: linear-gradient(180deg, #3a2a1a 0%, #2a1a0a 40%, #1a0f05 100%);
-  border-radius: 0 0 2px 2px;
-  box-shadow:
-    0 2px 6px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 rgba(255, 200, 100, 0.08);
-  margin: 0 4px;
-}
-
-/* --- Tape --- */
 .tape {
   position: relative;
   display: flex;
   flex-direction: column;
-  width: calc((100% - 54px) / 10);
-  min-width: 60px;
-  max-width: 120px;
-  flex-shrink: 0;
   cursor: default;
   transition: transform 0.3s ease, z-index 0s;
 }
@@ -585,15 +568,37 @@ body {
 }
 
 /* --- Responsive --- */
-@media (max-width: 600px) {
+@media (max-width: 900px) {
   .shelf-tapes {
-    gap: 4px;
-    padding: 6px 4px 3px;
+    grid-template-columns: repeat(auto-fill, minmax(85px, 1fr));
+  }
+}
+
+@media (max-width: 600px) {
+  .app-header {
+    padding: 10px 12px;
+    gap: 8px;
   }
 
-  .tape {
-    width: calc((100% - 28px) / 5);
-    min-width: 50px;
+  .app-title {
+    font-size: 0.9rem;
+    letter-spacing: 0;
+  }
+
+  .spin-button {
+    padding: 8px 16px;
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+  }
+
+  .shelf-stage {
+    padding: 6px 6px 20px;
+  }
+
+  .shelf-tapes {
+    grid-template-columns: repeat(auto-fill, minmax(70px, 1fr));
+    gap: 4px;
+    padding: 6px 4px 3px;
   }
 
   .tape-title {
@@ -601,14 +606,8 @@ body {
     padding: 2px 3px;
   }
 
-  .spin-button {
-    padding: 8px 20px;
-    font-size: 0.8rem;
-    letter-spacing: 2px;
-  }
-
   .winner-banner {
-    padding: 30px 20px;
+    padding: 24px 16px;
   }
 
   .winner-image {
@@ -616,6 +615,27 @@ body {
   }
 
   .winner-name {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
+  }
+
+  .winner-btn {
+    min-width: 160px;
+    padding: 10px 20px;
+    font-size: 0.85rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .app-title {
+    font-size: 0.75rem;
+  }
+
+  .shelf-tapes {
+    grid-template-columns: repeat(auto-fill, minmax(58px, 1fr));
+    gap: 3px;
+  }
+
+  .tape-title {
+    display: none;
   }
 }
