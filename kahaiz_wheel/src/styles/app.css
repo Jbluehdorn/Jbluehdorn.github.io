@@ -617,7 +617,6 @@ body {
   width: 200px;
   height: 200px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 215, 0, 0.15) 0%, transparent 70%);
   pointer-events: none;
   animation: pulse 2s ease-in-out infinite;
 }
@@ -628,17 +627,12 @@ body {
   object-fit: contain;
   position: relative;
   z-index: 1;
-  filter: drop-shadow(0 0 15px rgba(255, 215, 0, 0.4));
   animation: float 3s ease-in-out infinite;
 }
 
 .winner-name {
   font-size: 2.2rem;
-  color: #ffd700;
   margin-top: 16px;
-  text-shadow:
-    0 0 15px rgba(255, 215, 0, 0.5),
-    2px 2px 4px rgba(0, 0, 0, 0.8);
   position: relative;
   z-index: 1;
 }
