@@ -38,7 +38,7 @@ export default function App() {
   return (
     <div className="app-container">
       <header className="app-header">
-        <h1 className="app-title">🎬 Best of the Worst Wheel 🎬</h1>
+        <h1 className="app-title">🎬 BOTW Wheel 🎬</h1>
         <div className="header-controls">
           <button
             className="config-icon"
