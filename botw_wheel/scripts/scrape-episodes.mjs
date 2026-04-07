@@ -26,11 +26,13 @@ const DATA_PATH = join(__dirname, '..', 'src', 'data', 'episodes.json')
 
 function categorize(title) {
   const t = title.toLowerCase()
-  if (t.includes('black spine') || t.includes('junka')) return 'black_spine'
-  if (t.includes('wheel of the worst')) return 'wheel'
-  if (t.includes('plinketto')) return 'plinketto'
-  if (t.includes('spotlight')) return 'spotlight'
-  return 'regular'
+  const types = []
+  if (t.includes('black spine') || t.includes('junka')) types.push('black_spine')
+  if (t.includes('wheel of the worst')) types.push('wheel')
+  if (t.includes('plinketto')) types.push('plinketto')
+  if (t.includes('spotlight')) types.push('spotlight')
+  if (types.length === 0) types.push('regular')
+  return types
 }
 
 async function fetchPlaylistPage(pageToken) {
@@ -78,7 +80,7 @@ async function fetchAllEpisodes() {
         title: snippet.title,
         thumbnail,
         url: `https://www.youtube.com/watch?v=${videoId}`,
-        type: categorize(snippet.title),
+        types: categorize(snippet.title),
       })
     }
     pageToken = data.nextPageToken

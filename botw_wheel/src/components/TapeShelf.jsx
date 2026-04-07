@@ -32,7 +32,7 @@ export default function TapeShelf({ episodes, highlightId, selectedId }) {
           {episodes.map((ep) => {
             const isHighlighted = highlightId === ep.id
             const isSelected = selectedId === ep.id
-            const spineColor = EpisodeTypeColors[ep.type] || '#555'
+            const spineColor = EpisodeTypeColors[ep.types[0]] || '#555'
 
             return (
               <div

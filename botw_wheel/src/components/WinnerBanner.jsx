@@ -4,8 +4,7 @@ import { EpisodeTypeLabels, EpisodeTypeColors } from '../data/constants'
 export default function WinnerBanner({ winner, onDismiss }) {
   if (!winner) return null
 
-  const typeColor = EpisodeTypeColors[winner.type] || '#cc0000'
-  const typeLabel = EpisodeTypeLabels[winner.type] || 'Episode'
+  const typeColor = EpisodeTypeColors[winner.types[0]] || '#cc0000'
 
   return (
     <div className="winner-overlay" onClick={onDismiss}>
@@ -27,9 +26,17 @@ export default function WinnerBanner({ winner, onDismiss }) {
             }}
           />
         )}
-        <span className="winner-type-badge" style={{ background: typeColor }}>
-          {typeLabel}
-        </span>
+        <div className="winner-type-badges">
+          {winner.types.map((t) => (
+            <span
+              key={t}
+              className="winner-type-badge"
+              style={{ background: EpisodeTypeColors[t] || '#555' }}
+            >
+              {EpisodeTypeLabels[t] || t}
+            </span>
+          ))}
+        </div>
         <h2
           className="winner-name"
           style={{

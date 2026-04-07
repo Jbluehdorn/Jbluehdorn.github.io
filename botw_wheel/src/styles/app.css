@@ -457,6 +457,14 @@ body {
   z-index: 1;
 }
 
+.winner-type-badges {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
 .winner-type-badge {
   display: inline-block;
   margin-top: 12px;

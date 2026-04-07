@@ -31,14 +31,16 @@ export function useEpisodes() {
   }, [])
 
   const filteredEpisodes = useMemo(
-    () => episodeData.filter((ep) => enabledTypes[ep.type]),
+    () => episodeData.filter((ep) => ep.types.some((t) => enabledTypes[t])),
     [enabledTypes]
   )
 
   const typeCounts = useMemo(() => {
     const counts = {}
     for (const t of ALL_TYPES) counts[t] = 0
-    for (const ep of episodeData) counts[ep.type] = (counts[ep.type] || 0) + 1
+    for (const ep of episodeData) {
+      for (const t of ep.types) counts[t] = (counts[t] || 0) + 1
+    }
     return counts
   }, [])
 
