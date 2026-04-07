@@ -50,6 +50,15 @@ function savePrefs(prefs) {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(prefs))
 }
 
+function shuffleArray(arr) {
+  const shuffled = [...arr]
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+  }
+  return shuffled
+}
+
 function pickRandom(songs) {
   const playable = songs.filter((s) => s.id !== 'random' && s.id !== 'none')
   return playable[Math.floor(Math.random() * playable.length)].id
@@ -83,6 +92,18 @@ export function useAudio() {
   // --- Music management ---
   const musicHistoryRef = useRef([])
   const musicHistoryIndexRef = useRef(-1)
+  const shuffleQueueRef = useRef([])
+  const shuffleIndexRef = useRef(0)
+
+  const getNextShuffleSong = useCallback(() => {
+    const playable = MUSIC_SONGS.filter((s) => s.id !== 'random' && s.id !== 'none')
+    // If queue is exhausted or empty, reshuffle
+    if (shuffleIndexRef.current >= shuffleQueueRef.current.length) {
+      shuffleQueueRef.current = shuffleArray(playable.map((s) => s.id))
+      shuffleIndexRef.current = 0
+    }
+    return shuffleQueueRef.current[shuffleIndexRef.current++]
+  }, [])
 
   const stopMusic = useCallback(() => {
     if (musicRef.current) {
@@ -110,10 +131,10 @@ export function useAudio() {
     audio.volume = effectiveVol(prefs.musicVolume)
     audio.preload = 'auto'
 
-    // When random and song ends, auto-advance to next random track
+    // When random and song ends, auto-advance to next shuffled track
     if (prefs.musicSong === 'random') {
       audio.onended = () => {
-        const nextId = pickRandom(MUSIC_SONGS)
+        const nextId = getNextShuffleSong()
         musicHistoryRef.current.push(nextId)
         musicHistoryIndexRef.current = musicHistoryRef.current.length - 1
         playMusicById(nextId)
@@ -124,25 +145,33 @@ export function useAudio() {
     musicStartedRef.current = true
     setMusicPlaying(true)
     audio.play().catch(() => {})
-  }, [prefs.musicSong, prefs.musicVolume, prefs.muted, effectiveVol])
+  }, [prefs.musicSong, prefs.musicVolume, prefs.muted, effectiveVol, getNextShuffleSong])
 
   const startMusic = useCallback(() => {
     stopMusic()
-    const songId = prefs.musicSong === 'random' ? pickRandom(MUSIC_SONGS) : prefs.musicSong
+    // Reset shuffle queue on fresh start
+    shuffleQueueRef.current = []
+    shuffleIndexRef.current = 0
+    const songId = prefs.musicSong === 'random' ? getNextShuffleSong() : prefs.musicSong
     if (songId === 'none') return
 
     musicHistoryRef.current = [songId]
     musicHistoryIndexRef.current = 0
     playMusicById(songId)
-  }, [prefs.musicSong, stopMusic, playMusicById])
+  }, [prefs.musicSong, stopMusic, playMusicById, getNextShuffleSong])
 
   const skipMusic = useCallback(() => {
-    const nextId = prefs.musicSong === 'random' ? pickRandom(MUSIC_SONGS) : prefs.musicSong
+    let nextId
+    if (prefs.musicSong === 'random') {
+      nextId = getNextShuffleSong()
+    } else {
+      nextId = prefs.musicSong
+    }
     if (nextId === 'none') return
     musicHistoryRef.current.push(nextId)
     musicHistoryIndexRef.current = musicHistoryRef.current.length - 1
     playMusicById(nextId)
-  }, [prefs.musicSong, playMusicById])
+  }, [prefs.musicSong, playMusicById, getNextShuffleSong])
 
   const prevMusic = useCallback(() => {
     if (musicHistoryIndexRef.current > 0) {
