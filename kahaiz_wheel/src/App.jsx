@@ -2,6 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react'
 import { WheelType, getCurrentHoliday, getTitle } from './data/constants'
 import { useWheelItems } from './hooks/useWheelItems'
 import { useSpinWheel } from './hooks/useSpinWheel'
+import { useAudio } from './hooks/useAudio'
 import SettingsModal from './components/SettingsModal.jsx'
 import WinnerBanner from './components/WinnerBanner.jsx'
 
@@ -11,6 +12,8 @@ export default function App() {
 
   const { items, enabledItems, toggleItem, enableAll, disableAll } =
     useWheelItems(wheelType)
+
+  const audio = useAudio()
 
   const {
     canvasRef,
@@ -27,7 +30,7 @@ export default function App() {
     onDragStart,
     onDragMove,
     onDragEnd,
-  } = useSpinWheel()
+  } = useSpinWheel({ playTick: audio.playTick, playFound: audio.playFound })
 
   const holiday = getCurrentHoliday()
   const title = getTitle(wheelType, holiday)
@@ -68,21 +71,48 @@ export default function App() {
   }, [canvasRef, loadedItems, drawWheel, angleRef])
 
   const handleSpin = useCallback(() => {
+    audio.ensureMusicStarted()
     spin(enabledItems)
-  }, [spin, enabledItems])
+  }, [spin, enabledItems, audio])
+
+  const handleDismissWinner = useCallback(() => {
+    audio.dismissFound()
+    dismissWinner()
+  }, [audio, dismissWinner])
 
   return (
     <div className="app-container">
-      {/* Settings gear — fixed top-right */}
-      <button
-        className="config-icon"
-        onClick={() => setSettingsOpen(true)}
-        disabled={spinning}
-        aria-label="Settings"
-        title="Settings"
-      >
-        ⚙
-      </button>
+      {/* Top-right controls */}
+      <div className="top-controls">
+        {audio.currentMusicName && !audio.prefs.muted && (
+          <span className="now-playing">♫ {audio.currentMusicName}</span>
+        )}
+        <button
+          className="mute-icon"
+          onClick={() => { audio.ensureMusicStarted(); audio.toggleMute() }}
+          aria-label={audio.prefs.muted ? 'Unmute' : 'Mute'}
+          title={audio.prefs.muted ? 'Unmute' : 'Mute'}
+        >
+          {audio.prefs.muted ? '🔇' : '🔊'}
+        </button>
+        <button
+          className="play-pause-icon"
+          onClick={() => audio.toggleMusic()}
+          aria-label={audio.musicPlaying ? 'Pause music' : 'Play music'}
+          title={audio.musicPlaying ? 'Pause music' : 'Play music'}
+        >
+          {audio.musicPlaying ? '⏸' : '▶'}
+        </button>
+        <button
+          className="config-icon"
+          onClick={() => setSettingsOpen(true)}
+          disabled={spinning}
+          aria-label="Settings"
+          title="Settings"
+        >
+          ⚙
+        </button>
+      </div>
 
       {/* Header */}
       <header className="app-header">
@@ -102,6 +132,7 @@ export default function App() {
             ref={canvasRef}
             className={`wheel-canvas ${dragging ? 'grabbing' : ''}`}
             onPointerDown={(e) => {
+              audio.ensureMusicStarted()
               e.currentTarget.setPointerCapture(e.pointerId)
               onDragStart(e.clientX, e.clientY)
             }}
@@ -124,7 +155,7 @@ export default function App() {
       </main>
 
       {/* Winner announcement */}
-      <WinnerBanner winner={winner} wheelType={wheelType} onDismiss={dismissWinner} />
+      <WinnerBanner winner={winner} wheelType={wheelType} onDismiss={handleDismissWinner} />
 
       {/* Settings modal */}
       <SettingsModal
@@ -136,6 +167,7 @@ export default function App() {
         onToggleItem={toggleItem}
         onEnableAll={enableAll}
         onDisableAll={disableAll}
+        audio={audio}
       />
     </div>
   )

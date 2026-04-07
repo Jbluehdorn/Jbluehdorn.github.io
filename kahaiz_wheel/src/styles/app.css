@@ -163,11 +163,60 @@ body {
   cursor: not-allowed;
 }
 
-.config-icon {
+/* --- Top Controls Container --- */
+.top-controls {
   position: fixed;
   top: 16px;
   right: 16px;
   z-index: 50;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.mute-icon {
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: #5a5040;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.mute-icon:hover {
+  color: #ffd700;
+}
+
+.now-playing {
+  font-size: 0.75rem;
+  color: #5a5040;
+  white-space: nowrap;
+  max-width: 160px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-right: 4px;
+}
+
+.play-pause-icon {
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  color: #5a5040;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  line-height: 1;
+  transition: color 0.2s;
+}
+
+.play-pause-icon:hover {
+  color: #ffd700;
+}
+
+.config-icon {
   background: none;
   border: none;
   font-size: 1.6rem;
@@ -267,6 +316,102 @@ body {
   margin-bottom: 8px;
   text-transform: uppercase;
   letter-spacing: 1px;
+}
+
+/* --- Audio Settings --- */
+.audio-setting {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.audio-setting-label {
+  flex: 0 0 110px;
+  font-size: 0.85rem;
+  color: #c0b090;
+}
+
+.audio-select {
+  flex: 1;
+  padding: 6px 8px;
+  background: #1a1a1a;
+  border: 1px solid #3a3020;
+  border-radius: 4px;
+  color: #c0b090;
+  font-family: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+
+.audio-select:focus {
+  outline: none;
+  border-color: #b8860b;
+}
+
+.volume-slider {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  background: #3a3020;
+  border-radius: 3px;
+  outline: none;
+  cursor: pointer;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #b8860b;
+  border: 2px solid #ffd700;
+  cursor: pointer;
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #b8860b;
+  border: 2px solid #ffd700;
+  cursor: pointer;
+}
+
+.volume-value {
+  flex: 0 0 36px;
+  font-size: 0.8rem;
+  color: #8a7a60;
+  text-align: right;
+}
+
+.preview-btn {
+  flex: 0 0 28px;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  background: #1a1a1a;
+  border: 1px solid #3a3020;
+  border-radius: 4px;
+  color: #b8860b;
+  font-size: 0.75rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: border-color 0.2s, color 0.2s;
+}
+
+.preview-btn:hover:not(:disabled) {
+  border-color: #b8860b;
+  color: #ffd700;
+}
+
+.preview-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
 }
 
 /* Wheel type toggle buttons */

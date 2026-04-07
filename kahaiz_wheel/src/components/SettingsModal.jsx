@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react'
 import { WheelType } from '../data/constants'
+import { FOUND_SONGS, MUSIC_SONGS } from '../hooks/useAudio'
 
 export default function SettingsModal({
   show,
@@ -10,6 +11,7 @@ export default function SettingsModal({
   onToggleItem,
   onEnableAll,
   onDisableAll,
+  audio,
 }) {
   const [filterTerm, setFilterTerm] = React.useState('')
 
@@ -54,6 +56,82 @@ export default function SettingsModal({
                   {opt.label}
                 </button>
               ))}
+            </div>
+          </div>
+
+          {/* Audio settings */}
+          <div className="setting-group">
+            <label className="setting-label">🔊 Audio</label>
+
+            <div className="audio-setting">
+              <label className="audio-setting-label">Tick Volume</label>
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value={Math.round(audio.prefs.tickVolume * 100)}
+                onChange={(e) => audio.setTickVolume(Number(e.target.value) / 100)}
+                className="volume-slider"
+              />
+              <span className="volume-value">{Math.round(audio.prefs.tickVolume * 100)}%</span>
+            </div>
+
+            <div className="audio-setting">
+              <label className="audio-setting-label">Found Sound</label>
+              <select
+                className="audio-select"
+                value={audio.prefs.foundSong}
+                onChange={(e) => audio.setFoundSong(e.target.value)}
+              >
+                {FOUND_SONGS.map((s) => (
+                  <option key={s.id} value={s.id}>{s.label}</option>
+                ))}
+              </select>
+              <button
+                className="preview-btn"
+                onClick={() => audio.previewFound()}
+                title="Preview found sound"
+                disabled={audio.prefs.foundSong === 'none'}
+              >
+                ▶
+              </button>
+            </div>
+            <div className="audio-setting">
+              <label className="audio-setting-label">Found Volume</label>
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value={Math.round(audio.prefs.foundVolume * 100)}
+                onChange={(e) => audio.setFoundVolume(Number(e.target.value) / 100)}
+                className="volume-slider"
+              />
+              <span className="volume-value">{Math.round(audio.prefs.foundVolume * 100)}%</span>
+            </div>
+
+            <div className="audio-setting">
+              <label className="audio-setting-label">Music</label>
+              <select
+                className="audio-select"
+                value={audio.prefs.musicSong}
+                onChange={(e) => audio.setMusicSong(e.target.value)}
+              >
+                {MUSIC_SONGS.map((s) => (
+                  <option key={s.id} value={s.id}>{s.label}</option>
+                ))}
+              </select>
+            </div>
+            <div className="audio-setting">
+              <label className="audio-setting-label">Music Volume</label>
+              <input
+                type="range"
+                min="0"
+                max="100"
+                value={Math.round(audio.prefs.musicVolume * 100)}
+                onChange={(e) => audio.setMusicVolume(Number(e.target.value) / 100)}
+                className="volume-slider"
+              />
+              <span className="volume-value">{Math.round(audio.prefs.musicVolume * 100)}%</span>
             </div>
           </div>
 
