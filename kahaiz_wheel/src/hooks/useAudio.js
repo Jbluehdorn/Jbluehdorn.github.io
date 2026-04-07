@@ -23,6 +23,7 @@ export const MUSIC_SONGS = [
   { id: 'Royale.ogg', label: 'Royale' },
   { id: 'Sea_Shanty_2.ogg', label: 'Sea Shanty 2' },
   { id: 'Song_of_the_Elves.ogg', label: 'Song of the Elves' },
+  { id: 'The Price is Right theme song.mp3', label: 'The Price is Right' },
   { id: 'Yo_Ho_Ho!.ogg', label: 'Yo Ho Ho!' },
 ]
 
