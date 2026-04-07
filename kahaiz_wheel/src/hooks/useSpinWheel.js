@@ -16,23 +16,22 @@ function preloadImages(items) {
 }
 
 // Minimum flick velocity (radians/ms) to trigger a spin
-const FLICK_THRESHOLD = 0.0025
-// Friction for free-spin deceleration (multiplied each frame)
-const FRICTION = 0.985
-// Velocity below which the wheel stops (radians/ms)
-const STOP_VELOCITY = 0.0003
+const FLICK_THRESHOLD = 0.002
 
-// Exponential ease-out: fast start, smooth continuous deceleration
-function multiPhaseEase(t) {
-  return 1 - Math.pow(2, -10 * t)
+const DEFAULT_PHYSICS = {
+  friction: 0.00027,
+  pegDragPerRev: 0.0057,
+  flickMultiplier: 2,
+  stopVelocity: 0.000072,
 }
 
 // Pointer wobble spring parameters
 const POINTER_SPRING = 600
-const POINTER_DAMPING = 30
-const POINTER_KICK = 5         // radians/sec velocity impulse per tick
+const POINTER_DAMPING = 16
+const POINTER_RESIST = 0.08    // immediate angular deflection against spin
 const POINTER_MAX_ANGLE = 0.22 // max deflection in radians (~12.6°)
-const POINTER_MAX_VEL = 15     // cap velocity to prevent runaway
+const POINTER_MAX_VEL = 20     // cap velocity to prevent runaway
+const PEG_NUDGE = 0.0001       // small wheel velocity nudge per peg (spin direction)
 
 function stepPointerDeflection(deflection, now) {
   if (deflection.lastTime === 0) {
@@ -76,6 +75,9 @@ export function useSpinWheel({ playTick, playFound }) {
   const dragStartPointerAngleRef = useRef(0)
   const velocityHistoryRef = useRef([]) // { angle, time } samples
   const spinningRef = useRef(false)
+  const velocityRef = useRef(0) // current angular velocity (rad/ms)
+  const lastFrameTimeRef = useRef(0)
+  const physicsRef = useRef({ ...DEFAULT_PHYSICS })
 
   // Keep stable refs to audio callbacks so animation closures always get latest
   const playTickRef = useRef(playTick)
@@ -313,7 +315,8 @@ export function useSpinWheel({ playTick, playFound }) {
       lastSegmentRef.current = currentSegment
       updateBgImage(items[currentSegment])
       const dir = Math.sign(currentAngle - prevWheelAngleRef.current) || 1
-      pointerDeflectionRef.current.velocity += POINTER_KICK * -dir
+      pointerDeflectionRef.current.angle = POINTER_RESIST * -dir
+      pointerDeflectionRef.current.velocity = 0
       prevWheelAngleRef.current = currentAngle
       playTickRef.current()
     }
@@ -336,16 +339,18 @@ export function useSpinWheel({ playTick, playFound }) {
   // --- Drag handlers ---
 
   const onDragStart = useCallback((clientX, clientY) => {
-    if (spinningRef.current) return
-
-    // Cancel any ongoing deceleration
+    // Cancel any ongoing spin animation — user is grabbing the wheel
     if (animRef.current) {
       cancelAnimationFrame(animRef.current)
       animRef.current = null
     }
+    spinningRef.current = false
+    velocityRef.current = 0
+    setSpinning(false)
 
     isDraggingRef.current = true
     setDragging(true)
+    setWinner(null)
     dragStartAngleRef.current = angleRef.current
     dragStartPointerAngleRef.current = getPointerAngle(clientX, clientY)
     velocityHistoryRef.current = [{ angle: angleRef.current, time: performance.now() }]
@@ -386,8 +391,6 @@ export function useSpinWheel({ playTick, playFound }) {
     const velocity = (recent.angle - older.angle) / dt // radians per ms
 
     if (Math.abs(velocity) > FLICK_THRESHOLD) {
-      // Flick detected — use the same spin logic as the button
-      // but inherit the flick direction
       const items = itemsRef.current
       const count = items.length
       if (count === 0) return
@@ -396,246 +399,100 @@ export function useSpinWheel({ playTick, playFound }) {
       setSpinning(true)
       setWinner(null)
 
-      const sliceAngle = (2 * Math.PI) / count
-      const direction = velocity > 0 ? 1 : -1
-
-      // Pick winner using weighted random
-      const weightedArr = items.reduce((arr, item) => {
-        for (let i = 0; i < item.weight; i++) arr.push(item)
-        return arr
-      }, [])
-      const chosenWinner = weightedArr[Math.floor(Math.random() * weightedArr.length)]
-      const winnerIndex = items.findIndex((i) => i.name === chosenWinner.name)
-
-      const jitter = (Math.random() - 0.5) * sliceAngle * 0.7
-      const desiredFinal = -Math.PI / 2 - winnerIndex * sliceAngle - sliceAngle / 2 + jitter
-      const normalizedTarget = ((desiredFinal % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI)
-      const normalizedCurrent = ((angleRef.current % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI)
-
-      // Scale rotations and duration based on flick speed
-      // absVelocity ranges roughly from FLICK_THRESHOLD (~0.0025) to ~0.05 for a hard flick
-      const absVelocity = Math.abs(velocity)
-      const speedFactor = Math.min(1, (absVelocity - FLICK_THRESHOLD) / 0.03) // 0 to 1
-      const minRotations = 1.5
-      const maxRotations = 10
-      const rotations = minRotations + speedFactor * (maxRotations - minRotations) + Math.random()
-      const fullRotations = rotations * 2 * Math.PI
-
-      let angleDiff = ((normalizedTarget - normalizedCurrent) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI)
-      // Ensure spin goes in the flick direction
-      if (direction < 0) angleDiff = angleDiff - 2 * Math.PI
-      const totalAngle = direction * fullRotations + angleDiff
-
-      const startAngle = angleRef.current
-      // Duration: gentle flick ~7s, hard flick ~12s
-      const minDuration = 7000
-      const maxDuration = 12000
-      const duration = minDuration + speedFactor * (maxDuration - minDuration) + Math.random() * 500
-      const startTime = performance.now()
+      velocityRef.current = velocity * physicsRef.current.flickMultiplier
+      lastFrameTimeRef.current = performance.now()
       lastSegmentRef.current = -1
 
+      const sliceAngle = (2 * Math.PI) / count
+
+      const spinDirection = Math.sign(velocity)
+
       const animate = (now) => {
-        const elapsed = now - startTime
-        const progress = Math.min(elapsed / duration, 1)
-        const eased = multiPhaseEase(progress)
-        const currentAngle = startAngle + totalAngle * eased
-        angleRef.current = currentAngle
+        const frameDt = now - lastFrameTimeRef.current
+        lastFrameTimeRef.current = now
+        const { friction, pegDragPerRev } = physicsRef.current
+        const pegDrag = pegDragPerRev / count
+
+        // Apply friction: linear (proportional to v) + quadratic (v²) + constant minimum
+        velocityRef.current -= velocityRef.current * friction * frameDt
+        const quadFriction = 0.015 * velocityRef.current * Math.abs(velocityRef.current) * frameDt
+        velocityRef.current -= quadFriction
+        const minDecel = 0.0000002 * frameDt
+        if (Math.abs(velocityRef.current) > minDecel) {
+          velocityRef.current -= spinDirection * minDecel
+        }
+
+        // Never go backwards — clamp before updating position
+        if (Math.sign(velocityRef.current) !== spinDirection && velocityRef.current !== 0) {
+          velocityRef.current = 0
+        }
+
+        // Update angle
+        angleRef.current += velocityRef.current * frameDt
         redraw()
 
+        // Check for peg crossings
         const pointerAngle =
-          (((-currentAngle - Math.PI / 2) % (2 * Math.PI)) + 2 * Math.PI) %
+          (((-angleRef.current - Math.PI / 2) % (2 * Math.PI)) + 2 * Math.PI) %
           (2 * Math.PI)
         const currentSegment = Math.floor(pointerAngle / sliceAngle) % count
         if (currentSegment !== lastSegmentRef.current) {
           lastSegmentRef.current = currentSegment
           updateBgImage(items[currentSegment])
-          const dir = Math.sign(currentAngle - prevWheelAngleRef.current) || 1
-          pointerDeflectionRef.current.velocity += POINTER_KICK * -dir
-          prevWheelAngleRef.current = currentAngle
-          if (progress < 0.95) playTickRef.current()
+
+          // Pointer wobble — deflect against spin, spring creates snap-forward
+          const dir = Math.sign(angleRef.current - prevWheelAngleRef.current) || 1
+          pointerDeflectionRef.current.angle = POINTER_RESIST * -dir
+          pointerDeflectionRef.current.velocity = 0
+          prevWheelAngleRef.current = angleRef.current
+
+          // Peg drag + nudge only when wheel is spinning fast enough
+          // Below this, let pure friction handle the smooth coast to stop
+          const absVel = Math.abs(velocityRef.current)
+          if (absVel > 0.001) {
+            // Cap peg drag at 8% of current velocity to prevent lurching with few slices
+            const effectiveDrag = Math.min(pegDrag, absVel * 0.06)
+            velocityRef.current -= spinDirection * effectiveDrag
+            velocityRef.current += spinDirection * PEG_NUDGE
+
+            // Clamp again after peg forces
+            if (Math.sign(velocityRef.current) !== spinDirection && velocityRef.current !== 0) {
+              velocityRef.current = 0
+            }
+          }
+
+          playTickRef.current()
         }
 
-        if (progress < 1) {
-          animRef.current = requestAnimationFrame(animate)
-        } else {
+        // Check if wheel should stop
+        if (Math.abs(velocityRef.current) < physicsRef.current.stopVelocity) {
           animRef.current = null
-          spinningRef.current = false
-          const finalAngle = angleRef.current
-          const finalPointer =
-            (((-finalAngle - Math.PI / 2) % (2 * Math.PI)) + 2 * Math.PI) %
-            (2 * Math.PI)
-          const landedIndex = Math.floor(finalPointer / sliceAngle) % count
-          const actualWinner = items[landedIndex]
+          velocityRef.current = 0
 
-          setWinner(actualWinner)
-          setSpinning(false)
-          updateBgImage(null)
-          playFoundRef.current()
+          // Suspense pause before revealing winner
+          setTimeout(() => {
+            spinningRef.current = false
+            const finalPointer =
+              (((-angleRef.current - Math.PI / 2) % (2 * Math.PI)) + 2 * Math.PI) %
+              (2 * Math.PI)
+            const landedIndex = Math.floor(finalPointer / sliceAngle) % count
+            setWinner(items[landedIndex])
+            setSpinning(false)
+            updateBgImage(null)
+            playFoundRef.current()
+          }, 1200)
+        } else {
+          animRef.current = requestAnimationFrame(animate)
         }
       }
 
       animRef.current = requestAnimationFrame(animate)
     }
-  }, [redraw, playTickIfNeeded, getWinnerAtCurrentAngle])
-
-  // --- Button spin (fallback) ---
-
-  const spin = useCallback((enabledItems) => {
-    if (spinningRef.current || enabledItems.length === 0) return
-
-    spinningRef.current = true
-    setSpinning(true)
-    setWinner(null)
-
-    const items = itemsRef.current
-    const count = items.length
-    if (count === 0) return
-
-    const sliceAngle = (2 * Math.PI) / count
-
-    // Pick winner using weighted random
-    const weightedArr = enabledItems.reduce((arr, item) => {
-      for (let i = 0; i < item.weight; i++) arr.push(item)
-      return arr
-    }, [])
-    const chosenWinner = weightedArr[Math.floor(Math.random() * weightedArr.length)]
-    const winnerIndex = items.findIndex((i) => i.name === chosenWinner.name)
-
-    const jitter = (Math.random() - 0.5) * sliceAngle * 0.7
-    const desiredFinal = -Math.PI / 2 - winnerIndex * sliceAngle - sliceAngle / 2 + jitter
-    const normalizedTarget = ((desiredFinal % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI)
-    const normalizedCurrent = ((angleRef.current % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI)
-    const fullRotations = (6 + Math.random() * 4) * 2 * Math.PI
-    const angleDiff = ((normalizedTarget - normalizedCurrent) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI)
-    const totalAngle = fullRotations + angleDiff
-
-    const startAngle = angleRef.current
-    const duration = 8000 + Math.random() * 4000
-    const startTime = performance.now()
-    lastSegmentRef.current = -1
-
-    const animate = (now) => {
-      const elapsed = now - startTime
-      const progress = Math.min(elapsed / duration, 1)
-      const eased = multiPhaseEase(progress)
-      const currentAngle = startAngle + totalAngle * eased
-      angleRef.current = currentAngle
-
-      const canvas = canvasRef.current
-      if (!canvas) return
-      const ctx = canvas.getContext('2d')
-      drawWheel(ctx, items, currentAngle, canvas.width, canvas.height)
-
-      const pointerAngle =
-        (((-currentAngle - Math.PI / 2) % (2 * Math.PI)) + 2 * Math.PI) %
-        (2 * Math.PI)
-      const currentSegment = Math.floor(pointerAngle / sliceAngle) % count
-      if (currentSegment !== lastSegmentRef.current) {
-        lastSegmentRef.current = currentSegment
-        updateBgImage(items[currentSegment])
-        const dir = Math.sign(currentAngle - prevWheelAngleRef.current) || 1
-        pointerDeflectionRef.current.velocity += POINTER_KICK * -dir
-        prevWheelAngleRef.current = currentAngle
-        if (progress < 0.95) playTickRef.current()
-      }
-
-      if (progress < 1) {
-        animRef.current = requestAnimationFrame(animate)
-      } else {
-        animRef.current = null
-        spinningRef.current = false
-        const finalAngle = angleRef.current
-        const finalPointer =
-          (((-finalAngle - Math.PI / 2) % (2 * Math.PI)) + 2 * Math.PI) %
-          (2 * Math.PI)
-        const landedIndex = Math.floor(finalPointer / sliceAngle) % count
-        const actualWinner = items[landedIndex]
-
-        setWinner(actualWinner)
-        setSpinning(false)
-        updateBgImage(null)
-        playFoundRef.current()
-      }
-    }
-
-    animRef.current = requestAnimationFrame(animate)
-  }, [drawWheel])
+  }, [redraw])
 
   const dismissWinner = useCallback(() => {
     setWinner(null)
   }, [])
-
-  // Debug: slowest possible spin (1.5 rotations, 3.5s)
-  const debugSlowSpin = useCallback(() => {
-    if (spinningRef.current) return
-    const items = itemsRef.current
-    const count = items.length
-    if (count === 0) return
-
-    spinningRef.current = true
-    setSpinning(true)
-    setWinner(null)
-
-    const sliceAngle = (2 * Math.PI) / count
-    const weightedArr = items.reduce((arr, item) => {
-      for (let i = 0; i < item.weight; i++) arr.push(item)
-      return arr
-    }, [])
-    const chosenWinner = weightedArr[Math.floor(Math.random() * weightedArr.length)]
-    const winnerIndex = items.findIndex((i) => i.name === chosenWinner.name)
-
-    const jitter = (Math.random() - 0.5) * sliceAngle * 0.7
-    const desiredFinal = -Math.PI / 2 - winnerIndex * sliceAngle - sliceAngle / 2 + jitter
-    const normalizedTarget = ((desiredFinal % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI)
-    const normalizedCurrent = ((angleRef.current % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI)
-
-    const fullRotations = 1.5 * 2 * Math.PI
-    let angleDiff = ((normalizedTarget - normalizedCurrent) % (2 * Math.PI) + 2 * Math.PI) % (2 * Math.PI)
-    const totalAngle = fullRotations + angleDiff
-
-    const startAngle = angleRef.current
-    const duration = 5000
-    const startTime = performance.now()
-    lastSegmentRef.current = -1
-
-    const animate = (now) => {
-      const elapsed = now - startTime
-      const progress = Math.min(elapsed / duration, 1)
-      const eased = multiPhaseEase(progress)
-      const currentAngle = startAngle + totalAngle * eased
-      angleRef.current = currentAngle
-      redraw()
-
-      const pointerAngle =
-        (((-currentAngle - Math.PI / 2) % (2 * Math.PI)) + 2 * Math.PI) %
-        (2 * Math.PI)
-      const currentSegment = Math.floor(pointerAngle / sliceAngle) % count
-      if (currentSegment !== lastSegmentRef.current) {
-        lastSegmentRef.current = currentSegment
-        const dir = Math.sign(currentAngle - prevWheelAngleRef.current) || 1
-        pointerDeflectionRef.current.velocity += POINTER_KICK * -dir
-        prevWheelAngleRef.current = currentAngle
-        if (progress < 0.95) playTickRef.current()
-      }
-
-      if (progress < 1) {
-        animRef.current = requestAnimationFrame(animate)
-      } else {
-        animRef.current = null
-        spinningRef.current = false
-        const finalAngle = angleRef.current
-        const finalPointer =
-          (((-finalAngle - Math.PI / 2) % (2 * Math.PI)) + 2 * Math.PI) %
-          (2 * Math.PI)
-        const landedIndex = Math.floor(finalPointer / sliceAngle) % count
-        setWinner(items[landedIndex])
-        setSpinning(false)
-        updateBgImage(null)
-        playFoundRef.current()
-      }
-    }
-    animRef.current = requestAnimationFrame(animate)
-  }, [redraw])
 
   // Cleanup
   useEffect(() => {
@@ -649,14 +506,11 @@ export function useSpinWheel({ playTick, playFound }) {
     spinning,
     dragging,
     winner,
-    bgImageRef,
     loadedItems,
     loadItems,
     drawWheel,
-    spin,
     dismissWinner,
     angleRef,
-    debugSlowSpin,
     onDragStart,
     onDragMove,
     onDragEnd,
