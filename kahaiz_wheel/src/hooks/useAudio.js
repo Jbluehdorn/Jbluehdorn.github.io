@@ -193,9 +193,11 @@ export function useAudio() {
     }
   }, [prefs.musicVolume, prefs.muted, effectiveVol])
 
-  // Restart music when song selection changes (only if already playing)
+  // Restart music when song selection changes
   useEffect(() => {
-    if (musicStartedRef.current) {
+    if (prefs.musicSong === 'none') {
+      stopMusic()
+    } else {
       startMusic()
     }
   }, [prefs.musicSong]) // eslint-disable-line react-hooks/exhaustive-deps
