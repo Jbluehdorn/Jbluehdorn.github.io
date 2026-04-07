@@ -231,12 +231,24 @@ export function useAudio() {
     const songId = prefs.foundSong === 'random' ? pickRandom(FOUND_SONGS) : prefs.foundSong
     if (songId === 'none') return
 
+    // Duck music during preview
+    if (musicRef.current && !musicRef.current.paused && musicRef.current.volume > 0) {
+      musicRef.current.volume = 0
+      musicWasPausedForFound.current = true
+    }
+
     const audio = new Audio(`./assets/audio/found/${songId}`)
     audio.volume = effectiveVol(prefs.foundVolume)
-    audio.onended = () => { previewRef.current = null }
+    audio.onended = () => {
+      previewRef.current = null
+      if (musicWasPausedForFound.current && musicRef.current) {
+        musicRef.current.volume = effectiveVol(prefs.musicVolume)
+        musicWasPausedForFound.current = false
+      }
+    }
     previewRef.current = audio
     audio.play().catch(() => {})
-  }, [prefs.foundSong, prefs.foundVolume, effectiveVol])
+  }, [prefs.foundSong, prefs.foundVolume, prefs.musicVolume, effectiveVol])
 
   // --- Setters ---
   const setMuted = useCallback((muted) => {
