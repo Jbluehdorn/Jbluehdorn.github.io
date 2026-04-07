@@ -28,7 +28,7 @@ function categorize(title) {
   const t = title.toLowerCase()
   const types = []
   if (t.includes('black spine') || t.includes('junka')) types.push('black_spine')
-  if (t.includes('wheel of the worst')) types.push('wheel')
+  if (t.includes('wheel of the worst') || t.includes('wheel of the black spine')) types.push('wheel')
   if (t.includes('plinketto')) types.push('plinketto')
   if (t.includes('spotlight')) types.push('spotlight')
   if (types.length === 0) types.push('regular')
