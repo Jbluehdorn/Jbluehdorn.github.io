@@ -9,7 +9,7 @@ function shuffleArray(arr) {
   return a
 }
 
-export function useSpinWheel({ playTick, playWinner }) {
+export function useSpinWheel({ playTick, startSpinMusic, stopSpinMusic, playWinner }) {
   const [spinning, setSpinning] = useState(false)
   const [winner, setWinner] = useState(null)
   const [highlightId, setHighlightId] = useState(null)
@@ -20,8 +20,12 @@ export function useSpinWheel({ playTick, playWinner }) {
   const spinningRef = useRef(false)
 
   const playTickRef = useRef(playTick)
+  const startSpinMusicRef = useRef(startSpinMusic)
+  const stopSpinMusicRef = useRef(stopSpinMusic)
   const playWinnerRef = useRef(playWinner)
   useEffect(() => { playTickRef.current = playTick }, [playTick])
+  useEffect(() => { startSpinMusicRef.current = startSpinMusic }, [startSpinMusic])
+  useEffect(() => { stopSpinMusicRef.current = stopSpinMusic }, [stopSpinMusic])
   useEffect(() => { playWinnerRef.current = playWinner }, [playWinner])
 
   const setEpisodes = useCallback((episodes) => {
@@ -34,6 +38,7 @@ export function useSpinWheel({ playTick, playWinner }) {
     setWinner(null)
     setHighlightId(null)
     setSelectedId(null)
+    stopSpinMusicRef.current()
     allEpisodesRef.current = episodes
   }, [])
 
@@ -50,17 +55,31 @@ export function useSpinWheel({ playTick, playWinner }) {
     const winnerIdx = Math.floor(Math.random() * all.length)
     const winnerEp = all[winnerIdx]
 
-    // Build a sequence of random jumps ending on the winner
-    const totalJumps = 25 + Math.floor(Math.random() * 15) // 25–40 jumps
+    // Build jump schedule that totals exactly 7 seconds
+    const TOTAL_DURATION = 6750
+    const baseInterval = 30
     const jumpSequence = []
-    for (let i = 0; i < totalJumps - 1; i++) {
+    const delays = []
+    let elapsed = 0
+
+    while (elapsed < TOTAL_DURATION) {
+      const progress = elapsed / TOTAL_DURATION
+      const delay = baseInterval + (800 - baseInterval) * Math.pow(progress, 3)
+      if (elapsed + delay > TOTAL_DURATION) break
+      delays.push(delay)
+      elapsed += delay
+
       let idx
-      do { idx = Math.floor(Math.random() * all.length) } while (idx === winnerIdx && i > totalJumps - 5)
+      do { idx = Math.floor(Math.random() * all.length) } while (idx === winnerIdx)
       jumpSequence.push(all[idx].id)
     }
-    jumpSequence.push(winnerEp.id) // final jump lands on winner
+    // Final jump lands on the winner with remaining time
+    jumpSequence.push(winnerEp.id)
+    delays.push(TOTAL_DURATION - elapsed)
 
     let jumpIdx = 0
+
+    startSpinMusicRef.current()
 
     const doJump = () => {
       const id = jumpSequence[jumpIdx]
@@ -70,7 +89,6 @@ export function useSpinWheel({ playTick, playWinner }) {
       jumpIdx++
 
       if (jumpIdx >= jumpSequence.length) {
-        // Landed on winner — pause, then reveal
         setTimeout(() => {
           setHighlightId(null)
           setSelectedId(winnerEp.id)
@@ -82,14 +100,7 @@ export function useSpinWheel({ playTick, playWinner }) {
         return
       }
 
-      // Exponential deceleration: intervals get longer as we approach the end
-      const progress = jumpIdx / jumpSequence.length
-      const baseInterval = 60
-      const maxInterval = 500
-      // Ease-in curve: slow start → fast middle → very slow end
-      const delay = baseInterval + (maxInterval - baseInterval) * Math.pow(progress, 2.5)
-
-      timerRef.current = setTimeout(doJump, delay)
+      timerRef.current = setTimeout(doJump, delays[jumpIdx])
     }
 
     doJump()

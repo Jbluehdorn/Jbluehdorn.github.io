@@ -31,7 +31,9 @@ export function useEpisodes() {
   }, [])
 
   const filteredEpisodes = useMemo(
-    () => episodeData.filter((ep) => ep.types.some((t) => enabledTypes[t])),
+    () => episodeData
+      .filter((ep) => ep.types.some((t) => enabledTypes[t]))
+      .sort((a, b) => (a.publishedAt || '').localeCompare(b.publishedAt || '')),
     [enabledTypes]
   )
 

@@ -1,6 +1,10 @@
 import { useRef, useCallback } from 'react'
+import spinMusic from '../assets/audio/The Price is Right theme song.mp3'
+import winnerSound from '../assets/audio/losing-horn.mp3'
 
 export function useAudio() {
+  const spinAudioRef = useRef(null)
+  const winnerAudioRef = useRef(null)
   const audioCtxRef = useRef(null)
 
   const getCtx = useCallback(() => {
@@ -23,38 +27,43 @@ export function useAudio() {
       osc.frequency.exponentialRampToValueAtTime(400, ctx.currentTime + 0.04)
 
       gain.gain.setValueAtTime(0.15, ctx.currentTime)
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.06)
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05)
 
       osc.start(ctx.currentTime)
-      osc.stop(ctx.currentTime + 0.06)
+      osc.stop(ctx.currentTime + 0.05)
     } catch { /* ignore audio errors */ }
   }, [getCtx])
+
+  const startSpinMusic = useCallback(() => {
+    try {
+      if (!spinAudioRef.current) {
+        spinAudioRef.current = new Audio(spinMusic)
+        spinAudioRef.current.loop = true
+      }
+      spinAudioRef.current.currentTime = 0
+      spinAudioRef.current.play()
+    } catch { /* ignore audio errors */ }
+  }, [])
+
+  const stopSpinMusic = useCallback(() => {
+    try {
+      if (spinAudioRef.current) {
+        spinAudioRef.current.pause()
+        spinAudioRef.current.currentTime = 0
+      }
+    } catch { /* ignore audio errors */ }
+  }, [])
 
   const playWinner = useCallback(() => {
     try {
-      const ctx = getCtx()
-      const now = ctx.currentTime
-
-      // Rising fanfare: three staggered tones
-      const notes = [523.25, 659.25, 783.99] // C5, E5, G5
-      notes.forEach((freq, i) => {
-        const osc = ctx.createOscillator()
-        const gain = ctx.createGain()
-        osc.connect(gain)
-        gain.connect(ctx.destination)
-
-        osc.type = 'square'
-        osc.frequency.setValueAtTime(freq, now + i * 0.12)
-
-        gain.gain.setValueAtTime(0, now)
-        gain.gain.setValueAtTime(0.18, now + i * 0.12)
-        gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.12 + 0.4)
-
-        osc.start(now + i * 0.12)
-        osc.stop(now + i * 0.12 + 0.4)
-      })
+      stopSpinMusic()
+      if (!winnerAudioRef.current) {
+        winnerAudioRef.current = new Audio(winnerSound)
+      }
+      winnerAudioRef.current.currentTime = 0
+      winnerAudioRef.current.play()
     } catch { /* ignore audio errors */ }
-  }, [getCtx])
+  }, [stopSpinMusic])
 
-  return { playTick, playWinner }
+  return { playTick, startSpinMusic, stopSpinMusic, playWinner }
 }

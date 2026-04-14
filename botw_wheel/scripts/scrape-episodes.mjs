@@ -79,6 +79,7 @@ async function fetchAllEpisodes() {
         id: videoId,
         title: snippet.title,
         thumbnail,
+        publishedAt: snippet.publishedAt || '',
         url: `https://www.youtube.com/watch?v=${videoId}`,
         types: categorize(snippet.title),
       })
@@ -110,6 +111,10 @@ async function main() {
       existing.push(ep)
       existingIds.add(ep.id)
       newCount++
+    } else {
+      // Update existing entries with new fields (e.g. publishedAt)
+      const idx = existing.findIndex((e) => e.id === ep.id)
+      if (idx !== -1) existing[idx] = { ...existing[idx], ...ep }
     }
   }
 

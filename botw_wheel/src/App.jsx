@@ -5,7 +5,7 @@ import { useAudio } from './hooks/useAudio'
 import TapeShelf from './components/TapeShelf.jsx'
 import WinnerBanner from './components/WinnerBanner.jsx'
 import SettingsPanel from './components/SettingsPanel.jsx'
-import { Settings } from 'lucide-react'
+import { SlidersHorizontal } from 'lucide-react'
 
 export default function App() {
   const [settingsOpen, setSettingsOpen] = useState(false)
@@ -19,7 +19,7 @@ export default function App() {
     typeCounts,
   } = useEpisodes()
 
-  const { playTick, playWinner } = useAudio()
+  const { playTick, startSpinMusic, stopSpinMusic, playWinner } = useAudio()
 
   const {
     spinning,
@@ -29,7 +29,7 @@ export default function App() {
     setEpisodes,
     spin,
     dismissWinner,
-  } = useSpinWheel({ playTick, playWinner })
+  } = useSpinWheel({ playTick, startSpinMusic, stopSpinMusic, playWinner })
 
   useEffect(() => {
     setEpisodes(episodes)
@@ -47,7 +47,7 @@ export default function App() {
             aria-label="Settings"
             title="Filters"
           >
-            <Settings size={22} />
+            <SlidersHorizontal size={22} />
           </button>
           <button
             className="spin-button"
