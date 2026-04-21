@@ -4,8 +4,8 @@ import winnerSound from '../assets/audio/losing-horn.mp3'
 
 export function useAudio() {
   const spinAudioRef = useRef(null)
-  const winnerAudioRef = useRef(null)
   const audioCtxRef = useRef(null)
+  const winnerBufferRef = useRef(null)
 
   const getCtx = useCallback(() => {
     if (!audioCtxRef.current) {
@@ -47,16 +47,15 @@ export function useAudio() {
       spinAudioRef.current.currentTime = 0
       spinAudioRef.current.play()
 
-      // Unlock winner audio during user gesture so it can play later
-      if (!winnerAudioRef.current) {
-        winnerAudioRef.current = new Audio(winnerSound)
+      // Pre-decode winner sound into an AudioBuffer so it can play
+      // through the (already unlocked) AudioContext later
+      if (!winnerBufferRef.current) {
+        fetch(winnerSound)
+          .then((res) => res.arrayBuffer())
+          .then((buf) => ctx.decodeAudioData(buf))
+          .then((decoded) => { winnerBufferRef.current = decoded })
+          .catch(() => {})
       }
-      winnerAudioRef.current.volume = 0
-      winnerAudioRef.current.play().then(() => {
-        winnerAudioRef.current.pause()
-        winnerAudioRef.current.currentTime = 0
-        winnerAudioRef.current.volume = 1
-      }).catch(() => {})
     } catch { /* ignore audio errors */ }
   }, [getCtx])
 
@@ -72,13 +71,15 @@ export function useAudio() {
   const playWinner = useCallback(() => {
     try {
       stopSpinMusic()
-      if (!winnerAudioRef.current) {
-        winnerAudioRef.current = new Audio(winnerSound)
+      const ctx = getCtx()
+      if (winnerBufferRef.current) {
+        const source = ctx.createBufferSource()
+        source.buffer = winnerBufferRef.current
+        source.connect(ctx.destination)
+        source.start(0)
       }
-      winnerAudioRef.current.currentTime = 0
-      winnerAudioRef.current.play()
     } catch { /* ignore audio errors */ }
-  }, [stopSpinMusic])
+  }, [stopSpinMusic, getCtx])
 
   return { playTick, startSpinMusic, stopSpinMusic, playWinner }
 }
