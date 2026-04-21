@@ -36,14 +36,29 @@ export function useAudio() {
 
   const startSpinMusic = useCallback(() => {
     try {
+      // Resume AudioContext on user gesture for mobile
+      const ctx = getCtx()
+      if (ctx.state === 'suspended') ctx.resume()
+
       if (!spinAudioRef.current) {
         spinAudioRef.current = new Audio(spinMusic)
         spinAudioRef.current.loop = true
       }
       spinAudioRef.current.currentTime = 0
       spinAudioRef.current.play()
+
+      // Unlock winner audio during user gesture so it can play later
+      if (!winnerAudioRef.current) {
+        winnerAudioRef.current = new Audio(winnerSound)
+      }
+      winnerAudioRef.current.volume = 0
+      winnerAudioRef.current.play().then(() => {
+        winnerAudioRef.current.pause()
+        winnerAudioRef.current.currentTime = 0
+        winnerAudioRef.current.volume = 1
+      }).catch(() => {})
     } catch { /* ignore audio errors */ }
-  }, [])
+  }, [getCtx])
 
   const stopSpinMusic = useCallback(() => {
     try {
