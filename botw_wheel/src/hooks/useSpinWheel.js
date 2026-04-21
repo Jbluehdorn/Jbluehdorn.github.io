@@ -1,5 +1,8 @@
 import { useRef, useCallback, useState, useEffect } from 'react'
 
+const BAG_STORAGE_KEY = 'botw_wheel_shuffle_bag'
+const LAST_PICK_KEY = 'botw_wheel_last_pick'
+
 function shuffleArray(arr) {
   const a = [...arr]
   for (let i = a.length - 1; i > 0; i--) {
@@ -7,6 +10,25 @@ function shuffleArray(arr) {
     ;[a[i], a[j]] = [a[j], a[i]]
   }
   return a
+}
+
+function loadBag() {
+  try {
+    const stored = localStorage.getItem(BAG_STORAGE_KEY)
+    return stored ? JSON.parse(stored) : []
+  } catch { return [] }
+}
+
+function saveBag(bag) {
+  try { localStorage.setItem(BAG_STORAGE_KEY, JSON.stringify(bag)) } catch { /* ignore */ }
+}
+
+function loadLastPick() {
+  try { return localStorage.getItem(LAST_PICK_KEY) || null } catch { return null }
+}
+
+function saveLastPick(id) {
+  try { localStorage.setItem(LAST_PICK_KEY, id) } catch { /* ignore */ }
 }
 
 export function useSpinWheel({ playTick, startSpinMusic, stopSpinMusic, playWinner }) {
@@ -18,7 +40,8 @@ export function useSpinWheel({ playTick, startSpinMusic, stopSpinMusic, playWinn
   const allEpisodesRef = useRef([])
   const timerRef = useRef(null)
   const spinningRef = useRef(false)
-  const shuffleBagRef = useRef([])
+  const shuffleBagRef = useRef(loadBag())
+  const lastPickRef = useRef(loadLastPick())
 
   const playTickRef = useRef(playTick)
   const startSpinMusicRef = useRef(startSpinMusic)
@@ -47,6 +70,7 @@ export function useSpinWheel({ playTick, startSpinMusic, stopSpinMusic, playWinn
     const kept = shuffleBagRef.current.filter((id) => newIds.has(id))
     const added = episodes.filter((e) => !prevIds.has(e.id)).map((e) => e.id)
     shuffleBagRef.current = [...kept, ...shuffleArray(added)]
+    saveBag(shuffleBagRef.current)
 
     allEpisodesRef.current = episodes
   }, [])
@@ -57,10 +81,22 @@ export function useSpinWheel({ playTick, startSpinMusic, stopSpinMusic, playWinn
 
     // Refill bag when empty
     if (shuffleBagRef.current.length === 0) {
-      shuffleBagRef.current = shuffleArray(all.map((e) => e.id))
+      let newBag = shuffleArray(all.map((e) => e.id))
+
+      // Avoid boundary repeat: if the last item in the new bag (next to be
+      // popped) is the same as the last pick, move it elsewhere
+      if (all.length > 1 && newBag[newBag.length - 1] === lastPickRef.current) {
+        const swapIdx = Math.floor(Math.random() * (newBag.length - 1))
+        ;[newBag[newBag.length - 1], newBag[swapIdx]] = [newBag[swapIdx], newBag[newBag.length - 1]]
+      }
+
+      shuffleBagRef.current = newBag
     }
 
     const id = shuffleBagRef.current.pop()
+    lastPickRef.current = id
+    saveBag(shuffleBagRef.current)
+    saveLastPick(id)
     return all.find((e) => e.id === id) || null
   }, [])
 
