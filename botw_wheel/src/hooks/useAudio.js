@@ -5,7 +5,8 @@ import winnerSound from '../assets/audio/losing-horn.mp3'
 export function useAudio() {
   const spinAudioRef = useRef(null)
   const audioCtxRef = useRef(null)
-  const winnerBufferRef = useRef(null)
+  const winnerAudioRef = useRef(null)
+  const winnerSourceRef = useRef(null)
 
   const getCtx = useCallback(() => {
     if (!audioCtxRef.current) {
@@ -47,14 +48,14 @@ export function useAudio() {
       spinAudioRef.current.currentTime = 0
       spinAudioRef.current.play()
 
-      // Pre-decode winner sound into an AudioBuffer so it can play
-      // through the (already unlocked) AudioContext later
-      if (!winnerBufferRef.current) {
-        fetch(winnerSound)
-          .then((res) => res.arrayBuffer())
-          .then((buf) => ctx.decodeAudioData(buf))
-          .then((decoded) => { winnerBufferRef.current = decoded })
-          .catch(() => {})
+      // Route winner audio through the AudioContext so it can play from
+      // a setTimeout later. createMediaElementSource only needs to be
+      // called once per element.
+      if (!winnerAudioRef.current) {
+        winnerAudioRef.current = new Audio(winnerSound)
+        winnerAudioRef.current.preload = 'auto'
+        winnerSourceRef.current = ctx.createMediaElementSource(winnerAudioRef.current)
+        winnerSourceRef.current.connect(ctx.destination)
       }
     } catch { /* ignore audio errors */ }
   }, [getCtx])
@@ -71,15 +72,12 @@ export function useAudio() {
   const playWinner = useCallback(() => {
     try {
       stopSpinMusic()
-      const ctx = getCtx()
-      if (winnerBufferRef.current) {
-        const source = ctx.createBufferSource()
-        source.buffer = winnerBufferRef.current
-        source.connect(ctx.destination)
-        source.start(0)
+      if (winnerAudioRef.current) {
+        winnerAudioRef.current.currentTime = 0
+        winnerAudioRef.current.play()
       }
     } catch { /* ignore audio errors */ }
-  }, [stopSpinMusic, getCtx])
+  }, [stopSpinMusic])
 
   return { playTick, startSpinMusic, stopSpinMusic, playWinner }
 }
