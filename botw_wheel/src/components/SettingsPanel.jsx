@@ -1,7 +1,8 @@
 import React from 'react'
-import { EpisodeType, EpisodeTypeLabels, EpisodeTypeColors } from '../data/constants'
+import { EpisodeType, EpisodeTypeLabels, EpisodeTypeColors, EpisodeTag, EpisodeTagLabels, EpisodeTagColors } from '../data/constants'
 
 const ALL_TYPES = Object.values(EpisodeType)
+const ALL_TAGS = Object.values(EpisodeTag)
 
 export default function SettingsPanel({
   show,
@@ -11,6 +12,9 @@ export default function SettingsPanel({
   onEnableAll,
   onDisableAll,
   typeCounts,
+  excludedTags,
+  onToggleTag,
+  tagCounts,
 }) {
   if (!show) return null
 
@@ -49,6 +53,30 @@ export default function SettingsPanel({
                 >
                   <span className="type-dot" style={{ background: enabled ? color : '#333' }} />
                   <span className="type-label">{EpisodeTypeLabels[type]}</span>
+                  <span className="type-count">({count})</span>
+                </button>
+              )
+            })}
+          </div>
+
+          <h3 className="filter-section-title">Exclude Themes</h3>
+          <div className="type-toggles">
+            {ALL_TAGS.map((tag) => {
+              const excluded = excludedTags[tag]
+              const color = EpisodeTagColors[tag]
+              const count = tagCounts[tag] || 0
+              return (
+                <button
+                  key={tag}
+                  className={`type-toggle ${excluded ? 'enabled' : 'disabled'}`}
+                  onClick={() => onToggleTag(tag)}
+                  style={{
+                    borderColor: excluded ? color : '#333',
+                    color: excluded ? color : '#555',
+                  }}
+                >
+                  <span className="type-dot" style={{ background: excluded ? color : '#333' }} />
+                  <span className="type-label">{EpisodeTagLabels[tag]}</span>
                   <span className="type-count">({count})</span>
                 </button>
               )

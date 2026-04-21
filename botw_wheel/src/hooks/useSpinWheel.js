@@ -18,6 +18,7 @@ export function useSpinWheel({ playTick, startSpinMusic, stopSpinMusic, playWinn
   const allEpisodesRef = useRef([])
   const timerRef = useRef(null)
   const spinningRef = useRef(false)
+  const shuffleBagRef = useRef([])
 
   const playTickRef = useRef(playTick)
   const startSpinMusicRef = useRef(startSpinMusic)
@@ -39,7 +40,28 @@ export function useSpinWheel({ playTick, startSpinMusic, stopSpinMusic, playWinn
     setHighlightId(null)
     setSelectedId(null)
     stopSpinMusicRef.current()
+
+    // Reconcile shuffle bag with new episode list
+    const newIds = new Set(episodes.map((e) => e.id))
+    const prevIds = new Set(allEpisodesRef.current.map((e) => e.id))
+    const kept = shuffleBagRef.current.filter((id) => newIds.has(id))
+    const added = episodes.filter((e) => !prevIds.has(e.id)).map((e) => e.id)
+    shuffleBagRef.current = [...kept, ...shuffleArray(added)]
+
     allEpisodesRef.current = episodes
+  }, [])
+
+  const drawFromBag = useCallback(() => {
+    const all = allEpisodesRef.current
+    if (all.length === 0) return null
+
+    // Refill bag when empty
+    if (shuffleBagRef.current.length === 0) {
+      shuffleBagRef.current = shuffleArray(all.map((e) => e.id))
+    }
+
+    const id = shuffleBagRef.current.pop()
+    return all.find((e) => e.id === id) || null
   }, [])
 
   const spin = useCallback(() => {
@@ -51,11 +73,29 @@ export function useSpinWheel({ playTick, startSpinMusic, stopSpinMusic, playWinn
     setWinner(null)
     setSelectedId(null)
 
-    // Pre-select winner
-    const winnerIdx = Math.floor(Math.random() * all.length)
-    const winnerEp = all[winnerIdx]
+    // Draw winner from shuffle bag
+    const winnerEp = drawFromBag()
+    if (!winnerEp) {
+      spinningRef.current = false
+      setSpinning(false)
+      return
+    }
 
-    // Build jump schedule that totals exactly 7 seconds
+    // Single episode — skip the animation
+    if (all.length === 1) {
+      startSpinMusicRef.current()
+      setTimeout(() => {
+        setSelectedId(winnerEp.id)
+        spinningRef.current = false
+        setSpinning(false)
+        setWinner(winnerEp)
+        stopSpinMusicRef.current()
+        playWinnerRef.current()
+      }, 800)
+      return
+    }
+
+    // Build jump schedule that totals exactly ~6.75 seconds
     const TOTAL_DURATION = 6750
     const baseInterval = 30
     const jumpSequence = []
@@ -70,7 +110,7 @@ export function useSpinWheel({ playTick, startSpinMusic, stopSpinMusic, playWinn
       elapsed += delay
 
       let idx
-      do { idx = Math.floor(Math.random() * all.length) } while (idx === winnerIdx)
+      do { idx = Math.floor(Math.random() * all.length) } while (all[idx].id === winnerEp.id)
       jumpSequence.push(all[idx].id)
     }
     // Final jump lands on the winner with remaining time
@@ -104,7 +144,7 @@ export function useSpinWheel({ playTick, startSpinMusic, stopSpinMusic, playWinn
     }
 
     doJump()
-  }, [])
+  }, [drawFromBag])
 
   const dismissWinner = useCallback(() => {
     setWinner(null)

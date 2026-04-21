@@ -17,6 +17,9 @@ export default function App() {
     enableAll,
     disableAll,
     typeCounts,
+    excludedTags,
+    toggleTag,
+    tagCounts,
   } = useEpisodes()
 
   const { playTick, startSpinMusic, stopSpinMusic, playWinner } = useAudio()
@@ -77,6 +80,9 @@ export default function App() {
         onEnableAll={enableAll}
         onDisableAll={disableAll}
         typeCounts={typeCounts}
+        excludedTags={excludedTags}
+        onToggleTag={toggleTag}
+        tagCounts={tagCounts}
       />
     </div>
   )
