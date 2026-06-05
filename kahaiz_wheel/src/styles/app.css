@@ -668,10 +668,25 @@ body {
   text-transform: uppercase;
 }
 
-.winner-dismiss {
+.winner-actions {
+  display: flex;
+  gap: 12px;
   margin-top: 24px;
+  align-items: center;
+  justify-content: center;
+}
+
+.winner-dismiss {
   font-size: 1.1rem;
   padding: 12px 32px;
+}
+
+.winner-copy {
+  font-size: 1rem;
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.1);
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.3);
 }
 
 /* --- Animations --- */
