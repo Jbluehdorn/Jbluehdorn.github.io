@@ -86,12 +86,11 @@ function preprocessObsidian(md, allSlugs) {
     return `![${file}](${url})`;
   });
 
-  // 3. [[Page|Alias]] and [[Page]] wiki links → relative HTML links
+  // 3. [[Page|Alias]] and [[Page]] wiki links → relative HTML links (or plain text if unresolved)
   md = md.replace(/\[\[([^\]|]+?)(?:\|([^\]]+?))?\]\]/g, (_, target, alias) => {
     const display = alias || target;
     const slug = slugify(target.trim());
-    const href = allSlugs[slug] ? allSlugs[slug] : `#`;
-    return `[${display}](${href})`;
+    return allSlugs[slug] ? `[${display}](${allSlugs[slug]})` : display;
   });
 
   return md;
