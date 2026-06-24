@@ -253,29 +253,30 @@ const PAGE_DESCS = {
   'adventurers-board':           'Current jobs, rumors, and completed missions',
   'maps-visuals':                'Official maps and art of the Rock of Bral',
   'important-npcs':              'Key figures — Large Luigi, Prince Andru, and more',
+  'important-locations':         'Key places — The Laughing Beholder, the Docks, the Bazaar, and more',
 };
 
 // Manual overrides: wiki link slug → published HTML page
 // Used for DM-side notes (places, people, factions) that link into a player handout section
 const LINK_OVERRIDES = {
-  // NPCs & locations → Important NPCs page
+  // NPCs → Important NPCs page
   'large-luigi':            'important-npcs.html',
   'prince-andru':           'important-npcs.html',
-  'the-laughing-beholder':  'important-npcs.html',
   // Factions → Factions & Connections page
   'house-traken':           'factions-connections.html',
   'the-arcane':             'factions-connections.html',
   'the-juggler-s-guild':    'factions-connections.html',
   'the-seekers':            'factions-connections.html',
   'neogi-deathspider':      'factions-connections.html',
-  // Places → Welcome to the Rock of Bral
-  'the-docks':              'welcome-to-the-rock-of-bral.html',
-  'the-gambler-s-den':      'welcome-to-the-rock-of-bral.html',
-  'the-grand-bazaar':       'welcome-to-the-rock-of-bral.html',
-  'the-noble-quarter':      'welcome-to-the-rock-of-bral.html',
-  'the-palace-of-bral':     'welcome-to-the-rock-of-bral.html',
-  'the-rat-s-maze':         'welcome-to-the-rock-of-bral.html',
-  'temple-row':             'welcome-to-the-rock-of-bral.html',
+  // Places → Important Locations page
+  'the-docks':              'important-locations.html',
+  'the-gambler-s-den':      'important-locations.html',
+  'the-grand-bazaar':       'important-locations.html',
+  'the-noble-quarter':      'important-locations.html',
+  'the-palace-of-bral':     'important-locations.html',
+  'the-rat-s-maze':         'important-locations.html',
+  'temple-row':             'important-locations.html',
+  'the-laughing-beholder':  'important-locations.html',
   // Between-sessions rules → West Marches Player Guide
   'downtime-activities':    'west-marches-player-guide.html',
 };
