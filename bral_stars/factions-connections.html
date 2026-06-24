@@ -97,6 +97,51 @@
       h1 { font-size: 22px; }
       .page-grid { grid-template-columns: 1fr; }
     }
+
+    /* Lightbox */
+    #lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.93);
+      z-index: 1000;
+      overflow: hidden;
+    }
+    #lightbox.active { display: flex; align-items: center; justify-content: center; }
+    #lightbox-img {
+      max-width: 95vw;
+      max-height: 95vh;
+      border-radius: 8px;
+      cursor: grab;
+      user-select: none;
+      transform-origin: center center;
+      border: 1px solid #2a2a4a;
+    }
+    #lightbox-img.dragging { cursor: grabbing; }
+    #lightbox-close {
+      position: fixed;
+      top: 16px;
+      right: 22px;
+      color: rgba(255,255,255,0.7);
+      font-size: 36px;
+      line-height: 1;
+      cursor: pointer;
+      z-index: 1001;
+      transition: color 0.15s;
+    }
+    #lightbox-close:hover { color: #fff; }
+    #lightbox-hint {
+      position: fixed;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.3);
+      font-size: 12px;
+      pointer-events: none;
+      white-space: nowrap;
+    }
+    .container img { cursor: zoom-in; }
+    .hero img { cursor: default; }
   </style>
 </head>
 <body>
@@ -169,5 +214,112 @@
 <p><strong>Connection ideas:</strong> They took someone you care about. You escaped from one of their ships. You&#39;ve been hunting a specific neogi captain. You have information about their operations that multiple factions would pay for.</p>
 
   </div>
+
+  <!-- Lightbox -->
+  <div id="lightbox">
+    <span id="lightbox-close">&#x2715;</span>
+    <img id="lightbox-img" src="" alt="">
+    <div id="lightbox-hint">scroll to zoom &nbsp;·&nbsp; drag to pan &nbsp;·&nbsp; esc to close</div>
+  </div>
+
+  <script>
+  (function () {
+    var lb     = document.getElementById('lightbox');
+    var lbImg  = document.getElementById('lightbox-img');
+    var lbClose = document.getElementById('lightbox-close');
+
+    var scale = 1, tx = 0, ty = 0;
+    var dragging = false, startX = 0, startY = 0, baseX = 0, baseY = 0;
+
+    function applyTransform() {
+      lbImg.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + scale + ')';
+    }
+
+    function openLightbox(src, alt) {
+      lbImg.src = src;
+      lbImg.alt = alt || '';
+      scale = 1; tx = 0; ty = 0;
+      applyTransform();
+      lb.classList.add('active');
+    }
+
+    function closeLightbox() { lb.classList.remove('active'); }
+
+    // Wire up all content images (exclude hero)
+    document.querySelectorAll('.container img').forEach(function (img) {
+      img.addEventListener('click', function (e) {
+        e.stopPropagation();
+        openLightbox(img.src, img.alt);
+      });
+    });
+
+    lbClose.addEventListener('click', closeLightbox);
+    lb.addEventListener('click', function (e) { if (e.target === lb) closeLightbox(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
+
+    // Mouse drag to pan
+    lbImg.addEventListener('mousedown', function (e) {
+      e.preventDefault();
+      dragging = true;
+      startX = e.clientX; startY = e.clientY;
+      baseX = tx; baseY = ty;
+      lbImg.classList.add('dragging');
+    });
+    document.addEventListener('mousemove', function (e) {
+      if (!dragging) return;
+      tx = baseX + (e.clientX - startX);
+      ty = baseY + (e.clientY - startY);
+      applyTransform();
+    });
+    document.addEventListener('mouseup', function () {
+      dragging = false;
+      lbImg.classList.remove('dragging');
+    });
+
+    // Scroll to zoom (towards cursor)
+    lb.addEventListener('wheel', function (e) {
+      e.preventDefault();
+      var rect = lbImg.getBoundingClientRect();
+      var cx = e.clientX - (rect.left + rect.width  / 2);
+      var cy = e.clientY - (rect.top  + rect.height / 2);
+      var delta = e.deltaY > 0 ? 0.88 : 1.14;
+      var newScale = Math.max(0.3, Math.min(10, scale * delta));
+      tx += cx * (1 - newScale / scale);
+      ty += cy * (1 - newScale / scale);
+      scale = newScale;
+      applyTransform();
+    }, { passive: false });
+
+    // Touch: drag + pinch-zoom
+    var lastDist = null, touchBaseX = 0, touchBaseY = 0, touchStartX = 0, touchStartY = 0;
+    lb.addEventListener('touchstart', function (e) {
+      if (e.touches.length === 1) {
+        dragging = true;
+        touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY;
+        touchBaseX = tx; touchBaseY = ty;
+      }
+      lastDist = null;
+    }, { passive: true });
+    lb.addEventListener('touchmove', function (e) {
+      e.preventDefault();
+      if (e.touches.length === 1 && dragging) {
+        tx = touchBaseX + (e.touches[0].clientX - touchStartX);
+        ty = touchBaseY + (e.touches[0].clientY - touchStartY);
+        applyTransform();
+      } else if (e.touches.length === 2) {
+        var dist = Math.hypot(
+          e.touches[0].clientX - e.touches[1].clientX,
+          e.touches[0].clientY - e.touches[1].clientY
+        );
+        if (lastDist) {
+          scale = Math.max(0.3, Math.min(10, scale * (dist / lastDist)));
+          applyTransform();
+        }
+        lastDist = dist;
+      }
+    }, { passive: false });
+    lb.addEventListener('touchend', function () { dragging = false; lastDist = null; }, { passive: true });
+  })();
+  </script>
 </body>
 </html>
