@@ -90,7 +90,8 @@ function preprocessObsidian(md, allSlugs) {
   md = md.replace(/\[\[([^\]|]+?)(?:\|([^\]]+?))?\]\]/g, (_, target, alias) => {
     const display = alias || target;
     const slug = slugify(target.trim());
-    return allSlugs[slug] ? `[${display}](${allSlugs[slug]})` : display;
+    const href = allSlugs[slug] || LINK_OVERRIDES[slug];
+    return href ? `[${display}](${href})` : display;
   });
 
   return md;
@@ -235,7 +236,7 @@ function renderIndex(pages) {
       Content sourced from the <a href="https://github.com/${REPO_OWNER}/${REPO_NAME}">BralStars vault</a>
     </p>`;
 
-  return renderPage('Bral Stars', body, '<a href="bral_stars/">Bral Stars</a>');
+  return renderPage('Bral Stars', body, 'Bral Stars');
 }
 
 // ─── Main ─────────────────────────────────────────────────────────────────────
@@ -251,6 +252,32 @@ const PAGE_DESCS = {
   'factions-connections':         'Key factions and NPCs to connect your character to',
   'adventurers-board':           'Current jobs, rumors, and completed missions',
   'maps-visuals':                'Official maps and art of the Rock of Bral',
+  'important-npcs':              'Key figures — Large Luigi, Prince Andru, and more',
+};
+
+// Manual overrides: wiki link slug → published HTML page
+// Used for DM-side notes (places, people, factions) that link into a player handout section
+const LINK_OVERRIDES = {
+  // NPCs & locations → Important NPCs page
+  'large-luigi':            'important-npcs.html',
+  'prince-andru':           'important-npcs.html',
+  'the-laughing-beholder':  'important-npcs.html',
+  // Factions → Factions & Connections page
+  'house-traken':           'factions-connections.html',
+  'the-arcane':             'factions-connections.html',
+  'the-juggler-s-guild':    'factions-connections.html',
+  'the-seekers':            'factions-connections.html',
+  'neogi-deathspider':      'factions-connections.html',
+  // Places → Welcome to the Rock of Bral
+  'the-docks':              'welcome-to-the-rock-of-bral.html',
+  'the-gambler-s-den':      'welcome-to-the-rock-of-bral.html',
+  'the-grand-bazaar':       'welcome-to-the-rock-of-bral.html',
+  'the-noble-quarter':      'welcome-to-the-rock-of-bral.html',
+  'the-palace-of-bral':     'welcome-to-the-rock-of-bral.html',
+  'the-rat-s-maze':         'welcome-to-the-rock-of-bral.html',
+  'temple-row':             'welcome-to-the-rock-of-bral.html',
+  // Between-sessions rules → West Marches Player Guide
+  'downtime-activities':    'west-marches-player-guide.html',
 };
 
 async function main() {
@@ -299,7 +326,7 @@ async function main() {
     const html = marked(preprocessed);
 
     const outFile = `${slug}.html`;
-    const breadcrumb = `<a href="bral_stars/">Bral Stars</a> <span class="sep">›</span> ${baseName}`;
+    const breadcrumb = `<a href="/bral_stars/">Bral Stars</a> <span class="sep">›</span> ${baseName}`;
     const page = renderPage(baseName, `<h1>${baseName}</h1>\n${html}`, breadcrumb);
     fs.writeFileSync(path.join(OUT_DIR, outFile), page);
     console.log(`     ✅ Wrote ${outFile}`);
