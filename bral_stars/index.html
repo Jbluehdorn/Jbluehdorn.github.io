@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bral Stars — Bral Stars</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #0e0e1a;
+      color: #d8d8e8;
+      min-height: 100vh;
+      padding: 40px 20px;
+      line-height: 1.7;
+    }
+
+    .container { max-width: 780px; margin: 0 auto; }
+
+    .site-nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 32px;
+      font-size: 13px;
+      color: #6666a0;
+    }
+    .site-nav a { color: #8888cc; text-decoration: none; }
+    .site-nav a:hover { color: #aaaaee; }
+    .site-nav .sep { color: #444466; }
+
+    h1 { font-size: 28px; color: #c8b8f0; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 2px solid #2a2a4a; }
+    h2 { font-size: 20px; color: #a090d8; margin: 28px 0 12px; }
+    h3 { font-size: 16px; color: #9090c8; margin: 20px 0 8px; }
+
+    p { margin-bottom: 14px; }
+
+    a { color: #8899ee; text-decoration: none; }
+    a:hover { color: #aabbff; text-decoration: underline; }
+
+    ul, ol { margin: 0 0 14px 24px; }
+    li { margin-bottom: 4px; }
+
+    strong { color: #e8e0ff; }
+
+    hr { border: none; border-top: 1px solid #2a2a4a; margin: 28px 0; }
+
+    table { width: 100%; border-collapse: collapse; margin-bottom: 18px; font-size: 14px; }
+    th { background: #1e1e38; color: #a090d8; text-align: left; padding: 8px 12px; border-bottom: 2px solid #2a2a4a; }
+    td { padding: 8px 12px; border-bottom: 1px solid #1e1e32; }
+    tr:last-child td { border-bottom: none; }
+
+    code { background: #1a1a30; padding: 2px 6px; border-radius: 4px; font-size: 13px; color: #b0a0e8; }
+    pre { background: #1a1a30; padding: 16px; border-radius: 8px; overflow-x: auto; margin-bottom: 18px; }
+    pre code { padding: 0; background: none; }
+
+    img { max-width: 100%; border-radius: 8px; margin: 16px 0; border: 1px solid #2a2a4a; }
+
+    blockquote { border-left: 3px solid #4a3a8a; padding: 8px 16px; margin: 16px 0; color: #a090c8; background: #16162a; border-radius: 0 6px 6px 0; }
+
+    /* Obsidian callouts */
+    .callout { border-radius: 8px; padding: 14px 18px; margin: 18px 0; border-left: 4px solid; }
+    .callout-title { font-weight: 700; font-size: 14px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .callout-body > p:last-child { margin-bottom: 0; }
+    .callout-body ul { margin-bottom: 0; }
+
+    .callout-infobox, .callout-info, .callout-note {
+      background: #16203a; border-color: #4a6aaa; }
+    .callout-infobox .callout-title, .callout-info .callout-title, .callout-note .callout-title {
+      color: #7a9aee; }
+
+    .callout-warning {
+      background: #2a1e18; border-color: #aa6a30; }
+    .callout-warning .callout-title { color: #e8944a; }
+
+    .callout-cards {
+      background: #16162a; border-color: #4a3a8a; border-left: none;
+      border-top: 2px solid #4a3a8a; }
+    .callout-cards .callout-title { color: #9080c8; }
+
+    /* Index page cards */
+    .page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 24px 0; }
+    .page-card { display: block; background: #16162e; border: 1px solid #2a2a50; border-radius: 10px;
+      padding: 20px; text-decoration: none; color: #d8d8e8; transition: background 0.15s, border-color 0.15s, transform 0.1s; }
+    .page-card:hover { background: #1e1e3e; border-color: #6655aa; transform: translateY(-2px); text-decoration: none; }
+    .page-card .card-title { font-size: 15px; font-weight: 600; color: #c8b8f0; margin-bottom: 4px; }
+    .page-card .card-desc { font-size: 12px; color: #7070a0; }
+
+    .hero { text-align: center; margin-bottom: 36px; }
+    .hero img { max-height: 280px; width: 100%; object-fit: cover; border-radius: 12px; margin: 0; }
+    .hero h1 { margin-top: 20px; border: none; padding: 0; }
+    .hero p { color: #8080b0; margin-top: 8px; }
+
+    @media (max-width: 480px) {
+      body { padding: 24px 14px; }
+      h1 { font-size: 22px; }
+      .page-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="site-nav">
+      <a href="/">jbluehdorn.github.io</a>
+      <span class="sep">›</span>
+      <a href="bral_stars/">Bral Stars</a>
+    </nav>
+    
+    <div class="hero">
+      <img src="https://raw.githubusercontent.com/Jbluehdorn/BralStars/main/z_attachments/RockOfBral_Render.jpg" alt="The Rock of Bral">
+      <h1>✦ Bral Stars ✦</h1>
+      <p>A West Marches D&amp;D campaign set on the Rock of Bral</p>
+    </div>
+    <div class="page-grid">
+    <a href="adventurers-board.html" class="page-card">
+      <div class="card-title">Adventurers' Board</div>
+      <div class="card-desc">Current jobs, rumors, and completed missions</div>
+    </a>
+    <a href="character-creation.html" class="page-card">
+      <div class="card-title">Character Creation</div>
+      <div class="card-desc">Sources, hooks, connections, and leveling</div>
+    </a>
+    <a href="factions-connections.html" class="page-card">
+      <div class="card-title">Factions & Connections</div>
+      <div class="card-desc">Key factions and NPCs to connect your character to</div>
+    </a>
+    <a href="welcome-to-the-rock-of-bral.html" class="page-card">
+      <div class="card-title">Welcome to the Rock of Bral</div>
+      <div class="card-desc">Setting introduction — districts, factions, Wildspace</div>
+    </a>
+    <a href="west-marches-player-guide.html" class="page-card">
+      <div class="card-title">West Marches Player Guide</div>
+      <div class="card-desc">Schedule, session format, and campaign rules</div>
+    </a>
+    <a href="maps-visuals.html" class="page-card">
+      <div class="card-title">Maps & Visuals</div>
+      <div class="card-desc">Official maps and art of the Rock of Bral</div>
+    </a></div>
+    <hr>
+    <p style="text-align:center;color:#555580;font-size:13px;">
+      Content sourced from the <a href="https://github.com/Jbluehdorn/BralStars">BralStars vault</a>
+    </p>
+  </div>
+</body>
+</html>

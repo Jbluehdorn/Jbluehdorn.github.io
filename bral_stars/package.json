@@ -1,0 +1,11 @@
+{
+  "name": "bral-stars-builder",
+  "version": "1.0.0",
+  "description": "Builds static HTML pages from the BralStars Obsidian vault",
+  "scripts": {
+    "build": "node build.js"
+  },
+  "dependencies": {
+    "marked": "^12.0.0"
+  }
+}

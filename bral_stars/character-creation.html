@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Character Creation — Bral Stars</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #0e0e1a;
+      color: #d8d8e8;
+      min-height: 100vh;
+      padding: 40px 20px;
+      line-height: 1.7;
+    }
+
+    .container { max-width: 780px; margin: 0 auto; }
+
+    .site-nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 32px;
+      font-size: 13px;
+      color: #6666a0;
+    }
+    .site-nav a { color: #8888cc; text-decoration: none; }
+    .site-nav a:hover { color: #aaaaee; }
+    .site-nav .sep { color: #444466; }
+
+    h1 { font-size: 28px; color: #c8b8f0; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 2px solid #2a2a4a; }
+    h2 { font-size: 20px; color: #a090d8; margin: 28px 0 12px; }
+    h3 { font-size: 16px; color: #9090c8; margin: 20px 0 8px; }
+
+    p { margin-bottom: 14px; }
+
+    a { color: #8899ee; text-decoration: none; }
+    a:hover { color: #aabbff; text-decoration: underline; }
+
+    ul, ol { margin: 0 0 14px 24px; }
+    li { margin-bottom: 4px; }
+
+    strong { color: #e8e0ff; }
+
+    hr { border: none; border-top: 1px solid #2a2a4a; margin: 28px 0; }
+
+    table { width: 100%; border-collapse: collapse; margin-bottom: 18px; font-size: 14px; }
+    th { background: #1e1e38; color: #a090d8; text-align: left; padding: 8px 12px; border-bottom: 2px solid #2a2a4a; }
+    td { padding: 8px 12px; border-bottom: 1px solid #1e1e32; }
+    tr:last-child td { border-bottom: none; }
+
+    code { background: #1a1a30; padding: 2px 6px; border-radius: 4px; font-size: 13px; color: #b0a0e8; }
+    pre { background: #1a1a30; padding: 16px; border-radius: 8px; overflow-x: auto; margin-bottom: 18px; }
+    pre code { padding: 0; background: none; }
+
+    img { max-width: 100%; border-radius: 8px; margin: 16px 0; border: 1px solid #2a2a4a; }
+
+    blockquote { border-left: 3px solid #4a3a8a; padding: 8px 16px; margin: 16px 0; color: #a090c8; background: #16162a; border-radius: 0 6px 6px 0; }
+
+    /* Obsidian callouts */
+    .callout { border-radius: 8px; padding: 14px 18px; margin: 18px 0; border-left: 4px solid; }
+    .callout-title { font-weight: 700; font-size: 14px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .callout-body > p:last-child { margin-bottom: 0; }
+    .callout-body ul { margin-bottom: 0; }
+
+    .callout-infobox, .callout-info, .callout-note {
+      background: #16203a; border-color: #4a6aaa; }
+    .callout-infobox .callout-title, .callout-info .callout-title, .callout-note .callout-title {
+      color: #7a9aee; }
+
+    .callout-warning {
+      background: #2a1e18; border-color: #aa6a30; }
+    .callout-warning .callout-title { color: #e8944a; }
+
+    .callout-cards {
+      background: #16162a; border-color: #4a3a8a; border-left: none;
+      border-top: 2px solid #4a3a8a; }
+    .callout-cards .callout-title { color: #9080c8; }
+
+    /* Index page cards */
+    .page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 24px 0; }
+    .page-card { display: block; background: #16162e; border: 1px solid #2a2a50; border-radius: 10px;
+      padding: 20px; text-decoration: none; color: #d8d8e8; transition: background 0.15s, border-color 0.15s, transform 0.1s; }
+    .page-card:hover { background: #1e1e3e; border-color: #6655aa; transform: translateY(-2px); text-decoration: none; }
+    .page-card .card-title { font-size: 15px; font-weight: 600; color: #c8b8f0; margin-bottom: 4px; }
+    .page-card .card-desc { font-size: 12px; color: #7070a0; }
+
+    .hero { text-align: center; margin-bottom: 36px; }
+    .hero img { max-height: 280px; width: 100%; object-fit: cover; border-radius: 12px; margin: 0; }
+    .hero h1 { margin-top: 20px; border: none; padding: 0; }
+    .hero p { color: #8080b0; margin-top: 8px; }
+
+    @media (max-width: 480px) {
+      body { padding: 24px 14px; }
+      h1 { font-size: 22px; }
+      .page-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="site-nav">
+      <a href="/">jbluehdorn.github.io</a>
+      <span class="sep">›</span>
+      <a href="bral_stars/">Bral Stars</a> <span class="sep">›</span> Character Creation
+    </nav>
+    <h1>Character Creation</h1>
+<h1>Character Creation</h1>
+<p>Use these guidelines when creating your character for <strong>Bral Stars</strong>.</p>
+<hr>
+<h2>Sources Allowed</h2>
+<ul>
+<li><strong>Player&#39;s Handbook</strong> — all races, classes, backgrounds</li>
+<li><strong>Spelljammer: Adventures in Space</strong> — strongly recommended for race options (Astral Elves, Autognomes, Giff, Hadozee, Plasmoids, Thri-kreen)</li>
+<li><strong>Other official sourcebooks</strong> — ask the DM first</li>
+</ul>
+<hr>
+<h2>Your Character&#39;s Hook</h2>
+<p>Every character needs a reason to be on the Rock of Bral. Pick one or invent your own:</p>
+<ul>
+<li>You arrived on a ship and never left</li>
+<li>You&#39;re a native — born and raised in Low City (or Middle, or High City)</li>
+<li>You&#39;re running from something on your home world</li>
+<li>You came looking for someone</li>
+<li>You came for the money</li>
+<li>You came because a map led you here</li>
+<li>You were press-ganged onto a ship and the Rock was the first port</li>
+</ul>
+<hr>
+<h2>Connections</h2>
+<p>Every character needs <strong>a reason to go on adventures</strong> — something that pulls them off the Rock and into danger. This is the most important thing to define.</p>
+<p>Good reasons: debt, curiosity, greed, a missing person, a reputation to build, a score to settle, wanderlust, a ship that needs a crew.</p>
+<p>Optionally, your character may also have a connection to a <strong>faction, another PC, or an NPC</strong> on the Rock. See <a href="factions-connections.html">Factions &amp; Connections</a> for a full breakdown of who&#39;s who and connection ideas.</p>
+<div class="callout callout-warning"><div class="callout-title">One rule</div><div class="callout-body">
+
+<p>Your character can&#39;t be so tied down that they can&#39;t leave. A guildmaster, a city official, a shopkeeper with daily obligations — these characters can&#39;t realistically drop everything for a three-hour adventure. Make sure your concept has the <strong>freedom to go</strong>.</p>
+</div></div>
+
+
+<hr>
+<h2>Starting Equipment</h2>
+<p>Use standard class starting equipment from the PHB. Additionally, every character starts with:</p>
+<ul>
+<li>Lodgings on the Rock (Low City bunk, shared room, or better if your background supports it)</li>
+<li>A reason to check the Adventurers&#39; Board</li>
+<li>One rumor about the Rock that may or may not be true</li>
+</ul>
+<hr>
+<h2>Leveling</h2>
+<p>Characters gain levels through <strong>milestones</strong>, not XP. The DM will announce when a level-up is earned — typically after a significant adventure or discovery.</p>
+<hr>
+<h2>Multiclassing &amp; Feats</h2>
+<p>Both are allowed. Ask the DM if you&#39;re unsure whether a combination makes sense for the setting.</p>
+
+  </div>
+</body>
+</html>

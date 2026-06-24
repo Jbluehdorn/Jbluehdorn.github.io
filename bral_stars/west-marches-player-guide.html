@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>West Marches Player Guide — Bral Stars</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #0e0e1a;
+      color: #d8d8e8;
+      min-height: 100vh;
+      padding: 40px 20px;
+      line-height: 1.7;
+    }
+
+    .container { max-width: 780px; margin: 0 auto; }
+
+    .site-nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 32px;
+      font-size: 13px;
+      color: #6666a0;
+    }
+    .site-nav a { color: #8888cc; text-decoration: none; }
+    .site-nav a:hover { color: #aaaaee; }
+    .site-nav .sep { color: #444466; }
+
+    h1 { font-size: 28px; color: #c8b8f0; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 2px solid #2a2a4a; }
+    h2 { font-size: 20px; color: #a090d8; margin: 28px 0 12px; }
+    h3 { font-size: 16px; color: #9090c8; margin: 20px 0 8px; }
+
+    p { margin-bottom: 14px; }
+
+    a { color: #8899ee; text-decoration: none; }
+    a:hover { color: #aabbff; text-decoration: underline; }
+
+    ul, ol { margin: 0 0 14px 24px; }
+    li { margin-bottom: 4px; }
+
+    strong { color: #e8e0ff; }
+
+    hr { border: none; border-top: 1px solid #2a2a4a; margin: 28px 0; }
+
+    table { width: 100%; border-collapse: collapse; margin-bottom: 18px; font-size: 14px; }
+    th { background: #1e1e38; color: #a090d8; text-align: left; padding: 8px 12px; border-bottom: 2px solid #2a2a4a; }
+    td { padding: 8px 12px; border-bottom: 1px solid #1e1e32; }
+    tr:last-child td { border-bottom: none; }
+
+    code { background: #1a1a30; padding: 2px 6px; border-radius: 4px; font-size: 13px; color: #b0a0e8; }
+    pre { background: #1a1a30; padding: 16px; border-radius: 8px; overflow-x: auto; margin-bottom: 18px; }
+    pre code { padding: 0; background: none; }
+
+    img { max-width: 100%; border-radius: 8px; margin: 16px 0; border: 1px solid #2a2a4a; }
+
+    blockquote { border-left: 3px solid #4a3a8a; padding: 8px 16px; margin: 16px 0; color: #a090c8; background: #16162a; border-radius: 0 6px 6px 0; }
+
+    /* Obsidian callouts */
+    .callout { border-radius: 8px; padding: 14px 18px; margin: 18px 0; border-left: 4px solid; }
+    .callout-title { font-weight: 700; font-size: 14px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .callout-body > p:last-child { margin-bottom: 0; }
+    .callout-body ul { margin-bottom: 0; }
+
+    .callout-infobox, .callout-info, .callout-note {
+      background: #16203a; border-color: #4a6aaa; }
+    .callout-infobox .callout-title, .callout-info .callout-title, .callout-note .callout-title {
+      color: #7a9aee; }
+
+    .callout-warning {
+      background: #2a1e18; border-color: #aa6a30; }
+    .callout-warning .callout-title { color: #e8944a; }
+
+    .callout-cards {
+      background: #16162a; border-color: #4a3a8a; border-left: none;
+      border-top: 2px solid #4a3a8a; }
+    .callout-cards .callout-title { color: #9080c8; }
+
+    /* Index page cards */
+    .page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 24px 0; }
+    .page-card { display: block; background: #16162e; border: 1px solid #2a2a50; border-radius: 10px;
+      padding: 20px; text-decoration: none; color: #d8d8e8; transition: background 0.15s, border-color 0.15s, transform 0.1s; }
+    .page-card:hover { background: #1e1e3e; border-color: #6655aa; transform: translateY(-2px); text-decoration: none; }
+    .page-card .card-title { font-size: 15px; font-weight: 600; color: #c8b8f0; margin-bottom: 4px; }
+    .page-card .card-desc { font-size: 12px; color: #7070a0; }
+
+    .hero { text-align: center; margin-bottom: 36px; }
+    .hero img { max-height: 280px; width: 100%; object-fit: cover; border-radius: 12px; margin: 0; }
+    .hero h1 { margin-top: 20px; border: none; padding: 0; }
+    .hero p { color: #8080b0; margin-top: 8px; }
+
+    @media (max-width: 480px) {
+      body { padding: 24px 14px; }
+      h1 { font-size: 22px; }
+      .page-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="site-nav">
+      <a href="/">jbluehdorn.github.io</a>
+      <span class="sep">›</span>
+      <a href="bral_stars/">Bral Stars</a> <span class="sep">›</span> West Marches Player Guide
+    </nav>
+    <h1>West Marches Player Guide</h1>
+<h1>West Marches Player Guide</h1>
+<p><strong>Bral Stars</strong> is a <strong>West Marches</strong> style campaign — an open world with a persistent setting, no fixed main storyline, and player-driven exploration. Here&#39;s how it runs.</p>
+<hr>
+<h2>Schedule</h2>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>When</th>
+<th>Duration</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Main Session</strong></td>
+<td>3rd Tuesday of each month</td>
+<td>~3 hours, 5:30 PM PST</td>
+</tr>
+<tr>
+<td><strong>Workshop</strong> (optional)</td>
+<td>The Thursday following the main session</td>
+<td>~1 hour, 5:30 PM PST</td>
+</tr>
+</tbody></table>
+<p><strong>Main Sessions</strong> are where the adventure happens — exploration, combat, roleplay, and progressing plot hooks.</p>
+<p><strong>Workshop Thursdays</strong> are optional low-key sessions for downtime, character admin, shopping, NPC conversations, or tidying up loose ends from the previous session. No pressure to attend, but they&#39;re a great chance to do the stuff that doesn&#39;t need the full table.</p>
+<hr>
+<h2>Monthly Hook Voting</h2>
+<p>At the <strong>start of each month</strong>, the DM posts a set of available plot hooks in Discord. Everyone votes on which hook the group wants to pursue that month&#39;s session.</p>
+<ul>
+<li>Hooks range from combat-heavy to investigation to exploration</li>
+<li>Votes are posted in Discord — check the pinned messages</li>
+<li>The winning hook becomes the focus of that month&#39;s session</li>
+<li>Unvoted hooks don&#39;t disappear — they stay available for future months</li>
+</ul>
+<p>You&#39;re never locked out of pursuing something off the board if your party has a strong lead to follow, but the voted hook takes priority for the scheduled session.</p>
+<hr>
+<h2>Between Sessions</h2>
+<p>Your character is always safely back on the Rock of Bral when not in a session. Between sessions you can:</p>
+<ul>
+<li>Pursue <a href="#">Downtime Activities</a> — send a message to the DM with what you&#39;re doing</li>
+<li>Post questions or plans in Discord</li>
+<li>Check the <a href="adventurers-board.html">Adventurers&#39; Board</a> for updated rumors and jobs</li>
+</ul>
+<hr>
+<h2>The World is Persistent</h2>
+<p>Everything that happens carries forward.</p>
+<ul>
+<li>NPCs remember you</li>
+<li>Locations change after you interact with them</li>
+<li>Factions track your reputation — good and bad</li>
+<li>What the party does in one session shapes the world for the next</li>
+</ul>
+<hr>
+<h2>Character Death</h2>
+<p>Death is possible and permanent. The Rock of Bral has resurrection services, but they are <strong>expensive</strong> (at least 500 gp for <em>Revivify</em>, more for higher-level spells). There&#39;s no guarantee a cleric of the right level is available.</p>
+<p>If your character dies and can&#39;t be revived, you may create a new character who arrives on the Rock by the next session.</p>
+<hr>
+<h2>Rules You Should Know</h2>
+<ul>
+<li><a href="#">Actions in Combat</a> — what you can do on your turn</li>
+<li><a href="#">Short Rest</a> / <a href="#">Long Rest</a> — how you recover</li>
+<li><a href="#">Death Saving Throws</a> — what happens at 0 HP</li>
+<li><a href="#">Downtime Activities</a> — what to do between sessions</li>
+</ul>
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to the Rock of Bral — Bral Stars</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+      background: #0e0e1a;
+      color: #d8d8e8;
+      min-height: 100vh;
+      padding: 40px 20px;
+      line-height: 1.7;
+    }
+
+    .container { max-width: 780px; margin: 0 auto; }
+
+    .site-nav {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 32px;
+      font-size: 13px;
+      color: #6666a0;
+    }
+    .site-nav a { color: #8888cc; text-decoration: none; }
+    .site-nav a:hover { color: #aaaaee; }
+    .site-nav .sep { color: #444466; }
+
+    h1 { font-size: 28px; color: #c8b8f0; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 2px solid #2a2a4a; }
+    h2 { font-size: 20px; color: #a090d8; margin: 28px 0 12px; }
+    h3 { font-size: 16px; color: #9090c8; margin: 20px 0 8px; }
+
+    p { margin-bottom: 14px; }
+
+    a { color: #8899ee; text-decoration: none; }
+    a:hover { color: #aabbff; text-decoration: underline; }
+
+    ul, ol { margin: 0 0 14px 24px; }
+    li { margin-bottom: 4px; }
+
+    strong { color: #e8e0ff; }
+
+    hr { border: none; border-top: 1px solid #2a2a4a; margin: 28px 0; }
+
+    table { width: 100%; border-collapse: collapse; margin-bottom: 18px; font-size: 14px; }
+    th { background: #1e1e38; color: #a090d8; text-align: left; padding: 8px 12px; border-bottom: 2px solid #2a2a4a; }
+    td { padding: 8px 12px; border-bottom: 1px solid #1e1e32; }
+    tr:last-child td { border-bottom: none; }
+
+    code { background: #1a1a30; padding: 2px 6px; border-radius: 4px; font-size: 13px; color: #b0a0e8; }
+    pre { background: #1a1a30; padding: 16px; border-radius: 8px; overflow-x: auto; margin-bottom: 18px; }
+    pre code { padding: 0; background: none; }
+
+    img { max-width: 100%; border-radius: 8px; margin: 16px 0; border: 1px solid #2a2a4a; }
+
+    blockquote { border-left: 3px solid #4a3a8a; padding: 8px 16px; margin: 16px 0; color: #a090c8; background: #16162a; border-radius: 0 6px 6px 0; }
+
+    /* Obsidian callouts */
+    .callout { border-radius: 8px; padding: 14px 18px; margin: 18px 0; border-left: 4px solid; }
+    .callout-title { font-weight: 700; font-size: 14px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
+    .callout-body > p:last-child { margin-bottom: 0; }
+    .callout-body ul { margin-bottom: 0; }
+
+    .callout-infobox, .callout-info, .callout-note {
+      background: #16203a; border-color: #4a6aaa; }
+    .callout-infobox .callout-title, .callout-info .callout-title, .callout-note .callout-title {
+      color: #7a9aee; }
+
+    .callout-warning {
+      background: #2a1e18; border-color: #aa6a30; }
+    .callout-warning .callout-title { color: #e8944a; }
+
+    .callout-cards {
+      background: #16162a; border-color: #4a3a8a; border-left: none;
+      border-top: 2px solid #4a3a8a; }
+    .callout-cards .callout-title { color: #9080c8; }
+
+    /* Index page cards */
+    .page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 24px 0; }
+    .page-card { display: block; background: #16162e; border: 1px solid #2a2a50; border-radius: 10px;
+      padding: 20px; text-decoration: none; color: #d8d8e8; transition: background 0.15s, border-color 0.15s, transform 0.1s; }
+    .page-card:hover { background: #1e1e3e; border-color: #6655aa; transform: translateY(-2px); text-decoration: none; }
+    .page-card .card-title { font-size: 15px; font-weight: 600; color: #c8b8f0; margin-bottom: 4px; }
+    .page-card .card-desc { font-size: 12px; color: #7070a0; }
+
+    .hero { text-align: center; margin-bottom: 36px; }
+    .hero img { max-height: 280px; width: 100%; object-fit: cover; border-radius: 12px; margin: 0; }
+    .hero h1 { margin-top: 20px; border: none; padding: 0; }
+    .hero p { color: #8080b0; margin-top: 8px; }
+
+    @media (max-width: 480px) {
+      body { padding: 24px 14px; }
+      h1 { font-size: 22px; }
+      .page-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <nav class="site-nav">
+      <a href="/">jbluehdorn.github.io</a>
+      <span class="sep">›</span>
+      <a href="bral_stars/">Bral Stars</a> <span class="sep">›</span> Welcome to the Rock of Bral
+    </nav>
+    <h1>Welcome to the Rock of Bral</h1>
+<h1>Welcome to the Rock of Bral</h1>
+<p>You are an adventurer living on the <strong>Rock of Bral</strong> — a mile-long asteroid city drifting through Wildspace, the vast emptiness between worlds. Think of it as a frontier port town, except the frontier is outer space, the port accepts ships that sail between stars, and the town is built on a flying rock.</p>
+<p>The Rock is home to roughly 25,000 souls: merchants, sailors, pirates, nobles, refugees, thieves, priests, and everything in between. People come here from dozens of different worlds, and almost everyone is here for one of three reasons: <strong>to trade, to hide, or to find opportunity</strong>.</p>
+<p>You are in the third category.</p>
+<hr>
+<h2>What You Know</h2>
+<p>The Rock is divided into three districts — see <a href="maps-visuals.html">Maps &amp; Visuals</a> for full maps.</p>
+<p><strong>Low City</strong> — the docks, the warehouses, the rough taverns. This is where ships arrive, cargo moves, and deals get made away from official eyes. The <a href="#">Rat&#39;s Maze</a> is here, and you&#39;ve been warned to stay out of it unless you have business.</p>
+<p><strong>Middle City</strong> — the commercial heart. The <a href="#">Grand Bazaar</a> will sell you nearly anything. The <a href="#">Temple Row</a> will offer blessings, answers, or guilt in equal measure. The <a href="#">Gambler&#39;s Den</a> will take your coin either way.</p>
+<p><strong>High City</strong> — where the powerful live. The <a href="#">Palace</a> sits at the top, home to <strong>Prince Andru</strong>, the ruler of the Rock. The <a href="#">Noble Quarter</a> surrounds it. You probably don&#39;t have business up there yet.</p>
+<hr>
+<h2>The Laughing Beholder</h2>
+<p>Your home base is <a href="#">The Laughing Beholder</a> — the most famous tavern on the Rock, run by a beholder named <strong>Large Luigi</strong>. It&#39;s neutral ground, it&#39;s loud, and its <strong>Adventurers&#39; Board</strong> is where work finds people like you.</p>
+<hr>
+<h2>Wildspace</h2>
+<p>Beyond the Rock is <strong>Wildspace</strong> — airless, gravity-less, and full of things that want to kill you or rob you (sometimes both). Ships sail it using magical <strong>spelljamming helms</strong>. If you ever get access to a ship, there&#39;s a whole solar system out there to explore: other asteroids, planets, ancient ruins, and stranger things.</p>
+<p>Further still, past the edge of the solar system, is <strong>the Phlogiston</strong> — a turbulent, multicolored medium between crystal spheres. It&#39;s highly flammable. Don&#39;t bring an open flame.</p>
+<hr>
+<h2>Who&#39;s In Charge</h2>
+<p><strong>Prince Andru</strong> rules the Rock. He&#39;s pragmatic and not unkind, but he is absolutely self-interested. The constabulary enforces the law in Middle and High City. In Low City, law is more of a suggestion.</p>
+<p>The major power players you&#39;ve heard of:</p>
+<ul>
+<li><strong><a href="#">House Traken</a></strong> — richest merchant house on the Rock</li>
+<li><strong><a href="#">The Juggler&#39;s Guild</a></strong> — the thieves&#39; guild; they run the Low City underworld</li>
+<li><strong><a href="#">The Arcane</a></strong> — alien traders who sell spelljamming helms; strictly neutral in all things</li>
+<li><strong><a href="#">The Seekers</a></strong> — the adventurers&#39; guild; friendly to people like you</li>
+</ul>
+
+  </div>
+</body>
+</html>
