@@ -6,98 +6,163 @@
   <title>Important NPCs — Bral Stars</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
-      background: #0e0e1a;
-      color: #d8d8e8;
-      min-height: 100vh;
-      padding: 40px 20px;
-      line-height: 1.7;
+      background: #0e0e1a; color: #d8d8e8;
+      min-height: 100vh; line-height: 1.65;
     }
 
-    .container { max-width: 780px; margin: 0 auto; }
-
-    .site-nav {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 32px;
-      font-size: 13px;
-      color: #6666a0;
+    /* ───── Layout ───── */
+    .app { display: flex; min-height: 100vh; }
+    .sidebar {
+      width: 280px; flex-shrink: 0;
+      background: #0a0a16; border-right: 1px solid #22223e;
+      padding: 24px 0; overflow-y: auto;
+      position: sticky; top: 0; height: 100vh;
     }
-    .site-nav a { color: #8888cc; text-decoration: none; }
-    .site-nav a:hover { color: #aaaaee; }
-    .site-nav .sep { color: #444466; }
+    .main {
+      flex: 1; min-width: 0;
+      padding: 40px 48px;
+    }
+    .content { max-width: 780px; margin: 0 auto; }
 
-    h1 { font-size: 28px; color: #c8b8f0; margin-bottom: 24px; padding-bottom: 12px; border-bottom: 2px solid #2a2a4a; }
+    /* ───── Sidebar ───── */
+    .sidebar-brand {
+      padding: 0 22px 20px;
+      border-bottom: 1px solid #22223e;
+      margin-bottom: 12px;
+    }
+    .sidebar-brand a {
+      text-decoration: none; color: #c8b8f0;
+      font-size: 18px; font-weight: 700; letter-spacing: 0.5px;
+    }
+    .sidebar-brand .subtitle {
+      display: block;
+      font-size: 11px; color: #6060a0;
+      font-weight: 400; text-transform: uppercase; letter-spacing: 1.5px;
+      margin-top: 4px;
+    }
+
+    .sidebar-section { border-bottom: 1px solid #16162c; }
+    .sidebar-section summary {
+      list-style: none; cursor: pointer;
+      padding: 10px 22px; font-size: 13px;
+      color: #a090d8; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 1px;
+      user-select: none;
+      display: flex; align-items: center; gap: 8px;
+      transition: background 0.15s;
+    }
+    .sidebar-section summary::-webkit-details-marker { display: none; }
+    .sidebar-section summary::before {
+      content: '▸'; font-size: 10px; color: #4a4a80;
+      transition: transform 0.15s; display: inline-block;
+    }
+    .sidebar-section[open] > summary::before { transform: rotate(90deg); }
+    .sidebar-section summary:hover { background: #14142a; }
+    .sidebar-overview {
+      margin-left: auto; font-size: 10px; color: #5555aa;
+      text-transform: none; letter-spacing: 0.5px;
+      opacity: 0; transition: opacity 0.15s;
+    }
+    .sidebar-section summary:hover .sidebar-overview { opacity: 1; }
+
+    .sidebar-single {
+      padding: 0;
+    }
+    .sidebar-single a {
+      display: block; padding: 10px 22px;
+      color: #a090d8; text-decoration: none;
+      font-size: 13px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: 1px;
+    }
+    .sidebar-single a:hover { background: #14142a; }
+    .sidebar-single a.active { background: #1a1a34; color: #c8b8f0; }
+
+    .sidebar-section ul {
+      list-style: none; margin: 0; padding: 4px 0 10px;
+    }
+    .sidebar-section li a {
+      display: block; padding: 6px 22px 6px 42px;
+      color: #8080b0; text-decoration: none;
+      font-size: 13px; line-height: 1.4;
+      transition: background 0.1s, color 0.1s;
+    }
+    .sidebar-section li a:hover { background: #14142a; color: #b8b8d8; }
+    .sidebar-section li a.active {
+      background: #1a1a34; color: #c8b8f0; font-weight: 500;
+      border-left: 2px solid #6655aa; padding-left: 40px;
+    }
+
+    .sidebar-group { margin: 4px 0; }
+    .sidebar-group-title {
+      padding: 8px 22px 4px;
+      font-size: 10px; color: #6060a0;
+      text-transform: uppercase; letter-spacing: 1.2px;
+      font-weight: 700;
+    }
+
+    /* ───── Mobile toggle ───── */
+    .mobile-toggle {
+      display: none;
+      position: fixed; top: 12px; left: 12px;
+      z-index: 999;
+      background: #1a1a34; border: 1px solid #2a2a50;
+      color: #c8b8f0; padding: 8px 12px;
+      border-radius: 6px; cursor: pointer;
+      font-size: 18px;
+    }
+
+    /* ───── Content typography ───── */
+    h1 { font-size: 30px; color: #c8b8f0; margin-bottom: 22px; padding-bottom: 12px; border-bottom: 2px solid #2a2a4a; }
     h2 { font-size: 20px; color: #a090d8; margin: 28px 0 12px; }
     h3 { font-size: 16px; color: #9090c8; margin: 20px 0 8px; }
-
     p { margin-bottom: 14px; }
-
     a { color: #8899ee; text-decoration: none; }
     a:hover { color: #aabbff; text-decoration: underline; }
-
     ul, ol { margin: 0 0 14px 24px; }
     li { margin-bottom: 4px; }
-
     strong { color: #e8e0ff; }
-
     hr { border: none; border-top: 1px solid #2a2a4a; margin: 28px 0; }
-
     table { width: 100%; border-collapse: collapse; margin-bottom: 18px; font-size: 14px; }
     th { background: #1e1e38; color: #a090d8; text-align: left; padding: 8px 12px; border-bottom: 2px solid #2a2a4a; }
     td { padding: 8px 12px; border-bottom: 1px solid #1e1e32; }
     tr:last-child td { border-bottom: none; }
-
     code { background: #1a1a30; padding: 2px 6px; border-radius: 4px; font-size: 13px; color: #b0a0e8; }
     pre { background: #1a1a30; padding: 16px; border-radius: 8px; overflow-x: auto; margin-bottom: 18px; }
     pre code { padding: 0; background: none; }
-
-    img { max-width: 100%; border-radius: 8px; margin: 16px 0; border: 1px solid #2a2a4a; }
-
+    img { max-width: 100%; border-radius: 8px; margin: 16px 0; border: 1px solid #2a2a4a; cursor: zoom-in; }
     blockquote { border-left: 3px solid #4a3a8a; padding: 8px 16px; margin: 16px 0; color: #a090c8; background: #16162a; border-radius: 0 6px 6px 0; }
 
-    /* Obsidian callouts */
+    /* Callouts */
     .callout { border-radius: 8px; padding: 14px 18px; margin: 18px 0; border-left: 4px solid; }
     .callout-title { font-weight: 700; font-size: 14px; margin-bottom: 8px; text-transform: uppercase; letter-spacing: 0.5px; }
     .callout-body > p:last-child { margin-bottom: 0; }
     .callout-body ul { margin-bottom: 0; }
-
-    .callout-infobox, .callout-info, .callout-note {
-      background: #16203a; border-color: #4a6aaa; }
-    .callout-infobox .callout-title, .callout-info .callout-title, .callout-note .callout-title {
-      color: #7a9aee; }
-
-    .callout-warning {
-      background: #2a1e18; border-color: #aa6a30; }
+    .callout-infobox, .callout-info, .callout-note { background: #16203a; border-color: #4a6aaa; }
+    .callout-infobox .callout-title, .callout-info .callout-title, .callout-note .callout-title { color: #7a9aee; }
+    .callout-warning { background: #2a1e18; border-color: #aa6a30; }
     .callout-warning .callout-title { color: #e8944a; }
-
-    .callout-cards {
-      background: #16162a; border-color: #4a3a8a; border-left: none;
-      border-top: 2px solid #4a3a8a; }
+    .callout-cards { background: #16162a; border-color: #4a3a8a; border-left: none; border-top: 2px solid #4a3a8a; }
     .callout-cards .callout-title { color: #9080c8; }
 
-    /* Index page cards */
-    .page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 12px 0 4px; }
-    .page-card { display: block; background: #16162e; border: 1px solid #2a2a50; border-radius: 10px;
-      padding: 20px; text-decoration: none; color: #d8d8e8; transition: background 0.15s, border-color 0.15s, transform 0.1s; }
-    .page-card:hover { background: #1e1e3e; border-color: #6655aa; transform: translateY(-2px); text-decoration: none; }
-    .page-card .card-title { font-size: 15px; font-weight: 600; color: #c8b8f0; margin-bottom: 4px; }
-    .page-card .card-desc { font-size: 12px; color: #7070a0; }
-
-    /* Dashboard sections & status bar */
-    .dashboard-section { margin: 28px 0; }
-    .section-heading {
-      font-size: 15px; text-transform: uppercase; letter-spacing: 1.2px;
-      color: #7080b8; border: none; padding: 0; margin: 0 0 14px;
-      display: flex; align-items: center; gap: 10px;
+    /* Breadcrumb */
+    .breadcrumb {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 12px; color: #6666a0; margin-bottom: 20px;
     }
-    .section-icon { font-size: 18px; color: #a090d8; }
+    .breadcrumb a { color: #8888cc; }
+    .breadcrumb .sep { color: #444466; }
+
+    /* Homepage-specific */
+    .hero { text-align: center; margin-bottom: 24px; }
+    .hero img { max-height: 260px; width: 100%; object-fit: cover; border-radius: 12px; margin: 0; cursor: default; }
+    .hero h1 { margin-top: 20px; border: none; padding: 0; font-size: 36px; }
+    .hero p { color: #8080b0; margin-top: 8px; }
+
     .dashboard-status {
       display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 10px; margin: 8px 0 24px; padding: 16px 20px;
+      gap: 10px; margin: 8px 0 32px; padding: 16px 20px;
       background: linear-gradient(90deg, #16162e 0%, #1a1a34 100%);
       border: 1px solid #2a2a50; border-radius: 10px;
     }
@@ -105,198 +170,132 @@
       font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
       color: #6666a0; margin-bottom: 4px;
     }
-    .status-item .status-value {
-      font-size: 14px; color: #c8b8f0; font-weight: 500;
+    .status-item .status-value { font-size: 14px; color: #c8b8f0; font-weight: 500; }
+
+    .dashboard-section { margin: 28px 0; }
+    .section-heading {
+      font-size: 14px; text-transform: uppercase; letter-spacing: 1.2px;
+      color: #7080b8; border: none; padding: 0; margin: 0 0 14px;
+      display: flex; align-items: center; gap: 10px;
     }
+    .section-icon { font-size: 18px; color: #a090d8; }
 
-    .hero { text-align: center; margin-bottom: 24px; }
-    .hero img { max-height: 280px; width: 100%; object-fit: cover; border-radius: 12px; margin: 0; }
-    .hero h1 { margin-top: 20px; border: none; padding: 0; }
-    .hero p { color: #8080b0; margin-top: 8px; }
+    .page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 0; }
+    .page-card {
+      display: block; background: #16162e; border: 1px solid #2a2a50; border-radius: 10px;
+      padding: 18px 20px; text-decoration: none; color: #d8d8e8;
+      transition: background 0.15s, border-color 0.15s, transform 0.1s;
+    }
+    .page-card:hover { background: #1e1e3e; border-color: #6655aa; transform: translateY(-2px); text-decoration: none; }
+    .page-card .card-title { font-size: 15px; font-weight: 600; color: #c8b8f0; margin-bottom: 4px; }
+    .page-card .card-desc { font-size: 12px; color: #7070a0; }
 
-    @media (max-width: 480px) {
-      body { padding: 24px 14px; }
-      h1 { font-size: 22px; }
-      .page-grid { grid-template-columns: 1fr; }
-      .dashboard-status { grid-template-columns: 1fr; }
+    /* Mobile */
+    @media (max-width: 900px) {
+      .app { display: block; }
+      .mobile-toggle { display: block; }
+      .sidebar {
+        position: fixed; left: -300px; top: 0;
+        width: 280px; height: 100vh; z-index: 998;
+        transition: left 0.2s ease;
+        border-right: 1px solid #22223e;
+      }
+      .sidebar.open { left: 0; box-shadow: 0 0 30px rgba(0,0,0,0.6); }
+      .main { padding: 60px 20px 40px; }
+      .hero h1 { font-size: 26px; }
     }
 
     /* Lightbox */
-    #lightbox {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.93);
-      z-index: 1000;
-      overflow: hidden;
-    }
+    #lightbox { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.93); z-index: 1000; overflow: hidden; }
     #lightbox.active { display: flex; align-items: center; justify-content: center; }
-    #lightbox-img {
-      max-width: 95vw;
-      max-height: 95vh;
-      border-radius: 8px;
-      cursor: grab;
-      user-select: none;
-      transform-origin: center center;
-      border: 1px solid #2a2a4a;
-    }
+    #lightbox-img { max-width: 95vw; max-height: 95vh; border-radius: 8px; cursor: grab; user-select: none; transform-origin: center center; border: 1px solid #2a2a4a; }
     #lightbox-img.dragging { cursor: grabbing; }
-    #lightbox-close {
-      position: fixed;
-      top: 16px;
-      right: 22px;
-      color: rgba(255,255,255,0.7);
-      font-size: 36px;
-      line-height: 1;
-      cursor: pointer;
-      z-index: 1001;
-      transition: color 0.15s;
-    }
+    #lightbox-close { position: fixed; top: 16px; right: 22px; color: rgba(255,255,255,0.7); font-size: 36px; line-height: 1; cursor: pointer; z-index: 1001; }
     #lightbox-close:hover { color: #fff; }
-    #lightbox-hint {
-      position: fixed;
-      bottom: 14px;
-      left: 50%;
-      transform: translateX(-50%);
-      color: rgba(255,255,255,0.3);
-      font-size: 12px;
-      pointer-events: none;
-      white-space: nowrap;
-    }
-    .container img { cursor: zoom-in; }
-    .hero img { cursor: default; }
+    #lightbox-hint { position: fixed; bottom: 14px; left: 50%; transform: translateX(-50%); color: rgba(255,255,255,0.3); font-size: 12px; pointer-events: none; }
+    .hero img, .sidebar img { cursor: default !important; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <nav class="site-nav">
-      <a href="/">jbluehdorn.github.io</a>
-      <span class="sep">›</span>
-      <a href="/bral_stars/">Bral Stars</a> <span class="sep">›</span> Important NPCs
-    </nav>
-    <h1>Important NPCs</h1>
-<h1>Important NPCs</h1>
-<p>The people on the Rock you&#39;re most likely to run into, get in trouble with, or need to talk to. Not exhaustive — new faces will surface every session.</p>
-<hr>
-<h2>Large Luigi</h2>
-<p><img src="https://raw.githubusercontent.com/Jbluehdorn/BralStars/main/z_attachments/NPC_LargeLuigi.jpg" alt="NPC_LargeLuigi.jpg">
-<strong>Race:</strong> Beholder · <strong>Where:</strong> <a href="important-locations.html">The Laughing Beholder</a> · <strong>Alignment:</strong> Chaotic Neutral</p>
-<p>A beholder who decided running a tavern was more interesting than world domination. Gregarious, dramatic, and genuinely enjoys good company. Absolutely no patience for troublemakers, whom he disintegrates without ceremony. Knows every face, name, and debt on the Rock. See <a href="important-locations.html">Important Locations</a> for the tavern.</p>
-<hr>
-<h2>Prince Andru</h2>
-<p><img src="https://raw.githubusercontent.com/Jbluehdorn/BralStars/main/z_attachments/NPC_BralLeaders.jpg" alt="NPC_BralLeaders.jpg">
-<strong>Race:</strong> Human · <strong>Title:</strong> Prince of Bral · <strong>Residence:</strong> Starhaven</p>
-<p>Ruler of the Rock. Shrewd, pragmatic, and <em>very</em> self-interested. Inherited young, outmaneuvered his rivals early. Presents as genially accessible. Persistent rumor says he commands a secret police of clowns — officially deniable, universally suspected.</p>
-<hr>
-<h2>Ronald McDonald</h2>
-<p><strong>Where:</strong> Around town — everywhere and nowhere</p>
-<p>The Rock&#39;s most recognizable clown. Pure-white face. Deeply unsettling energy under the friendly veneer. If the clown rumors about the Prince are true, this is who leads them. Beloved by children. Distrusted by adults who&#39;ve been paying attention.</p>
-<hr>
-<h2>Ringmaster Blorg</h2>
-<p><strong>Where:</strong> <a href="important-locations.html">The Arena</a> · <strong>Faction:</strong> The Cirque</p>
-<p>A crocodile. In a ringmaster&#39;s outfit. Runs the Cirque. Doesn&#39;t speak (he&#39;s a crocodile). Nobody can explain why they respect him. Everyone does.</p>
-<hr>
-<h2>Captain Barnacle</h2>
-<p><strong>Where:</strong> Low City bars · <strong>Reputation:</strong> Beloved former pirate</p>
-<p>Spins tall tales of piracy at every Low City bar that&#39;ll have him. Absolutely capable of violence if pushed. Tips extravagantly. Never drinks the drinks people buy him.</p>
-<hr>
-<h2>Jawless Jerry</h2>
-<p><strong>Where:</strong> Low City, after dark · <strong>Status:</strong> Local cryptid</p>
-<p>A coyote with no jaw. Old dockworker superstition: if you see her, the next day brings either great fortune or great disaster. Never a middle outcome. Nobody knows what she actually is.</p>
-<hr>
-<h2>Professor DC</h2>
-<p><strong>Where:</strong> <a href="important-locations.html">Mages&#39; Hall</a> · <strong>Role:</strong> Wizard</p>
-<p>One of the many wizards at the Mages&#39; Hall. Or is he? People who&#39;ve dealt with the Hall long enough swear they can&#39;t quite tell the faculty apart anymore.</p>
-<hr>
-<h2>Steve</h2>
-<p><strong>Where:</strong> Starhaven, at his post</p>
-<p>A palace naval guard currently having a very obvious existential crisis. Won&#39;t say why. Won&#39;t stop staring at the middle distance. Big Wendy&#39;s fan.</p>
-<hr>
-<h2>Warden Bigboots</h2>
-<p><strong>Where:</strong> Starhaven barracks</p>
-<p>Warden of the palace barracks. Got the job because of his family. Has size-2 shoes and a voice that squeaks when he&#39;s excited. Unhinged in ways that will not be limited to the barracks.</p>
-<hr>
-<h2>Jennifer Coolidge</h2>
-<p><strong>Where:</strong> The Boroughs · <strong>Role:</strong> HOA President for the Hammers</p>
-<p>The HOA president of <a href="factions-connections.html">the Hammers</a>. Wants everything to look real nice. Hosts long, long meetings.</p>
-<hr>
-<h2>Kay Aren</h2>
-<p><strong>Where:</strong> The Boroughs · <strong>Role:</strong> Assistant to Jennifer Coolidge</p>
-<p>Jennifer&#39;s assistant. Actually runs the operational side of the HOA. Universally trusted. Universally underestimated.</p>
-<hr>
-<h2>Mafia Don Jon</h2>
-<p><strong>Where:</strong> The Donjon estate, High City · <strong>Faction:</strong> The Donjon Crime Family</p>
-<p>Rumored head of an old-money crime family. Rumored to have his hands in half the schemes on the Rock. Rumored, rumored, rumored. Nobody has proved anything.</p>
+  <button class="mobile-toggle" onclick="document.querySelector('.sidebar').classList.toggle('open')">☰</button>
 
+  <div class="app">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <a href="index.html">✦ Bral Stars</a>
+        <span class="subtitle">Rock of Bral Campaign</span>
+      </div>
+      <div class="sidebar-section sidebar-single">
+        <a href="index.html">Home</a>
+      </div><details class="sidebar-section">
+      <summary>✦ Start Here</summary>
+      <ul><li><a href="welcome-to-the-rock-of-bral.html">Welcome to the Rock</a></li><li><a href="west-marches-player-guide.html">West Marches Guide</a></li><li><a href="character-creation.html">Character Creation</a></li></ul>
+    </details><details class="sidebar-section">
+      <summary>⚔ The Campaign</summary>
+      <ul><li><a href="the-party.html">The Party (overview)</a></li><li><a href="adventurers-board.html">Adventurers' Board</a></li></ul>
+    <div class="sidebar-group">
+      <div class="sidebar-group-title">Party Members</div>
+      <ul></ul>
+    </div>
+    </details><details class="sidebar-section">
+      <summary>🌐 Locations <a class="sidebar-overview" href="important-locations.html">overview</a></summary>
+      <ul><li><a href="location-the-laughing-beholder.html">The Laughing Beholder</a></li><li><a href="location-the-docks.html">The Docks</a></li><li><a href="location-the-rat-s-maze.html">The Rat's Maze</a></li><li><a href="location-the-boroughs.html">The Boroughs</a></li><li><a href="location-the-fields.html">The Fields</a></li><li><a href="location-the-edge.html">The Edge</a></li><li><a href="location-gaspar-reclamations.html">Gaspar Reclamations</a></li><li><a href="location-the-grand-bazaar.html">The Grand Bazaar</a></li><li><a href="location-temple-row.html">Temple Row</a></li><li><a href="location-the-gambler-s-den.html">The Gambler's Den</a></li><li><a href="location-the-arena.html">The Arena</a></li><li><a href="location-mages-hall.html">Mages' Hall</a></li><li><a href="location-library-of-spheres.html">Library of Spheres</a></li><li><a href="location-royal-theatrical-company.html">Royal Theatrical Company</a></li><li><a href="location-lake-bral.html">Lake Bral</a></li><li><a href="location-starhaven.html">Starhaven</a></li><li><a href="location-the-noble-quarter.html">The Noble Quarter</a></li><li><a href="location-the-man-o-war.html">The Man-o'-War</a></li><li><a href="location-the-tunnels.html">The Tunnels</a></li><li><a href="location-valkan-s-legion.html">Valkan's Legion</a></li></ul>
+    </details><details class="sidebar-section" open>
+      <summary>👤 NPCs <a class="sidebar-overview" href="important-npcs.html">overview</a></summary>
+      <ul><li><a href="npc-large-luigi.html">Large Luigi</a></li><li><a href="npc-prince-andru.html">Prince Andru</a></li><li><a href="npc-ronald-mcdonald.html">Ronald McDonald</a></li><li><a href="npc-ringmaster-blorg.html">Ringmaster Blorg</a></li><li><a href="npc-captain-barnacle.html">Captain Barnacle</a></li><li><a href="npc-jawless-jerry.html">Jawless Jerry</a></li><li><a href="npc-professor-dc.html">Professor DC</a></li><li><a href="npc-steve.html">Steve</a></li><li><a href="npc-warden-bigboots.html">Warden Bigboots</a></li><li><a href="npc-jennifer-coolidge.html">Jennifer Coolidge</a></li><li><a href="npc-kay-aren.html">Kay Aren</a></li><li><a href="npc-mafia-don-jon.html">Mafia Don Jon</a></li></ul>
+    </details><details class="sidebar-section">
+      <summary>⚑ Factions <a class="sidebar-overview" href="factions-connections.html">overview</a></summary>
+      <ul><li><a href="faction-the-hammers.html">The Hammers</a></li><li><a href="faction-the-cirque.html">The Cirque</a></li><li><a href="faction-the-red-masks.html">The Red Masks</a></li><li><a href="faction-the-groundhogs.html">The Groundhogs</a></li><li><a href="faction-the-lovers-of-the-lake.html">The Lovers of the Lake</a></li><li><a href="faction-gaspar-reclamations.html">Gaspar Reclamations</a></li><li><a href="faction-the-donjon-crime-family.html">The Donjon Crime Family</a></li><li><a href="faction-xenotermination-ltd.html">Xenotermination Ltd.</a></li><li><a href="faction-the-secret-service-clowns.html">The Secret Service Clowns</a></li><li><a href="faction-the-adventurers-i-e-you.html">The Adventurers (i.e. you)</a></li></ul>
+    </details><details class="sidebar-section">
+      <summary>📖 Reference</summary>
+      <ul><li><a href="maps-visuals.html">Maps & Visuals</a></li></ul>
+    </details>
+    </aside>
+
+    <main class="main">
+      <div class="content">
+        <nav class="breadcrumb"><a href="index.html">Home</a><span class="sep">›</span>Important NPCs</nav>
+        <h1>Important NPCs</h1>
+<p>The people on the Rock you&#39;re most likely to run into, get in trouble with, or need to talk to. Not exhaustive — new faces will surface every session.</p>
+
+<div class="page-grid">
+          <a class="page-card" href="npc-large-luigi.html"><div class="card-title">Large Luigi</div></a><a class="page-card" href="npc-prince-andru.html"><div class="card-title">Prince Andru</div></a><a class="page-card" href="npc-ronald-mcdonald.html"><div class="card-title">Ronald McDonald</div></a><a class="page-card" href="npc-ringmaster-blorg.html"><div class="card-title">Ringmaster Blorg</div></a><a class="page-card" href="npc-captain-barnacle.html"><div class="card-title">Captain Barnacle</div></a><a class="page-card" href="npc-jawless-jerry.html"><div class="card-title">Jawless Jerry</div></a><a class="page-card" href="npc-professor-dc.html"><div class="card-title">Professor DC</div></a><a class="page-card" href="npc-steve.html"><div class="card-title">Steve</div></a><a class="page-card" href="npc-warden-bigboots.html"><div class="card-title">Warden Bigboots</div></a><a class="page-card" href="npc-jennifer-coolidge.html"><div class="card-title">Jennifer Coolidge</div></a><a class="page-card" href="npc-kay-aren.html"><div class="card-title">Kay Aren</div></a><a class="page-card" href="npc-mafia-don-jon.html"><div class="card-title">Mafia Don Jon</div></a>
+        </div>
+      </div>
+    </main>
   </div>
 
   <!-- Lightbox -->
   <div id="lightbox">
     <span id="lightbox-close">&#x2715;</span>
     <img id="lightbox-img" src="" alt="">
-    <div id="lightbox-hint">scroll to zoom &nbsp;·&nbsp; drag to pan &nbsp;·&nbsp; esc to close</div>
+    <div id="lightbox-hint">scroll to zoom · drag to pan · esc to close</div>
   </div>
 
   <script>
   (function () {
-    var lb     = document.getElementById('lightbox');
-    var lbImg  = document.getElementById('lightbox-img');
+    var lb = document.getElementById('lightbox');
+    var lbImg = document.getElementById('lightbox-img');
     var lbClose = document.getElementById('lightbox-close');
-
-    var scale = 1, tx = 0, ty = 0;
-    var dragging = false, startX = 0, startY = 0, baseX = 0, baseY = 0;
-
-    function applyTransform() {
-      lbImg.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + scale + ')';
-    }
-
-    function openLightbox(src, alt) {
-      lbImg.src = src;
-      lbImg.alt = alt || '';
-      scale = 1; tx = 0; ty = 0;
-      applyTransform();
-      lb.classList.add('active');
-    }
-
+    var scale = 1, tx = 0, ty = 0, dragging = false, startX = 0, startY = 0, baseX = 0, baseY = 0;
+    function applyTransform() { lbImg.style.transform = 'translate(' + tx + 'px,' + ty + 'px) scale(' + scale + ')'; }
+    function openLightbox(src, alt) { lbImg.src = src; lbImg.alt = alt || ''; scale = 1; tx = 0; ty = 0; applyTransform(); lb.classList.add('active'); }
     function closeLightbox() { lb.classList.remove('active'); }
-
-    // Wire up all content images (exclude hero)
-    document.querySelectorAll('.container img').forEach(function (img) {
-      img.addEventListener('click', function (e) {
-        e.stopPropagation();
-        openLightbox(img.src, img.alt);
-      });
+    document.querySelectorAll('.main img').forEach(function (img) {
+      if (img.closest('.hero')) return;
+      img.addEventListener('click', function (e) { e.stopPropagation(); openLightbox(img.src, img.alt); });
     });
-
     lbClose.addEventListener('click', closeLightbox);
     lb.addEventListener('click', function (e) { if (e.target === lb) closeLightbox(); });
     document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
-
-    // Mouse drag to pan
-    lbImg.addEventListener('mousedown', function (e) {
-      e.preventDefault();
-      dragging = true;
-      startX = e.clientX; startY = e.clientY;
-      baseX = tx; baseY = ty;
-      lbImg.classList.add('dragging');
-    });
-    document.addEventListener('mousemove', function (e) {
-      if (!dragging) return;
-      tx = baseX + (e.clientX - startX);
-      ty = baseY + (e.clientY - startY);
-      applyTransform();
-    });
-    document.addEventListener('mouseup', function () {
-      dragging = false;
-      lbImg.classList.remove('dragging');
-    });
-
-    // Scroll to zoom (towards cursor)
+    lbImg.addEventListener('mousedown', function (e) { e.preventDefault(); dragging = true; startX = e.clientX; startY = e.clientY; baseX = tx; baseY = ty; lbImg.classList.add('dragging'); });
+    document.addEventListener('mousemove', function (e) { if (!dragging) return; tx = baseX + (e.clientX - startX); ty = baseY + (e.clientY - startY); applyTransform(); });
+    document.addEventListener('mouseup', function () { dragging = false; lbImg.classList.remove('dragging'); });
     lb.addEventListener('wheel', function (e) {
       e.preventDefault();
       var rect = lbImg.getBoundingClientRect();
-      var cx = e.clientX - (rect.left + rect.width  / 2);
-      var cy = e.clientY - (rect.top  + rect.height / 2);
+      var cx = e.clientX - (rect.left + rect.width / 2);
+      var cy = e.clientY - (rect.top + rect.height / 2);
       var delta = e.deltaY > 0 ? 0.88 : 1.14;
       var newScale = Math.max(0.3, Math.min(10, scale * delta));
       tx += cx * (1 - newScale / scale);
@@ -304,36 +303,6 @@
       scale = newScale;
       applyTransform();
     }, { passive: false });
-
-    // Touch: drag + pinch-zoom
-    var lastDist = null, touchBaseX = 0, touchBaseY = 0, touchStartX = 0, touchStartY = 0;
-    lb.addEventListener('touchstart', function (e) {
-      if (e.touches.length === 1) {
-        dragging = true;
-        touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY;
-        touchBaseX = tx; touchBaseY = ty;
-      }
-      lastDist = null;
-    }, { passive: true });
-    lb.addEventListener('touchmove', function (e) {
-      e.preventDefault();
-      if (e.touches.length === 1 && dragging) {
-        tx = touchBaseX + (e.touches[0].clientX - touchStartX);
-        ty = touchBaseY + (e.touches[0].clientY - touchStartY);
-        applyTransform();
-      } else if (e.touches.length === 2) {
-        var dist = Math.hypot(
-          e.touches[0].clientX - e.touches[1].clientX,
-          e.touches[0].clientY - e.touches[1].clientY
-        );
-        if (lastDist) {
-          scale = Math.max(0.3, Math.min(10, scale * (dist / lastDist)));
-          applyTransform();
-        }
-        lastDist = dist;
-      }
-    }, { passive: false });
-    lb.addEventListener('touchend', function () { dragging = false; lastDist = null; }, { passive: true });
   })();
   </script>
 </body>
