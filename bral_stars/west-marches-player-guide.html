@@ -80,14 +80,36 @@
     .callout-cards .callout-title { color: #9080c8; }
 
     /* Index page cards */
-    .page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 24px 0; }
+    .page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 12px 0 4px; }
     .page-card { display: block; background: #16162e; border: 1px solid #2a2a50; border-radius: 10px;
       padding: 20px; text-decoration: none; color: #d8d8e8; transition: background 0.15s, border-color 0.15s, transform 0.1s; }
     .page-card:hover { background: #1e1e3e; border-color: #6655aa; transform: translateY(-2px); text-decoration: none; }
     .page-card .card-title { font-size: 15px; font-weight: 600; color: #c8b8f0; margin-bottom: 4px; }
     .page-card .card-desc { font-size: 12px; color: #7070a0; }
 
-    .hero { text-align: center; margin-bottom: 36px; }
+    /* Dashboard sections & status bar */
+    .dashboard-section { margin: 28px 0; }
+    .section-heading {
+      font-size: 15px; text-transform: uppercase; letter-spacing: 1.2px;
+      color: #7080b8; border: none; padding: 0; margin: 0 0 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-icon { font-size: 18px; color: #a090d8; }
+    .dashboard-status {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px; margin: 8px 0 24px; padding: 16px 20px;
+      background: linear-gradient(90deg, #16162e 0%, #1a1a34 100%);
+      border: 1px solid #2a2a50; border-radius: 10px;
+    }
+    .status-item .status-label {
+      font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
+      color: #6666a0; margin-bottom: 4px;
+    }
+    .status-item .status-value {
+      font-size: 14px; color: #c8b8f0; font-weight: 500;
+    }
+
+    .hero { text-align: center; margin-bottom: 24px; }
     .hero img { max-height: 280px; width: 100%; object-fit: cover; border-radius: 12px; margin: 0; }
     .hero h1 { margin-top: 20px; border: none; padding: 0; }
     .hero p { color: #8080b0; margin-top: 8px; }
@@ -96,6 +118,7 @@
       body { padding: 24px 14px; }
       h1 { font-size: 22px; }
       .page-grid { grid-template-columns: 1fr; }
+      .dashboard-status { grid-template-columns: 1fr; }
     }
 
     /* Lightbox */
@@ -153,7 +176,7 @@
     </nav>
     <h1>West Marches Player Guide</h1>
 <h1>West Marches Player Guide</h1>
-<p><strong>Bral Stars</strong> is a <strong>West Marches</strong> style campaign — an open world with a persistent setting, no fixed main storyline, and player-driven exploration. Here&#39;s how it runs.</p>
+<p><strong>Bral Stars</strong> runs West Marches style. Here&#39;s what that means for you.</p>
 <hr>
 <h2>Schedule</h2>
 <table>
@@ -171,50 +194,58 @@
 </tr>
 <tr>
 <td><strong>Workshop</strong> (optional)</td>
-<td>The Thursday following the main session</td>
+<td>Thursday following the main session</td>
 <td>~1 hour, 5:30 PM PST</td>
 </tr>
 </tbody></table>
-<p><strong>Main Sessions</strong> are where the adventure happens — exploration, combat, roleplay, and progressing plot hooks.</p>
-<p><strong>Workshop Thursdays</strong> are optional low-key sessions for downtime, character admin, shopping, NPC conversations, or tidying up loose ends from the previous session. No pressure to attend, but they&#39;re a great chance to do the stuff that doesn&#39;t need the full table.</p>
+<p><strong>Players drive scheduling.</strong> Post in Discord when you want to play. No fixed party — any combination of PCs can go on any adventure.</p>
 <hr>
 <h2>Monthly Hook Voting</h2>
-<p>At the <strong>start of each month</strong>, the DM posts a set of available plot hooks in Discord. Everyone votes on which hook the group wants to pursue that month&#39;s session.</p>
+<p>At the start of each month, the DM posts available plot hooks in Discord. Players vote on which one to pursue at the next main session.</p>
 <ul>
-<li>Hooks range from combat-heavy to investigation to exploration</li>
-<li>Votes are posted in Discord — check the pinned messages</li>
-<li>The winning hook becomes the focus of that month&#39;s session</li>
-<li>Unvoted hooks don&#39;t disappear — they stay available for future months</li>
-</ul>
-<p>You&#39;re never locked out of pursuing something off the board if your party has a strong lead to follow, but the voted hook takes priority for the scheduled session.</p>
-<hr>
-<h2>Between Sessions</h2>
-<p>Your character is always safely back on the Rock of Bral when not in a session. Between sessions you can:</p>
-<ul>
-<li>Pursue <a href="west-marches-player-guide.html">Downtime Activities</a> — send a message to the DM with what you&#39;re doing</li>
-<li>Post questions or plans in Discord</li>
-<li>Check the <a href="adventurers-board.html">Adventurers&#39; Board</a> for updated rumors and jobs</li>
+<li>Hooks are posted and voted on in Discord (check pinned messages)</li>
+<li>The winning hook is the focus of the scheduled session</li>
+<li>Unvoted hooks remain available for future months</li>
+<li>Parties can still pursue off-board leads, but the voted hook takes priority for the main session</li>
 </ul>
 <hr>
-<h2>The World is Persistent</h2>
-<p>Everything that happens carries forward.</p>
+<h2>Workshop Thursdays <em>(optional)</em></h2>
+<p>Between main sessions. Use them for:</p>
 <ul>
-<li>NPCs remember you</li>
-<li>Locations change after you interact with them</li>
-<li>Factions track your reputation — good and bad</li>
-<li>What the party does in one session shapes the world for the next</li>
+<li><strong>Downtime activities</strong> (crafting, research, training, shopping)</li>
+<li><strong>NPC conversations</strong> that don&#39;t need the full table</li>
+<li><strong>Loose ends</strong> from the previous session</li>
+<li><strong>Character or party admin</strong></li>
+</ul>
+<p>No obligation to attend. It&#39;s an outlet for smaller-scope play.</p>
+<hr>
+<h2>Recaps Required</h2>
+<p>Whoever wants XP and loot logged <strong>posts a short recap</strong> to Discord after the session. Doesn&#39;t have to be long — a paragraph and a highlight reel is fine.</p>
+<hr>
+<h2>The World Is Persistent</h2>
+<ul>
+<li><strong>NPCs remember what the party did.</strong></li>
+<li><strong>Locations change</strong> after interactions.</li>
+<li><strong>Factions track reputation</strong> over time.</li>
+<li>Each session&#39;s outcome shapes future sessions. If you ignore a thread, it keeps moving without you. If you push on one, it reacts.</li>
 </ul>
 <hr>
-<h2>Character Death</h2>
-<p>Death is possible and permanent. The Rock of Bral has resurrection services, but they are <strong>expensive</strong> (at least 500 gp for <em>Revivify</em>, more for higher-level spells). There&#39;s no guarantee a cleric of the right level is available.</p>
-<p>If your character dies and can&#39;t be revived, you may create a new character who arrives on the Rock by the next session.</p>
-<hr>
-<h2>Rules You Should Know</h2>
+<h2>Emergent Play</h2>
+<p>The DM isn&#39;t writing a plot. The DM is running <strong>situations</strong> — factions, NPCs, and locations that all <em>want things</em>. The story comes from what you do, not from a script.</p>
 <ul>
-<li>Actions in Combat — what you can do on your turn</li>
-<li>Short Rest / Long Rest — how you recover</li>
-<li>Death Saving Throws — what happens at 0 HP</li>
-<li><a href="west-marches-player-guide.html">Downtime Activities</a> — what to do between sessions</li>
+<li>No railroad. No &quot;right answer.&quot; Consequences are real.</li>
+<li><strong>Have goals. Take action. Follow curiosity.</strong> Passive PCs get passive stories.</li>
+<li>The DM plays the world honestly and lets the pieces collide.</li>
+</ul>
+<hr>
+<h2>Downtime</h2>
+<p>Between sessions, each character may pursue <strong>one downtime activity per week of in-game time.</strong> Message the DM with what your character is doing. Common options: crafting, research, working a job, training, shopping, socializing, laying low.</p>
+<hr>
+<h2>Communication</h2>
+<ul>
+<li><strong>Discord</strong> is the source of truth — pinned hook messages, party formation, recaps, downtime.</li>
+<li><strong>This site</strong> is the reference — factions, NPCs, locations, character creation.</li>
+<li><strong>The DM</strong> is available for one-on-ones if you want to develop backstory, negotiate a downtime outcome, or plan a session prep.</li>
 </ul>
 
   </div>

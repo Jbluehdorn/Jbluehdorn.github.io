@@ -80,14 +80,36 @@
     .callout-cards .callout-title { color: #9080c8; }
 
     /* Index page cards */
-    .page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 24px 0; }
+    .page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 12px 0 4px; }
     .page-card { display: block; background: #16162e; border: 1px solid #2a2a50; border-radius: 10px;
       padding: 20px; text-decoration: none; color: #d8d8e8; transition: background 0.15s, border-color 0.15s, transform 0.1s; }
     .page-card:hover { background: #1e1e3e; border-color: #6655aa; transform: translateY(-2px); text-decoration: none; }
     .page-card .card-title { font-size: 15px; font-weight: 600; color: #c8b8f0; margin-bottom: 4px; }
     .page-card .card-desc { font-size: 12px; color: #7070a0; }
 
-    .hero { text-align: center; margin-bottom: 36px; }
+    /* Dashboard sections & status bar */
+    .dashboard-section { margin: 28px 0; }
+    .section-heading {
+      font-size: 15px; text-transform: uppercase; letter-spacing: 1.2px;
+      color: #7080b8; border: none; padding: 0; margin: 0 0 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-icon { font-size: 18px; color: #a090d8; }
+    .dashboard-status {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px; margin: 8px 0 24px; padding: 16px 20px;
+      background: linear-gradient(90deg, #16162e 0%, #1a1a34 100%);
+      border: 1px solid #2a2a50; border-radius: 10px;
+    }
+    .status-item .status-label {
+      font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
+      color: #6666a0; margin-bottom: 4px;
+    }
+    .status-item .status-value {
+      font-size: 14px; color: #c8b8f0; font-weight: 500;
+    }
+
+    .hero { text-align: center; margin-bottom: 24px; }
     .hero img { max-height: 280px; width: 100%; object-fit: cover; border-radius: 12px; margin: 0; }
     .hero h1 { margin-top: 20px; border: none; padding: 0; }
     .hero p { color: #8080b0; margin-top: 8px; }
@@ -96,6 +118,7 @@
       body { padding: 24px 14px; }
       h1 { font-size: 22px; }
       .page-grid { grid-template-columns: 1fr; }
+      .dashboard-status { grid-template-columns: 1fr; }
     }
 
     /* Lightbox */
@@ -153,24 +176,35 @@
     </nav>
     <h1>Adventurers' Board</h1>
 <h1>Adventurers&#39; Board</h1>
-<p><em>The corkboard at <a href="important-locations.html">The Laughing Beholder</a>, managed by <a href="factions-connections.html">The Seekers</a>. Updated between sessions.</em></p>
-<div class="callout callout-note"><div class="callout-title">How Hooks Work</div><div class="callout-body">
+<p><em>The corkboard at <a href="important-locations.html">The Laughing Beholder</a>. Anyone can post; anyone can pick up a job.</em></p>
+<div class="callout callout-note"><div class="callout-title">How Jobs Work</div><div class="callout-body">
 
-<p>At the start of each month, the DM posts available plot hooks in Discord. The group votes on which to pursue for that month&#39;s session. Check Discord pinned messages for the current vote.</p>
+<p>Any crew can pull a job off the board. Post in Discord when you want to run one — form a party, name the job, pick a date. See the <a href="west-marches-player-guide.html">West Marches Player Guide</a> for the full format.</p>
 </div></div>
 
 
 <hr>
 <h2>This Month&#39;s Hooks</h2>
-<p><em>Hooks will be posted in Discord at the start of each month.</em></p>
+<p><em>Hooks will be posted in Discord at the start of each month, then mirrored here.</em></p>
+<ul>
+<li><strong>RATS IN THE CELLAR</strong> — Large Luigi has a &quot;large rat&quot; problem in the basement of the Laughing Beholder. Pays on delivery. Not a normal rat job.</li>
+</ul>
 <hr>
 <h2>Standing Jobs</h2>
-<p><em>Ongoing contracts that any party can pick up at any time.</em></p>
-<p><em>None yet.</em></p>
+<p><em>Ongoing contracts any party can pick up at any time.</em></p>
+<ul>
+<li><strong>DOCK RUNNERS</strong> — the customs office is always looking for freelance cargo escorts. Low pay, low risk, mostly.</li>
+<li><strong>BAZAAR SECURITY</strong> — high-value merchants at the Grand Bazaar hire for a night&#39;s guard duty. Word-of-mouth referral needed.</li>
+</ul>
 <hr>
 <h2>Rumors (Unverified)</h2>
 <p><em>Things overheard at the bar. May or may not be true.</em></p>
-<p><em>No rumors yet — the campaign hasn&#39;t started.</em></p>
+<ul>
+<li>Someone at the naval base has been dropping off the edge of the Rock. Officials say &quot;freak accident.&quot; Third one this month.</li>
+<li>A <a href="factions-connections.html">Red Mask</a> singer missed rehearsal three weeks running. Nobody in the Masks will say what happened.</li>
+<li>A Cadillac was spotted docked at the pier last week. Nobody remembers a Cadillac docking.</li>
+<li>Someone at Xenotermination Ltd. is quietly hiring &quot;flexible&quot; adventurers for off-book site surveys.</li>
+</ul>
 <hr>
 <h2>Completed</h2>
 <table>

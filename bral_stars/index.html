@@ -80,14 +80,36 @@
     .callout-cards .callout-title { color: #9080c8; }
 
     /* Index page cards */
-    .page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 24px 0; }
+    .page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 12px 0 4px; }
     .page-card { display: block; background: #16162e; border: 1px solid #2a2a50; border-radius: 10px;
       padding: 20px; text-decoration: none; color: #d8d8e8; transition: background 0.15s, border-color 0.15s, transform 0.1s; }
     .page-card:hover { background: #1e1e3e; border-color: #6655aa; transform: translateY(-2px); text-decoration: none; }
     .page-card .card-title { font-size: 15px; font-weight: 600; color: #c8b8f0; margin-bottom: 4px; }
     .page-card .card-desc { font-size: 12px; color: #7070a0; }
 
-    .hero { text-align: center; margin-bottom: 36px; }
+    /* Dashboard sections & status bar */
+    .dashboard-section { margin: 28px 0; }
+    .section-heading {
+      font-size: 15px; text-transform: uppercase; letter-spacing: 1.2px;
+      color: #7080b8; border: none; padding: 0; margin: 0 0 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-icon { font-size: 18px; color: #a090d8; }
+    .dashboard-status {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px; margin: 8px 0 24px; padding: 16px 20px;
+      background: linear-gradient(90deg, #16162e 0%, #1a1a34 100%);
+      border: 1px solid #2a2a50; border-radius: 10px;
+    }
+    .status-item .status-label {
+      font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
+      color: #6666a0; margin-bottom: 4px;
+    }
+    .status-item .status-value {
+      font-size: 14px; color: #c8b8f0; font-weight: 500;
+    }
+
+    .hero { text-align: center; margin-bottom: 24px; }
     .hero img { max-height: 280px; width: 100%; object-fit: cover; border-radius: 12px; margin: 0; }
     .hero h1 { margin-top: 20px; border: none; padding: 0; }
     .hero p { color: #8080b0; margin-top: 8px; }
@@ -96,6 +118,7 @@
       body { padding: 24px 14px; }
       h1 { font-size: 22px; }
       .page-grid { grid-template-columns: 1fr; }
+      .dashboard-status { grid-template-columns: 1fr; }
     }
 
     /* Lightbox */
@@ -157,39 +180,69 @@
       <h1>✦ Bral Stars ✦</h1>
       <p>A West Marches D&amp;D campaign set on the Rock of Bral</p>
     </div>
-    <div class="page-grid">
-    <a href="adventurers-board.html" class="page-card">
-      <div class="card-title">Adventurers' Board</div>
-      <div class="card-desc">Current jobs, rumors, and completed missions</div>
-    </a>
-    <a href="character-creation.html" class="page-card">
-      <div class="card-title">Character Creation</div>
-      <div class="card-desc">Sources, hooks, connections, and leveling</div>
-    </a>
-    <a href="factions-connections.html" class="page-card">
-      <div class="card-title">Factions & Connections</div>
-      <div class="card-desc">Key factions and NPCs to connect your character to</div>
-    </a>
-    <a href="important-locations.html" class="page-card">
-      <div class="card-title">Important Locations</div>
-      <div class="card-desc">Key places — The Laughing Beholder, the Docks, the Bazaar, and more</div>
-    </a>
-    <a href="important-npcs.html" class="page-card">
-      <div class="card-title">Important NPCs</div>
-      <div class="card-desc">Key figures — Large Luigi, Prince Andru, and more</div>
-    </a>
-    <a href="welcome-to-the-rock-of-bral.html" class="page-card">
-      <div class="card-title">Welcome to the Rock of Bral</div>
-      <div class="card-desc">Setting introduction — districts, factions, Wildspace</div>
-    </a>
-    <a href="west-marches-player-guide.html" class="page-card">
-      <div class="card-title">West Marches Player Guide</div>
-      <div class="card-desc">Schedule, session format, and campaign rules</div>
-    </a>
-    <a href="maps-visuals.html" class="page-card">
-      <div class="card-title">Maps & Visuals</div>
-      <div class="card-desc">Official maps and art of the Rock of Bral</div>
-    </a></div>
+    <div class="dashboard-status">
+      <div class="status-item">
+        <div class="status-label">Session 0</div>
+        <div class="status-value">Complete — world built ✓</div>
+      </div>
+      <div class="status-item">
+        <div class="status-label">Next session</div>
+        <div class="status-value">Session 1 — Rats in the Cellar</div>
+      </div>
+      <div class="status-item">
+        <div class="status-label">Home base</div>
+        <div class="status-value">The Laughing Beholder, Low City</div>
+      </div>
+    </div>
+    
+    <section class="dashboard-section">
+      <h2 class="section-heading"><span class="section-icon">✦</span> Start Here</h2>
+      <div class="page-grid">
+      <a href="welcome-to-the-rock-of-bral.html" class="page-card">
+        <div class="card-title">Welcome to the Rock of Bral</div>
+        <div class="card-desc">Setting introduction — districts, world facts, Wildspace</div>
+      </a>
+      <a href="west-marches-player-guide.html" class="page-card">
+        <div class="card-title">West Marches Player Guide</div>
+        <div class="card-desc">Schedule, session format, downtime, and campaign rules</div>
+      </a>
+      <a href="character-creation.html" class="page-card">
+        <div class="card-title">Character Creation</div>
+        <div class="card-desc">Sources, hooks, goals, connections, and leveling</div>
+      </a></div>
+    </section>
+    <section class="dashboard-section">
+      <h2 class="section-heading"><span class="section-icon">⚔</span> The Campaign</h2>
+      <div class="page-grid">
+      <a href="the-party.html" class="page-card">
+        <div class="card-title">The Party</div>
+        <div class="card-desc">The crew — Ringing Bell, Fairy Floss, Maillard, Norman, Guten</div>
+      </a>
+      <a href="adventurers-board.html" class="page-card">
+        <div class="card-title">Adventurers' Board</div>
+        <div class="card-desc">Current jobs, rumors, and completed missions</div>
+      </a></div>
+    </section>
+    <section class="dashboard-section">
+      <h2 class="section-heading"><span class="section-icon">🌐</span> The Rock</h2>
+      <div class="page-grid">
+      <a href="important-locations.html" class="page-card">
+        <div class="card-title">Important Locations</div>
+        <div class="card-desc">Every district and every place you might visit</div>
+      </a>
+      <a href="important-npcs.html" class="page-card">
+        <div class="card-title">Important NPCs</div>
+        <div class="card-desc">The people you'll meet, deal with, or run from</div>
+      </a>
+      <a href="factions-connections.html" class="page-card">
+        <div class="card-title">Factions & Connections</div>
+        <div class="card-desc">Every faction on the Rock and how to hook in</div>
+      </a>
+      <a href="maps-visuals.html" class="page-card">
+        <div class="card-title">Maps & Visuals</div>
+        <div class="card-desc">Official maps and art of the Rock of Bral</div>
+      </a></div>
+    </section>
     <hr>
     <p style="text-align:center;color:#555580;font-size:13px;">
       Content sourced from the <a href="https://github.com/Jbluehdorn/BralStars">BralStars vault</a>

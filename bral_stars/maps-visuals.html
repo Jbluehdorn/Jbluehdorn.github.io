@@ -80,14 +80,36 @@
     .callout-cards .callout-title { color: #9080c8; }
 
     /* Index page cards */
-    .page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 24px 0; }
+    .page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 12px 0 4px; }
     .page-card { display: block; background: #16162e; border: 1px solid #2a2a50; border-radius: 10px;
       padding: 20px; text-decoration: none; color: #d8d8e8; transition: background 0.15s, border-color 0.15s, transform 0.1s; }
     .page-card:hover { background: #1e1e3e; border-color: #6655aa; transform: translateY(-2px); text-decoration: none; }
     .page-card .card-title { font-size: 15px; font-weight: 600; color: #c8b8f0; margin-bottom: 4px; }
     .page-card .card-desc { font-size: 12px; color: #7070a0; }
 
-    .hero { text-align: center; margin-bottom: 36px; }
+    /* Dashboard sections & status bar */
+    .dashboard-section { margin: 28px 0; }
+    .section-heading {
+      font-size: 15px; text-transform: uppercase; letter-spacing: 1.2px;
+      color: #7080b8; border: none; padding: 0; margin: 0 0 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-icon { font-size: 18px; color: #a090d8; }
+    .dashboard-status {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px; margin: 8px 0 24px; padding: 16px 20px;
+      background: linear-gradient(90deg, #16162e 0%, #1a1a34 100%);
+      border: 1px solid #2a2a50; border-radius: 10px;
+    }
+    .status-item .status-label {
+      font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
+      color: #6666a0; margin-bottom: 4px;
+    }
+    .status-item .status-value {
+      font-size: 14px; color: #c8b8f0; font-weight: 500;
+    }
+
+    .hero { text-align: center; margin-bottom: 24px; }
     .hero img { max-height: 280px; width: 100%; object-fit: cover; border-radius: 12px; margin: 0; }
     .hero h1 { margin-top: 20px; border: none; padding: 0; }
     .hero p { color: #8080b0; margin-top: 8px; }
@@ -96,6 +118,7 @@
       body { padding: 24px 14px; }
       h1 { font-size: 22px; }
       .page-grid { grid-template-columns: 1fr; }
+      .dashboard-status { grid-template-columns: 1fr; }
     }
 
     /* Lightbox */
@@ -175,8 +198,8 @@
 <p><em>A view of the docks — your first sight of the Rock if you arrived by ship.</em>
 <img src="https://raw.githubusercontent.com/Jbluehdorn/BralStars/main/z_attachments/RockOfBral_Docks.jpg" alt="RockOfBral_Docks.jpg"></p>
 <hr>
-<h2>Prince Andru &amp; His Advisors</h2>
-<p><em>Left to right: Proconsul Gadaric Main, Lord Diadan Cartan, Prince Andru, Lady Cerena, Captain of the Royal Guard Mahaxara Khal.</em>
+<h2>Prince Andru</h2>
+<p><em>The ruler of the Rock.</em>
 <img src="https://raw.githubusercontent.com/Jbluehdorn/BralStars/main/z_attachments/RockOfBral_Leaders.jpg" alt="RockOfBral_Leaders.jpg"></p>
 
   </div>

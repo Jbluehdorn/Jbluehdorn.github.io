@@ -80,14 +80,36 @@
     .callout-cards .callout-title { color: #9080c8; }
 
     /* Index page cards */
-    .page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 24px 0; }
+    .page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 12px 0 4px; }
     .page-card { display: block; background: #16162e; border: 1px solid #2a2a50; border-radius: 10px;
       padding: 20px; text-decoration: none; color: #d8d8e8; transition: background 0.15s, border-color 0.15s, transform 0.1s; }
     .page-card:hover { background: #1e1e3e; border-color: #6655aa; transform: translateY(-2px); text-decoration: none; }
     .page-card .card-title { font-size: 15px; font-weight: 600; color: #c8b8f0; margin-bottom: 4px; }
     .page-card .card-desc { font-size: 12px; color: #7070a0; }
 
-    .hero { text-align: center; margin-bottom: 36px; }
+    /* Dashboard sections & status bar */
+    .dashboard-section { margin: 28px 0; }
+    .section-heading {
+      font-size: 15px; text-transform: uppercase; letter-spacing: 1.2px;
+      color: #7080b8; border: none; padding: 0; margin: 0 0 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-icon { font-size: 18px; color: #a090d8; }
+    .dashboard-status {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px; margin: 8px 0 24px; padding: 16px 20px;
+      background: linear-gradient(90deg, #16162e 0%, #1a1a34 100%);
+      border: 1px solid #2a2a50; border-radius: 10px;
+    }
+    .status-item .status-label {
+      font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
+      color: #6666a0; margin-bottom: 4px;
+    }
+    .status-item .status-value {
+      font-size: 14px; color: #c8b8f0; font-weight: 500;
+    }
+
+    .hero { text-align: center; margin-bottom: 24px; }
     .hero img { max-height: 280px; width: 100%; object-fit: cover; border-radius: 12px; margin: 0; }
     .hero h1 { margin-top: 20px; border: none; padding: 0; }
     .hero p { color: #8080b0; margin-top: 8px; }
@@ -96,6 +118,7 @@
       body { padding: 24px 14px; }
       h1 { font-size: 22px; }
       .page-grid { grid-template-columns: 1fr; }
+      .dashboard-status { grid-template-columns: 1fr; }
     }
 
     /* Lightbox */
@@ -153,65 +176,56 @@
     </nav>
     <h1>Factions & Connections</h1>
 <h1>Factions &amp; Connections</h1>
-<p>This page summarizes the major factions and key figures on the Rock of Bral. When creating your character, you can optionally establish a connection to any of these — a past employer, a debt, a rival, a patron, or a friend.</p>
-<p>You don&#39;t need a connection, but having one gives the DM more hooks to work with.</p>
+<p>The groups that shape daily life on the Rock. Some are proud of what they do. Some are proud of what they <em>say</em> they do. Most are up to something.</p>
+<p>Every character should have <strong>at least one connection</strong> to a faction — an ally, a rival, a debt, a history. Pick one below and tell the DM.</p>
 <hr>
-<h2>The Seekers</h2>
-<p><em>Adventurers&#39; Guild — friendly to players</em></p>
-<p>The Seekers are the informal adventurers&#39; guild of the Rock. They maintain the <a href="adventurers-board.html">Adventurers&#39; Board</a> at the <a href="important-locations.html">The Laughing Beholder</a> and provide a loose support network for people who do dangerous work for money.</p>
-<p><strong>Connection ideas:</strong> You&#39;re a registered member. You owe them a favor. They vouched for you when you first arrived. A Seeker died on a job with you.</p>
+<h2>The Hammers</h2>
+<p><strong>Type:</strong> Neighborhood collective (Robin-Hood-adjacent) · <strong>Base:</strong> The Boroughs · <strong>Leader:</strong> <a href="important-npcs.html">Jennifer Coolidge</a> (HOA president)</p>
+<p>An intersectional community organized to redistribute wealth from the Rock&#39;s elites down to the neighborhoods that need it. Sincere. Ideological. <strong>Chronically bogged down in HOA process</strong> — every action ends in a three-hour meeting.</p>
+<p><strong>Connection hooks:</strong> You grew up in the Boroughs · you owe Jennifer a favor · you disagree with the HOA&#39;s methods · you&#39;re on the redistribution list.</p>
 <hr>
-<h2>The Laughing Beholder &amp; Large Luigi</h2>
-<p><em>Neutral ground — friendly to all</em></p>
-<p><img src="https://raw.githubusercontent.com/Jbluehdorn/BralStars/main/z_attachments/NPC_LargeLuigi.jpg" alt="NPC_LargeLuigi.jpg"></p>
-<p><strong><a href="important-npcs.html">Large Luigi</a></strong> is the beholder proprietor of the <a href="important-locations.html">The Laughing Beholder</a> — the social hub of the Rock. He&#39;s neutral, good-humored, and terrifyingly well-connected. He knows everyone, remembers every debt, and doesn&#39;t pick sides.</p>
-<p><strong>Connection ideas:</strong> You&#39;re a regular and he knows your drink. You owe him money. He gave you a tip that saved your life. He once disintegrated someone on your behalf and you&#39;ve never asked why.</p>
+<h2>The Cirque</h2>
+<p><strong>Type:</strong> Circus troupe · <strong>Historical reputation:</strong> Assassins · <strong>Ringmaster:</strong> <a href="important-npcs.html">Ringmaster Blorg</a> (a crocodile)</p>
+<p>A legitimate circus troupe fighting a well-earned reputation as contract killers. They run the fights at <a href="important-locations.html">the Arena of Frun</a> — an open secret that the outcomes are <em>scripted, WWE-style</em>. The Cirque is also, to a member, terrified of clowns. Nobody will say why.</p>
+<p><strong>Connection hooks:</strong> Former troupe member · a Cirque assassin killed someone you loved · you know the fights are fixed · you help the Cirque go legit.</p>
 <hr>
-<h2>Prince Andru &amp; the Crown</h2>
-<p><em>The ruling power — politically neutral to cautious</em></p>
-<p><img src="https://raw.githubusercontent.com/Jbluehdorn/BralStars/main/z_attachments/NPC_BralLeaders.jpg" alt="NPC_BralLeaders.jpg">
-<em>Left to right: Proconsul Gadaric Main · Lord Diadan Cartan · Prince Andru · Lady Cerena · Captain Mahaxara Khal</em></p>
-<p><strong><a href="important-npcs.html">Prince Andru</a></strong> rules the Rock from <a href="important-locations.html">The Palace of Bral</a>. He&#39;s pragmatic and not cruel, but he is absolutely self-interested. His inner circle includes his Proconsul, key noble advisors, and <strong>Captain Mahaxara Khal</strong>, head of the Royal Guard.</p>
-<p><strong>Connection ideas:</strong> You once did a job the crown needed deniability for. You have a contact in the palace staff. Andru owes you a small favor — or you owe him one. The Royal Guard has its eye on you for something you may or may not have done.</p>
+<h2>The Red Masks</h2>
+<p><strong>Type:</strong> Bardic house / information network</p>
+<p>Where the Rock&#39;s musicians and bards gather to trade songs and information. The finest rumor mill on the Rock. Members have been quietly disappearing — the Masks won&#39;t say to where.</p>
+<p><strong>Connection hooks:</strong> You&#39;re a member · a Red Mask friend of yours vanished · you owe the Masks a song.</p>
 <hr>
-<h2>House Traken</h2>
-<p><em>Merchant noble house — transactional</em></p>
-<p><strong><a href="factions-connections.html">House Traken</a></strong> is the dominant merchant family on the Rock. They deal in trade, contracts, and information. They hire adventurers regularly for escort, retrieval, and &quot;competitive intelligence&quot; work.</p>
-<p><strong>Connection ideas:</strong> You completed a job for them and they paid well. You failed a job for them and the debt is outstanding. Lady Sera Traken has taken an interest in your skills. You stumbled onto something House Traken would rather keep quiet.</p>
+<h2>The Groundhogs</h2>
+<p><strong>Type:</strong> Silent underground guides · <strong>Vow:</strong> They do not speak</p>
+<p>Revered guides who will take you through the tunnels beneath the Rock. Payment by gesture and by weight. Reliability: uneven. Sometimes they just leave you.</p>
+<p><strong>Connection hooks:</strong> A Groundhog once saved your life · a Groundhog once <em>stranded</em> you · you&#39;re apprenticed to their silent order.</p>
 <hr>
-<h2>The Juggler&#39;s Guild</h2>
-<p><em>Thieves&#39; guild — dangerous, transactional</em></p>
-<p><strong><a href="factions-connections.html">The Juggler&#39;s Guild</a></strong> controls the criminal underworld of the Low City. The identity of their leader — the Juggler — is unknown. They deal in smuggling, information, fencing, and enforcement.</p>
-<p><strong>Connection ideas:</strong> You owe them money. You used to work for them. You know something about the Juggler&#39;s identity. They left you alone as long as you stayed out of their business — so far.</p>
-<div class="callout callout-warning"><div class="callout-title">Careful</div><div class="callout-body">
-
-<p>Characters with ties to the Juggler&#39;s Guild will be viewed with suspicion by the Crown and the Seekers. That&#39;s not necessarily a problem — just something to know.</p>
-</div></div>
-
-
+<h2>The Lovers of the Lake</h2>
+<p><strong>Type:</strong> Small hippie collective · <strong>Base:</strong> <a href="important-locations.html">Lake Bral</a></p>
+<p>Peaceful, barefoot, unshakably certain that Lake Bral is a god. Ask them for lunch, get invited to a ritual.</p>
+<p><strong>Connection hooks:</strong> A family member joined · you&#39;re a lapsed Lover · the Lake asked you a favor.</p>
 <hr>
-<h2>The Arcane</h2>
-<p><em>Spelljamming helm traders — strictly neutral</em></p>
-<p><strong><a href="factions-connections.html">The Arcane</a></strong> are the blue-skinned traders who hold a near-monopoly on spelljamming helms. They sell to anyone and take sides with no one. Their Arcane Factor on the Rock maintains a small office near <a href="important-locations.html">The Docks</a>.</p>
-<p><strong>Connection ideas:</strong> You have an open account with the Factor — useful for helm repairs. You&#39;re investigating where their helms actually come from. The Factor approached you about a &quot;retrieval&quot; job they can&#39;t be seen doing themselves.</p>
+<h2>Gaspar Reclamations</h2>
+<p><strong>Type:</strong> Family salvage yard · <strong>Reputation:</strong> Wrongly rumored to be mob-run</p>
+<p>Runs the largest scrap operation in Low City. Insists — correctly — that they&#39;re just a family business. Nobody believes them.</p>
+<p><strong>Connection hooks:</strong> You worked there as a kid · you&#39;re the reason for a rumor about them · you know what&#39;s actually in the back yard.</p>
 <hr>
-<h2>The Elven Imperial Fleet</h2>
-<p><em>Distant power — occasionally present</em></p>
-<p>The elves maintain a presence in Realmspace through their Imperial Fleet, crewed primarily by <strong>Astral Elves</strong> who have lived in Wildspace for centuries. They patrol trade routes, hunt slavers, and occasionally take an interest in Rock politics.</p>
-<p><img src="https://raw.githubusercontent.com/Jbluehdorn/BralStars/main/z_attachments/Race_AstralElf.png" alt="Race_AstralElf.png"></p>
-<p><strong>Connection ideas:</strong> You served as a hired hand aboard an elven vessel. An elven officer saved your life and you&#39;ve never been able to repay the debt. The Fleet is watching you for reasons you don&#39;t fully understand.</p>
+<h2>The Donjon Crime Family</h2>
+<p><strong>Type:</strong> Old-money organized crime · <strong>Head:</strong> <a href="important-npcs.html">Mafia Don Jon</a> · <strong>Base:</strong> The Donjon estate</p>
+<p>Rackets, protection, cargo skimming at the docks, and a hand in most schemes the Rock&#39;s elites deny existing. Officially: a respectable noble house. Unofficially: run everything.</p>
+<p><strong>Connection hooks:</strong> You owe them money · you refused to work for them · a family member is on their payroll.</p>
 <hr>
-<h2>The Giff</h2>
-<p><em>Mercenary specialists — hire-able</em></p>
-<p><img src="https://raw.githubusercontent.com/Jbluehdorn/BralStars/main/z_attachments/Race_Giff.png" alt="Race_Giff.png"></p>
-<p><strong>Giff</strong> are hippo-folk mercenaries with an obsessive love of firearms, discipline, and military hierarchy. A Giff platoon is available for hire on the Rock, and individual Giff sometimes work as independent contractors.</p>
-<p><strong>Connection ideas:</strong> You served alongside a Giff unit. A Giff officer trained you in firearms or tactics. You won a bet against a Giff in a shooting contest and they&#39;ve never forgiven you.</p>
+<h2>Xenotermination Ltd.</h2>
+<p><strong>Type:</strong> Mining company · <strong>Front:</strong> Legitimate resource extraction · <strong>CEO:</strong> A very nice, well-intentioned person</p>
+<p>A &quot;mining&quot; company working the hollow veins beneath the Rock. Rumors of destroyed sites, missing miners, and vanished species — but the CEO gives such lovely charity speeches that nobody wants to press her on it.</p>
+<p><strong>Connection hooks:</strong> You worked a Xeno site · a friend disappeared on one · you&#39;re trying to reach the CEO.</p>
 <hr>
-<h2>The Neogi</h2>
-<p><em>Slavers — enemy faction</em></p>
-<p><img src="https://raw.githubusercontent.com/Jbluehdorn/BralStars/main/z_attachments/Faction_Neogi.jpg" alt="Faction_Neogi.jpg"></p>
-<p><strong>Neogi</strong> are spider-like slavers who operate throughout Wildspace in their <a href="factions-connections.html">Deathspider</a> ships. They are not present on the Rock — they&#39;re not welcome — but their shadow reaches everywhere there&#39;s a slave trade.</p>
-<p><strong>Connection ideas:</strong> They took someone you care about. You escaped from one of their ships. You&#39;ve been hunting a specific neogi captain. You have information about their operations that multiple factions would pay for.</p>
+<h2>The Secret Service Clowns</h2>
+<p><strong>Type:</strong> Rumored secret police · <strong>Base:</strong> Starhaven · <strong>Leader (rumored):</strong> <a href="important-npcs.html">Ronald McDonald</a></p>
+<p>Officially: they don&#39;t exist. Unofficially: everyone knows. Prince Andru&#39;s alleged secret police, all clowns, who allegedly make dissidents <em>disappear</em> in the hedge maze at Starhaven.</p>
+<p><strong>Connection hooks:</strong> Someone you know went into the maze · you <em>think</em> you saw a Clown recruitment · you have a warning nobody wants to hear.</p>
+<hr>
+<h2>The Adventurers (i.e. you)</h2>
+<p>Every party member starts with a shared connection: <strong>you all frequent <a href="important-locations.html">The Laughing Beholder</a> and check the <a href="adventurers-board.html">Adventurers&#39; Board</a>.</strong> Beyond that, connections between PCs are yours to invent — pick a shared history, a debt, or a fight that never got resolved.</p>
 
   </div>
 

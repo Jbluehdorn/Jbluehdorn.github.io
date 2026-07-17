@@ -80,14 +80,36 @@
     .callout-cards .callout-title { color: #9080c8; }
 
     /* Index page cards */
-    .page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 24px 0; }
+    .page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 12px 0 4px; }
     .page-card { display: block; background: #16162e; border: 1px solid #2a2a50; border-radius: 10px;
       padding: 20px; text-decoration: none; color: #d8d8e8; transition: background 0.15s, border-color 0.15s, transform 0.1s; }
     .page-card:hover { background: #1e1e3e; border-color: #6655aa; transform: translateY(-2px); text-decoration: none; }
     .page-card .card-title { font-size: 15px; font-weight: 600; color: #c8b8f0; margin-bottom: 4px; }
     .page-card .card-desc { font-size: 12px; color: #7070a0; }
 
-    .hero { text-align: center; margin-bottom: 36px; }
+    /* Dashboard sections & status bar */
+    .dashboard-section { margin: 28px 0; }
+    .section-heading {
+      font-size: 15px; text-transform: uppercase; letter-spacing: 1.2px;
+      color: #7080b8; border: none; padding: 0; margin: 0 0 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-icon { font-size: 18px; color: #a090d8; }
+    .dashboard-status {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px; margin: 8px 0 24px; padding: 16px 20px;
+      background: linear-gradient(90deg, #16162e 0%, #1a1a34 100%);
+      border: 1px solid #2a2a50; border-radius: 10px;
+    }
+    .status-item .status-label {
+      font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
+      color: #6666a0; margin-bottom: 4px;
+    }
+    .status-item .status-value {
+      font-size: 14px; color: #c8b8f0; font-weight: 500;
+    }
+
+    .hero { text-align: center; margin-bottom: 24px; }
     .hero img { max-height: 280px; width: 100%; object-fit: cover; border-radius: 12px; margin: 0; }
     .hero h1 { margin-top: 20px; border: none; padding: 0; }
     .hero p { color: #8080b0; margin-top: 8px; }
@@ -96,6 +118,7 @@
       body { padding: 24px 14px; }
       h1 { font-size: 22px; }
       .page-grid { grid-template-columns: 1fr; }
+      .dashboard-status { grid-template-columns: 1fr; }
     }
 
     /* Lightbox */
@@ -153,44 +176,75 @@
     </nav>
     <h1>Important Locations</h1>
 <h1>Important Locations</h1>
-<p>Key places on the Rock of Bral that players are likely to visit, reference, or hear about.</p>
+<p>Places you&#39;ll visit, hear about, or want to avoid. Grouped by district. See <a href="maps-visuals.html">Maps &amp; Visuals</a> for the maps.</p>
 <hr>
+<h1>🌊 Low City</h1>
 <h2>The Laughing Beholder</h2>
-<p><strong>District:</strong> Low City | <strong>Type:</strong> Tavern &amp; Inn | <strong>Owner:</strong> Large Luigi</p>
-<p>The most famous establishment on the Rock — a massive tavern run by a beholder named Large Luigi. Despite the obvious danger of an eye tyrant running a bar, Luigi is surprisingly jovial and has built it into a true institution. It is neutral ground: no faction politics, no violence, no exceptions. Luigi enforces this personally.</p>
-<p>The <strong>Adventurers&#39; Board</strong> near the entrance is where jobs, bounties, rumors, and expedition proposals from across Wildspace are posted. This is your home base.</p>
-<hr>
+<p><strong>Owner:</strong> <a href="important-npcs.html">Large Luigi</a> · <strong>Type:</strong> Tavern &amp; Inn</p>
+<p>The most famous establishment on the Rock. Neutral ground: no faction politics, no violence, no exceptions. Luigi enforces this personally. The <strong>Adventurers&#39; Board</strong> near the entrance is where jobs, bounties, rumors, and expedition proposals get posted. This is your home base.</p>
 <h2>The Docks</h2>
-<p><strong>District:</strong> Low City | <strong>Type:</strong> Port District</p>
-<p>The beating heart of the Rock&#39;s economy — massive platforms bolted to the asteroid where ships arrive and depart around the clock. Merchant galleons, pirate cutters, military frigates, and strange alien craft from distant crystal spheres all pass through here.</p>
-<p>The noise never stops. Customs officials collect docking fees and inspect cargo — though a modest bribe can simplify that process considerably.</p>
-<hr>
+<p><strong>Type:</strong> Port District</p>
+<p>Massive platforms bolted to the asteroid where spelljamming ships arrive around the clock. Noise never stops. Customs officials collect docking fees — a modest bribe simplifies the process considerably.</p>
 <h2>The Rat&#39;s Maze</h2>
-<p><strong>District:</strong> Low City | <strong>Danger:</strong> High</p>
-<p>A dense, labyrinthine warren of crooked alleys, makeshift shanties, and collapsing tenements. Sunlight barely reaches the deepest passages. Even residents of the Low City warn against wandering in without knowing where you&#39;re going.</p>
-<p>The Juggler&#39;s Guild maintains several hideouts here. The constabulary rarely patrols.</p>
+<p><strong>Type:</strong> Slum district · <strong>Danger:</strong> High</p>
+<p>A dense, labyrinthine warren of crooked alleys, shanties, and collapsing tenements. Sunlight barely reaches the deepest passages. The constabulary rarely patrols here.</p>
+<h2>The Boroughs</h2>
+<p><strong>Type:</strong> Working-class residential neighborhood</p>
+<p>Where the docks&#39; dockworkers and Bazaar&#39;s small merchants live. Tight-knit. HOA-run. Home turf of <a href="factions-connections.html">the Hammers</a>.</p>
+<h2>The Fields</h2>
+<p><strong>Type:</strong> Cemetery / compost yard</p>
+<p>The Rock has to put its dead somewhere. It puts them here. The soil is famously fertile; the Rock&#39;s agricultural plots depend on the runoff. Nobody talks about the sourcing.</p>
+<h2>The Edge</h2>
+<p><strong>Type:</strong> Brothel · <strong>Speciality:</strong> <em>A specific kink</em></p>
+<p>Absolute discretion. Half the Rock&#39;s power players have a standing appointment. None of it ever gets used as blackmail. The staff won&#39;t name the speciality in mixed company.</p>
+<h2>Gaspar Reclamations</h2>
+<p><strong>Type:</strong> Salvage yard · <strong>Reputation:</strong> Rumored mob front</p>
+<p>Everyone thinks Gaspar Reclamations is a front for the Donjon Crime Family. The Gaspars insist they&#39;re a lovely mom-and-pop scrap operation. Nobody has taken them at their word.</p>
 <hr>
+<h1>🏛 Middle City</h1>
 <h2>The Grand Bazaar</h2>
-<p><strong>District:</strong> Middle City | <strong>Type:</strong> Open-Air Market</p>
-<p>One of the largest marketplaces in all of Wildspace. Hundreds of stalls sell goods from dozens of crystal spheres — spelljamming components, magical trinkets, exotic foods, rare maps, and stranger things. Haggling is expected; offering the asking price is considered vaguely insulting.</p>
-<p>Truly illegal goods change hands through subtler channels, often via brokers operating from seemingly ordinary stalls.</p>
-<hr>
+<p><strong>Type:</strong> Open-air market</p>
+<p>One of the largest markets in all of Wildspace. Hundreds of stalls from dozens of crystal spheres. Haggling expected. Truly illegal goods change hands through subtler channels.</p>
 <h2>Temple Row</h2>
-<p><strong>District:</strong> Middle City | <strong>Type:</strong> Religious District</p>
-<p>A long street lined with shrines and temples dedicated to gods from scores of different worlds. The most prominent is the <strong>Shrine of Celestian</strong> — patron of spelljammers and wanderers, always busy with sailors seeking safe passage.</p>
-<p>Temples offer healing, blessings, divination, and ritual services — for a donation.</p>
-<hr>
+<p><strong>Type:</strong> Religious district</p>
+<p>Shrines and temples from a hundred worlds. Most prominent: the <strong>Shrine of Celestian</strong>, patron of spelljammers and wanderers.</p>
 <h2>The Gambler&#39;s Den</h2>
-<p><strong>District:</strong> Middle City | <strong>Type:</strong> Gaming House</p>
-<p>The Rock&#39;s most prominent gambling establishment. Cards, dice, and stranger games of chance operate around the clock. House Traken is rumored to have a silent stake in the business.</p>
+<p><strong>Type:</strong> Gaming house</p>
+<p>Cards, dice, and stranger games. Runs around the clock.</p>
+<h2>The Arena</h2>
+<p><strong>Also known as:</strong> The Arena of Frun · <strong>Operator:</strong> The Cirque</p>
+<p>Massive circular structure. Daily bouts. Weekly spectacles. The Cirque runs the operation. Fixed fights (<em>allegedly</em> — the Cirque denies it) are an open secret. Money on the fights is very real.</p>
+<h2>Mages&#39; Hall</h2>
+<p><strong>Type:</strong> Magical academy and guild</p>
+<p>The Rock&#39;s official school of magic. Impressive halls, robust tuition, and an alarming number of visiting scholars who all speak with the <em>exact same cadence.</em></p>
+<h2>Library of Spheres</h2>
+<p><strong>Type:</strong> Spelljammer atlas / cartographer&#39;s guild</p>
+<p>The Rock&#39;s definitive collection of star charts and crystal-sphere maps. Reading is free. Copies are not. Every captain worth their tack has been thrown out for arguing with a librarian.</p>
+<h2>Royal Theatrical Company</h2>
+<p><strong>Type:</strong> Costume shop (formerly a theater)</p>
+<p>Costumes for any occasion, species, or budget. If the shopkeeper likes you, you can get a forgery-quality uniform.</p>
+<h2>Lake Bral</h2>
+<p><strong>Type:</strong> Freshwater lake · <strong>Resident group:</strong> The Lovers of the Lake</p>
+<p>An improbable freshwater lake inside the Rock. Nobody knows where the water comes from. Nobody has swum past the third buoy and come back to describe it.</p>
 <hr>
+<h1>👑 High City</h1>
+<h2>Starhaven</h2>
+<p><strong>Formal name:</strong> The Palace of Bral · <strong>Resident:</strong> <a href="important-npcs.html">Prince Andru</a></p>
+<p>Palace, grounds, barracks, and the infamous <strong>hedge maze.</strong> Prince Andru&#39;s home and the seat of the Rock&#39;s government. Persistent rumor says people who go into the hedge maze don&#39;t always come out.</p>
 <h2>The Noble Quarter</h2>
-<p><strong>District:</strong> High City | <strong>Type:</strong> Residential / Political</p>
-<p>Where the wealthy and powerful live. Walled manors, private guards, and an atmosphere that makes it clear uninvited visitors are not welcome. The merchant princes, noble houses, and senior guild officers all maintain residences here.</p>
+<p><strong>Type:</strong> Residential / political</p>
+<p>Walled manors, private guards, and an atmosphere that makes it clear uninvited visitors are not welcome. Merchant princes, noble houses, and senior guild officers live here.</p>
+<h2>The Man-o&#39;-War</h2>
+<p><strong>Type:</strong> High-society restaurant</p>
+<p>Where deals get made, marriages get arranged, and quiet reputations get destroyed over the amuse-bouche. Excellent food. No itemized bill.</p>
 <hr>
-<h2>The Palace of Bral</h2>
-<p><strong>District:</strong> High City | <strong>Type:</strong> Seat of Government</p>
-<p>The Palace sits at the top of the Rock, home to <strong>Prince Andru</strong> and the apparatus of government. The Royal Guard controls access. You probably don&#39;t have business up there — yet.</p>
+<h1>⛰ Underground</h1>
+<h2>The Tunnels</h2>
+<p><strong>Access:</strong> Hidden entrances across all districts · <strong>Guides:</strong> The Groundhogs</p>
+<p>The hollow interior of the Rock. Old mining shafts. Something older beneath them. Used for smuggling, hiding ships, and shortcuts between districts if you can find a guide.</p>
+<h2>Valkan&#39;s Legion</h2>
+<p><strong>Access:</strong> Only via the Groundhogs</p>
+<p>A hidden settlement deep in the Tunnels. Home to fugitives, deserters, and anyone else who needed to stop existing on the Rock&#39;s official rolls. Only the Groundhogs know the way.</p>
 
   </div>
 

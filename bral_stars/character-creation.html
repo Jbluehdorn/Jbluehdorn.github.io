@@ -80,14 +80,36 @@
     .callout-cards .callout-title { color: #9080c8; }
 
     /* Index page cards */
-    .page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 24px 0; }
+    .page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 12px 0 4px; }
     .page-card { display: block; background: #16162e; border: 1px solid #2a2a50; border-radius: 10px;
       padding: 20px; text-decoration: none; color: #d8d8e8; transition: background 0.15s, border-color 0.15s, transform 0.1s; }
     .page-card:hover { background: #1e1e3e; border-color: #6655aa; transform: translateY(-2px); text-decoration: none; }
     .page-card .card-title { font-size: 15px; font-weight: 600; color: #c8b8f0; margin-bottom: 4px; }
     .page-card .card-desc { font-size: 12px; color: #7070a0; }
 
-    .hero { text-align: center; margin-bottom: 36px; }
+    /* Dashboard sections & status bar */
+    .dashboard-section { margin: 28px 0; }
+    .section-heading {
+      font-size: 15px; text-transform: uppercase; letter-spacing: 1.2px;
+      color: #7080b8; border: none; padding: 0; margin: 0 0 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-icon { font-size: 18px; color: #a090d8; }
+    .dashboard-status {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px; margin: 8px 0 24px; padding: 16px 20px;
+      background: linear-gradient(90deg, #16162e 0%, #1a1a34 100%);
+      border: 1px solid #2a2a50; border-radius: 10px;
+    }
+    .status-item .status-label {
+      font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
+      color: #6666a0; margin-bottom: 4px;
+    }
+    .status-item .status-value {
+      font-size: 14px; color: #c8b8f0; font-weight: 500;
+    }
+
+    .hero { text-align: center; margin-bottom: 24px; }
     .hero img { max-height: 280px; width: 100%; object-fit: cover; border-radius: 12px; margin: 0; }
     .hero h1 { margin-top: 20px; border: none; padding: 0; }
     .hero p { color: #8080b0; margin-top: 8px; }
@@ -96,6 +118,7 @@
       body { padding: 24px 14px; }
       h1 { font-size: 22px; }
       .page-grid { grid-template-columns: 1fr; }
+      .dashboard-status { grid-template-columns: 1fr; }
     }
 
     /* Lightbox */
@@ -153,7 +176,7 @@
     </nav>
     <h1>Character Creation</h1>
 <h1>Character Creation</h1>
-<p>Use these guidelines when creating your character for <strong>Bral Stars</strong>.</p>
+<p>Use these guidelines when building your character for <strong>Bral Stars</strong>.</p>
 <hr>
 <h2>Sources Allowed</h2>
 <ul>
@@ -162,8 +185,8 @@
 <li><strong>Other official sourcebooks</strong> — ask the DM first</li>
 </ul>
 <hr>
-<h2>Your Character&#39;s Hook</h2>
-<p>Every character needs a reason to be on the Rock of Bral. Pick one or invent your own:</p>
+<h2>Your Hook</h2>
+<p>Every character needs a reason to be on the Rock. Pick one or invent your own:</p>
 <ul>
 <li>You arrived on a ship and never left</li>
 <li>You&#39;re a native — born and raised in Low City (or Middle, or High City)</li>
@@ -174,10 +197,27 @@
 <li>You were press-ganged onto a ship and the Rock was the first port</li>
 </ul>
 <hr>
+<h2>External Goal + Internal Conflict</h2>
+<p>Every PC needs <strong>two things</strong> before play:</p>
+<h3>External Goal</h3>
+<p><strong>Achievable. Measurable. Concrete.</strong> Something the character is actively trying to <em>do</em> in the world.</p>
+<ul>
+<li>Good: &quot;Buy back my family&#39;s ship from the Wreckwrights.&quot; · &quot;Kill the pirate captain who marooned me.&quot; · &quot;Get elected to the Merchants&#39; Council.&quot;</li>
+<li>Bad: &quot;Become rich.&quot; · &quot;Be a hero.&quot; · &quot;Find adventure.&quot; <em>(too vague — no finish line)</em></li>
+<li><strong>Test:</strong> Can we tell when it&#39;s done? If not, sharpen it.</li>
+</ul>
+<h3>Internal Conflict</h3>
+<p>A <strong>flaw, contradiction, or wound</strong> the character carries. Not a quirk — a real tension that will get in the way.</p>
+<ul>
+<li>Good: &quot;I trust no one, but I&#39;m desperately lonely.&quot; · &quot;I believe in the law, but my brother is a smuggler.&quot; · &quot;I&#39;m a coward pretending to be brave.&quot;</li>
+<li>Bad: &quot;I like ale.&quot; · &quot;I&#39;m grumpy.&quot;</li>
+<li><strong>Test:</strong> Will this cause hard choices? If not, dig deeper.</li>
+</ul>
+<hr>
 <h2>Connections</h2>
-<p>Every character needs <strong>a reason to go on adventures</strong> — something that pulls them off the Rock and into danger. This is the most important thing to define.</p>
+<p>Every character needs <strong>a reason to go on adventures</strong> — something that pulls them off the Rock and into danger.</p>
 <p>Good reasons: debt, curiosity, greed, a missing person, a reputation to build, a score to settle, wanderlust, a ship that needs a crew.</p>
-<p>Optionally, your character may also have a connection to a <strong>faction, another PC, or an NPC</strong> on the Rock. See <a href="factions-connections.html">Factions &amp; Connections</a> for a full breakdown of who&#39;s who and connection ideas.</p>
+<p>Additionally, pick <strong>one faction connection</strong> from the <a href="factions-connections.html">Factions &amp; Connections</a> page — an ally, a rival, a debt, or a history.</p>
 <div class="callout callout-warning"><div class="callout-title">One rule</div><div class="callout-body">
 
 <p>Your character can&#39;t be so tied down that they can&#39;t leave. A guildmaster, a city official, a shopkeeper with daily obligations — these characters can&#39;t realistically drop everything for a three-hour adventure. Make sure your concept has the <strong>freedom to go</strong>.</p>
@@ -186,18 +226,18 @@
 
 <hr>
 <h2>Starting Equipment</h2>
-<p>Use standard class starting equipment from the PHB. Additionally, every character starts with:</p>
+<p>Standard class starting equipment from the PHB. Additionally, every character starts with:</p>
 <ul>
 <li>Lodgings on the Rock (Low City bunk, shared room, or better if your background supports it)</li>
-<li>A reason to check the Adventurers&#39; Board</li>
+<li>A reason to check the <a href="adventurers-board.html">Adventurers&#39; Board</a></li>
 <li>One rumor about the Rock that may or may not be true</li>
 </ul>
 <hr>
 <h2>Leveling</h2>
-<p>Characters gain levels through <strong>milestones</strong>, not XP. The DM will announce when a level-up is earned — typically after a significant adventure or discovery.</p>
+<p>Characters gain levels through <strong>milestones</strong>, not XP. The DM announces when a level-up is earned — typically after a significant adventure or discovery.</p>
 <hr>
 <h2>Multiclassing &amp; Feats</h2>
-<p>Both are allowed. Ask the DM if you&#39;re unsure whether a combination makes sense for the setting.</p>
+<p>Both allowed. Ask the DM if you&#39;re unsure whether a combination makes sense for the setting.</p>
 
   </div>
 

@@ -80,14 +80,36 @@
     .callout-cards .callout-title { color: #9080c8; }
 
     /* Index page cards */
-    .page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 24px 0; }
+    .page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 12px 0 4px; }
     .page-card { display: block; background: #16162e; border: 1px solid #2a2a50; border-radius: 10px;
       padding: 20px; text-decoration: none; color: #d8d8e8; transition: background 0.15s, border-color 0.15s, transform 0.1s; }
     .page-card:hover { background: #1e1e3e; border-color: #6655aa; transform: translateY(-2px); text-decoration: none; }
     .page-card .card-title { font-size: 15px; font-weight: 600; color: #c8b8f0; margin-bottom: 4px; }
     .page-card .card-desc { font-size: 12px; color: #7070a0; }
 
-    .hero { text-align: center; margin-bottom: 36px; }
+    /* Dashboard sections & status bar */
+    .dashboard-section { margin: 28px 0; }
+    .section-heading {
+      font-size: 15px; text-transform: uppercase; letter-spacing: 1.2px;
+      color: #7080b8; border: none; padding: 0; margin: 0 0 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-icon { font-size: 18px; color: #a090d8; }
+    .dashboard-status {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px; margin: 8px 0 24px; padding: 16px 20px;
+      background: linear-gradient(90deg, #16162e 0%, #1a1a34 100%);
+      border: 1px solid #2a2a50; border-radius: 10px;
+    }
+    .status-item .status-label {
+      font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
+      color: #6666a0; margin-bottom: 4px;
+    }
+    .status-item .status-value {
+      font-size: 14px; color: #c8b8f0; font-weight: 500;
+    }
+
+    .hero { text-align: center; margin-bottom: 24px; }
     .hero img { max-height: 280px; width: 100%; object-fit: cover; border-radius: 12px; margin: 0; }
     .hero h1 { margin-top: 20px; border: none; padding: 0; }
     .hero p { color: #8080b0; margin-top: 8px; }
@@ -96,6 +118,7 @@
       body { padding: 24px 14px; }
       h1 { font-size: 22px; }
       .page-grid { grid-template-columns: 1fr; }
+      .dashboard-status { grid-template-columns: 1fr; }
     }
 
     /* Lightbox */
@@ -153,39 +176,57 @@
     </nav>
     <h1>Important NPCs</h1>
 <h1>Important NPCs</h1>
-<p>These are the key figures players are most likely to interact with on the Rock of Bral.</p>
+<p>The people on the Rock you&#39;re most likely to run into, get in trouble with, or need to talk to. Not exhaustive — new faces will surface every session.</p>
 <hr>
 <h2>Large Luigi</h2>
-<p><img src="https://raw.githubusercontent.com/Jbluehdorn/BralStars/main/z_attachments/NPC_LargeLuigi.jpg" alt="NPC_LargeLuigi.jpg"></p>
-<p><strong>Race:</strong> Beholder | <strong>Location:</strong> The Laughing Beholder | <strong>Alignment:</strong> Chaotic Neutral</p>
-<p>Large Luigi is a beholder who, through some unknowable twist of fate or philosophy, decided that running a tavern was more interesting than world domination. He is gregarious, dramatic, and genuinely enjoys good company — though he has absolutely no patience for troublemakers, whom he disintegrates without ceremony.</p>
-<p>He knows everyone on the Rock of Bral and has a gift for remembering faces, names, and debts. His eye stalks are almost always doing something — scanning the room, winking at regulars, or glaring daggers at someone who hasn&#39;t paid their tab. His tavern, <strong>The Laughing Beholder</strong>, is your home base — see <a href="important-locations.html">Important Locations</a> for details.</p>
-<p><strong>Rumors:</strong></p>
-<ul>
-<li>Luigi was exiled from his beholder colony for &quot;excessive friendliness&quot;</li>
-<li>He keeps a magical ledger of every debt ever owed to him</li>
-<li>His disintegration ray has a &quot;warning setting&quot; — most people only get to test that theory once</li>
-</ul>
-<hr>
-<h2>The Laughing Beholder</h2>
-<p>See <a href="important-locations.html">Important Locations</a> for a full description of the tavern itself.</p>
+<p><img src="https://raw.githubusercontent.com/Jbluehdorn/BralStars/main/z_attachments/NPC_LargeLuigi.jpg" alt="NPC_LargeLuigi.jpg">
+<strong>Race:</strong> Beholder · <strong>Where:</strong> <a href="important-locations.html">The Laughing Beholder</a> · <strong>Alignment:</strong> Chaotic Neutral</p>
+<p>A beholder who decided running a tavern was more interesting than world domination. Gregarious, dramatic, and genuinely enjoys good company. Absolutely no patience for troublemakers, whom he disintegrates without ceremony. Knows every face, name, and debt on the Rock. See <a href="important-locations.html">Important Locations</a> for the tavern.</p>
 <hr>
 <h2>Prince Andru</h2>
-<p><img src="https://raw.githubusercontent.com/Jbluehdorn/BralStars/main/z_attachments/NPC_BralLeaders.jpg" alt="NPC_BralLeaders.jpg"></p>
-<p><strong>Race:</strong> Human | <strong>Title:</strong> Prince of Bral | <strong>Alignment:</strong> Lawful Neutral</p>
-<p>Prince Andru is the current ruler of the Rock of Bral, a shrewd and pragmatic leader who has kept the city-state independent through a careful web of political alliances, bribery, and the occasional well-placed threat. He inherited the throne young and had to outmaneuver several noble houses to consolidate power.</p>
-<p>Andru is not cruel, but he is calculating. He genuinely wants the Rock to prosper — because a prosperous Rock means a powerful Prince. He tolerates adventurers and mercenaries because they do work that his constabulary cannot, and he is not above using them as disposable assets.</p>
-<p>He maintains a facade of genial accessibility while keeping his true intentions carefully hidden.</p>
-<p><strong>Rumors:</strong></p>
-<ul>
-<li>He has a secret arrangement with the Arcane for exclusive spelljamming helm contracts</li>
-<li>He is quietly funding exploration expeditions to chart new asteroid fields</li>
-</ul>
+<p><img src="https://raw.githubusercontent.com/Jbluehdorn/BralStars/main/z_attachments/NPC_BralLeaders.jpg" alt="NPC_BralLeaders.jpg">
+<strong>Race:</strong> Human · <strong>Title:</strong> Prince of Bral · <strong>Residence:</strong> Starhaven</p>
+<p>Ruler of the Rock. Shrewd, pragmatic, and <em>very</em> self-interested. Inherited young, outmaneuvered his rivals early. Presents as genially accessible. Persistent rumor says he commands a secret police of clowns — officially deniable, universally suspected.</p>
 <hr>
-<h2>Other Notable Figures</h2>
-<p><strong>Captain Mahaxara Khal</strong> — Head of the Royal Guard. Efficient, loyal to the Prince, and deeply suspicious of adventurers by default. Not corrupt, which makes her harder to deal with than most.</p>
-<p><strong>The Juggler</strong> — Unknown identity. The mysterious leader of the Juggler&#39;s Guild. Nobody knows who they are. Several people have claimed to, and several of those people have since disappeared.</p>
-<p><strong>The Arcane Factor</strong> — The unnamed representative of the Arcane on the Rock. Blue-skinned, tall, impeccably dressed, and utterly unreadable. Sells spelljamming helms. Will not discuss anything else.</p>
+<h2>Ronald McDonald</h2>
+<p><strong>Where:</strong> Around town — everywhere and nowhere</p>
+<p>The Rock&#39;s most recognizable clown. Pure-white face. Deeply unsettling energy under the friendly veneer. If the clown rumors about the Prince are true, this is who leads them. Beloved by children. Distrusted by adults who&#39;ve been paying attention.</p>
+<hr>
+<h2>Ringmaster Blorg</h2>
+<p><strong>Where:</strong> <a href="important-locations.html">The Arena</a> · <strong>Faction:</strong> The Cirque</p>
+<p>A crocodile. In a ringmaster&#39;s outfit. Runs the Cirque. Doesn&#39;t speak (he&#39;s a crocodile). Nobody can explain why they respect him. Everyone does.</p>
+<hr>
+<h2>Captain Barnacle</h2>
+<p><strong>Where:</strong> Low City bars · <strong>Reputation:</strong> Beloved former pirate</p>
+<p>Spins tall tales of piracy at every Low City bar that&#39;ll have him. Absolutely capable of violence if pushed. Tips extravagantly. Never drinks the drinks people buy him.</p>
+<hr>
+<h2>Jawless Jerry</h2>
+<p><strong>Where:</strong> Low City, after dark · <strong>Status:</strong> Local cryptid</p>
+<p>A coyote with no jaw. Old dockworker superstition: if you see her, the next day brings either great fortune or great disaster. Never a middle outcome. Nobody knows what she actually is.</p>
+<hr>
+<h2>Professor DC</h2>
+<p><strong>Where:</strong> <a href="important-locations.html">Mages&#39; Hall</a> · <strong>Role:</strong> Wizard</p>
+<p>One of the many wizards at the Mages&#39; Hall. Or is he? People who&#39;ve dealt with the Hall long enough swear they can&#39;t quite tell the faculty apart anymore.</p>
+<hr>
+<h2>Steve</h2>
+<p><strong>Where:</strong> Starhaven, at his post</p>
+<p>A palace naval guard currently having a very obvious existential crisis. Won&#39;t say why. Won&#39;t stop staring at the middle distance. Big Wendy&#39;s fan.</p>
+<hr>
+<h2>Warden Bigboots</h2>
+<p><strong>Where:</strong> Starhaven barracks</p>
+<p>Warden of the palace barracks. Got the job because of his family. Has size-2 shoes and a voice that squeaks when he&#39;s excited. Unhinged in ways that will not be limited to the barracks.</p>
+<hr>
+<h2>Jennifer Coolidge</h2>
+<p><strong>Where:</strong> The Boroughs · <strong>Role:</strong> HOA President for the Hammers</p>
+<p>The HOA president of <a href="factions-connections.html">the Hammers</a>. Wants everything to look real nice. Hosts long, long meetings.</p>
+<hr>
+<h2>Kay Aren</h2>
+<p><strong>Where:</strong> The Boroughs · <strong>Role:</strong> Assistant to Jennifer Coolidge</p>
+<p>Jennifer&#39;s assistant. Actually runs the operational side of the HOA. Universally trusted. Universally underestimated.</p>
+<hr>
+<h2>Mafia Don Jon</h2>
+<p><strong>Where:</strong> The Donjon estate, High City · <strong>Faction:</strong> The Donjon Crime Family</p>
+<p>Rumored head of an old-money crime family. Rumored to have his hands in half the schemes on the Rock. Rumored, rumored, rumored. Nobody has proved anything.</p>
 
   </div>
 

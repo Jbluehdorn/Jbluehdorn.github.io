@@ -182,14 +182,36 @@ function renderPage(title, bodyHtml, breadcrumb = '') {
     .callout-cards .callout-title { color: #9080c8; }
 
     /* Index page cards */
-    .page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 24px 0; }
+    .page-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 14px; margin: 12px 0 4px; }
     .page-card { display: block; background: #16162e; border: 1px solid #2a2a50; border-radius: 10px;
       padding: 20px; text-decoration: none; color: #d8d8e8; transition: background 0.15s, border-color 0.15s, transform 0.1s; }
     .page-card:hover { background: #1e1e3e; border-color: #6655aa; transform: translateY(-2px); text-decoration: none; }
     .page-card .card-title { font-size: 15px; font-weight: 600; color: #c8b8f0; margin-bottom: 4px; }
     .page-card .card-desc { font-size: 12px; color: #7070a0; }
 
-    .hero { text-align: center; margin-bottom: 36px; }
+    /* Dashboard sections & status bar */
+    .dashboard-section { margin: 28px 0; }
+    .section-heading {
+      font-size: 15px; text-transform: uppercase; letter-spacing: 1.2px;
+      color: #7080b8; border: none; padding: 0; margin: 0 0 14px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .section-icon { font-size: 18px; color: #a090d8; }
+    .dashboard-status {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 10px; margin: 8px 0 24px; padding: 16px 20px;
+      background: linear-gradient(90deg, #16162e 0%, #1a1a34 100%);
+      border: 1px solid #2a2a50; border-radius: 10px;
+    }
+    .status-item .status-label {
+      font-size: 11px; text-transform: uppercase; letter-spacing: 1px;
+      color: #6666a0; margin-bottom: 4px;
+    }
+    .status-item .status-value {
+      font-size: 14px; color: #c8b8f0; font-weight: 500;
+    }
+
+    .hero { text-align: center; margin-bottom: 24px; }
     .hero img { max-height: 280px; width: 100%; object-fit: cover; border-radius: 12px; margin: 0; }
     .hero h1 { margin-top: 20px; border: none; padding: 0; }
     .hero p { color: #8080b0; margin-top: 8px; }
@@ -198,6 +220,7 @@ function renderPage(title, bodyHtml, breadcrumb = '') {
       body { padding: 24px 14px; }
       h1 { font-size: 22px; }
       .page-grid { grid-template-columns: 1fr; }
+      .dashboard-status { grid-template-columns: 1fr; }
     }
 
     /* Lightbox */
@@ -370,11 +393,39 @@ function renderPage(title, bodyHtml, breadcrumb = '') {
 
 function renderIndex(pages) {
   const heroImg = `${RAW_BASE}/z_attachments/RockOfBral_Render.jpg`;
-  const cards = pages.map(p => `
-    <a href="${p.file}" class="page-card">
-      <div class="card-title">${p.title}</div>
-      <div class="card-desc">${p.desc}</div>
-    </a>`).join('');
+
+  // Build a lookup by slug
+  const bySlug = {};
+  pages.forEach(p => { bySlug[p.slug] = p; });
+
+  // Group pages into the configured sections
+  const seen = new Set();
+  const sections = INDEX_SECTIONS.map(sec => {
+    const items = sec.slugs
+      .map(s => bySlug[s])
+      .filter(Boolean);
+    items.forEach(p => seen.add(p.slug));
+    return { ...sec, items };
+  }).filter(s => s.items.length > 0);
+
+  // Anything left over goes into "Other"
+  const leftover = pages.filter(p => !seen.has(p.slug));
+  if (leftover.length) {
+    sections.push({ title: 'Other', icon: '·', items: leftover });
+  }
+
+  const sectionsHtml = sections.map(sec => {
+    const cards = sec.items.map(p => `
+      <a href="${p.file}" class="page-card">
+        <div class="card-title">${p.title}</div>
+        <div class="card-desc">${p.desc}</div>
+      </a>`).join('');
+    return `
+    <section class="dashboard-section">
+      <h2 class="section-heading"><span class="section-icon">${sec.icon}</span> ${sec.title}</h2>
+      <div class="page-grid">${cards}</div>
+    </section>`;
+  }).join('');
 
   const body = `
     <div class="hero">
@@ -382,7 +433,21 @@ function renderIndex(pages) {
       <h1>✦ Bral Stars ✦</h1>
       <p>A West Marches D&amp;D campaign set on the Rock of Bral</p>
     </div>
-    <div class="page-grid">${cards}</div>
+    <div class="dashboard-status">
+      <div class="status-item">
+        <div class="status-label">Session 0</div>
+        <div class="status-value">Complete — world built ✓</div>
+      </div>
+      <div class="status-item">
+        <div class="status-label">Next session</div>
+        <div class="status-value">Session 1 — Rats in the Cellar</div>
+      </div>
+      <div class="status-item">
+        <div class="status-label">Home base</div>
+        <div class="status-value">The Laughing Beholder, Low City</div>
+      </div>
+    </div>
+    ${sectionsHtml}
     <hr>
     <p style="text-align:center;color:#555580;font-size:13px;">
       Content sourced from the <a href="https://github.com/${REPO_OWNER}/${REPO_NAME}">BralStars vault</a>
@@ -398,15 +463,36 @@ const SKIP_FILES = ['! map.md', '0. scratch notes.md'];
 
 // Human-readable descriptions for each page
 const PAGE_DESCS = {
-  'welcome-to-the-rock-of-bral': 'Setting introduction — districts, factions, Wildspace',
-  'west-marches-player-guide':   'Schedule, session format, and campaign rules',
-  'character-creation':          'Sources, hooks, connections, and leveling',
-  'factions-connections':         'Key factions and NPCs to connect your character to',
+  'welcome-to-the-rock-of-bral': 'Setting introduction — districts, world facts, Wildspace',
+  'west-marches-player-guide':   'Schedule, session format, downtime, and campaign rules',
+  'character-creation':          'Sources, hooks, goals, connections, and leveling',
+  'factions-connections':        'Every faction on the Rock and how to hook in',
+  'the-party':                   'The crew — Ringing Bell, Fairy Floss, Maillard, Norman, Guten',
   'adventurers-board':           'Current jobs, rumors, and completed missions',
   'maps-visuals':                'Official maps and art of the Rock of Bral',
-  'important-npcs':              'Key figures — Large Luigi, Prince Andru, and more',
-  'important-locations':         'Key places — The Laughing Beholder, the Docks, the Bazaar, and more',
+  'important-npcs':              'The people you\'ll meet, deal with, or run from',
+  'important-locations':         'Every district and every place you might visit',
 };
+
+// Sections for the dashboard index — pages are grouped and rendered in this order.
+// Any page not listed here falls into "Other".
+const INDEX_SECTIONS = [
+  {
+    title: 'Start Here',
+    icon: '✦',
+    slugs: ['welcome-to-the-rock-of-bral', 'west-marches-player-guide', 'character-creation'],
+  },
+  {
+    title: 'The Campaign',
+    icon: '⚔',
+    slugs: ['the-party', 'adventurers-board'],
+  },
+  {
+    title: 'The Rock',
+    icon: '🌐',
+    slugs: ['important-locations', 'important-npcs', 'factions-connections', 'maps-visuals'],
+  },
+];
 
 // Manual overrides: wiki link slug → published HTML page
 // Used for DM-side notes (places, people, factions) that link into a player handout section
@@ -414,21 +500,38 @@ const LINK_OVERRIDES = {
   // NPCs → Important NPCs page
   'large-luigi':            'important-npcs.html',
   'prince-andru':           'important-npcs.html',
-  // Factions → Factions & Connections page
-  'house-traken':           'factions-connections.html',
-  'the-arcane':             'factions-connections.html',
-  'the-juggler-s-guild':    'factions-connections.html',
-  'the-seekers':            'factions-connections.html',
-  'neogi-deathspider':      'factions-connections.html',
+  'ronald-mcdonald':        'important-npcs.html',
+  'ringmaster-blorg':       'important-npcs.html',
+  'captain-barnacle':       'important-npcs.html',
+  'jawless-jerry':          'important-npcs.html',
+  'professor-dc':           'important-npcs.html',
+  'steve':                  'important-npcs.html',
+  'warden-bigboots':        'important-npcs.html',
+  'jennifer-coolidge':      'important-npcs.html',
+  'kay-aren':               'important-npcs.html',
+  'mafia-don-jon':          'important-npcs.html',
   // Places → Important Locations page
   'the-docks':              'important-locations.html',
   'the-gambler-s-den':      'important-locations.html',
   'the-grand-bazaar':       'important-locations.html',
   'the-noble-quarter':      'important-locations.html',
   'the-palace-of-bral':     'important-locations.html',
+  'starhaven':              'important-locations.html',
   'the-rat-s-maze':         'important-locations.html',
   'temple-row':             'important-locations.html',
   'the-laughing-beholder':  'important-locations.html',
+  'the-arena':              'important-locations.html',
+  'mages-hall':             'important-locations.html',
+  'library-of-spheres':     'important-locations.html',
+  'royal-theatrical-company':'important-locations.html',
+  'lake-bral':              'important-locations.html',
+  'the-man-o-war':          'important-locations.html',
+  'the-boroughs':           'important-locations.html',
+  'the-fields':             'important-locations.html',
+  'the-edge':               'important-locations.html',
+  'gaspar-reclamations':    'important-locations.html',
+  'the-tunnels':            'important-locations.html',
+  'valkan-s-legion':        'important-locations.html',
   // Between-sessions rules → West Marches Player Guide
   'downtime-activities':    'west-marches-player-guide.html',
 };
@@ -487,6 +590,7 @@ async function main() {
     indexPages.push({
       file: outFile,
       title: baseName,
+      slug: slug,
       desc: PAGE_DESCS[slug] || '',
     });
   }
