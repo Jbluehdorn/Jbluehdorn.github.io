@@ -747,7 +747,7 @@ function renderHome() {
     </section>
     <hr>
     <p style="text-align:center;color:#555580;font-size:13px;">
-      Content sourced from the <a href="https://github.com/${REPO_OWNER}/${REPO_NAME}">BralStars vault</a>
+      Bral Stars campaign · DM: @jbluehdorn
     </p>`;
 
   return renderPage('Bral Stars', body, { activeFile: 'index.html', isHome: true });
