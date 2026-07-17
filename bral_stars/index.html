@@ -43,6 +43,29 @@
       margin-top: 4px;
     }
 
+    .sidebar-search { padding: 12px 18px 8px; }
+    .sidebar-search input {
+      width: 100%; padding: 8px 12px;
+      background: #14142a; border: 1px solid #2a2a4a; border-radius: 6px;
+      color: #d8d8e8; font-size: 13px;
+      font-family: inherit;
+      outline: none; transition: border-color 0.15s, background 0.15s;
+    }
+    .sidebar-search input:focus { border-color: #6655aa; background: #1a1a34; }
+    .sidebar-search input::placeholder { color: #4a4a6a; }
+    .sidebar-search-empty {
+      display: none;
+      font-size: 12px; color: #6060a0;
+      padding: 8px 4px 0; text-align: center;
+    }
+    .sidebar.searching .sidebar-search-empty.visible { display: block; }
+    /* When searching, hide non-matching items and their empty section wrappers */
+    .sidebar.searching .sidebar-section.hidden,
+    .sidebar.searching li.hidden,
+    .sidebar.searching .sidebar-group.hidden { display: none; }
+    /* Force sections open while searching */
+    .sidebar.searching details[data-was-closed] > *:not(summary) { display: block; }
+
     .sidebar-section { border-bottom: 1px solid #16162c; }
     .sidebar-section summary {
       list-style: none; cursor: pointer;
@@ -225,6 +248,10 @@
         <a href="index.html">✦ Bral Stars</a>
         <span class="subtitle">Rock of Bral Campaign</span>
       </div>
+      <div class="sidebar-search">
+        <input type="search" id="sidebar-search-input" placeholder="Search  (⌘K / Ctrl+K)" autocomplete="off">
+        <div id="sidebar-search-empty" class="sidebar-search-empty">No matches</div>
+      </div>
       <div class="sidebar-section sidebar-single">
         <a href="index.html" class="active">Home</a>
       </div><details class="sidebar-section">
@@ -328,6 +355,104 @@
     <img id="lightbox-img" src="" alt="">
     <div id="lightbox-hint">scroll to zoom · drag to pan · esc to close</div>
   </div>
+
+  <script>
+  // ───── Sidebar search ─────
+  (function () {
+    var input = document.getElementById('sidebar-search-input');
+    var sidebar = document.querySelector('.sidebar');
+    var empty = document.getElementById('sidebar-search-empty');
+    if (!input || !sidebar) return;
+
+    // Keyboard shortcut: Ctrl/Cmd+K focuses search
+    document.addEventListener('keydown', function (e) {
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        input.focus();
+        input.select();
+      }
+      if (e.key === 'Escape' && document.activeElement === input) {
+        input.value = '';
+        input.dispatchEvent(new Event('input'));
+        input.blur();
+      }
+    });
+
+    // Remember which <details> were closed before search, so we can restore
+    var detailsEls = Array.from(sidebar.querySelectorAll('details.sidebar-section'));
+
+    function filter() {
+      var q = input.value.trim().toLowerCase();
+
+      if (!q) {
+        // Restore original state
+        sidebar.classList.remove('searching');
+        detailsEls.forEach(function (d) {
+          if (d.dataset.wasClosed === 'true') { d.open = false; }
+          delete d.dataset.wasClosed;
+          d.classList.remove('hidden');
+        });
+        sidebar.querySelectorAll('.hidden').forEach(function (el) { el.classList.remove('hidden'); });
+        empty.classList.remove('visible');
+        return;
+      }
+
+      sidebar.classList.add('searching');
+
+      // Remember close state on first filter
+      detailsEls.forEach(function (d) {
+        if (d.dataset.wasClosed === undefined) {
+          d.dataset.wasClosed = d.open ? 'false' : 'true';
+        }
+        d.open = true; // force open during search
+      });
+
+      var totalMatches = 0;
+
+      // Filter all leaf links (single sections and li anchors)
+      var leaves = sidebar.querySelectorAll('.sidebar-single a, .sidebar-section li a');
+      leaves.forEach(function (a) {
+        var text = (a.textContent || '').toLowerCase();
+        var match = text.indexOf(q) !== -1;
+        var wrapper = a.closest('li') || a.parentElement; // li or .sidebar-single div
+        if (match) {
+          wrapper.classList.remove('hidden');
+          totalMatches++;
+        } else {
+          wrapper.classList.add('hidden');
+        }
+      });
+
+      // Hide sub-groups (Low City / Middle City / etc.) whose links are all hidden
+      sidebar.querySelectorAll('.sidebar-group').forEach(function (g) {
+        var visible = g.querySelectorAll('li:not(.hidden)').length;
+        g.classList.toggle('hidden', visible === 0);
+      });
+
+      // Hide entire <details> sections whose children are all hidden
+      detailsEls.forEach(function (d) {
+        var visibleLeaves = d.querySelectorAll('li:not(.hidden), .sidebar-group:not(.hidden)').length;
+        // Also match against the section title itself
+        var summary = d.querySelector('summary');
+        var summaryText = summary ? summary.textContent.toLowerCase() : '';
+        var summaryMatch = summaryText.indexOf(q) !== -1;
+        d.classList.toggle('hidden', visibleLeaves === 0 && !summaryMatch);
+      });
+
+      // Also handle single-link sections (Home)
+      sidebar.querySelectorAll('.sidebar-single').forEach(function (s) {
+        var a = s.querySelector('a');
+        var text = (a && a.textContent || '').toLowerCase();
+        s.classList.toggle('hidden', text.indexOf(q) === -1);
+        if (text.indexOf(q) !== -1) totalMatches++;
+      });
+
+      empty.classList.toggle('visible', totalMatches === 0);
+    }
+
+    input.addEventListener('input', filter);
+  })();
+  </script>
 
   <script>
   (function () {
