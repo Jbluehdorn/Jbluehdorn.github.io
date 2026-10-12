@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "node scripts/predev.mjs && vite",
     "build": "node scripts/predev.mjs && vite build && node scripts/postbuild.mjs",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:screenshot": "playwright test"
   },
   "dependencies": {
     "html2canvas": "^1.4.1",
@@ -15,6 +16,7 @@
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@playwright/test": "1.58.2",
     "@types/react": "^18.2.0",
     "@types/react-dom": "^18.2.0",
     "@vitejs/plugin-react": "^4.2.0",

@@ -4,8 +4,6 @@ import { WheelType } from '../data/constants'
 
 export default function WinnerBanner({ winner, wheelType, onDismiss }) {
   const bannerRef = useRef(null)
-  const glowRef = useRef(null)
-  const actionsRef = useRef(null)
   const [copying, setCopying] = useState(false)
   const [copied, setCopied] = useState(false)
 
@@ -35,23 +33,40 @@ export default function WinnerBanner({ winner, wheelType, onDismiss }) {
     e.currentTarget.blur()
     setCopying(true)
     const banner = bannerRef.current
-    if (glowRef.current) glowRef.current.style.visibility = 'hidden'
-    if (actionsRef.current) actionsRef.current.style.display = 'none'
-    const prevBoxShadow = banner.style.boxShadow
-    banner.style.boxShadow = 'none'
     try {
-      const canvas = await html2canvas(banner, { useCORS: true, backgroundColor: '#0e0e08' })
-      canvas.toBlob(async (blob) => {
-        await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })])
-        setCopied(true)
-        setTimeout(() => setCopied(false), 2000)
-      }, 'image/png')
+      const canvas = await html2canvas(banner, {
+        useCORS: true,
+        backgroundColor: '#0e0e08',
+        onclone: (_document, clonedBanner) => {
+          // Cloning restarts popIn. Stop it before html2canvas reads its transient opacity/scale.
+          for (const element of [clonedBanner, ...clonedBanner.querySelectorAll('*')]) {
+            element.style.animation = 'none'
+          }
+          clonedBanner.style.boxShadow = 'none'
+          clonedBanner.querySelector('.winner-glow').style.visibility = 'hidden'
+          clonedBanner.querySelector('.winner-actions').style.display = 'none'
+
+          // html2canvas ignores object-fit: contain; express the same image box with padding.
+          const image = clonedBanner.querySelector('.winner-image')
+          if (image.naturalWidth && image.naturalHeight) {
+            const { width, height } = image.getBoundingClientRect()
+            const scale = Math.min(width / image.naturalWidth, height / image.naturalHeight)
+            image.style.padding = `${(height - image.naturalHeight * scale) / 2}px ${(width - image.naturalWidth * scale) / 2}px`
+          }
+        },
+      })
+      const blob = await new Promise((resolve, reject) => {
+        canvas.toBlob((result) => {
+          if (result) resolve(result)
+          else reject(new Error('Screenshot PNG encoding failed'))
+        }, 'image/png')
+      })
+      await navigator.clipboard.write([new ClipboardItem({ 'image/png': blob })])
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
     } catch (err) {
       console.error('Failed to copy screenshot:', err)
     } finally {
-      if (glowRef.current) glowRef.current.style.visibility = ''
-      if (actionsRef.current) actionsRef.current.style.display = ''
-      banner.style.boxShadow = prevBoxShadow
       setCopying(false)
     }
   }
@@ -60,7 +75,6 @@ export default function WinnerBanner({ winner, wheelType, onDismiss }) {
     <div className="winner-overlay" onClick={onDismiss}>
       <div className="winner-banner" ref={bannerRef} onClick={(e) => e.stopPropagation()}>
         <div
-          ref={glowRef}
           className="winner-glow"
           style={{
             background: `radial-gradient(circle, ${glowColor}40 0%, ${glowColor}15 40%, transparent 70%)`,
@@ -76,7 +90,7 @@ export default function WinnerBanner({ winner, wheelType, onDismiss }) {
         />
         <h2 className="winner-name" style={{ color: textColor, textShadow: `0 0 15px ${glowColor}80, 0 0 30px ${glowColor}40` }}>{winner.name}</h2>
         <p className="winner-subtitle">{subtitle}</p>
-        <div className="winner-actions" ref={actionsRef}>
+        <div className="winner-actions">
           <button
             className="osrs-btn winner-copy"
             onClick={handleCopyScreenshot}
